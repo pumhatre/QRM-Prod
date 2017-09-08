@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QRMModelStoreContainer" CdmEntityContainer="QRMPortalEntities">
+    <EntitySetMapping Name="DefectDataDetails">
+      <EntityTypeMapping TypeName="QRMModel.DefectDataDetail">
+        <MappingFragment StoreEntitySet="DefectDataDetails">
+          <ScalarProperty Name="DefectDataDetailsId" ColumnName="DefectDataDetailsId" />
+          <ScalarProperty Name="DefectID" ColumnName="DefectID" />
+          <ScalarProperty Name="DetectedStage" ColumnName="DetectedStage" />
+          <ScalarProperty Name="ReportedDate" ColumnName="ReportedDate" />
+          <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
+          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DefectInfectedStage" ColumnName="DefectInfectedStage" />
+          <ScalarProperty Name="ExpectedDetectionPhase" ColumnName="ExpectedDetectionPhase" />
+          <ScalarProperty Name="DefectType" ColumnName="DefectType" />
+          <ScalarProperty Name="Cause" ColumnName="Cause" />
+          <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
+          <ScalarProperty Name="DefectSeverity" ColumnName="DefectSeverity" />
+          <ScalarProperty Name="FixedOnDate" ColumnName="FixedOnDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DefectDataStagings">
+      <EntityTypeMapping TypeName="QRMModel.DefectDataStaging">
+        <MappingFragment StoreEntitySet="DefectDataStaging">
+          <ScalarProperty Name="DefectDataStagingId" ColumnName="DefectDataStagingId" />
+          <ScalarProperty Name="DefectID" ColumnName="DefectID" />
+          <ScalarProperty Name="WidgetComponentID" ColumnName="WidgetComponentID" />
+          <ScalarProperty Name="DetectedStage" ColumnName="DetectedStage" />
+          <ScalarProperty Name="ReportedDate" ColumnName="ReportedDate" />
+          <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
+          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DefectInfectedStage" ColumnName="DefectInfectedStage" />
+          <ScalarProperty Name="ExpectedDetectionPhase" ColumnName="ExpectedDetectionPhase" />
+          <ScalarProperty Name="DefectType" ColumnName="DefectType" />
+          <ScalarProperty Name="Cause" ColumnName="Cause" />
+          <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
+          <ScalarProperty Name="DefectSeverity" ColumnName="DefectSeverity" />
+          <ScalarProperty Name="FixedOnDate" ColumnName="FixedOnDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetricMasters">
+      <EntityTypeMapping TypeName="QRMModel.MetricMaster">
+        <MappingFragment StoreEntitySet="MetricMaster">
+          <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
+          <ScalarProperty Name="MetricCategoryCode" ColumnName="MetricCategoryCode" />
+          <ScalarProperty Name="MetricCategoryDescription" ColumnName="MetricCategoryDescription" />
+          <ScalarProperty Name="MetricSubCategoryCode" ColumnName="MetricSubCategoryCode" />
+          <ScalarProperty Name="MetricSubCategoryDescription" ColumnName="MetricSubCategoryDescription" />
+          <ScalarProperty Name="MetricTypeCode" ColumnName="MetricTypeCode" />
+          <ScalarProperty Name="MetricTypeDescription" ColumnName="MetricTypeDescription" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MetricsDescription" ColumnName="MetricsDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonthMasters">
+      <EntityTypeMapping TypeName="QRMModel.MonthMaster">
+        <MappingFragment StoreEntitySet="MonthMaster">
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectMasters">
+      <EntityTypeMapping TypeName="QRMModel.ProjectMaster">
+        <MappingFragment StoreEntitySet="ProjectMaster">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
+          <ScalarProperty Name="Capability" ColumnName="Capability" />
+          <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Enddate" ColumnName="Enddate" />
+          <ScalarProperty Name="GDM" ColumnName="GDM" />
+          <ScalarProperty Name="Technology" ColumnName="Technology" />
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
+          <ScalarProperty Name="Solution" ColumnName="Solution" />
+          <ScalarProperty Name="Director" ColumnName="Director" />
+          <ScalarProperty Name="SeniorManager" ColumnName="SeniorManager" />
+          <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+          <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectMetricAssociations">
+      <EntityTypeMapping TypeName="QRMModel.ProjectMetricAssociation">
+        <MappingFragment StoreEntitySet="ProjectMetricAssociation">
+          <ScalarProperty Name="ProjectMetricAssociationID" ColumnName="ProjectMetricAssociationID" />
+          <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectReleaseMasters">
+      <EntityTypeMapping TypeName="QRMModel.ProjectReleaseMaster">
+        <MappingFragment StoreEntitySet="ProjectReleaseMaster">
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReferenceTables">
+      <EntityTypeMapping TypeName="QRMModel.ReferenceTable">
+        <MappingFragment StoreEntitySet="ReferenceTable">
+          <ScalarProperty Name="ReferenceTableId" ColumnName="ReferenceTableId" />
+          <ScalarProperty Name="ReferenceTableName" ColumnName="ReferenceTableName" />
+          <ScalarProperty Name="ReferenceCode" ColumnName="ReferenceCode" />
+          <ScalarProperty Name="ReferenceValue" ColumnName="ReferenceValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleMasters">
+      <EntityTypeMapping TypeName="QRMModel.RoleMaster">
+        <MappingFragment StoreEntitySet="RoleMaster">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestingDataStagings">
+      <EntityTypeMapping TypeName="QRMModel.TestingDataStaging">
+        <MappingFragment StoreEntitySet="TestingDataStaging">
+          <ScalarProperty Name="TestingDataStagingId" ColumnName="TestingDataStagingId" />
+          <ScalarProperty Name="TestingPhase" ColumnName="TestingPhase" />
+          <ScalarProperty Name="TestingType" ColumnName="TestingType" />
+          <ScalarProperty Name="Module" ColumnName="Module" />
+          <ScalarProperty Name="Release" ColumnName="Release" />
+          <ScalarProperty Name="PlannedNoOfTestCasesDesigned" ColumnName="PlannedNoOfTestCasesDesigned" />
+          <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
+          <ScalarProperty Name="NoOfTestCasesReviewComments" ColumnName="NoOfTestCasesReviewComments" />
+          <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+          <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+          <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+          <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+          <ScalarProperty Name="TestDesignStatus" ColumnName="TestDesignStatus" />
+          <ScalarProperty Name="TestCasePreparationPlanned" ColumnName="TestCasePreparationPlanned" />
+          <ScalarProperty Name="TestCaseReviewPlanned" ColumnName="TestCaseReviewPlanned" />
+          <ScalarProperty Name="TestCaseReworkPlanned" ColumnName="TestCaseReworkPlanned" />
+          <ScalarProperty Name="TestCasePreparationActual" ColumnName="TestCasePreparationActual" />
+          <ScalarProperty Name="TestCaseReviewActual" ColumnName="TestCaseReviewActual" />
+          <ScalarProperty Name="TestCaseReworkActual" ColumnName="TestCaseReworkActual" />
+          <ScalarProperty Name="TestCasedPlannedForExecution" ColumnName="TestCasedPlannedForExecution" />
+          <ScalarProperty Name="PlannedEffortforExecution" ColumnName="PlannedEffortforExecution" />
+          <ScalarProperty Name="ExecutionStatus" ColumnName="ExecutionStatus" />
+          <ScalarProperty Name="TestCasesExecuted" ColumnName="TestCasesExecuted" />
+          <ScalarProperty Name="ActualEffortForExecution" ColumnName="ActualEffortForExecution" />
+          <ScalarProperty Name="TotalCasesPassed" ColumnName="TotalCasesPassed" />
+          <ScalarProperty Name="DefectsFound" ColumnName="DefectsFound" />
+          <ScalarProperty Name="DefectsRejected" ColumnName="DefectsRejected" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+          <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+          <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+          <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+          <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+          <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+          <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+          <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+          <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+          <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestingDetails">
+      <EntityTypeMapping TypeName="QRMModel.TestingDetail">
+        <MappingFragment StoreEntitySet="TestingDetails">
+          <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
+          <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
+          <ScalarProperty Name="TestingTypeCode" ColumnName="TestingTypeCode" />
+          <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+          <ScalarProperty Name="PlannedNumberOfTestCasesDesigned" ColumnName="PlannedNumberOfTestCasesDesigned" />
+          <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
+          <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+          <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+          <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+          <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+          <ScalarProperty Name="TestDesignStatusCode" ColumnName="TestDesignStatusCode" />
+          <ScalarProperty Name="TestExecutionTypeCode" ColumnName="TestExecutionTypeCode" />
+          <ScalarProperty Name="TestCasePreparationPlannedEffort" ColumnName="TestCasePreparationPlannedEffort" />
+          <ScalarProperty Name="TestCaseReviewPlannedEffort" ColumnName="TestCaseReviewPlannedEffort" />
+          <ScalarProperty Name="TestCaseReworkPlannedEffort" ColumnName="TestCaseReworkPlannedEffort" />
+          <ScalarProperty Name="TestCasePreparationActualEffort" ColumnName="TestCasePreparationActualEffort" />
+          <ScalarProperty Name="TestCaseReviewActualEffort" ColumnName="TestCaseReviewActualEffort" />
+          <ScalarProperty Name="TestCaseReworkActualEffort" ColumnName="TestCaseReworkActualEffort" />
+          <ScalarProperty Name="NumberOfTestCasesPlannedForExecution" ColumnName="NumberOfTestCasesPlannedForExecution" />
+          <ScalarProperty Name="PlannedEffortForTestCaseExecution" ColumnName="PlannedEffortForTestCaseExecution" />
+          <ScalarProperty Name="ExecutionStatusCode" ColumnName="ExecutionStatusCode" />
+          <ScalarProperty Name="NumberOfTestCasesExecuted" ColumnName="NumberOfTestCasesExecuted" />
+          <ScalarProperty Name="ActualEffortForTestCasesExecution" ColumnName="ActualEffortForTestCasesExecution" />
+          <ScalarProperty Name="TotalTestCasesPassed" ColumnName="TotalTestCasesPassed" />
+          <ScalarProperty Name="TotalDefectsFound" ColumnName="TotalDefectsFound" />
+          <ScalarProperty Name="TotalDefectsRejected" ColumnName="TotalDefectsRejected" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+          <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+          <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+          <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+          <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+          <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+          <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+          <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+          <ScalarProperty Name="NoofTestCases" ColumnName="NoofTestCases" />
+          <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+          <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="QRMModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetails">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProjectRoleAssociations">
+      <EntityTypeMapping TypeName="QRMModel.UserProjectRoleAssociation">
+        <MappingFragment StoreEntitySet="UserProjectRoleAssociation">
+          <ScalarProperty Name="UserProjectRoleId" ColumnName="UserProjectRoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DevMetrics">
+      <EntityTypeMapping TypeName="QRMModel.DevMetric">
+        <MappingFragment StoreEntitySet="DevMetrics">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ReleaseIteration" ColumnName="ReleaseIteration" />
+          <ScalarProperty Name="Module" ColumnName="Module" />
+          <ScalarProperty Name="WidgetID" ColumnName="WidgetID" />
+          <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
+          <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
+          <ScalarProperty Name="Complexity" ColumnName="Complexity" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ComplexityPoints" ColumnName="ComplexityPoints" />
+          <ScalarProperty Name="PlannedEffort" ColumnName="PlannedEffort" />
+          <ScalarProperty Name="PEFDDDevelopment" ColumnName="PEFDDDevelopment" />
+          <ScalarProperty Name="PEFDDReview" ColumnName="PEFDDReview" />
+          <ScalarProperty Name="PEFDDRework" ColumnName="PEFDDRework" />
+          <ScalarProperty Name="PETDDDevelopment" ColumnName="PETDDDevelopment" />
+          <ScalarProperty Name="PETDDReview" ColumnName="PETDDReview" />
+          <ScalarProperty Name="PETDDRework" ColumnName="PETDDRework" />
+          <ScalarProperty Name="PECoding" ColumnName="PECoding" />
+          <ScalarProperty Name="PECodeReview" ColumnName="PECodeReview" />
+          <ScalarProperty Name="PEUTCPreparation" ColumnName="PEUTCPreparation" />
+          <ScalarProperty Name="PEUTCReview" ColumnName="PEUTCReview" />
+          <ScalarProperty Name="PEUTCExecution" ColumnName="PEUTCExecution" />
+          <ScalarProperty Name="PECUTRework" ColumnName="PECUTRework" />
+          <ScalarProperty Name="PEOtherRework" ColumnName="PEOtherRework" />
+          <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+          <ScalarProperty Name="AEFDDDevelopment" ColumnName="AEFDDDevelopment" />
+          <ScalarProperty Name="AEFDDReview" ColumnName="AEFDDReview" />
+          <ScalarProperty Name="AEFDDRework" ColumnName="AEFDDRework" />
+          <ScalarProperty Name="AETDDDevelopment" ColumnName="AETDDDevelopment" />
+          <ScalarProperty Name="AETDDReview" ColumnName="AETDDReview" />
+          <ScalarProperty Name="AETDDRework" ColumnName="AETDDRework" />
+          <ScalarProperty Name="AECoding" ColumnName="AECoding" />
+          <ScalarProperty Name="AECodeReview" ColumnName="AECodeReview" />
+          <ScalarProperty Name="AEUTCPreparation" ColumnName="AEUTCPreparation" />
+          <ScalarProperty Name="AEUTCReview" ColumnName="AEUTCReview" />
+          <ScalarProperty Name="AEUTCExecution" ColumnName="AEUTCExecution" />
+          <ScalarProperty Name="AECUTRework" ColumnName="AECUTRework" />
+          <ScalarProperty Name="AEOtherRework" ColumnName="AEOtherRework" />
+          <ScalarProperty Name="TotalDEVdefects" ColumnName="TotalDEVdefects" />
+          <ScalarProperty Name="FDDReviewDefects" ColumnName="FDDReviewDefects" />
+          <ScalarProperty Name="TDDReviewDefects" ColumnName="TDDReviewDefects" />
+          <ScalarProperty Name="CodeReviewDefects" ColumnName="CodeReviewDefects" />
+          <ScalarProperty Name="UTCReviewDefects" ColumnName="UTCReviewDefects" />
+          <ScalarProperty Name="UnitTestingDefects" ColumnName="UnitTestingDefects" />
+          <ScalarProperty Name="TotalDEVDD" ColumnName="TotalDEVDD" />
+          <ScalarProperty Name="FDDDD" ColumnName="FDDDD" />
+          <ScalarProperty Name="TDDDD" ColumnName="TDDDD" />
+          <ScalarProperty Name="CodeReviewDD" ColumnName="CodeReviewDD" />
+          <ScalarProperty Name="UTCReviewDD" ColumnName="UTCReviewDD" />
+          <ScalarProperty Name="UnitTestingDD" ColumnName="UnitTestingDD" />
+          <ScalarProperty Name="TotalDEVDDR" ColumnName="TotalDEVDDR" />
+          <ScalarProperty Name="FDDDDR" ColumnName="FDDDDR" />
+          <ScalarProperty Name="TDDDDR" ColumnName="TDDDDR" />
+          <ScalarProperty Name="CodeReviewDDR" ColumnName="CodeReviewDDR" />
+          <ScalarProperty Name="UTCReviewDDR" ColumnName="UTCReviewDDR" />
+          <ScalarProperty Name="UnitTestingDDR" ColumnName="UnitTestingDDR" />
+          <ScalarProperty Name="TotalDEVProductivity" ColumnName="TotalDEVProductivity" />
+          <ScalarProperty Name="FDDProductivity" ColumnName="FDDProductivity" />
+          <ScalarProperty Name="TDDProductivity" ColumnName="TDDProductivity" />
+          <ScalarProperty Name="CodingProductivity" ColumnName="CodingProductivity" />
+          <ScalarProperty Name="UTProductivity" ColumnName="UTProductivity" />
+          <ScalarProperty Name="PlannedStartdate" ColumnName="PlannedStartdate" />
+          <ScalarProperty Name="PlannedEnddate" ColumnName="PlannedEnddate" />
+          <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+          <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EffortDataStagings">
+      <EntityTypeMapping TypeName="QRMModel.EffortDataStaging">
+        <MappingFragment StoreEntitySet="EffortDataStaging">
+          <ScalarProperty Name="ObjectComponentID" ColumnName="ObjectComponentID" />
+          <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
+          <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
+          <ScalarProperty Name="Complexity" ColumnName="Complexity" />
+          <ScalarProperty Name="TaskType" ColumnName="TaskType" />
+          <ScalarProperty Name="BaselinedEffort" ColumnName="BaselinedEffort" />
+          <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CMMIRollUp" ColumnName="CMMIRollUp" />
+          <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+          <ScalarProperty Name="ScheduledStartDate" ColumnName="ScheduledStartDate" />
+          <ScalarProperty Name="ScheduledEndDate" ColumnName="ScheduledEndDate" />
+          <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+          <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Release" ColumnName="Release" />
+          <ScalarProperty Name="Module" ColumnName="Module" />
+          <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
+          <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EffortDetails">
+      <EntityTypeMapping TypeName="QRMModel.EffortDetail">
+        <MappingFragment StoreEntitySet="EffortDetails">
+          <ScalarProperty Name="EffortId" ColumnName="EffortId" />
+          <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+          <ScalarProperty Name="ComponentTypeCode" ColumnName="ComponentTypeCode" />
+          <ScalarProperty Name="ComplexityCode" ColumnName="ComplexityCode" />
+          <ScalarProperty Name="TaskTypeCode" ColumnName="TaskTypeCode" />
+          <ScalarProperty Name="BaselineEffort" ColumnName="BaselineEffort" />
+          <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="CMMIRollUpCode" ColumnName="CMMIRollUpCode" />
+          <ScalarProperty Name="ScheduledStartDate" ColumnName="ScheduledStartDate" />
+          <ScalarProperty Name="ScheduledEndDate" ColumnName="ScheduledEndDate" />
+          <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+          <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
+          <ScalarProperty Name="ReviewTypeCode" ColumnName="ReviewTypeCode" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
