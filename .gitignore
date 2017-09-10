@@ -1,0 +1,13 @@
+node_modules/
+QRMService/bin
+QRMService/obj
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+npm-debug.log
+.vs/config/applicationhost.config
+.vs/QRM-Prod/v14/.suo
+.vscode/settings.json
