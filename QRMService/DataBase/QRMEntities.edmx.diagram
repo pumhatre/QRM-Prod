@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="83b0975dd68c41f2866f2acb32fe51c8" Name="Diagram1">
+        <EntityTypeShape EntityType="QRMModel.DefectDataDetail" Width="1.5" PointX="3" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.DefectDataStaging" Width="1.5" PointX="6" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.MetricMaster" Width="1.5" PointX="3.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.Period" Width="1.5" PointX="0.75" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.ProjectMaster" Width="1.5" PointX="0.75" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.ProjectMetricAssociation" Width="1.5" PointX="6" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.ReferenceTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.RoleMaster" Width="1.5" PointX="0.75" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.TestingDataStaging" Width="1.5" PointX="9" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.TestingDetail" Width="1.5" PointX="3" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.UserDetail" Width="1.5" PointX="0.75" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.UserProjectRoleAssociation" Width="1.5" PointX="3" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.DevMetric" Width="1.5" PointX="12" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.EffortDataStaging" Width="1.5" PointX="6" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.EffortDetail" Width="1.5" PointX="6" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.MSreplication_options" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.spt_fallback_db" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.spt_fallback_dev" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.spt_fallback_usg" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.spt_monitor" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QRMModel.spt_values" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="QRMModel.FK_DefectDataDetails_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_DefectDataDetails_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_DefectDataStaging_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_DefectDataStaging_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_ProjectMetricAssociation_MetricMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_DevMetrics_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_EffortDataStaging_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_EffortDetails_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_ProjectMetricAssociation_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_TestingDataStaging_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_TestingDetails_Period" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_DevMetrics_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_EffortDataStaging_ProjectMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_EffortDetails_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_TestingDataStaging_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_TestingDetails_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_UserProjectRoleAssociation_ProjectMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_UserProjectRoleAssociation_RoleMasterTable" ManuallyRouted="false" />
+        <AssociationConnector Association="QRMModel.FK_UserProjectRoleAssociation_UserDetails" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
