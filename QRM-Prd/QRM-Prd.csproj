@@ -243,6 +243,25 @@
     <Content Include="Assets\ng\angular-route.min.js" />
     <Content Include="Assets\ng\angular.min.js" />
     <Content Include="Assets\styles\styles.css" />
+    <Content Include="Content\css\animate.min.css" />
+    <Content Include="Content\css\bootstrap-progressbar-3.3.4.min.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\custom.min.css" />
+    <Content Include="Content\css\daterangepicker.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\green.css" />
+    <Content Include="Content\css\jqvmap.min.css" />
+    <Content Include="Content\css\nprogress.css" />
+    <Content Include="Content\images\back_disabled.png" />
+    <Content Include="Content\images\back_enabled.png" />
+    <Content Include="Content\images\back_enabled_hover.png" />
+    <Content Include="Content\images\forward_disabled.png" />
+    <Content Include="Content\images\forward_enabled.png" />
+    <Content Include="Content\images\forward_enabled_hover.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\js\custom.js" />
+    <Content Include="Content\js\custom.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -340,6 +359,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\font-awesome.css.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
