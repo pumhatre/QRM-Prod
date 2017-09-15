@@ -4,7 +4,6 @@
     'home',
     'signIn',
     'register',
-    'todoManager',
     'metrixAssociation'
 ]);
 
