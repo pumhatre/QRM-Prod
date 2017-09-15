@@ -60,6 +60,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: 'App/MetricsAssociation',
         controller: 'metricsAssociationCtrl'
     });
+    $routeProvider.when('/UserConfiguration', {
+        templateUrl: 'App/UserConfiguration',
+        controller: 'userConfigurationCtrl'
+    });
     
     $routeProvider.otherwise({
         redirectTo: '/home'
