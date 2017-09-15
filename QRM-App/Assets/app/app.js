@@ -4,14 +4,15 @@
     'home',
     'signIn',
     'register',
-    'metrixAssociation'
+    'todoManager',
+    'metricsAssociation'
 ]);
 
 
 
 
-app.config(['$provide', '$routeProvider', '$httpProvider', '$locationProvider', function ($provide, $routeProvider, $httpProvider, $locationProvider) {
-
+app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $routeProvider, $httpProvider) {
+    
     //================================================
     // Ignore Template Request errors if a page that was requested was not found or unauthorized.  The GET operation could still show up in the browser debugger, but it shouldn't show a $compile:tpload error.
     //================================================
@@ -26,7 +27,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', '$locationProvider', 
     // Add an interceptor for AJAX errors
     //================================================
     $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
-        return {
+        return {            
             'responseError': function (response) {
                 if (response.status === 401)
                     $location.url('/signin');
@@ -35,7 +36,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', '$locationProvider', 
         };
     }]);
 
-
+        
     //================================================
     // Routes
     //================================================
@@ -55,15 +56,14 @@ app.config(['$provide', '$routeProvider', '$httpProvider', '$locationProvider', 
         templateUrl: 'App/TodoManager',
         controller: 'todoManagerCtrl'
     });
-    $routeProvider.when('/metrixassociation', {
-        templateUrl: 'App/MetrixAssociation',
-        controller: 'metrixAssociationCtrl'
+    $routeProvider.when('/MetricsAssociation', {
+        templateUrl: 'App/MetricsAssociation',
+        controller: 'metricsAssociationCtrl'
     });
-
+    
     $routeProvider.otherwise({
         redirectTo: '/home'
-    });
-
+    });    
 }]);
 
 app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookieStore) {
@@ -84,7 +84,7 @@ app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookie
 app.run(['$rootScope', '$http', '$cookies', '$cookieStore', function ($rootScope, $http, $cookies, $cookieStore) {
 
     $rootScope.logout = function () {
-
+        
         $http.post('/api/Account/Logout')
             .success(function (data, status, headers, config) {
                 $http.defaults.headers.common.Authorization = null;

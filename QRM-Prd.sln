@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRM-Prd", "QRM-Prd\QRM-Prd.csproj", "{0AB0A3F4-F35F-4F99-8F53-E1DDD4A2227F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRMService", "QRMService\QRMService.csproj", "{355113F1-B90E-48EF-864E-40B2325D3865}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRM-App", "QRM-App\QRM-App.csproj", "{8A9B87FF-F7D7-4C56-914E-1A40050A8D71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0AB0A3F4-F35F-4F99-8F53-E1DDD4A2227F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AB0A3F4-F35F-4F99-8F53-E1DDD4A2227F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AB0A3F4-F35F-4F99-8F53-E1DDD4A2227F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AB0A3F4-F35F-4F99-8F53-E1DDD4A2227F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{355113F1-B90E-48EF-864E-40B2325D3865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{355113F1-B90E-48EF-864E-40B2325D3865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{355113F1-B90E-48EF-864E-40B2325D3865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{355113F1-B90E-48EF-864E-40B2325D3865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A9B87FF-F7D7-4C56-914E-1A40050A8D71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A9B87FF-F7D7-4C56-914E-1A40050A8D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A9B87FF-F7D7-4C56-914E-1A40050A8D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A9B87FF-F7D7-4C56-914E-1A40050A8D71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
