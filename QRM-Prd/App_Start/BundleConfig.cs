@@ -7,13 +7,10 @@ namespace QRM_Prd
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
-        {
-
-            bundles.Add(new ScriptBundle("~/bootstrap").Include(
-                     "~/Assets/Bootstrap/js/bootstrap.js"));
+        {           
 
             //Moved bootstrap css to own style tag in the _layout page.  This is to remove it from the optimizations which was breaking the fonts and icons.
-            bundles.Add(new StyleBundle("~/styles").IncludeDirectory("~/Assets", "*.css", true));
+            bundles.Add(new StyleBundle("~/styles").IncludeDirectory("~/Content", "*.css", true));
 
 
             bundles.Add(new ScriptBundle("~/ng").Include(
@@ -24,13 +21,23 @@ namespace QRM_Prd
             bundles.Add(new ScriptBundle("~/app").IncludeDirectory("~/Assets/app", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/jquery").Include(
-                        "~/Assets/jquery/jquery.min.js"));
+                        "~/Content/js/jquery.min.js"));
 
-            bundles.Add(new ScriptBundle("~/misc").IncludeDirectory("~/Assets/misc", "*.js", true));
+            bundles.Add(new ScriptBundle("~/bootstrap").Include(
+                    "~/Content/js/bootstrap.min.js"));
+
+            bundles.Add(new ScriptBundle("~/custom").Include(
+                        "~/Content/js/fastclick.js",
+                        "~/Content/js/nprogress.js",
+                        "~/Content/js/date.js",
+                        "~/Content/js/moment.min.js",
+                        "~/Content/js/daterangepicker.js",
+                        "~/Content/js/custom.min.js"));
+
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

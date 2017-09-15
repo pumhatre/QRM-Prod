@@ -1,0 +1,184 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="x_panel" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Associate Metrics</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-6 col-xs-12">
+        <div class="x_panel">
+
+          <div class="x_content fix">
+
+            <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
+              <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active">
+                  <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Release</a>
+                </li>
+                <li role="presentation" class="">
+                  <a href="#tab_content2" role="tab" id="Project-tab" data-toggle="tab" aria-expanded="false">Metrics</a>
+                </li>
+              </ul>
+              <div id="myTabcontent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                  <div class="col-md-12 col-sm-4 col-xs-12">
+                    <div class="x_panel tile fixed_height_420">
+                      <div class="x_title">
+                        <h2>Project Release</h2>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <div class="x_panel">
+                            <div class="x_content">
+                              <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
+                                <div class="col-md-3">
+                                  <select class="form-control">
+                                    <option>Select a Project</option>
+                                    <option>Alaska</option>
+                                    <option>Kentucky</option>
+                                    <option>Oregon</option>
+                                    <option>State Auto</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-3"></div>
+                              </div>
+                              <br>
+                                <br>
+                                  <div class="form-group">
+                                    <div class="col-md-3"></div>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
+                                    <div class="col-md-3">
+                                      <input type="text" class="form-control">
+                                                                                </div>
+                                    <div class="col-md-3"></div>
+                                  </div>
+                                  <br>
+                                    <br>
+                                      <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-3">
+                                          &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button type="submit" class="btn btn-success" id="btnSave"> Add</button>
+                                        </div>
+                                        <div class="col-md-3"></div>
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <br>
+                                        <div>
+                                          <div class="col-md-3"></div>
+                                          <div class="col-md-6">
+                                            <!-- start project list -->
+                                            <table class="table table-striped projects" id="tbl_ProjectMetrics">
+                                              <thead style="text-align:center;">
+                                                <tr>
+                                                  <th>Release No</th>
+                                                  <th>Project Name</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <td>
+                                                    001
+                                                  </td>
+                                                  <td>
+                                                    Oregon
+                                                  </td>
+                                                </tr>
+                                                <tr>
+
+                                                  <td>
+                                                    002
+                                                  </td>
+                                                  <td>
+                                                    ACDHS
+                                                  </td>
+                                                </tr>
+                                                <tr>
+
+                                                  <td>
+                                                    003
+                                                  </td>
+                                                  <td>
+                                                    Kentucky
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                            <!-- end project list -->
+                                          </div>
+                                          <div class="col-md-3"></div>
+                                        </div>
+                                      </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab">
+                  <div class="x_panel">
+                    <div class="x_content" style="align-content:center;">
+                      <!-- start project list -->
+                      <table class="table table-striped projects" id="tbl_ProjectMetrics">
+                        <thead style="text-align:center;">
+                          <tr>
+                            <th>#</th>
+                            <th>Metric Code</th>
+                            <th>Metric Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <input type="checkbox" onclick="javascript: SelectMetric(this);">
+                            </td>
+                            <td>
+                              001
+                            </td>
+                            <td>
+                              Defect Log
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" onclick="javascript: SelectMetric(this);">
+                                                                        </td>
+                            <td>
+                              002
+                            </td>
+                            <td>
+                              Product BackLog
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                      <!-- end project list -->
+                      <button type="submit" class="btn btn-success" id="btnSave">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+</div>

@@ -11,23 +11,18 @@ namespace QRM_Prd.Controllers
     /// </summary>
     public class AppController : Controller
     {
-        public ActionResult Register()
-        {
-            return PartialView();
-        }
         public ActionResult SignIn()
         {
             return PartialView();
         }
         public ActionResult Home()
         {
-            return PartialView();
+            return PartialView("~/Views/App/Home.cshtml");
         }
 
-        [Authorize]
-        public ActionResult TodoManager()
+        public ActionResult MetrixAssociation()
         {
-            return PartialView();
+            return PartialView("~/Views/App/MetrixAssociation.cshtml");
         }
     }
 }
