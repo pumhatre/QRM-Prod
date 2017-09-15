@@ -1,16 +1,14 @@
 ﻿angular.module('project', [])
 
-    .controller('projectCtrl', ['$scope', '$http', 'referenceDataService','config', function ($scope, $http, referenceDataService, config  ) {
+    .controller('projectCtrl', ['$scope', '$http', 'referenceDataService', 'config', function ($scope, $http, referenceDataService, config) {
         $scope.selectedservice = null;
         $scope.serviceList = [];
-        referenceDataService.GetDropDownList("ServiceTable", config).then(function (result) {
-            $scope.serviceList = result;
 
+        referenceDataService.getReferenceTable("ServiceList", config).then(function (response) {
+            $scope.serviceList = response
         }, function (error) {
-            Console.log(error);
+
         });
+
         
-        $scope.alert = function () {
-            alert("WOW");
-        }
     }]);
