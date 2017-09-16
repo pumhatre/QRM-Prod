@@ -186,6 +186,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModels.cs" />
+    <Compile Include="Models\ProjectBindingModel.cs" />
     <Compile Include="Models\TodoItemViewModel.cs" />
     <Compile Include="Controllers\Utility\ModelErrorChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
