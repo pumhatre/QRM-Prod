@@ -10,7 +10,7 @@ namespace QRMService.Controllers
 {
     public class ReferenceDataController : ApiController
     {
-        [HttpPost]
+      
         public IHttpActionResult GetReferenceTable(string tableName)
         {
             var data = ReferenceRepository.GetReferenceDataByTable(tableName);
