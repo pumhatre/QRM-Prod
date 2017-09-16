@@ -12,7 +12,7 @@ namespace QRM_App
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+           // ConfigureAuth(app);
         }
     }
 }

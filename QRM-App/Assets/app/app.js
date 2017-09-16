@@ -5,10 +5,15 @@
     'signIn',
     'register',
     'todoManager',
-    'metricsAssociation'
+    'metricsAssociation',
+    'project'
 ]);
 
-
+app.constant('config', {
+    apiUrl: 'http://localhost:60038/',
+    baseUrl: '/',
+    enableDebug: true
+});
 
 
 app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $routeProvider, $httpProvider) {
@@ -60,6 +65,11 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: 'App/MetricsAssociation',
         controller: 'metricsAssociationCtrl'
     });
+    $routeProvider.when('/Projects', {
+        templateUrl: 'App/Project',
+        controller: 'projectCtrl'
+    });
+
     $routeProvider.when('/UserConfiguration', {
         templateUrl: 'App/UserConfiguration',
         controller: 'userConfigurationCtrl'

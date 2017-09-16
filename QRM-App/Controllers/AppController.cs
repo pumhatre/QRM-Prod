@@ -34,6 +34,11 @@ namespace QRM_App.Controllers
         {
             return PartialView();
         }
+        
+        public ActionResult Project()
+        {
+            return PartialView();
+        }
 
         public ActionResult UserConfiguration()
         {

@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -185,6 +186,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModels.cs" />
+    <Compile Include="Models\ProjectBindingModel.cs" />
     <Compile Include="Models\TodoItemViewModel.cs" />
     <Compile Include="Controllers\Utility\ModelErrorChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,9 +199,13 @@
     <Content Include="Assets\app\app.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
     <Content Include="Assets\app\controllers\metricsAssociationCtrl.js" />
+    <Content Include="Assets\app\controllers\projectCtrl.js" />
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
     <Content Include="Assets\app\controllers\todoManagerCtrl.js" />
+    <Content Include="Assets\app\environment\environment.js" />
+    <Content Include="Assets\app\services\projectService.js" />
+    <Content Include="Assets\app\services\referenceDataService.js" />
     <Content Include="Assets\app\controllers\userConfigurationCtrl.js" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -299,9 +305,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\font-awesome.css.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\App\UserConfiguration.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
