@@ -13,11 +13,8 @@ namespace QRMService.Controllers
         [HttpPost]
         public IHttpActionResult GetReferenceTable(string tableName)
         {
-
             var data = ReferenceRepository.GetReferenceDataByTable(tableName);
             return Ok(data);
-
-
         }
 
 
