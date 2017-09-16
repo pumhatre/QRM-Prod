@@ -1,4 +1,5 @@
-﻿using QRMService.Repositories;
+﻿using QRMService.Models;
+using QRMService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,17 @@ namespace QRMService.Controllers
     public class ReferenceDataController : ApiController
     {
       
-        public IHttpActionResult GetReferenceTable(string tableName)
+        [HttpPost]
+        public IHttpActionResult GetReferenceTable(ReferenceTableRequestModel request)
         {
-            var data = ReferenceRepository.GetReferenceDataByTable(tableName);
+            var data = ReferenceRepository.GetReferenceDataByTableName(request.TableName);
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetReferenceValueByCode(ReferenceTableRequestModel request)
+        {
+            var data = ReferenceRepository.GetReferenceValueByCode(request.TableName,request.Code);
             return Ok(data);
         }
 
