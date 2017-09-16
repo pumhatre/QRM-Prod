@@ -11,7 +11,12 @@ namespace QRMService.Controllers
 {
     public class ReferenceDataController : ApiController
     {
-      
+
+        /// <summary>
+        /// Gets the reference table.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         [HttpPost]
         public IHttpActionResult GetReferenceTable(ReferenceTableRequestModel request)
         {
@@ -19,6 +24,11 @@ namespace QRMService.Controllers
             return Ok(data);
         }
 
+        /// <summary>
+        /// Gets the reference value by code.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         [HttpPost]
         public IHttpActionResult GetReferenceValueByCode(ReferenceTableRequestModel request)
         {

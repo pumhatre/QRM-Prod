@@ -41,10 +41,22 @@ namespace QRMService.DataBase
         public Nullable<int> TotalDefectsFound { get; set; }
         public Nullable<int> TotalDefectsRejected { get; set; }
         public int ProjectId { get; set; }
-        public int PeriodId { get; set; }
+        public Nullable<int> ProjectReleaseId { get; set; }
+        public Nullable<int> MonthId { get; set; }
+        public Nullable<int> SimpleTestCasesDesign { get; set; }
+        public Nullable<int> MediumTestCasesDesign { get; set; }
+        public Nullable<int> ComplexTestCasesDesign { get; set; }
+        public Nullable<int> VeryComplexTestCasesDesign { get; set; }
+        public Nullable<int> SimpleTestCasesExecution { get; set; }
+        public Nullable<int> MediumTestCasesExecution { get; set; }
+        public Nullable<int> ComplexTestCasesExecution { get; set; }
+        public Nullable<int> VeryComplexTestCasesExecution { get; set; }
+        public Nullable<int> NoofTestCases { get; set; }
+        public string Iteration { get; set; }
         public string TestingSubphase { get; set; }
     
-        public virtual Period Period { get; set; }
+        public virtual MonthMaster MonthMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
+        public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
     }
 }

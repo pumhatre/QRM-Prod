@@ -12,13 +12,12 @@ namespace QRMService.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class MSreplication_options
+    public partial class ProjectWidgetDetail
     {
-        public string optname { get; set; }
-        public bool value { get; set; }
-        public int major_version { get; set; }
-        public int minor_version { get; set; }
-        public int revision { get; set; }
-        public int install_failures { get; set; }
+        public int ProjectWidgetDetailID { get; set; }
+        public int ProjectID { get; set; }
+        public string WidgetName { get; set; }
+    
+        public virtual ProjectMaster ProjectMaster { get; set; }
     }
 }

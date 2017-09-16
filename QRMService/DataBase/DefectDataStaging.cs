@@ -16,7 +16,7 @@ namespace QRMService.DataBase
     {
         public int DefectDataStagingId { get; set; }
         public string DefectID { get; set; }
-        public string WidgetName { get; set; }
+        public string WidgetComponentID { get; set; }
         public string DetectedStage { get; set; }
         public Nullable<System.DateTime> ReportedDate { get; set; }
         public string ReportedBy { get; set; }
@@ -32,8 +32,12 @@ namespace QRMService.DataBase
         public string Remarks { get; set; }
         public int PeriodId { get; set; }
         public int ProjectId { get; set; }
+        public Nullable<int> ProjectReleaseId { get; set; }
+        public Nullable<int> MonthId { get; set; }
     
-        public virtual Period Period { get; set; }
+        public virtual MonthMaster MonthMaster { get; set; }
+        public virtual MonthMaster MonthMaster1 { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
+        public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
     }
 }

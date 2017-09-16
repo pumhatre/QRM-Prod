@@ -16,11 +16,10 @@ namespace QRMService.DataBase
     {
         public int ProjectMetricAssociationID { get; set; }
         public int MetricMasterID { get; set; }
-        public int PeriodId { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<int> ProjectReleaseId { get; set; }
+        public Nullable<int> MonthId { get; set; }
     
         public virtual MetricMaster MetricMaster { get; set; }
-        public virtual Period Period { get; set; }
+        public virtual MonthMaster MonthMaster { get; set; }
     }
 }

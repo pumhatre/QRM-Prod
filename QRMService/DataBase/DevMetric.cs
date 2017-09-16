@@ -15,7 +15,6 @@ namespace QRMService.DataBase
     public partial class DevMetric
     {
         public int ProjectId { get; set; }
-        public int PeriodId { get; set; }
         public string ReleaseIteration { get; set; }
         public string Module { get; set; }
         public string WidgetID { get; set; }
@@ -52,7 +51,6 @@ namespace QRMService.DataBase
         public Nullable<double> AEUTCExecution { get; set; }
         public Nullable<double> AECUTRework { get; set; }
         public Nullable<double> AEOtherRework { get; set; }
-        public Nullable<double> PercReuse { get; set; }
         public Nullable<double> TotalDEVdefects { get; set; }
         public Nullable<double> FDDReviewDefects { get; set; }
         public Nullable<double> TDDReviewDefects { get; set; }
@@ -80,10 +78,9 @@ namespace QRMService.DataBase
         public Nullable<System.DateTime> PlannedEnddate { get; set; }
         public Nullable<System.DateTime> ActualStartDate { get; set; }
         public Nullable<System.DateTime> ActualEndDate { get; set; }
-        public Nullable<System.DateTime> PlannedDate { get; set; }
-        public Nullable<System.DateTime> ActualDate { get; set; }
+        public Nullable<int> ProjectReleaseId { get; set; }
     
-        public virtual Period Period { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
+        public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
     }
 }
