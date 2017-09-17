@@ -3,6 +3,8 @@
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.selectedProjectReleaseDropdown = '';
+        $scope.isSuccess = false;
+        $scope.alertType = null;
 
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
@@ -40,10 +42,16 @@
                     if (successResponse.data.IsSuccess) {
                         debugger;
                         // show success alert
+                        $scope.isSuccess = true;
+                        $scope.alertType = "Success";
+                        $scope.alertMessage = successResponse.data.ResponseMessage;
                         $scope.GetProjectReleasesByProjectId();
                     }
                     else {
                         // show failure alert
+                        $scope.isSuccess = false;
+                        $scope.alertType = "Failure";
+                        $scope.alertMessage = successResponse.data.ResponseMessage;
                     }
                 }, function (errorResponse) {
 

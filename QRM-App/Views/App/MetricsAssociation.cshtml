@@ -32,6 +32,10 @@
                                             <div class="x_content">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <div class="x_panel">
+                                                        <div ng-show="alertType" ng-class="{alert-success: isSuccess, alert-danger: !isSuccess}" class="alert alert-dismissable">
+                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                            <strong>{{alertType}}!</strong> {{alertMessage}}
+                                                        </div>
                                                         <div class="x_content">
                                                             <div class="form-group">
                                                                 <div class="col-md-3"></div>
