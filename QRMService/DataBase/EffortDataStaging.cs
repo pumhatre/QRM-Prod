@@ -34,9 +34,11 @@ namespace QRMService.DataBase
         public string ComponentName { get; set; }
         public byte[] ReviewType { get; set; }
         public string Remarks { get; set; }
-        public int PeriodId { get; set; }
+        public Nullable<int> ProjectReleaseId { get; set; }
+        public Nullable<int> MonthId { get; set; }
     
-        public virtual Period Period { get; set; }
+        public virtual MonthMaster MonthMaster { get; set; }
+        public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
     }
 }

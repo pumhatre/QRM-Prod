@@ -4,14 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QRMPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DefectDataDetails">
           <Key>
             <PropertyRef Name="DefectDataDetailsId" />
           </Key>
           <Property Name="DefectDataDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DefectID" Type="varchar" MaxLength="50" />
-          <Property Name="WidgetName" Type="varchar" MaxLength="50" />
           <Property Name="DetectedStage" Type="varchar" MaxLength="50" />
           <Property Name="ReportedDate" Type="datetime" />
           <Property Name="ReportedBy" Type="varchar" MaxLength="50" />
@@ -25,8 +24,9 @@
           <Property Name="DefectSeverity" Type="varchar" MaxLength="50" />
           <Property Name="FixedOnDate" Type="datetime" />
           <Property Name="Remarks" Type="varchar(max)" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
         </EntityType>
         <EntityType Name="DefectDataStaging">
           <Key>
@@ -34,7 +34,7 @@
           </Key>
           <Property Name="DefectDataStagingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DefectID" Type="varchar" MaxLength="50" />
-          <Property Name="WidgetName" Type="varchar" MaxLength="50" />
+          <Property Name="WidgetComponentID" Type="varchar" MaxLength="50" />
           <Property Name="DetectedStage" Type="varchar" MaxLength="50" />
           <Property Name="ReportedDate" Type="datetime" />
           <Property Name="ReportedBy" Type="varchar" MaxLength="50" />
@@ -50,16 +50,16 @@
           <Property Name="Remarks" Type="varchar(max)" />
           <Property Name="PeriodId" Type="int" Nullable="false" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.DevMetrics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'QRMPortal.dbo.DevMetrics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DevMetrics">
           <Key>
             <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="PeriodId" />
           </Key>
           <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
           <Property Name="ReleaseIteration" Type="varchar" MaxLength="50" />
           <Property Name="Module" Type="varchar" MaxLength="50" />
           <Property Name="WidgetID" Type="varchar" MaxLength="50" />
@@ -96,7 +96,6 @@ warning 6002: The table/view 'master.dbo.DevMetrics' does not have a primary key
           <Property Name="AEUTCExecution" Type="float" />
           <Property Name="AECUTRework" Type="float" />
           <Property Name="AEOtherRework" Type="float" />
-          <Property Name="PercReuse" Type="float" />
           <Property Name="TotalDEVdefects" Type="float" />
           <Property Name="FDDReviewDefects" Type="float" />
           <Property Name="TDDReviewDefects" Type="float" />
@@ -124,15 +123,13 @@ warning 6002: The table/view 'master.dbo.DevMetrics' does not have a primary key
           <Property Name="PlannedEnddate" Type="datetime" />
           <Property Name="ActualStartDate" Type="datetime" />
           <Property Name="ActualEndDate" Type="datetime" />
-          <Property Name="PlannedDate" Type="datetime" />
-          <Property Name="ActualDate" Type="datetime" />
+          <Property Name="ProjectReleaseId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.EffortDataStaging' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'QRMPortal.dbo.EffortDataStaging' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EffortDataStaging">
           <Key>
             <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="PeriodId" />
           </Key>
           <Property Name="ObjectComponentID" Type="varchar" MaxLength="50" />
           <Property Name="ComponentType" Type="varchar" MaxLength="50" />
@@ -154,14 +151,14 @@ warning 6002: The table/view 'master.dbo.EffortDataStaging' does not have a prim
           <Property Name="ComponentName" Type="varchar" MaxLength="50" />
           <Property Name="ReviewType" Type="varbinary" MaxLength="50" />
           <Property Name="Remarks" Type="varchar(max)" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.EffortDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EffortDetails">
           <Key>
             <PropertyRef Name="EffortId" />
-            <PropertyRef Name="PeriodId" />
           </Key>
           <Property Name="EffortId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ComponentId" Type="int" />
@@ -172,7 +169,6 @@ warning 6002: The table/view 'master.dbo.EffortDetails' does not have a primary 
           <Property Name="ActualEffort" Type="int" />
           <Property Name="StatusCode" Type="nvarchar" MaxLength="20" />
           <Property Name="CMMIRollUpCode" Type="nvarchar" MaxLength="20" />
-          <Property Name="SEQ" Type="nvarchar" MaxLength="20" />
           <Property Name="ScheduledStartDate" Type="date" />
           <Property Name="ScheduledEndDate" Type="date" />
           <Property Name="ActualStartDate" Type="date" />
@@ -183,7 +179,9 @@ warning 6002: The table/view 'master.dbo.EffortDetails' does not have a primary 
           <Property Name="ComponentName" Type="nvarchar" MaxLength="500" />
           <Property Name="ReviewTypeCode" Type="nvarchar" MaxLength="20" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
+          <Property Name="WidgetType" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="MetricMaster">
           <Key>
@@ -197,31 +195,31 @@ warning 6002: The table/view 'master.dbo.EffortDetails' does not have a primary 
           <Property Name="MetricTypeCode" Type="nvarchar" MaxLength="10" />
           <Property Name="MetricTypeDescription" Type="nvarchar" MaxLength="10" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="MetricsDescription" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="MonthMaster">
+          <Key>
+            <PropertyRef Name="MonthId" />
+          </Key>
+          <Property Name="MonthId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthName" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="SortOrder" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.MSreplication_options' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="MSreplication_options">
-          <Key>
-            <PropertyRef Name="optname" />
-            <PropertyRef Name="value" />
-            <PropertyRef Name="major_version" />
-            <PropertyRef Name="minor_version" />
-            <PropertyRef Name="revision" />
-            <PropertyRef Name="install_failures" />
-          </Key>
-          <Property Name="optname" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="value" Type="bit" Nullable="false" />
-          <Property Name="major_version" Type="int" Nullable="false" />
-          <Property Name="minor_version" Type="int" Nullable="false" />
-          <Property Name="revision" Type="int" Nullable="false" />
-          <Property Name="install_failures" Type="int" Nullable="false" />
-        </EntityType>
+warning 6002: The table/view 'QRMPortal.dbo.Period' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Period">
           <Key>
             <PropertyRef Name="PeriodId" />
+            <PropertyRef Name="PeriodName" />
+            <PropertyRef Name="Year" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
           </Key>
           <Property Name="PeriodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PeriodName" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="PeriodName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
@@ -231,7 +229,7 @@ warning 6002: The table/view 'master.dbo.MSreplication_options' does not have a 
           <Key>
             <PropertyRef Name="ProjectID" />
           </Key>
-          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectName" Type="varchar(max)" />
           <Property Name="ServiceLine" Type="varchar" MaxLength="50" />
           <Property Name="Capability" Type="varchar" MaxLength="50" />
@@ -240,6 +238,14 @@ warning 6002: The table/view 'master.dbo.MSreplication_options' does not have a 
           <Property Name="StartDate" Type="datetime" />
           <Property Name="Enddate" Type="datetime" />
           <Property Name="GDM" Type="nvarchar" MaxLength="50" />
+          <Property Name="Technology" Type="varchar" MaxLength="100" />
+          <Property Name="Industry" Type="varchar" MaxLength="100" />
+          <Property Name="LifeCycle" Type="varchar" MaxLength="100" />
+          <Property Name="Solution" Type="varchar" MaxLength="100" />
+          <Property Name="Director" Type="varchar" MaxLength="100" />
+          <Property Name="SeniorManager" Type="varchar" MaxLength="100" />
+          <Property Name="ProjectStartDate" Type="datetime" />
+          <Property Name="ProjectEndDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ProjectMetricAssociation">
           <Key>
@@ -247,17 +253,28 @@ warning 6002: The table/view 'master.dbo.MSreplication_options' does not have a 
           </Key>
           <Property Name="ProjectMetricAssociationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MetricMasterID" Type="int" Nullable="false" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" />
-          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
+        </EntityType>
+        <EntityType Name="ProjectReleaseMaster">
+          <Key>
+            <PropertyRef Name="ProjectReleaseId" />
+          </Key>
+          <Property Name="ProjectReleaseId" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="ReleaseName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'master.dbo.ProjectWidgetDetails' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProjectWidgetDetails">
-          <Property Name="ProjectWidgetDetailID" Type="int" />
-          <Property Name="ProjectID" Type="int" />
+          <Key>
+            <PropertyRef Name="ProjectWidgetDetailID" />
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectWidgetDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
           <Property Name="WidgetName" Type="varchar(max)" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="ReferenceTable">
           <Key>
             <PropertyRef Name="ReferenceTableId" />
@@ -273,102 +290,6 @@ warning 6013: The table/view 'master.dbo.ProjectWidgetDetails' does not have a p
           </Key>
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.spt_fallback_db' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="spt_fallback_db">
-          <Key>
-            <PropertyRef Name="xserver_name" />
-            <PropertyRef Name="xdttm_ins" />
-            <PropertyRef Name="xdttm_last_ins_upd" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="dbid" />
-            <PropertyRef Name="status" />
-            <PropertyRef Name="version" />
-          </Key>
-          <Property Name="xserver_name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
-          <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
-          <Property Name="xfallback_dbid" Type="smallint" />
-          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="dbid" Type="smallint" Nullable="false" />
-          <Property Name="status" Type="smallint" Nullable="false" />
-          <Property Name="version" Type="smallint" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.spt_fallback_dev' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="spt_fallback_dev">
-          <Key>
-            <PropertyRef Name="xserver_name" />
-            <PropertyRef Name="xdttm_ins" />
-            <PropertyRef Name="xdttm_last_ins_upd" />
-            <PropertyRef Name="low" />
-            <PropertyRef Name="high" />
-            <PropertyRef Name="status" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="phyname" />
-          </Key>
-          <Property Name="xserver_name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
-          <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
-          <Property Name="xfallback_low" Type="int" />
-          <Property Name="xfallback_drive" Type="char" MaxLength="2" />
-          <Property Name="low" Type="int" Nullable="false" />
-          <Property Name="high" Type="int" Nullable="false" />
-          <Property Name="status" Type="smallint" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="phyname" Type="varchar" MaxLength="127" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.spt_fallback_usg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="spt_fallback_usg">
-          <Key>
-            <PropertyRef Name="xserver_name" />
-            <PropertyRef Name="xdttm_ins" />
-            <PropertyRef Name="xdttm_last_ins_upd" />
-            <PropertyRef Name="dbid" />
-            <PropertyRef Name="segmap" />
-            <PropertyRef Name="lstart" />
-            <PropertyRef Name="sizepg" />
-            <PropertyRef Name="vstart" />
-          </Key>
-          <Property Name="xserver_name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="xdttm_ins" Type="datetime" Nullable="false" />
-          <Property Name="xdttm_last_ins_upd" Type="datetime" Nullable="false" />
-          <Property Name="xfallback_vstart" Type="int" />
-          <Property Name="dbid" Type="smallint" Nullable="false" />
-          <Property Name="segmap" Type="int" Nullable="false" />
-          <Property Name="lstart" Type="int" Nullable="false" />
-          <Property Name="sizepg" Type="int" Nullable="false" />
-          <Property Name="vstart" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="spt_monitor">
-          <Key>
-            <PropertyRef Name="lastrun" />
-            <PropertyRef Name="cpu_busy" />
-            <PropertyRef Name="io_busy" />
-            <PropertyRef Name="idle" />
-            <PropertyRef Name="pack_received" />
-            <PropertyRef Name="pack_sent" />
-            <PropertyRef Name="connections" />
-            <PropertyRef Name="pack_errors" />
-            <PropertyRef Name="total_read" />
-            <PropertyRef Name="total_write" />
-            <PropertyRef Name="total_errors" />
-          </Key>
-          <Property Name="lastrun" Type="datetime" Nullable="false" />
-          <Property Name="cpu_busy" Type="int" Nullable="false" />
-          <Property Name="io_busy" Type="int" Nullable="false" />
-          <Property Name="idle" Type="int" Nullable="false" />
-          <Property Name="pack_received" Type="int" Nullable="false" />
-          <Property Name="pack_sent" Type="int" Nullable="false" />
-          <Property Name="connections" Type="int" Nullable="false" />
-          <Property Name="pack_errors" Type="int" Nullable="false" />
-          <Property Name="total_read" Type="int" Nullable="false" />
-          <Property Name="total_write" Type="int" Nullable="false" />
-          <Property Name="total_errors" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TestingDataStaging">
           <Key>
@@ -387,7 +308,6 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <Property Name="ActualStartDate" Type="datetime" />
           <Property Name="ActualEndDate" Type="datetime" />
           <Property Name="TestDesignStatus" Type="varchar" MaxLength="50" />
-          <Property Name="ExecutionType" Type="varchar" MaxLength="50" />
           <Property Name="TestCasePreparationPlanned" Type="numeric" Precision="18" Scale="2" />
           <Property Name="TestCaseReviewPlanned" Type="numeric" Precision="18" Scale="2" />
           <Property Name="TestCaseReworkPlanned" Type="numeric" Precision="18" Scale="2" />
@@ -402,12 +322,19 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <Property Name="TotalCasesPassed" Type="int" />
           <Property Name="DefectsFound" Type="int" />
           <Property Name="DefectsRejected" Type="int" />
-          <Property Name="TestDesignProductivity" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="TestExecutionProductivity" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="DefectRejectionPercentage" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="TestCaseCreationEndDate" Type="datetime" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
+          <Property Name="Iteration" Type="varchar" MaxLength="100" />
+          <Property Name="TestingSubphase" Type="varchar" MaxLength="100" />
+          <Property Name="SimpleTestCasesDesign" Type="int" />
+          <Property Name="MediumTestCasesDesign" Type="int" />
+          <Property Name="ComplexTestCasesDesign" Type="int" />
+          <Property Name="VeryComplexTestCasesDesign" Type="int" />
+          <Property Name="SimpleTestCasesExecution" Type="int" />
+          <Property Name="MediumTestCasesExecution" Type="int" />
+          <Property Name="ComplexTestCasesExecution" Type="int" />
+          <Property Name="VeryComplexTestCasesExecution" Type="int" />
         </EntityType>
         <EntityType Name="TestingDetails">
           <Key>
@@ -440,7 +367,18 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <Property Name="TotalDefectsFound" Type="int" />
           <Property Name="TotalDefectsRejected" Type="int" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="PeriodId" Type="int" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" />
+          <Property Name="MonthId" Type="int" />
+          <Property Name="SimpleTestCasesDesign" Type="int" />
+          <Property Name="MediumTestCasesDesign" Type="int" />
+          <Property Name="ComplexTestCasesDesign" Type="int" />
+          <Property Name="VeryComplexTestCasesDesign" Type="int" />
+          <Property Name="SimpleTestCasesExecution" Type="int" />
+          <Property Name="MediumTestCasesExecution" Type="int" />
+          <Property Name="ComplexTestCasesExecution" Type="int" />
+          <Property Name="VeryComplexTestCasesExecution" Type="int" />
+          <Property Name="NoofTestCases" Type="int" />
+          <Property Name="Iteration" Type="varchar" MaxLength="100" />
           <Property Name="TestingSubphase" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="UserDetails">
@@ -465,29 +403,15 @@ warning 6002: The table/view 'master.dbo.spt_monitor' does not have a primary ke
           <Property Name="RoleId" Type="int" />
           <Property Name="ProjectId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="spt_values">
-          <Key>
-            <PropertyRef Name="number" />
-            <PropertyRef Name="type" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="35" />
-          <Property Name="number" Type="int" Nullable="false" />
-          <Property Name="type" Type="nchar" MaxLength="3" Nullable="false" />
-          <Property Name="low" Type="int" />
-          <Property Name="high" Type="int" />
-          <Property Name="status" Type="int" />
-        </EntityType>
-        <Association Name="FK_DefectDataDetails_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_DefectDataDetails_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="DefectDataDetails" Type="Self.DefectDataDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="DefectDataDetails">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -503,12 +427,36 @@ warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DefectDataStaging_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_DefectDataDetails_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="DefectDataDetails" Type="Self.DefectDataDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="DefectDataDetails">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectDataStaging_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="DefectDataStaging" Type="Self.DefectDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="DefectDataStaging">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectDataStaging_Period">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="1" />
+          <End Role="DefectDataStaging" Type="Self.DefectDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="DefectDataStaging">
               <PropertyRef Name="PeriodId" />
@@ -527,21 +475,21 @@ warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DevMetrics_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
-          <End Role="DevMetrics" Type="Self.DevMetrics" Multiplicity="*" />
+        <Association Name="FK_DefectDataStaging_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="DefectDataStaging" Type="Self.DefectDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
-            <Dependent Role="DevMetrics">
-              <PropertyRef Name="PeriodId" />
+            <Dependent Role="DefectDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DevMetrics_ProjectMaster">
           <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
-          <End Role="DevMetrics" Type="Self.DevMetrics" Multiplicity="*" />
+          <End Role="DevMetrics" Type="Self.DevMetrics" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="ProjectMaster">
               <PropertyRef Name="ProjectID" />
@@ -551,21 +499,33 @@ warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EffortDataStaging_ProjectMaster">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_DevMetrics_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="DevMetrics" Type="Self.DevMetrics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="DevMetrics">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDataStaging_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="EffortDataStaging" Type="Self.EffortDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="EffortDataStaging">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EffortDataStaging_ProjectMaster1">
           <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
-          <End Role="EffortDataStaging" Type="Self.EffortDataStaging" Multiplicity="*" />
+          <End Role="EffortDataStaging" Type="Self.EffortDataStaging" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="ProjectMaster">
               <PropertyRef Name="ProjectID" />
@@ -575,15 +535,27 @@ warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EffortDetails_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_EffortDataStaging_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="EffortDataStaging" Type="Self.EffortDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="EffortDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDetails_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="EffortDetails" Type="Self.EffortDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="EffortDetails">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -599,6 +571,18 @@ warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EffortDetails_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="EffortDetails" Type="Self.EffortDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="EffortDetails">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProjectMetricAssociation_MetricMaster">
           <End Role="MetricMaster" Type="Self.MetricMaster" Multiplicity="1" />
           <End Role="ProjectMetricAssociation" Type="Self.ProjectMetricAssociation" Multiplicity="*" />
@@ -611,30 +595,39 @@ warning 6002: The table/view 'master.dbo.spt_values' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectMetricAssociation_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_ProjectMetricAssociation_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="ProjectMetricAssociation" Type="Self.ProjectMetricAssociation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_ProjectWidgetDetails_ProjectMaster" />-->
-        <Association Name="FK_TestingDataStaging_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_ProjectWidgetDetails_ProjectMaster">
+          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+          <End Role="ProjectWidgetDetails" Type="Self.ProjectWidgetDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectWidgetDetails">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDataStaging_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="TestingDataStaging" Type="Self.TestingDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -650,15 +643,27 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestingDetails_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_TestingDataStaging_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="TestingDataStaging" Type="Self.TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="TestingDetails" Type="Self.TestingDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="TestingDetails">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -671,6 +676,18 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </Principal>
             <Dependent Role="TestingDetails">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Role="TestingDetails" Type="Self.TestingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDetails">
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -710,15 +727,14 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_MScleanupmergepublisher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="sp_MSrepl_startup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="QRMModelStoreContainer">
+        <EntityContainer Name="QRMPortalModelStoreContainer">
           <EntitySet Name="DefectDataDetails" EntityType="Self.DefectDataDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DefectDataStaging" EntityType="Self.DefectDataStaging" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetricMaster" EntityType="Self.MetricMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Period" EntityType="Self.Period" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthMaster" EntityType="Self.MonthMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectMaster" EntityType="Self.ProjectMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectMetricAssociation" EntityType="Self.ProjectMetricAssociation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectReleaseMaster" EntityType="Self.ProjectReleaseMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReferenceTable" EntityType="Self.ReferenceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestingDataStaging" EntityType="Self.TestingDataStaging" Schema="dbo" store:Type="Tables" />
@@ -728,7 +744,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <EntitySet Name="DevMetrics" EntityType="Self.DevMetrics" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [DevMetrics].[ProjectId] AS [ProjectId], 
-    [DevMetrics].[PeriodId] AS [PeriodId], 
     [DevMetrics].[ReleaseIteration] AS [ReleaseIteration], 
     [DevMetrics].[Module] AS [Module], 
     [DevMetrics].[WidgetID] AS [WidgetID], 
@@ -765,7 +780,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
     [DevMetrics].[AEUTCExecution] AS [AEUTCExecution], 
     [DevMetrics].[AECUTRework] AS [AECUTRework], 
     [DevMetrics].[AEOtherRework] AS [AEOtherRework], 
-    [DevMetrics].[PercReuse] AS [PercReuse], 
     [DevMetrics].[TotalDEVdefects] AS [TotalDEVdefects], 
     [DevMetrics].[FDDReviewDefects] AS [FDDReviewDefects], 
     [DevMetrics].[TDDReviewDefects] AS [TDDReviewDefects], 
@@ -793,8 +807,7 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
     [DevMetrics].[PlannedEnddate] AS [PlannedEnddate], 
     [DevMetrics].[ActualStartDate] AS [ActualStartDate], 
     [DevMetrics].[ActualEndDate] AS [ActualEndDate], 
-    [DevMetrics].[PlannedDate] AS [PlannedDate], 
-    [DevMetrics].[ActualDate] AS [ActualDate]
+    [DevMetrics].[ProjectReleaseId] AS [ProjectReleaseId]
     FROM [dbo].[DevMetrics] AS [DevMetrics]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EffortDataStaging" EntityType="Self.EffortDataStaging" store:Type="Tables" store:Schema="dbo">
@@ -819,7 +832,8 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
     [EffortDataStaging].[ComponentName] AS [ComponentName], 
     [EffortDataStaging].[ReviewType] AS [ReviewType], 
     [EffortDataStaging].[Remarks] AS [Remarks], 
-    [EffortDataStaging].[PeriodId] AS [PeriodId]
+    [EffortDataStaging].[ProjectReleaseId] AS [ProjectReleaseId], 
+    [EffortDataStaging].[MonthId] AS [MonthId]
     FROM [dbo].[EffortDataStaging] AS [EffortDataStaging]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EffortDetails" EntityType="Self.EffortDetails" store:Type="Tables" store:Schema="dbo">
@@ -833,7 +847,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
     [EffortDetails].[ActualEffort] AS [ActualEffort], 
     [EffortDetails].[StatusCode] AS [StatusCode], 
     [EffortDetails].[CMMIRollUpCode] AS [CMMIRollUpCode], 
-    [EffortDetails].[SEQ] AS [SEQ], 
     [EffortDetails].[ScheduledStartDate] AS [ScheduledStartDate], 
     [EffortDetails].[ScheduledEndDate] AS [ScheduledEndDate], 
     [EffortDetails].[ActualStartDate] AS [ActualStartDate], 
@@ -844,145 +857,122 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
     [EffortDetails].[ComponentName] AS [ComponentName], 
     [EffortDetails].[ReviewTypeCode] AS [ReviewTypeCode], 
     [EffortDetails].[Remarks] AS [Remarks], 
-    [EffortDetails].[PeriodId] AS [PeriodId]
+    [EffortDetails].[ProjectReleaseId] AS [ProjectReleaseId], 
+    [EffortDetails].[MonthId] AS [MonthId], 
+    [EffortDetails].[WidgetType] AS [WidgetType]
     FROM [dbo].[EffortDetails] AS [EffortDetails]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="MSreplication_options" EntityType="Self.MSreplication_options" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="Period" EntityType="Self.Period" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [MSreplication_options].[optname] AS [optname], 
-    [MSreplication_options].[value] AS [value], 
-    [MSreplication_options].[major_version] AS [major_version], 
-    [MSreplication_options].[minor_version] AS [minor_version], 
-    [MSreplication_options].[revision] AS [revision], 
-    [MSreplication_options].[install_failures] AS [install_failures]
-    FROM [dbo].[MSreplication_options] AS [MSreplication_options]</DefiningQuery>
+    [Period].[PeriodId] AS [PeriodId], 
+    [Period].[PeriodName] AS [PeriodName], 
+    [Period].[Year] AS [Year], 
+    [Period].[StartDate] AS [StartDate], 
+    [Period].[EndDate] AS [EndDate], 
+    [Period].[SortOrder] AS [SortOrder]
+    FROM [dbo].[Period] AS [Period]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="spt_fallback_db" EntityType="Self.spt_fallback_db" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="ProjectWidgetDetails" EntityType="Self.ProjectWidgetDetails" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [spt_fallback_db].[xserver_name] AS [xserver_name], 
-    [spt_fallback_db].[xdttm_ins] AS [xdttm_ins], 
-    [spt_fallback_db].[xdttm_last_ins_upd] AS [xdttm_last_ins_upd], 
-    [spt_fallback_db].[xfallback_dbid] AS [xfallback_dbid], 
-    [spt_fallback_db].[name] AS [name], 
-    [spt_fallback_db].[dbid] AS [dbid], 
-    [spt_fallback_db].[status] AS [status], 
-    [spt_fallback_db].[version] AS [version]
-    FROM [dbo].[spt_fallback_db] AS [spt_fallback_db]</DefiningQuery>
+    [ProjectWidgetDetails].[ProjectWidgetDetailID] AS [ProjectWidgetDetailID], 
+    [ProjectWidgetDetails].[ProjectID] AS [ProjectID], 
+    [ProjectWidgetDetails].[WidgetName] AS [WidgetName]
+    FROM [dbo].[ProjectWidgetDetails] AS [ProjectWidgetDetails]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="spt_fallback_dev" EntityType="Self.spt_fallback_dev" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [spt_fallback_dev].[xserver_name] AS [xserver_name], 
-    [spt_fallback_dev].[xdttm_ins] AS [xdttm_ins], 
-    [spt_fallback_dev].[xdttm_last_ins_upd] AS [xdttm_last_ins_upd], 
-    [spt_fallback_dev].[xfallback_low] AS [xfallback_low], 
-    [spt_fallback_dev].[xfallback_drive] AS [xfallback_drive], 
-    [spt_fallback_dev].[low] AS [low], 
-    [spt_fallback_dev].[high] AS [high], 
-    [spt_fallback_dev].[status] AS [status], 
-    [spt_fallback_dev].[name] AS [name], 
-    [spt_fallback_dev].[phyname] AS [phyname]
-    FROM [dbo].[spt_fallback_dev] AS [spt_fallback_dev]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="spt_fallback_usg" EntityType="Self.spt_fallback_usg" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [spt_fallback_usg].[xserver_name] AS [xserver_name], 
-    [spt_fallback_usg].[xdttm_ins] AS [xdttm_ins], 
-    [spt_fallback_usg].[xdttm_last_ins_upd] AS [xdttm_last_ins_upd], 
-    [spt_fallback_usg].[xfallback_vstart] AS [xfallback_vstart], 
-    [spt_fallback_usg].[dbid] AS [dbid], 
-    [spt_fallback_usg].[segmap] AS [segmap], 
-    [spt_fallback_usg].[lstart] AS [lstart], 
-    [spt_fallback_usg].[sizepg] AS [sizepg], 
-    [spt_fallback_usg].[vstart] AS [vstart]
-    FROM [dbo].[spt_fallback_usg] AS [spt_fallback_usg]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="spt_monitor" EntityType="Self.spt_monitor" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [spt_monitor].[lastrun] AS [lastrun], 
-    [spt_monitor].[cpu_busy] AS [cpu_busy], 
-    [spt_monitor].[io_busy] AS [io_busy], 
-    [spt_monitor].[idle] AS [idle], 
-    [spt_monitor].[pack_received] AS [pack_received], 
-    [spt_monitor].[pack_sent] AS [pack_sent], 
-    [spt_monitor].[connections] AS [connections], 
-    [spt_monitor].[pack_errors] AS [pack_errors], 
-    [spt_monitor].[total_read] AS [total_read], 
-    [spt_monitor].[total_write] AS [total_write], 
-    [spt_monitor].[total_errors] AS [total_errors]
-    FROM [dbo].[spt_monitor] AS [spt_monitor]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="spt_values" EntityType="Self.spt_values" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [spt_values].[name] AS [name], 
-    [spt_values].[number] AS [number], 
-    [spt_values].[type] AS [type], 
-    [spt_values].[low] AS [low], 
-    [spt_values].[high] AS [high], 
-    [spt_values].[status] AS [status]
-    FROM [dbo].[spt_values] AS [spt_values]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_DefectDataDetails_Period" Association="Self.FK_DefectDataDetails_Period">
-            <End Role="Period" EntitySet="Period" />
+          <AssociationSet Name="FK_DefectDataDetails_MonthId" Association="Self.FK_DefectDataDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="DefectDataDetails" EntitySet="DefectDataDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_DefectDataDetails_ProjectMaster" Association="Self.FK_DefectDataDetails_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
             <End Role="DefectDataDetails" EntitySet="DefectDataDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_DefectDataDetails_ReleaseId" Association="Self.FK_DefectDataDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
+            <End Role="DefectDataDetails" EntitySet="DefectDataDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_MonthId" Association="Self.FK_DefectDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStaging" />
+          </AssociationSet>
           <AssociationSet Name="FK_DefectDataStaging_Period" Association="Self.FK_DefectDataStaging_Period">
-            <End Role="Period" EntitySet="Period" />
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="DefectDataStaging" EntitySet="DefectDataStaging" />
           </AssociationSet>
           <AssociationSet Name="FK_DefectDataStaging_ProjectMaster" Association="Self.FK_DefectDataStaging_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
             <End Role="DefectDataStaging" EntitySet="DefectDataStaging" />
           </AssociationSet>
-          <AssociationSet Name="FK_DevMetrics_Period" Association="Self.FK_DevMetrics_Period">
-            <End Role="Period" EntitySet="Period" />
-            <End Role="DevMetrics" EntitySet="DevMetrics" />
+          <AssociationSet Name="FK_DefectDataStaging_ReleaseId" Association="Self.FK_DefectDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStaging" />
           </AssociationSet>
           <AssociationSet Name="FK_DevMetrics_ProjectMaster" Association="Self.FK_DevMetrics_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
             <End Role="DevMetrics" EntitySet="DevMetrics" />
           </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_ProjectMaster" Association="Self.FK_EffortDataStaging_ProjectMaster">
-            <End Role="Period" EntitySet="Period" />
+          <AssociationSet Name="FK_DevMetrics_ReleaseId" Association="Self.FK_DevMetrics_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
+            <End Role="DevMetrics" EntitySet="DevMetrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDataStaging_MonthId" Association="Self.FK_EffortDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="EffortDataStaging" EntitySet="EffortDataStaging" />
           </AssociationSet>
           <AssociationSet Name="FK_EffortDataStaging_ProjectMaster1" Association="Self.FK_EffortDataStaging_ProjectMaster1">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
             <End Role="EffortDataStaging" EntitySet="EffortDataStaging" />
           </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_Period" Association="Self.FK_EffortDetails_Period">
-            <End Role="Period" EntitySet="Period" />
+          <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="Self.FK_EffortDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
+            <End Role="EffortDataStaging" EntitySet="EffortDataStaging" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_MonthId" Association="Self.FK_EffortDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="EffortDetails" EntitySet="EffortDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_EffortDetails_ProjectMaster" Association="Self.FK_EffortDetails_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
             <End Role="EffortDetails" EntitySet="EffortDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="Self.FK_EffortDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
+            <End Role="EffortDetails" EntitySet="EffortDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="Self.FK_ProjectMetricAssociation_MetricMaster">
             <End Role="MetricMaster" EntitySet="MetricMaster" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociation" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_Period" Association="Self.FK_ProjectMetricAssociation_Period">
-            <End Role="Period" EntitySet="Period" />
+          <AssociationSet Name="FK_ProjectMetricAssociation_MonthId" Association="Self.FK_ProjectMetricAssociation_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociation" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_Period" Association="Self.FK_TestingDataStaging_Period">
-            <End Role="Period" EntitySet="Period" />
+          <AssociationSet Name="FK_ProjectWidgetDetails_ProjectMaster" Association="Self.FK_ProjectWidgetDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMaster" />
+            <End Role="ProjectWidgetDetails" EntitySet="ProjectWidgetDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDataStaging_MonthId" Association="Self.FK_TestingDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="TestingDataStaging" EntitySet="TestingDataStaging" />
           </AssociationSet>
           <AssociationSet Name="FK_TestingDataStaging_ProjectMaster" Association="Self.FK_TestingDataStaging_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
             <End Role="TestingDataStaging" EntitySet="TestingDataStaging" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_Period" Association="Self.FK_TestingDetails_Period">
-            <End Role="Period" EntitySet="Period" />
+          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="Self.FK_TestingDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStaging" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_MonthId" Association="Self.FK_TestingDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMaster" />
             <End Role="TestingDetails" EntitySet="TestingDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_TestingDetails_ProjectMaster" Association="Self.FK_TestingDetails_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMaster" />
+            <End Role="TestingDetails" EntitySet="TestingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="Self.FK_TestingDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
             <End Role="TestingDetails" EntitySet="TestingDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="Self.FK_UserProjectRoleAssociation_ProjectMaster">
@@ -998,18 +988,16 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="QRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="QRMPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="DefectDataDetail">
           <Key>
             <PropertyRef Name="DefectDataDetailsId" />
           </Key>
           <Property Name="DefectDataDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DefectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WidgetName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DetectedStage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReportedDate" Type="DateTime" Precision="3" />
           <Property Name="ReportedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1023,10 +1011,12 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="DefectSeverity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FixedOnDate" Type="DateTime" Precision="3" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_DefectDataDetails_Period" FromRole="DefectDataDetails" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_DefectDataDetails_ProjectMaster" FromRole="DefectDataDetails" ToRole="ProjectMaster" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_DefectDataDetails_MonthId" FromRole="DefectDataDetails" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_DefectDataDetails_ReleaseId" FromRole="DefectDataDetails" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="DefectDataDetail" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="DefectDataStaging">
           <Key>
@@ -1034,7 +1024,7 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           </Key>
           <Property Name="DefectDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DefectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WidgetName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WidgetComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DetectedStage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReportedDate" Type="DateTime" Precision="3" />
           <Property Name="ReportedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1050,8 +1040,12 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PeriodId" Type="Int32" Nullable="false" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_DefectDataStaging_Period" FromRole="DefectDataStaging" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_DefectDataStaging_ProjectMaster" FromRole="DefectDataStaging" ToRole="ProjectMaster" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_DefectDataStaging_MonthId" FromRole="DefectDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="MonthMaster1" Relationship="Self.FK_DefectDataStaging_Period" FromRole="DefectDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_DefectDataStaging_ReleaseId" FromRole="DefectDataStaging" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="DefectDataStaging" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="MetricMaster">
           <Key>
@@ -1065,48 +1059,27 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="MetricTypeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="MetricTypeDescription" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MetricsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProjectMetricAssociations" Relationship="Self.FK_ProjectMetricAssociation_MetricMaster" FromRole="MetricMaster" ToRole="ProjectMetricAssociation" />
         </EntityType>
-        <EntityType Name="Period">
+        <EntityType Name="MonthMaster">
           <Key>
-            <PropertyRef Name="PeriodId" />
+            <PropertyRef Name="MonthId" />
           </Key>
-          <Property Name="PeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PeriodName" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MonthId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthName" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="DefectDataDetails" Relationship="Self.FK_DefectDataDetails_Period" FromRole="Period" ToRole="DefectDataDetails" />
-          <NavigationProperty Name="DefectDataStagings" Relationship="Self.FK_DefectDataStaging_Period" FromRole="Period" ToRole="DefectDataStaging" />
-          <NavigationProperty Name="DevMetrics" Relationship="Self.FK_DevMetrics_Period" FromRole="Period" ToRole="DevMetrics" />
-          <NavigationProperty Name="EffortDataStagings" Relationship="Self.FK_EffortDataStaging_ProjectMaster" FromRole="Period" ToRole="EffortDataStaging" />
-          <NavigationProperty Name="EffortDetails" Relationship="Self.FK_EffortDetails_Period" FromRole="Period" ToRole="EffortDetails" />
-          <NavigationProperty Name="ProjectMetricAssociations" Relationship="Self.FK_ProjectMetricAssociation_Period" FromRole="Period" ToRole="ProjectMetricAssociation" />
-          <NavigationProperty Name="TestingDataStagings" Relationship="Self.FK_TestingDataStaging_Period" FromRole="Period" ToRole="TestingDataStaging" />
-          <NavigationProperty Name="TestingDetails" Relationship="Self.FK_TestingDetails_Period" FromRole="Period" ToRole="TestingDetails" />
-        </EntityType>
-        <EntityType Name="ProjectMaster">
-          <Key>
-            <PropertyRef Name="ProjectID" />
-          </Key>
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Capability" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectManager" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="Enddate" Type="DateTime" Precision="3" />
-          <Property Name="GDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DefectDataDetails" Relationship="Self.FK_DefectDataDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataDetails" />
-          <NavigationProperty Name="DefectDataStagings" Relationship="Self.FK_DefectDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataStaging" />
-          <NavigationProperty Name="DevMetrics" Relationship="Self.FK_DevMetrics_ProjectMaster" FromRole="ProjectMaster" ToRole="DevMetrics" />
-          <NavigationProperty Name="EffortDataStagings" Relationship="Self.FK_EffortDataStaging_ProjectMaster1" FromRole="ProjectMaster" ToRole="EffortDataStaging" />
-          <NavigationProperty Name="EffortDetails" Relationship="Self.FK_EffortDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDetails" />
-          <NavigationProperty Name="TestingDataStagings" Relationship="Self.FK_TestingDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDataStaging" />
-          <NavigationProperty Name="TestingDetails" Relationship="Self.FK_TestingDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDetails" />
-          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="Self.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectRoleAssociation" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="Self.FK_DefectDataDetails_MonthId" FromRole="MonthMaster" ToRole="DefectDataDetails" />
+          <NavigationProperty Name="DefectDataStagings" Relationship="Self.FK_DefectDataStaging_MonthId" FromRole="MonthMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="DefectDataStagings1" Relationship="Self.FK_DefectDataStaging_Period" FromRole="MonthMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="EffortDataStagings" Relationship="Self.FK_EffortDataStaging_MonthId" FromRole="MonthMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="Self.FK_EffortDetails_MonthId" FromRole="MonthMaster" ToRole="EffortDetails" />
+          <NavigationProperty Name="ProjectMetricAssociations" Relationship="Self.FK_ProjectMetricAssociation_MonthId" FromRole="MonthMaster" ToRole="ProjectMetricAssociation" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="Self.FK_TestingDataStaging_MonthId" FromRole="MonthMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="Self.FK_TestingDetails_MonthId" FromRole="MonthMaster" ToRole="TestingDetails" />
         </EntityType>
         <EntityType Name="ProjectMetricAssociation">
           <Key>
@@ -1114,11 +1087,25 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           </Key>
           <Property Name="ProjectMetricAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MetricMasterID" Type="Int32" Nullable="false" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
           <NavigationProperty Name="MetricMaster" Relationship="Self.FK_ProjectMetricAssociation_MetricMaster" FromRole="ProjectMetricAssociation" ToRole="MetricMaster" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_ProjectMetricAssociation_Period" FromRole="ProjectMetricAssociation" ToRole="Period" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_ProjectMetricAssociation_MonthId" FromRole="ProjectMetricAssociation" ToRole="MonthMaster" />
+        </EntityType>
+        <EntityType Name="ProjectReleaseMaster">
+          <Key>
+            <PropertyRef Name="ProjectReleaseId" />
+          </Key>
+          <Property Name="ProjectReleaseId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="ReleaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="Self.FK_DefectDataDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataDetails" />
+          <NavigationProperty Name="DefectDataStagings" Relationship="Self.FK_DefectDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="DevMetrics" Relationship="Self.FK_DevMetrics_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DevMetrics" />
+          <NavigationProperty Name="EffortDataStagings" Relationship="Self.FK_EffortDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="Self.FK_EffortDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDetails" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="Self.FK_TestingDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="Self.FK_TestingDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDetails" />
         </EntityType>
         <EntityType Name="ReferenceTable">
           <Key>
@@ -1154,7 +1141,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
           <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
           <Property Name="TestDesignStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExecutionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TestCasePreparationPlanned" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TestCaseReviewPlanned" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TestCaseReworkPlanned" Type="Decimal" Precision="18" Scale="2" />
@@ -1169,14 +1155,22 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="TotalCasesPassed" Type="Int32" />
           <Property Name="DefectsFound" Type="Int32" />
           <Property Name="DefectsRejected" Type="Int32" />
-          <Property Name="TestDesignProductivity" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestExecutionProductivity" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DefectRejectionPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseCreationEndDate" Type="DateTime" Precision="3" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_TestingDataStaging_Period" FromRole="TestingDataStaging" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SimpleTestCasesDesign" Type="Int32" />
+          <Property Name="MediumTestCasesDesign" Type="Int32" />
+          <Property Name="ComplexTestCasesDesign" Type="Int32" />
+          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
+          <Property Name="SimpleTestCasesExecution" Type="Int32" />
+          <Property Name="MediumTestCasesExecution" Type="Int32" />
+          <Property Name="ComplexTestCasesExecution" Type="Int32" />
+          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_TestingDataStaging_MonthId" FromRole="TestingDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="TestingDetail">
           <Key>
@@ -1209,10 +1203,22 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="TotalDefectsFound" Type="Int32" />
           <Property Name="TotalDefectsRejected" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="SimpleTestCasesDesign" Type="Int32" />
+          <Property Name="MediumTestCasesDesign" Type="Int32" />
+          <Property Name="ComplexTestCasesDesign" Type="Int32" />
+          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
+          <Property Name="SimpleTestCasesExecution" Type="Int32" />
+          <Property Name="MediumTestCasesExecution" Type="Int32" />
+          <Property Name="ComplexTestCasesExecution" Type="Int32" />
+          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
+          <Property Name="NoofTestCases" Type="Int32" />
+          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_TestingDetails_Period" FromRole="TestingDetails" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_TestingDetails_ProjectMaster" FromRole="TestingDetails" ToRole="ProjectMaster" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_TestingDetails_MonthId" FromRole="TestingDetails" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_TestingDetails_ReleaseId" FromRole="TestingDetails" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
@@ -1236,17 +1242,15 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="UserId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="UserProjectRoleAssociation" ToRole="ProjectMaster" />
           <NavigationProperty Name="RoleMaster" Relationship="Self.FK_UserProjectRoleAssociation_RoleMasterTable" FromRole="UserProjectRoleAssociation" ToRole="RoleMaster" />
           <NavigationProperty Name="UserDetail" Relationship="Self.FK_UserProjectRoleAssociation_UserDetails" FromRole="UserProjectRoleAssociation" ToRole="UserDetails" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="UserProjectRoleAssociation" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="DevMetric">
           <Key>
             <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="PeriodId" />
           </Key>
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
           <Property Name="ReleaseIteration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="WidgetID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1283,7 +1287,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="AEUTCExecution" Type="Double" />
           <Property Name="AECUTRework" Type="Double" />
           <Property Name="AEOtherRework" Type="Double" />
-          <Property Name="PercReuse" Type="Double" />
           <Property Name="TotalDEVdefects" Type="Double" />
           <Property Name="FDDReviewDefects" Type="Double" />
           <Property Name="TDDReviewDefects" Type="Double" />
@@ -1311,15 +1314,13 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="PlannedEnddate" Type="DateTime" Precision="3" />
           <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
           <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
-          <Property Name="PlannedDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_DevMetrics_Period" FromRole="DevMetrics" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_DevMetrics_ProjectMaster" FromRole="DevMetrics" ToRole="ProjectMaster" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_DevMetrics_ReleaseId" FromRole="DevMetrics" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DevMetrics_ProjectMaster" FromRole="DevMetric" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="EffortDataStaging">
           <Key>
             <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="PeriodId" />
           </Key>
           <Property Name="ObjectComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ComponentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1341,14 +1342,15 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="ComponentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReviewType" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_EffortDataStaging_ProjectMaster" FromRole="EffortDataStaging" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_EffortDataStaging_ProjectMaster1" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_EffortDataStaging_MonthId" FromRole="EffortDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster1" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="EffortDetail">
           <Key>
             <PropertyRef Name="EffortId" />
-            <PropertyRef Name="PeriodId" />
           </Key>
           <Property Name="EffortId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ComponentId" Type="Int32" />
@@ -1359,7 +1361,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="ActualEffort" Type="Int32" />
           <Property Name="StatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CMMIRollUpCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SEQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ScheduledStartDate" Type="DateTime" Precision="0" />
           <Property Name="ScheduledEndDate" Type="DateTime" Precision="0" />
           <Property Name="ActualStartDate" Type="DateTime" Precision="0" />
@@ -1370,171 +1371,85 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <Property Name="ComponentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ReviewTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PeriodId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Period" Relationship="Self.FK_EffortDetails_Period" FromRole="EffortDetails" ToRole="Period" />
-          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_EffortDetails_ProjectMaster" FromRole="EffortDetails" ToRole="ProjectMaster" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="WidgetType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_EffortDetails_MonthId" FromRole="EffortDetails" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="Self.FK_EffortDetails_ReleaseId" FromRole="EffortDetails" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="EffortDetail" ToRole="ProjectMaster" />
         </EntityType>
-        <EntityType Name="MSreplication_options">
+        <EntityType Name="Period">
           <Key>
-            <PropertyRef Name="optname" />
-            <PropertyRef Name="value" />
-            <PropertyRef Name="major_version" />
-            <PropertyRef Name="minor_version" />
-            <PropertyRef Name="revision" />
-            <PropertyRef Name="install_failures" />
+            <PropertyRef Name="PeriodId" />
+            <PropertyRef Name="PeriodName" />
+            <PropertyRef Name="Year" />
+            <PropertyRef Name="StartDate" />
+            <PropertyRef Name="EndDate" />
           </Key>
-          <Property Name="optname" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="value" Type="Boolean" Nullable="false" />
-          <Property Name="major_version" Type="Int32" Nullable="false" />
-          <Property Name="minor_version" Type="Int32" Nullable="false" />
-          <Property Name="revision" Type="Int32" Nullable="false" />
-          <Property Name="install_failures" Type="Int32" Nullable="false" />
+          <Property Name="PeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PeriodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SortOrder" Type="Int32" />
         </EntityType>
-        <EntityType Name="spt_fallback_db">
-          <Key>
-            <PropertyRef Name="xserver_name" />
-            <PropertyRef Name="xdttm_ins" />
-            <PropertyRef Name="xdttm_last_ins_upd" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="dbid" />
-            <PropertyRef Name="status" />
-            <PropertyRef Name="version" />
-          </Key>
-          <Property Name="xserver_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="xdttm_ins" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xdttm_last_ins_upd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xfallback_dbid" Type="Int16" />
-          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dbid" Type="Int16" Nullable="false" />
-          <Property Name="status" Type="Int16" Nullable="false" />
-          <Property Name="version" Type="Int16" Nullable="false" />
-        </EntityType>
-        <EntityType Name="spt_fallback_dev">
-          <Key>
-            <PropertyRef Name="xserver_name" />
-            <PropertyRef Name="xdttm_ins" />
-            <PropertyRef Name="xdttm_last_ins_upd" />
-            <PropertyRef Name="low" />
-            <PropertyRef Name="high" />
-            <PropertyRef Name="status" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="phyname" />
-          </Key>
-          <Property Name="xserver_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="xdttm_ins" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xdttm_last_ins_upd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xfallback_low" Type="Int32" />
-          <Property Name="xfallback_drive" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="low" Type="Int32" Nullable="false" />
-          <Property Name="high" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Int16" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="phyname" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="spt_fallback_usg">
-          <Key>
-            <PropertyRef Name="xserver_name" />
-            <PropertyRef Name="xdttm_ins" />
-            <PropertyRef Name="xdttm_last_ins_upd" />
-            <PropertyRef Name="dbid" />
-            <PropertyRef Name="segmap" />
-            <PropertyRef Name="lstart" />
-            <PropertyRef Name="sizepg" />
-            <PropertyRef Name="vstart" />
-          </Key>
-          <Property Name="xserver_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="xdttm_ins" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xdttm_last_ins_upd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="xfallback_vstart" Type="Int32" />
-          <Property Name="dbid" Type="Int16" Nullable="false" />
-          <Property Name="segmap" Type="Int32" Nullable="false" />
-          <Property Name="lstart" Type="Int32" Nullable="false" />
-          <Property Name="sizepg" Type="Int32" Nullable="false" />
-          <Property Name="vstart" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="spt_monitor">
-          <Key>
-            <PropertyRef Name="lastrun" />
-            <PropertyRef Name="cpu_busy" />
-            <PropertyRef Name="io_busy" />
-            <PropertyRef Name="idle" />
-            <PropertyRef Name="pack_received" />
-            <PropertyRef Name="pack_sent" />
-            <PropertyRef Name="connections" />
-            <PropertyRef Name="pack_errors" />
-            <PropertyRef Name="total_read" />
-            <PropertyRef Name="total_write" />
-            <PropertyRef Name="total_errors" />
-          </Key>
-          <Property Name="lastrun" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="cpu_busy" Type="Int32" Nullable="false" />
-          <Property Name="io_busy" Type="Int32" Nullable="false" />
-          <Property Name="idle" Type="Int32" Nullable="false" />
-          <Property Name="pack_received" Type="Int32" Nullable="false" />
-          <Property Name="pack_sent" Type="Int32" Nullable="false" />
-          <Property Name="connections" Type="Int32" Nullable="false" />
-          <Property Name="pack_errors" Type="Int32" Nullable="false" />
-          <Property Name="total_read" Type="Int32" Nullable="false" />
-          <Property Name="total_write" Type="Int32" Nullable="false" />
-          <Property Name="total_errors" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="spt_values">
-          <Key>
-            <PropertyRef Name="number" />
-            <PropertyRef Name="type" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
-          <Property Name="number" Type="Int32" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="low" Type="Int32" />
-          <Property Name="high" Type="Int32" />
-          <Property Name="status" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_DefectDataDetails_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_DefectDataDetails_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="DefectDataDetails" Type="Self.DefectDataDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="DefectDataDetails">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DefectDataDetails_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+        <Association Name="FK_DefectDataDetails_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="DefectDataDetails" Type="Self.DefectDataDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="DefectDataDetails">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectDataStaging_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
+          <End Role="DefectDataStaging" Type="Self.DefectDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="DefectDataStaging">
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DefectDataStaging_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="1" />
           <End Role="DefectDataStaging" Type="Self.DefectDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="DefectDataStaging">
               <PropertyRef Name="PeriodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DefectDataStaging_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+        <Association Name="FK_DefectDataStaging_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="DefectDataStaging" Type="Self.DefectDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="DefectDataStaging">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1550,147 +1465,123 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DevMetrics_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
-          <End Role="DevMetrics" Type="Self.DevMetric" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
-            </Principal>
-            <Dependent Role="DevMetrics">
-              <PropertyRef Name="PeriodId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EffortDataStaging_ProjectMaster">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_EffortDataStaging_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="EffortDataStaging" Type="Self.EffortDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="EffortDataStaging">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EffortDetails_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_EffortDetails_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="EffortDetails" Type="Self.EffortDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="EffortDetails">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectMetricAssociation_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_ProjectMetricAssociation_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="ProjectMetricAssociation" Type="Self.ProjectMetricAssociation" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestingDataStaging_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_TestingDataStaging_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="TestingDataStaging" Type="Self.TestingDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestingDetails_Period">
-          <End Role="Period" Type="Self.Period" Multiplicity="1" />
+        <Association Name="FK_TestingDetails_MonthId">
+          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
           <End Role="TestingDetails" Type="Self.TestingDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Period">
-              <PropertyRef Name="PeriodId" />
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
             </Principal>
             <Dependent Role="TestingDetails">
-              <PropertyRef Name="PeriodId" />
+              <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DevMetrics_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+        <Association Name="FK_DevMetrics_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="DevMetrics" Type="Self.DevMetric" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="DevMetrics">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EffortDataStaging_ProjectMaster1">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+        <Association Name="FK_EffortDataStaging_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="EffortDataStaging" Type="Self.EffortDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="EffortDataStaging">
-              <PropertyRef Name="ProjectID" />
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EffortDetails_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="0..1" />
+        <Association Name="FK_EffortDetails_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="EffortDetails" Type="Self.EffortDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="EffortDetails">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestingDataStaging_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+        <Association Name="FK_TestingDataStaging_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="TestingDataStaging" Type="Self.TestingDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestingDetails_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+        <Association Name="FK_TestingDetails_ReleaseId">
+          <End Role="ProjectReleaseMaster" Type="Self.ProjectReleaseMaster" Multiplicity="0..1" />
           <End Role="TestingDetails" Type="Self.TestingDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="TestingDetails">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProjectRoleAssociation_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="0..1" />
-          <End Role="UserProjectRoleAssociation" Type="Self.UserProjectRoleAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="UserProjectRoleAssociation">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1722,9 +1613,9 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <EntitySet Name="DefectDataDetails" EntityType="Self.DefectDataDetail" />
           <EntitySet Name="DefectDataStagings" EntityType="Self.DefectDataStaging" />
           <EntitySet Name="MetricMasters" EntityType="Self.MetricMaster" />
-          <EntitySet Name="Periods" EntityType="Self.Period" />
-          <EntitySet Name="ProjectMasters" EntityType="Self.ProjectMaster" />
+          <EntitySet Name="MonthMasters" EntityType="Self.MonthMaster" />
           <EntitySet Name="ProjectMetricAssociations" EntityType="Self.ProjectMetricAssociation" />
+          <EntitySet Name="ProjectReleaseMasters" EntityType="Self.ProjectReleaseMaster" />
           <EntitySet Name="ReferenceTables" EntityType="Self.ReferenceTable" />
           <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
           <EntitySet Name="TestingDataStagings" EntityType="Self.TestingDataStaging" />
@@ -1734,79 +1625,70 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
           <EntitySet Name="DevMetrics" EntityType="Self.DevMetric" />
           <EntitySet Name="EffortDataStagings" EntityType="Self.EffortDataStaging" />
           <EntitySet Name="EffortDetails" EntityType="Self.EffortDetail" />
-          <EntitySet Name="MSreplication_options" EntityType="Self.MSreplication_options" />
-          <EntitySet Name="spt_fallback_db" EntityType="Self.spt_fallback_db" />
-          <EntitySet Name="spt_fallback_dev" EntityType="Self.spt_fallback_dev" />
-          <EntitySet Name="spt_fallback_usg" EntityType="Self.spt_fallback_usg" />
-          <EntitySet Name="spt_monitor" EntityType="Self.spt_monitor" />
-          <EntitySet Name="spt_values" EntityType="Self.spt_values" />
-          <AssociationSet Name="FK_DefectDataDetails_Period" Association="Self.FK_DefectDataDetails_Period">
-            <End Role="Period" EntitySet="Periods" />
+          <EntitySet Name="Periods" EntityType="Self.Period" />
+          <AssociationSet Name="FK_DefectDataDetails_MonthId" Association="Self.FK_DefectDataDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="DefectDataDetails" EntitySet="DefectDataDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_DefectDataDetails_ProjectMaster" Association="Self.FK_DefectDataDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_DefectDataDetails_ReleaseId" Association="Self.FK_DefectDataDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="DefectDataDetails" EntitySet="DefectDataDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_DefectDataStaging_Period" Association="Self.FK_DefectDataStaging_Period">
-            <End Role="Period" EntitySet="Periods" />
+          <AssociationSet Name="FK_DefectDataStaging_MonthId" Association="Self.FK_DefectDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
           </AssociationSet>
-          <AssociationSet Name="FK_DefectDataStaging_ProjectMaster" Association="Self.FK_DefectDataStaging_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_DefectDataStaging_Period" Association="Self.FK_DefectDataStaging_Period">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_ReleaseId" Association="Self.FK_DefectDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="Self.FK_ProjectMetricAssociation_MetricMaster">
             <End Role="MetricMaster" EntitySet="MetricMasters" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
           </AssociationSet>
-          <AssociationSet Name="FK_DevMetrics_Period" Association="Self.FK_DevMetrics_Period">
-            <End Role="Period" EntitySet="Periods" />
-            <End Role="DevMetrics" EntitySet="DevMetrics" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_ProjectMaster" Association="Self.FK_EffortDataStaging_ProjectMaster">
-            <End Role="Period" EntitySet="Periods" />
+          <AssociationSet Name="FK_EffortDataStaging_MonthId" Association="Self.FK_EffortDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
           </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_Period" Association="Self.FK_EffortDetails_Period">
-            <End Role="Period" EntitySet="Periods" />
+          <AssociationSet Name="FK_EffortDetails_MonthId" Association="Self.FK_EffortDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="EffortDetails" EntitySet="EffortDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_Period" Association="Self.FK_ProjectMetricAssociation_Period">
-            <End Role="Period" EntitySet="Periods" />
+          <AssociationSet Name="FK_ProjectMetricAssociation_MonthId" Association="Self.FK_ProjectMetricAssociation_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_Period" Association="Self.FK_TestingDataStaging_Period">
-            <End Role="Period" EntitySet="Periods" />
+          <AssociationSet Name="FK_TestingDataStaging_MonthId" Association="Self.FK_TestingDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_Period" Association="Self.FK_TestingDetails_Period">
-            <End Role="Period" EntitySet="Periods" />
+          <AssociationSet Name="FK_TestingDetails_MonthId" Association="Self.FK_TestingDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="TestingDetails" EntitySet="TestingDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_DevMetrics_ProjectMaster" Association="Self.FK_DevMetrics_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_DevMetrics_ReleaseId" Association="Self.FK_DevMetrics_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="DevMetrics" EntitySet="DevMetrics" />
           </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_ProjectMaster1" Association="Self.FK_EffortDataStaging_ProjectMaster1">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="Self.FK_EffortDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
           </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_ProjectMaster" Association="Self.FK_EffortDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="Self.FK_EffortDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="EffortDetails" EntitySet="EffortDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_ProjectMaster" Association="Self.FK_TestingDataStaging_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="Self.FK_TestingDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_ProjectMaster" Association="Self.FK_TestingDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="Self.FK_TestingDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="TestingDetails" EntitySet="TestingDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="Self.FK_UserProjectRoleAssociation_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
           </AssociationSet>
           <AssociationSet Name="FK_UserProjectRoleAssociation_RoleMasterTable" Association="Self.FK_UserProjectRoleAssociation_RoleMasterTable">
             <End Role="RoleMaster" EntitySet="RoleMasters" />
@@ -1816,21 +1698,205 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             <End Role="UserDetails" EntitySet="UserDetails" />
             <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
           </AssociationSet>
-          <FunctionImport Name="sp_MScleanupmergepublisher" />
-          <FunctionImport Name="sp_MSrepl_startup" />
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="ProjectWidgetDetails" EntityType="QRMPortalModel.ProjectWidgetDetail" />
+          <EntitySet Name="ProjectMasters" EntityType="QRMPortalModel.ProjectMaster" />
+          <AssociationSet Name="FK_DefectDataDetails_ProjectMaster" Association="QRMPortalModel.FK_DefectDataDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_ProjectMaster" Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevMetrics_ProjectMaster" Association="QRMPortalModel.FK_DevMetrics_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="DevMetric" EntitySet="DevMetrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDataStaging_ProjectMaster1" Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster1">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_ProjectMaster" Association="QRMPortalModel.FK_EffortDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="EffortDetail" EntitySet="EffortDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectWidgetDetails_ProjectMaster" Association="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="ProjectWidgetDetail" EntitySet="ProjectWidgetDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDataStaging_ProjectMaster" Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_ProjectMaster" Association="QRMPortalModel.FK_TestingDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ProjectWidgetDetail">
+          <Key>
+            <PropertyRef Name="ProjectWidgetDetailID" />
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectWidgetDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="WidgetName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectWidgetDetail" ToRole="ProjectMaster" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Capability" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectManager" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Enddate" Type="DateTime" Precision="3" />
+          <Property Name="GDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Industry" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LifeCycle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Solution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Director" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SeniorManager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectEndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataDetail" />
+          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="DevMetric" Relationship="QRMPortalModel.FK_DevMetrics_ProjectMaster" FromRole="ProjectMaster" ToRole="DevMetric" />
+          <NavigationProperty Name="EffortDataStaging" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster1" FromRole="ProjectMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDetail" />
+          <NavigationProperty Name="ProjectWidgetDetails" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="ProjectWidgetDetail" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDetail" />
+          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectRoleAssociation" />
+        </EntityType>
+        <Association Name="FK_DefectDataDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.DefectDataDetail" Role="DefectDataDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DefectDataDetail">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectDataStaging_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.DefectDataStaging" Role="DefectDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DefectDataStaging">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevMetrics_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DevMetric">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDataStaging_ProjectMaster1">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.EffortDataStaging" Role="EffortDataStaging" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="EffortDataStaging">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="EffortDetail">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectWidgetDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectWidgetDetail" Role="ProjectWidgetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectWidgetDetail">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDataStaging_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProjectRoleAssociation_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.UserProjectRoleAssociation" Role="UserProjectRoleAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="UserProjectRoleAssociation">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QRMModelStoreContainer" CdmEntityContainer="QRMEntities">
+        <EntityContainerMapping StorageEntityContainer="QRMPortalModelStoreContainer" CdmEntityContainer="QRMEntities">
           <EntitySetMapping Name="DefectDataDetails">
-            <EntityTypeMapping TypeName="QRMModel.DefectDataDetail">
+            <EntityTypeMapping TypeName="QRMPortalModel.DefectDataDetail">
               <MappingFragment StoreEntitySet="DefectDataDetails">
                 <ScalarProperty Name="DefectDataDetailsId" ColumnName="DefectDataDetailsId" />
                 <ScalarProperty Name="DefectID" ColumnName="DefectID" />
-                <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
                 <ScalarProperty Name="DetectedStage" ColumnName="DetectedStage" />
                 <ScalarProperty Name="ReportedDate" ColumnName="ReportedDate" />
                 <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
@@ -1844,17 +1910,18 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="DefectSeverity" ColumnName="DefectSeverity" />
                 <ScalarProperty Name="FixedOnDate" ColumnName="FixedOnDate" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DefectDataStagings">
-            <EntityTypeMapping TypeName="QRMModel.DefectDataStaging">
+            <EntityTypeMapping TypeName="QRMPortalModel.DefectDataStaging">
               <MappingFragment StoreEntitySet="DefectDataStaging">
                 <ScalarProperty Name="DefectDataStagingId" ColumnName="DefectDataStagingId" />
                 <ScalarProperty Name="DefectID" ColumnName="DefectID" />
-                <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
+                <ScalarProperty Name="WidgetComponentID" ColumnName="WidgetComponentID" />
                 <ScalarProperty Name="DetectedStage" ColumnName="DetectedStage" />
                 <ScalarProperty Name="ReportedDate" ColumnName="ReportedDate" />
                 <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
@@ -1870,11 +1937,13 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MetricMasters">
-            <EntityTypeMapping TypeName="QRMModel.MetricMaster">
+            <EntityTypeMapping TypeName="QRMPortalModel.MetricMaster">
               <MappingFragment StoreEntitySet="MetricMaster">
                 <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
                 <ScalarProperty Name="MetricCategoryCode" ColumnName="MetricCategoryCode" />
@@ -1884,14 +1953,15 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="MetricTypeCode" ColumnName="MetricTypeCode" />
                 <ScalarProperty Name="MetricTypeDescription" ColumnName="MetricTypeDescription" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MetricsDescription" ColumnName="MetricsDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Periods">
-            <EntityTypeMapping TypeName="QRMModel.Period">
-              <MappingFragment StoreEntitySet="Period">
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
-                <ScalarProperty Name="PeriodName" ColumnName="PeriodName" />
+          <EntitySetMapping Name="MonthMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.MonthMaster">
+              <MappingFragment StoreEntitySet="MonthMaster">
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
@@ -1899,34 +1969,27 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProjectMasters">
-            <EntityTypeMapping TypeName="QRMModel.ProjectMaster">
-              <MappingFragment StoreEntitySet="ProjectMaster">
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
-                <ScalarProperty Name="Capability" ColumnName="Capability" />
-                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Enddate" ColumnName="Enddate" />
-                <ScalarProperty Name="GDM" ColumnName="GDM" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProjectMetricAssociations">
-            <EntityTypeMapping TypeName="QRMModel.ProjectMetricAssociation">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectMetricAssociation">
               <MappingFragment StoreEntitySet="ProjectMetricAssociation">
                 <ScalarProperty Name="ProjectMetricAssociationID" ColumnName="ProjectMetricAssociationID" />
                 <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectReleaseMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectReleaseMaster">
+              <MappingFragment StoreEntitySet="ProjectReleaseMaster">
                 <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ReferenceTables">
-            <EntityTypeMapping TypeName="QRMModel.ReferenceTable">
+            <EntityTypeMapping TypeName="QRMPortalModel.ReferenceTable">
               <MappingFragment StoreEntitySet="ReferenceTable">
                 <ScalarProperty Name="ReferenceTableId" ColumnName="ReferenceTableId" />
                 <ScalarProperty Name="ReferenceTableName" ColumnName="ReferenceTableName" />
@@ -1936,7 +1999,7 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoleMasters">
-            <EntityTypeMapping TypeName="QRMModel.RoleMaster">
+            <EntityTypeMapping TypeName="QRMPortalModel.RoleMaster">
               <MappingFragment StoreEntitySet="RoleMaster">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -1944,7 +2007,7 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestingDataStagings">
-            <EntityTypeMapping TypeName="QRMModel.TestingDataStaging">
+            <EntityTypeMapping TypeName="QRMPortalModel.TestingDataStaging">
               <MappingFragment StoreEntitySet="TestingDataStaging">
                 <ScalarProperty Name="TestingDataStagingId" ColumnName="TestingDataStagingId" />
                 <ScalarProperty Name="TestingPhase" ColumnName="TestingPhase" />
@@ -1959,7 +2022,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
                 <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
                 <ScalarProperty Name="TestDesignStatus" ColumnName="TestDesignStatus" />
-                <ScalarProperty Name="ExecutionType" ColumnName="ExecutionType" />
                 <ScalarProperty Name="TestCasePreparationPlanned" ColumnName="TestCasePreparationPlanned" />
                 <ScalarProperty Name="TestCaseReviewPlanned" ColumnName="TestCaseReviewPlanned" />
                 <ScalarProperty Name="TestCaseReworkPlanned" ColumnName="TestCaseReworkPlanned" />
@@ -1974,17 +2036,24 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="TotalCasesPassed" ColumnName="TotalCasesPassed" />
                 <ScalarProperty Name="DefectsFound" ColumnName="DefectsFound" />
                 <ScalarProperty Name="DefectsRejected" ColumnName="DefectsRejected" />
-                <ScalarProperty Name="TestDesignProductivity" ColumnName="TestDesignProductivity" />
-                <ScalarProperty Name="TestExecutionProductivity" ColumnName="TestExecutionProductivity" />
-                <ScalarProperty Name="DefectRejectionPercentage" ColumnName="DefectRejectionPercentage" />
-                <ScalarProperty Name="TestCaseCreationEndDate" ColumnName="TestCaseCreationEndDate" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TestingDetails">
-            <EntityTypeMapping TypeName="QRMModel.TestingDetail">
+            <EntityTypeMapping TypeName="QRMPortalModel.TestingDetail">
               <MappingFragment StoreEntitySet="TestingDetails">
                 <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
                 <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
@@ -2013,13 +2082,24 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="TotalDefectsFound" ColumnName="TotalDefectsFound" />
                 <ScalarProperty Name="TotalDefectsRejected" ColumnName="TotalDefectsRejected" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+                <ScalarProperty Name="NoofTestCases" ColumnName="NoofTestCases" />
+                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
                 <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserDetails">
-            <EntityTypeMapping TypeName="QRMModel.UserDetail">
+            <EntityTypeMapping TypeName="QRMPortalModel.UserDetail">
               <MappingFragment StoreEntitySet="UserDetails">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -2033,7 +2113,7 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserProjectRoleAssociations">
-            <EntityTypeMapping TypeName="QRMModel.UserProjectRoleAssociation">
+            <EntityTypeMapping TypeName="QRMPortalModel.UserProjectRoleAssociation">
               <MappingFragment StoreEntitySet="UserProjectRoleAssociation">
                 <ScalarProperty Name="UserProjectRoleId" ColumnName="UserProjectRoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -2043,10 +2123,9 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DevMetrics">
-            <EntityTypeMapping TypeName="QRMModel.DevMetric">
+            <EntityTypeMapping TypeName="QRMPortalModel.DevMetric">
               <MappingFragment StoreEntitySet="DevMetrics">
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
                 <ScalarProperty Name="ReleaseIteration" ColumnName="ReleaseIteration" />
                 <ScalarProperty Name="Module" ColumnName="Module" />
                 <ScalarProperty Name="WidgetID" ColumnName="WidgetID" />
@@ -2083,7 +2162,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="AEUTCExecution" ColumnName="AEUTCExecution" />
                 <ScalarProperty Name="AECUTRework" ColumnName="AECUTRework" />
                 <ScalarProperty Name="AEOtherRework" ColumnName="AEOtherRework" />
-                <ScalarProperty Name="PercReuse" ColumnName="PercReuse" />
                 <ScalarProperty Name="TotalDEVdefects" ColumnName="TotalDEVdefects" />
                 <ScalarProperty Name="FDDReviewDefects" ColumnName="FDDReviewDefects" />
                 <ScalarProperty Name="TDDReviewDefects" ColumnName="TDDReviewDefects" />
@@ -2111,13 +2189,12 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="PlannedEnddate" ColumnName="PlannedEnddate" />
                 <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
                 <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="PlannedDate" ColumnName="PlannedDate" />
-                <ScalarProperty Name="ActualDate" ColumnName="ActualDate" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EffortDataStagings">
-            <EntityTypeMapping TypeName="QRMModel.EffortDataStaging">
+            <EntityTypeMapping TypeName="QRMPortalModel.EffortDataStaging">
               <MappingFragment StoreEntitySet="EffortDataStaging">
                 <ScalarProperty Name="ObjectComponentID" ColumnName="ObjectComponentID" />
                 <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
@@ -2139,12 +2216,13 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
                 <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EffortDetails">
-            <EntityTypeMapping TypeName="QRMModel.EffortDetail">
+            <EntityTypeMapping TypeName="QRMPortalModel.EffortDetail">
               <MappingFragment StoreEntitySet="EffortDetails">
                 <ScalarProperty Name="EffortId" ColumnName="EffortId" />
                 <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
@@ -2155,7 +2233,6 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
                 <ScalarProperty Name="CMMIRollUpCode" ColumnName="CMMIRollUpCode" />
-                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
                 <ScalarProperty Name="ScheduledStartDate" ColumnName="ScheduledStartDate" />
                 <ScalarProperty Name="ScheduledEndDate" ColumnName="ScheduledEndDate" />
                 <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
@@ -2166,99 +2243,57 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
                 <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
                 <ScalarProperty Name="ReviewTypeCode" ColumnName="ReviewTypeCode" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Periods">
+            <EntityTypeMapping TypeName="QRMPortalModel.Period">
+              <MappingFragment StoreEntitySet="Period">
                 <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+                <ScalarProperty Name="PeriodName" ColumnName="PeriodName" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MSreplication_options">
-            <EntityTypeMapping TypeName="QRMModel.MSreplication_options">
-              <MappingFragment StoreEntitySet="MSreplication_options">
-                <ScalarProperty Name="optname" ColumnName="optname" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="major_version" ColumnName="major_version" />
-                <ScalarProperty Name="minor_version" ColumnName="minor_version" />
-                <ScalarProperty Name="revision" ColumnName="revision" />
-                <ScalarProperty Name="install_failures" ColumnName="install_failures" />
+          <EntitySetMapping Name="ProjectWidgetDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectWidgetDetail">
+              <MappingFragment StoreEntitySet="ProjectWidgetDetails">
+                <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectWidgetDetailID" ColumnName="ProjectWidgetDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="spt_fallback_db">
-            <EntityTypeMapping TypeName="QRMModel.spt_fallback_db">
-              <MappingFragment StoreEntitySet="spt_fallback_db">
-                <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
-                <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
-                <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
-                <ScalarProperty Name="xfallback_dbid" ColumnName="xfallback_dbid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="dbid" ColumnName="dbid" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="version" ColumnName="version" />
+          <EntitySetMapping Name="ProjectMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectMaster">
+              <MappingFragment StoreEntitySet="ProjectMaster">
+                <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+                <ScalarProperty Name="SeniorManager" ColumnName="SeniorManager" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="GDM" ColumnName="GDM" />
+                <ScalarProperty Name="Enddate" ColumnName="Enddate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
+                <ScalarProperty Name="Capability" ColumnName="Capability" />
+                <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="spt_fallback_dev">
-            <EntityTypeMapping TypeName="QRMModel.spt_fallback_dev">
-              <MappingFragment StoreEntitySet="spt_fallback_dev">
-                <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
-                <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
-                <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
-                <ScalarProperty Name="xfallback_low" ColumnName="xfallback_low" />
-                <ScalarProperty Name="xfallback_drive" ColumnName="xfallback_drive" />
-                <ScalarProperty Name="low" ColumnName="low" />
-                <ScalarProperty Name="high" ColumnName="high" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phyname" ColumnName="phyname" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="spt_fallback_usg">
-            <EntityTypeMapping TypeName="QRMModel.spt_fallback_usg">
-              <MappingFragment StoreEntitySet="spt_fallback_usg">
-                <ScalarProperty Name="xserver_name" ColumnName="xserver_name" />
-                <ScalarProperty Name="xdttm_ins" ColumnName="xdttm_ins" />
-                <ScalarProperty Name="xdttm_last_ins_upd" ColumnName="xdttm_last_ins_upd" />
-                <ScalarProperty Name="xfallback_vstart" ColumnName="xfallback_vstart" />
-                <ScalarProperty Name="dbid" ColumnName="dbid" />
-                <ScalarProperty Name="segmap" ColumnName="segmap" />
-                <ScalarProperty Name="lstart" ColumnName="lstart" />
-                <ScalarProperty Name="sizepg" ColumnName="sizepg" />
-                <ScalarProperty Name="vstart" ColumnName="vstart" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="spt_monitor">
-            <EntityTypeMapping TypeName="QRMModel.spt_monitor">
-              <MappingFragment StoreEntitySet="spt_monitor">
-                <ScalarProperty Name="lastrun" ColumnName="lastrun" />
-                <ScalarProperty Name="cpu_busy" ColumnName="cpu_busy" />
-                <ScalarProperty Name="io_busy" ColumnName="io_busy" />
-                <ScalarProperty Name="idle" ColumnName="idle" />
-                <ScalarProperty Name="pack_received" ColumnName="pack_received" />
-                <ScalarProperty Name="pack_sent" ColumnName="pack_sent" />
-                <ScalarProperty Name="connections" ColumnName="connections" />
-                <ScalarProperty Name="pack_errors" ColumnName="pack_errors" />
-                <ScalarProperty Name="total_read" ColumnName="total_read" />
-                <ScalarProperty Name="total_write" ColumnName="total_write" />
-                <ScalarProperty Name="total_errors" ColumnName="total_errors" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="spt_values">
-            <EntityTypeMapping TypeName="QRMModel.spt_values">
-              <MappingFragment StoreEntitySet="spt_values">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="number" ColumnName="number" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="low" ColumnName="low" />
-                <ScalarProperty Name="high" ColumnName="high" />
-                <ScalarProperty Name="status" ColumnName="status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_MScleanupmergepublisher" FunctionName="QRMModel.Store.sp_MScleanupmergepublisher" />
-          <FunctionImportMapping FunctionImportName="sp_MSrepl_startup" FunctionName="QRMModel.Store.sp_MSrepl_startup" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -2273,7 +2308,7 @@ error 6004: The table 'master.dbo.ProjectWidgetDetails' is referenced by a relat
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

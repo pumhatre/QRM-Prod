@@ -12,53 +12,37 @@ namespace QRMService.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectMaster
+    public partial class ProjectReleaseMaster
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProjectMaster()
+        public ProjectReleaseMaster()
         {
             this.DefectDataDetails = new HashSet<DefectDataDetail>();
             this.DefectDataStagings = new HashSet<DefectDataStaging>();
+            this.DevMetrics = new HashSet<DevMetric>();
+            this.EffortDataStagings = new HashSet<EffortDataStaging>();
             this.EffortDetails = new HashSet<EffortDetail>();
-            this.ProjectWidgetDetails = new HashSet<ProjectWidgetDetail>();
             this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
-            this.UserProjectRoleAssociations = new HashSet<UserProjectRoleAssociation>();
         }
     
-        public int ProjectID { get; set; }
-        public string ProjectName { get; set; }
-        public string ServiceLine { get; set; }
-        public string Capability { get; set; }
-        public string ProjectManager { get; set; }
-        public string ClientName { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> Enddate { get; set; }
-        public string GDM { get; set; }
-        public string Technology { get; set; }
-        public string Industry { get; set; }
-        public string LifeCycle { get; set; }
-        public string Solution { get; set; }
-        public string Director { get; set; }
-        public string SeniorManager { get; set; }
-        public Nullable<System.DateTime> ProjectStartDate { get; set; }
-        public Nullable<System.DateTime> ProjectEndDate { get; set; }
+        public int ProjectReleaseId { get; set; }
+        public Nullable<int> ProjectID { get; set; }
+        public string ReleaseName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DefectDataDetail> DefectDataDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DefectDataStaging> DefectDataStagings { get; set; }
-        public virtual DevMetric DevMetric { get; set; }
-        public virtual EffortDataStaging EffortDataStaging { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DevMetric> DevMetrics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EffortDataStaging> EffortDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDetail> EffortDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDetail> TestingDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProjectRoleAssociation> UserProjectRoleAssociations { get; set; }
     }
 }

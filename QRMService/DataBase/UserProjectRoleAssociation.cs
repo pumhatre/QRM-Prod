@@ -19,8 +19,8 @@ namespace QRMService.DataBase
         public Nullable<int> RoleId { get; set; }
         public Nullable<int> ProjectId { get; set; }
     
-        public virtual ProjectMaster ProjectMaster { get; set; }
         public virtual RoleMaster RoleMaster { get; set; }
         public virtual UserDetail UserDetail { get; set; }
+        public virtual ProjectMaster ProjectMaster { get; set; }
     }
 }

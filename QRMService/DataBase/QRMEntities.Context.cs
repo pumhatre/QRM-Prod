@@ -12,8 +12,6 @@ namespace QRMService.DataBase
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class QRMEntities : DbContext
     {
@@ -30,9 +28,9 @@ namespace QRMService.DataBase
         public virtual DbSet<DefectDataDetail> DefectDataDetails { get; set; }
         public virtual DbSet<DefectDataStaging> DefectDataStagings { get; set; }
         public virtual DbSet<MetricMaster> MetricMasters { get; set; }
-        public virtual DbSet<Period> Periods { get; set; }
-        public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
+        public virtual DbSet<MonthMaster> MonthMasters { get; set; }
         public virtual DbSet<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
+        public virtual DbSet<ProjectReleaseMaster> ProjectReleaseMasters { get; set; }
         public virtual DbSet<ReferenceTable> ReferenceTables { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
         public virtual DbSet<TestingDataStaging> TestingDataStagings { get; set; }
@@ -42,21 +40,8 @@ namespace QRMService.DataBase
         public virtual DbSet<DevMetric> DevMetrics { get; set; }
         public virtual DbSet<EffortDataStaging> EffortDataStagings { get; set; }
         public virtual DbSet<EffortDetail> EffortDetails { get; set; }
-        public virtual DbSet<MSreplication_options> MSreplication_options { get; set; }
-        public virtual DbSet<spt_fallback_db> spt_fallback_db { get; set; }
-        public virtual DbSet<spt_fallback_dev> spt_fallback_dev { get; set; }
-        public virtual DbSet<spt_fallback_usg> spt_fallback_usg { get; set; }
-        public virtual DbSet<spt_monitor> spt_monitor { get; set; }
-        public virtual DbSet<spt_values> spt_values { get; set; }
-    
-        public virtual int sp_MScleanupmergepublisher()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MScleanupmergepublisher");
-        }
-    
-        public virtual int sp_MSrepl_startup()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_MSrepl_startup");
-        }
+        public virtual DbSet<Period> Periods { get; set; }
+        public virtual DbSet<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
+        public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
     }
 }
