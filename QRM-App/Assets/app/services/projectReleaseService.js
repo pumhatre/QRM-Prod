@@ -13,4 +13,8 @@
         var data = { ProjectID: projectID, ReleaseName: releaseName };
         return $http.post(config.apiUrl + 'api/ProjectRelease/InsertProjectRelease', data);
     }
+
+    this.GetProjectsLists= function (config) {
+        return $http.get(config.apiUrl + 'api/Project/GetProjectsList');
+    }
 }]);

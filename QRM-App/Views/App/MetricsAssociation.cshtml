@@ -37,12 +37,9 @@
                                                                 <div class="col-md-3"></div>
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
                                                                 <div class="col-md-3">
-                                                                    <select class="form-control">
-                                                                        <option>Select a Project</option>
-                                                                        <option>Alaska</option>
-                                                                        <option>Kentucky</option>
-                                                                        <option>Oregon</option>
-                                                                        <option>State Auto</option>
+                                                                    <select class="form-control" ng-model="selectedProjectReleaseDropdown">
+                                                                        <option value="">Select a Project</option>
+                                                                        <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-3"></div>
