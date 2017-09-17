@@ -2,8 +2,18 @@
 app.service('referenceDataService', ['$http', function ($http) {
 
     this.getReferenceTable = function (tableName, config) {
-        var data = { tableName: tableName }
-        return $http.post(config.apiUrl + 'api/ReferenceData/GetReferenceTable', data);
+        var data = { tableName: tableName };
+        var req = {
+            method: 'POST',
+            url: config.apiUrl + 'api/referencedata/GetReferenceTable',
+            data: { tableName: tableName }
+        };
+
+        return $http(req).then(function (reponse) {
+            debugger;
+            return reponse;
+
+        });
     }
 }]);
 
