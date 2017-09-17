@@ -37,7 +37,7 @@
                                                                 <div class="col-md-3"></div>
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
                                                                 <div class="col-md-3">
-                                                                    <select class="form-control" ng-model="selectedProjectReleaseDropdown">
+                                                                    <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="GetProjectReleasesByProjectId()">
                                                                         <option value="">Select a Project</option>
                                                                         <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
                                                                     </select>
@@ -50,7 +50,7 @@
                                                                 <div class="col-md-3"></div>
                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
                                                                 <div class="col-md-3">
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="text" class="form-control" ng-model="ProjectReleaseName">
                                                                 </div>
                                                                 <div class="col-md-3"></div>
                                                             </div>
@@ -60,7 +60,7 @@
                                                                 <div class="col-md-3"></div>
                                                                 <div class="col-md-3"></div>
                                                                 <div class="col-md-3">
-                                                                    &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button type="submit" class="btn btn-success" id="btnSave"> Add</button>
+                                                                    &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button ng-click="InsertProjectRelease()" class="btn btn-success" id="btnSave"> Add</button>
                                                                 </div>
                                                                 <div class="col-md-3"></div>
                                                             </div>
@@ -70,7 +70,7 @@
                                                                 <div class="col-md-3"></div>
                                                                 <div class="col-md-6">
                                                                     <!-- start project list -->
-                                                                    <table class="table table-striped projects" id="tbl_ProjectMetrics">
+                                                                    <table class="table table-striped projects" id="tbl_ProjectMetrics" ng-show="projectsReleases.length">
                                                                         <thead style="text-align:center;">
                                                                             <tr>
                                                                                 <th>Release No</th>
@@ -78,37 +78,18 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    001
-                                                                                </td>
-                                                                                <td>
-                                                                                    Oregon
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-
-                                                                                <td>
-                                                                                    002
-                                                                                </td>
-                                                                                <td>
-                                                                                    ACDHS
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-
-                                                                                <td>
-                                                                                    003
-                                                                                </td>
-                                                                                <td>
-                                                                                    Kentucky
-                                                                                </td>
+                                                                            <tr ng-repeat="projectRelease in projectsReleases">
+                                                                                <td>{{projectRelease.ReleaseName}}</td>
+                                                                                <td>{{projectRelease.ProjectName}}</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
                                                                     <!-- end project list -->
+                                                                    <span style="text-align:center;" ng-show="!projectsReleases.length">No record found!</span>
                                                                 </div>
-                                                                <div class="col-md-3"></div>
+                                                                <div class="col-md-3">
+                                                                    
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
