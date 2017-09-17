@@ -53,6 +53,10 @@ namespace QRMService.Controllers
         /// <returns></returns>
         [HttpPost]
         public IHttpActionResult UpdateProjectRelease(ProjectReleaseModel request)
+        {
+            var response = ProjectReleaseRepository.UpdateProjectRelease(request.ProjectReleaseId, request.ReleaseName);
+            return Ok(response);
+        }
 
         public IHttpActionResult GetProjectDetails(int projectID)
         {
@@ -70,8 +74,7 @@ namespace QRMService.Controllers
         {
             var data = ProjectRepository.DeleteProject(projectID);
             return Ok();
-            var response = ProjectReleaseRepository.UpdateProjectRelease(request.ProjectReleaseId, request.ReleaseName);
-            return Ok(response);
+           
         }
         
 
