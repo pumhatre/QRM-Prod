@@ -5,7 +5,7 @@ app.service('referenceDataService', ['$http', function ($http) {
         var data = { tableName: tableName };
         var req = {
             method: 'POST',
-            url: config.apiUrl + 'api/referencedata/GetReferenceTable',
+            url: config.apiUrl + 'api/ReferenceData/GetReferenceTable',
             data: { tableName: tableName }
         };
 
