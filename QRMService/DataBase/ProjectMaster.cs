@@ -20,10 +20,10 @@ namespace QRMService.DataBase
             this.DefectDataDetails = new HashSet<DefectDataDetail>();
             this.DefectDataStagings = new HashSet<DefectDataStaging>();
             this.EffortDetails = new HashSet<EffortDetail>();
+            this.ProjectWidgetDetails = new HashSet<ProjectWidgetDetail>();
             this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
             this.UserProjectRoleAssociations = new HashSet<UserProjectRoleAssociation>();
-            this.ProjectWidgetDetails = new HashSet<ProjectWidgetDetail>();
         }
     
         public int ProjectID { get; set; }
@@ -53,12 +53,12 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDetail> EffortDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDetail> TestingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserProjectRoleAssociation> UserProjectRoleAssociations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
     }
 }

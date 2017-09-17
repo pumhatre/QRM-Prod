@@ -1,9 +1,13 @@
 ﻿angular.module('metricsAssociation', [])
     .controller('metricsAssociationCtrl', ['$scope', '$http', 'projectReleaseService', 'config', function ($scope, $http, projectReleaseService, config) {
+        $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
 
+        $scope.LoadProjectsDropDown = function () {
+           
+        }
+
         $scope.GetAllProjectReleases = function () {
-            debugger;
             projectReleaseService.GetAllProjectReleases(config)
                 .then(function (successResponse) {
                     $scope.projectsReleases = successResponse;
@@ -30,6 +34,6 @@
                 });
         }
 
-        $scope.GetAllProjectReleases();
+        $scope.LoadProjectsDropDown();
 
     }]);

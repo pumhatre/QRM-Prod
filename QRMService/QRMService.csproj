@@ -319,6 +319,7 @@
       <DependentUpon>QRMEntities.edmx</DependentUpon>
       <LastGenOutput>QRMEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="DB Script\dbscript_1.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
