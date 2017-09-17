@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,7 @@ namespace QRMService.Models
         /// <value>
         /// The project identifier.
         /// </value>
+        [Required]
         public int ProjectID { get; set; }
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace QRMService.Models
         /// <value>
         /// The name of the release.
         /// </value>
+        [Required]
         public string ReleaseName { get; set; }
     }
 }

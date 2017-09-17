@@ -42,7 +42,16 @@ namespace QRMService.Controllers
         [HttpPost]
         public IHttpActionResult InsertProjectRelease(ProjectReleaseModel request)
         {
-            var response = ProjectReleaseRepository.InsertProjectRelease(request.ProjectID,request.ReleaseName);
+            var response = new ProjectReleasesResponseModel();
+            if (ModelState.IsValid)
+            {
+                response = ProjectReleaseRepository.InsertProjectRelease(request.ProjectID, request.ReleaseName);
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.ResponseMessage = "Invalid input.";
+            }
             return Ok(response);
         }
 
