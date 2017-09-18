@@ -5,6 +5,7 @@
     'signIn',
     'register',
     'metricsAssociation',
+    'metrics',
     'project',
     'ui.grid',
     'ui.grid.edit',
@@ -62,6 +63,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/MetricsAssociation', {
         templateUrl: 'App/MetricsAssociation',
         controller: 'metricsAssociationCtrl'
+    });
+    $routeProvider.when('/Metrics', {
+        templateUrl: 'App/Metrics'
+        , controller: 'metricsCtrl'
     });
     $routeProvider.when('/Projects', {
         templateUrl: 'App/Project',

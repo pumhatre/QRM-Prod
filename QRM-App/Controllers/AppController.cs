@@ -34,6 +34,11 @@ namespace QRM_App.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult Metrics()
+        {
+            return PartialView();
+        }
         
         public ActionResult Project()
         {

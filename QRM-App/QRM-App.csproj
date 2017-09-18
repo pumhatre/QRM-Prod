@@ -199,11 +199,13 @@
     <Content Include="Assets\app\app.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
     <Content Include="Assets\app\controllers\metricsAssociationCtrl.js" />
+    <Content Include="Assets\app\controllers\metricsCtrl.js" />
     <Content Include="Assets\app\controllers\projectCtrl.js" />
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
     <Content Include="Assets\app\environment\environment.js" />
     <Content Include="Assets\app\services\metricsAssociationService.js" />
+    <Content Include="Assets\app\services\metricsService.js" />
     <Content Include="Assets\app\services\projectReleaseService.js" />
     <Content Include="Assets\app\services\projectService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
@@ -342,6 +344,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\Metrics.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
