@@ -26,8 +26,8 @@ namespace QRMService.Repositories
                                        {
                                            ProjectReleaseId = pr.ProjectReleaseId,
                                            ProjectID = p.ProjectID,
-                                           ProjectName = p.ProjectName.ToString(),
-                                           ReleaseName = p.ProjectName
+                                           ProjectName = p.ProjectName,
+                                           ReleaseName = pr.ReleaseName
                                        }).ToList();
                 return projectReleases;
             }
@@ -47,9 +47,9 @@ namespace QRMService.Repositories
                                        {
                                            ProjectReleaseId = pr.ProjectReleaseId,
                                            ProjectID = p.ProjectID,
-                                           ProjectName = p.ProjectName.ToString(),
-                                           ReleaseName = p.ProjectName
-                                       }).ToList();
+                                           ProjectName = p.ProjectName,
+                                           ReleaseName = pr.ReleaseName
+                                       }).OrderBy(a=>a.ProjectName).OrderBy(b=>b.ProjectReleaseId).ToList();
                 return projectReleases;
             }
         }
@@ -66,7 +66,7 @@ namespace QRMService.Repositories
             using (var db = new QRMEntities())
             {
                 var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectId && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim()).FirstOrDefault();
-                if (projectRelease != null)
+                if (projectRelease == null)
                 {
                     var release = new ProjectReleaseMaster
                     {
