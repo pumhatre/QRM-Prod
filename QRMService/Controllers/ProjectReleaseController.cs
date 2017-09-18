@@ -73,12 +73,7 @@ namespace QRMService.Controllers
 
             return Ok(data);
         }
-        public IHttpActionResult GetProjects()
-        {
-            var data = ProjectRepository.GetProjects();
-
-            return Ok(data);
-        }
+        
         public IHttpActionResult DeleteProject(int projectID)
         {
             var data = ProjectRepository.DeleteProject(projectID);
