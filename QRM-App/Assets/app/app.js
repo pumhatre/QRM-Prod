@@ -5,7 +5,10 @@
     'signIn',
     'register',
     'metricsAssociation',
-    'project'
+    'project',
+    'ui.grid',
+    'ui.grid.edit',
+    'ui.grid.selection'
 ]);
 
 app.constant('config', {
