@@ -13,18 +13,26 @@ namespace QRMService.Repositories
 {
     public class LoginRepository
     {
-        public static bool ValidateUser(UserDetails userDetails)
+        public static LoginResponseModel ValidateUser(UserDetails userDetails)
         {
             using (var db = new QRMEntities())
             {
 
-                var count =  db.UserDetails.Where(p => userDetails.UserName == p.UserName && userDetails.Password == p.Password).ToList().Count;
-
-                return count > 0 ? true : false;
+                return (from u in db.UserDetails
+                        join p in db.UserProjectRoleAssociations on u.UserId equals p.UserId
+                        join r in db.RoleMasters on p.RoleId equals r.RoleId
+                        where u.UserName == userDetails.UserName && u.Password == userDetails.Password
+                        select new LoginResponseModel
+                        {
+                            UserName = u.UserName,
+                            UserId = u.UserId,
+                            RoleId = r.RoleId,
+                            RoleName = r.RoleName
+                        }).FirstOrDefault();
             }
         }
 
-       
+
 
     }
 }

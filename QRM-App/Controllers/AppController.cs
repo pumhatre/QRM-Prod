@@ -17,7 +17,7 @@ namespace QRM_App.Controllers
         }
         public ActionResult SignIn()
         {
-            return PartialView();
+            return View();
         }
         public ActionResult Home()
         {
@@ -43,6 +43,11 @@ namespace QRM_App.Controllers
         public ActionResult Project()
         {
             return PartialView();
+        }
+
+        public ActionResult Main()
+        {
+            return View("~/Views/Main/Index.cshtml");
         }
     }
 }
