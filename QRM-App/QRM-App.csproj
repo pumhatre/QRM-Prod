@@ -203,6 +203,7 @@
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
     <Content Include="Assets\app\environment\environment.js" />
+    <Content Include="Assets\app\services\metricsAssociationService.js" />
     <Content Include="Assets\app\services\projectReleaseService.js" />
     <Content Include="Assets\app\services\projectService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
@@ -221,6 +222,8 @@
     <Content Include="Assets\ng\angular-resource.min.js" />
     <Content Include="Assets\ng\angular-route.min.js" />
     <Content Include="Assets\ng\angular.min.js" />
+    <Content Include="Assets\ng\Ui-grid\ui-grid.min.css" />
+    <Content Include="Assets\ng\Ui-grid\ui-grid.min.js" />
     <Content Include="Assets\styles\styles.css" />
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap-progressbar-3.3.4.min.css" />
@@ -231,6 +234,7 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\green.css" />
     <Content Include="Content\css\jqvmap.min.css" />
+    <Content Include="Content\css\metricsAssociation.css" />
     <Content Include="Content\css\nprogress.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
