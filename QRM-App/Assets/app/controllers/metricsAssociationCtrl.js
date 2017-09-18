@@ -73,6 +73,9 @@
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
 
+        // load all project releases
+        $scope.GetAllProjectReleases();
+
         //METRICS ASSOCIATION PAGE TAB 2
         $scope.gridOptions = {
             enableSorting: false,
