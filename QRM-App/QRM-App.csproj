@@ -348,6 +348,12 @@
   <ItemGroup>
     <Content Include="Views\App\Metrics.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ng\Ui-grid\ui-grid.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ng\Ui-grid\ui-grid.ttf" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
