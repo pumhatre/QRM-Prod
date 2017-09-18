@@ -349,6 +349,9 @@
     <Content Include="Views\App\Metrics.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Assets\ng\Ui-grid\ui-grid.woff" />
   </ItemGroup>
   <ItemGroup>

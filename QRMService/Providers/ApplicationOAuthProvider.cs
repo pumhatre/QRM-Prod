@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using QRMService.Models;
+using QRMService.Repositories;
 
 namespace QRMService.Providers
 {
@@ -29,25 +30,41 @@ namespace QRMService.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
-
-            if (user == null)
+            try
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
-                return;
+
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+                // call FindIt business layer for login
+                var userDetails = LoginRepository.ValidateUser(new UserDetails { UserName=context.UserName, Password=context.Password});
+                if (userDetails==null)
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    return;
+                }
+
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                identity.AddClaim(new Claim(ClaimTypes.Email, userDetails.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Gender, userDetails.UserId.ToString()));
+                identity.AddClaim(new Claim(ClaimTypes.Role, userDetails.RoleName));
+
+                // add more user details to return with token
+                var props = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    { "UserId", userDetails.UserId.ToString() },
+                    { "UserName", userDetails.UserName },
+                    { "RoleId", userDetails.RoleId.ToString() },
+                    { "RoleName", userDetails.RoleName.ToString() }
+                });
+
+                var ticket = new AuthenticationTicket(identity, props);
+                context.Validated(ticket);
+
             }
-
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
-
-            AuthenticationProperties properties = CreateProperties(user.UserName);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            catch (Exception ex)
+            {
+                context.Rejected();
+                context.SetError("server_error");
+            }
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

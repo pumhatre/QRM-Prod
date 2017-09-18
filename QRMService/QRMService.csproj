@@ -294,6 +294,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LoginResponseModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\ProjectMasterModel.cs" />
     <Compile Include="Models\ProjectReleaseModel.cs" />
