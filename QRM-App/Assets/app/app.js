@@ -10,7 +10,7 @@
     'ui.grid',
     'ui.grid.edit',
     'ui.grid.selection',
-    'userConfiguration'
+    'userConfiguration',
     'role'
 ]);
 
