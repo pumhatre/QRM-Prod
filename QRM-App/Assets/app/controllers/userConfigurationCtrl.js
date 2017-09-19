@@ -1,10 +1,9 @@
 ﻿angular.module('userConfiguration', [])
     .controller('userConfigurationCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http, uiGridConstants, projectReleaseService,userDetailsService, config) {
-
+        $scope.arr = [];
         $scope.myData;
         $scope.selectedProjectReleaseDropdown = '';
         $scope.projectsDropdown = [];
-        
         $scope.LoadProjectsDropDown = function () {
             projectReleaseService.GetProjectsLists(config)
                 .then(function (successResponse) {
@@ -20,9 +19,21 @@
                 alert('Failure');
             });
         }
-        $scope.saveData = function(){
+        $scope.saveData = function () {
+            
+            var userToBeDeleted = []
+            if ($scope.arr.length > 0) {
+                angular.forEach(response, function (data) {
+                    userToBeDeleted.push({ 'userId': data })
+                });
+            }
+            var dataToPost = {
+                "projectId": $scope.selectedProjectReleaseDropdown,
+                "userData": $scope.gridOptions1.data,
+                "deletedUser": userToBeDeleted
+            };
             userDetailsService.SaveUsersData(dataToPost, config).then(function (successResponse) {
-                $scope.myData = successResponse.data.userDetails;
+                $scope.getProjectUsers($scope.selectedProjectReleaseDropdown);
             }, function (errorResponse) {
                 alert('Failure');
             });
@@ -75,6 +86,7 @@
 
         $scope.deleteRow = function (row) {
             var index = $scope.gridOptions1.data.indexOf(row);
+            $scope.arr.push(row.userId);
             $scope.gridOptions1.data.splice(index, 1);
         }
 
