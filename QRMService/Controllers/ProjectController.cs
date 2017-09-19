@@ -1,4 +1,5 @@
-﻿using QRMService.Repositories;
+﻿using QRMService.Models;
+using QRMService.Repositories;
 using System.Web.Http;
 
 namespace QRMService.Controllers
@@ -15,5 +16,24 @@ namespace QRMService.Controllers
             var data = ProjectRepository.GetProjectsList();
             return Ok(data);
         }
+
+
+
+        [HttpGet]
+        public IHttpActionResult GetProjectsMasterList()
+        {
+            var data = ProjectRepository.GetProjectsMasterList();
+            return Ok(data);
+        }
+
+        [HttpPost]
+        public IHttpActionResult InsertUpdateProjectMaster(ProjectMasterModel projectMaster)
+        {
+
+            var response = ProjectRepository.UpdateProjectRelease(projectMaster);
+            return Ok(response);
+        }
+
+
     }
 }

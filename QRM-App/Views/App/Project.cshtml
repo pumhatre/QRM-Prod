@@ -20,140 +20,133 @@
                             <!-- start project list -->
                             <table id="tbl_ProjectMetrics" class="table table-striped projects" style="width:100%;">
                                 <thead>
-                                    <tr>
-                                        <th>Project Name</th>
-                                        <th>Service Line</th>
-                                        <th>Project Manager</th>
-                                        <th>Client Name</th>
-                                        <th>Technology</th>
-                                        <th>Industry</th>
-                                        <th>Life Cycle</th>
-                                        <th>Director</th>
-                                        <th>Senior Manager</th>
+                                    <tr class="row">
+                                        <th class="col-md-1">Project Name</th>
+                                        <th class="col-md-2">Service Line</th>
+                                        <th class="col-md-1">Project Manager</th>
+                                        <th class="col-md-1">Client Name</th>
+                                        <th class="col-md-2">Technology</th>
+                                        <th class="col-md-2">Industry</th>
+                                        <th class="col-md-1">Life Cycle</th>
+                                        <th class="col-md-1">Director</th>
+                                        <th class="col-md-1">Senior Manager</th>
+                                        <th class="col-md-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>State Auto</td>
-                                        <td>
+                                    <tr class="row">
+                                        <td class="col-md-1">State Auto</td>
+                                        <td class="col-md-2">
                                             <select>
-                                                <option>Select Service Line</option>
+                                                <option></option>
                                                 <option>SI</option>
                                                 <option>DD</option>
                                                 <option>AMS</option>
                                             </select>
 
                                         </td>
-                                        <td>Richard</td>
-                                        <td>California</td>
-                                        <td>
+                                        <td class="col-md-1">Richard</td>
+                                        <td class="col-md-1">California</td>
+                                        <td class="col-md-2">
                                             <select>
-                                                <option>Select Technology</option>
+                                                <option></option>
                                                 <option>Java</option>
                                                 <option>.NET</option>
 
                                             </select>
                                         </td>
-                                        <td>
+                                        <td class="col-md-2">
                                             <select>
-                                                <option>Select Industry</option>
+                                                <option></option>
                                                 <option>Public Sector</option>
                                                 <option>C &amp; IP</option>
                                                 <option>Insurance</option>
                                             </select>
                                         </td>
-                                        <td>Test</td>
-                                        <td>Thomson</td>
-                                        <td>Mary</td>
-                                        <td>
+                                        <td class="col-md-1">Test</td>
+                                        <td class="col-md-1">Thomson</td>
+                                        <td class="col-md-1">Mary</td>
+                                        <td class="col-md-1">
                                             <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                             <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                         </td>
                                     </tr>
-<!--                                  <tr ng-repeat="x in projectList">
-                                        <td>{{ x.ProjectName }}</td>
-                                        <td>
-                                            <select data-ng-options="o.serviceName for o in x.serviceList" data-ng-model="ServiceLine"></select>
-                                        </td>
-                                        <td>
-                                            {{x.ProjectManager}}
-                                        </td>
-                                        <td>
-                                            {{x.ClientName}}
-                                        </td>
-                                    </tr>
-                                    -->
-                                    <tr>
-                                        <td>State Auto</td>
-                                        <td>
+                                    <tr class="row">
+                                        <td class="col-md-1">Homesite</td>
+                                        <td class="col-md-2">
                                             <select>
-                                                <option>Select Service Line</option>
+                                                <option></option>
                                                 <option>SI</option>
                                                 <option>DD</option>
                                                 <option>AMS</option>
                                             </select>
 
                                         </td>
-                                        <td>Richard</td>
-                                        <td>California</td>
-                                        <td>
+                                        <td class="col-md-1">Harris</td>
+                                        <td class="col-md-1">Newark</td>
+                                        <td class="col-md-2">
                                             <select>
-                                                <option>Select Technology</option>
+                                                <option> </option>
                                                 <option>Java</option>
                                                 <option>.NET</option>
 
                                             </select>
                                         </td>
-                                        <td>
+                                        <td class="col-md-2">
                                             <select>
-                                                <option>Select Industry</option>
+                                                <option> </option>
                                                 <option>Public Sector</option>
                                                 <option>C &amp; IP</option>
                                                 <option>Insurance</option>
                                             </select>
                                         </td>
-                                        <td>Test</td>
-                                        <td>Thomson</td>
-                                        <td>Mary</td>
-                                        <td>
+                                        <td class="col-md-1">
+                                            Waterfall
+                                        </td>
+                                        <td class="col-md-1">Johnson</td>
+                                        <td class="col-md-1">Michael</td>
+                                        <td class="col-md-1">
                                             <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                             <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="text"></td>
-                                        <td>
-                                            <select>
-                                                <option>Select Service Line</option>
-                                                <option>SI</option>
-                                                <option>DD</option>
-                                                <option>AMS</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text"></td>
-                                        <td><input type="text"></td>
-                                        <td>
-                                            <select>
-                                                <option>Select Technology</option>
-                                                <option>Java</option>
-                                                <option>.NET</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select>
-                                                <option>Select Industry</option>
-                                                <option>Public Sector</option>
-                                                <option>C &amp; IP</option>
-                                                <option>Insurance</option>
-                                            </select>
-                                        </td>
-                                        <td><input type="text"></td>
-                                        <td><input type="text"></td>
-                                        <td><input type="text"></td>
-                                        <td></td>
-                                    </tr>
+
+                                    @*<tr>
+                    <td><input type="text"></td>
+                    <td>
+                        <select>
+                            <option>Select Service Line</option>
+                            <option>SI</option>
+                            <option>DD</option>
+                            <option>AMS</option>
+                        </select>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td>
+                        <select>
+                            <option>Select Technology</option>
+                            <option>Java</option>
+                            <option>.NET</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select Industry</option>
+                            <option>Public Sector</option>
+                            <option>C &amp; IP</option>
+                            <option>Insurance</option>
+                        </select>
+                    </td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td></td>
+                </tr>  *@
                                 </tbody>
                             </table>
+                            @*<div class="gridStyle" ng-grid="gridOptions"></div>
+                            *@
                             <!-- end project list -->
                             <button type="submit" class="btn btn-success">Save</button>
                         </div>

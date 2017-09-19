@@ -22,7 +22,9 @@
 
     <!-- Custom Theme Style -->
     <link href="~/content/css/custom.min.css" rel="stylesheet">
-
+    <link href="~/Content/css/metricsAssociation.css" rel="stylesheet" />
+    <link href="~/Assets/ng/Ui-grid/ui-grid.min.css" rel="stylesheet" />
+    
     <style>
         table, td {
             table-layout: fixed;
@@ -82,7 +84,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="#!/MetricsAssociation">Metrics</a></li>
+                                        <li><a href="#!/Metrics">Metrics</a></li>
                                         <li><a href=#!/UserConfiguration>User</a></li>
                                         <li><a href="QRMRole.html">Role</a></li>
                                     </ul>
@@ -206,13 +208,14 @@
             </footer>
             <!-- /footer content -->
         </div>
-    </div>   
+    </div>
 
+    @Scripts.Render("~/modernizr")
     @Scripts.Render("~/ng")
     @Scripts.Render("~/app")
     @Scripts.Render("~/jquery")
     @Scripts.Render("~/bootstrap")
-    @Scripts.Render("~/misc")
     @Scripts.Render("~/custom")
+    <script src="~/Assets/ng/Ui-grid/ui-grid.min.js"></script>
 </body>
 </html>

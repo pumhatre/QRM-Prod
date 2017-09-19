@@ -199,11 +199,14 @@
     <Content Include="Assets\app\app.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
     <Content Include="Assets\app\controllers\metricsAssociationCtrl.js" />
+    <Content Include="Assets\app\controllers\metricsCtrl.js" />
     <Content Include="Assets\app\controllers\projectCtrl.js" />
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
-    <Content Include="Assets\app\controllers\todoManagerCtrl.js" />
     <Content Include="Assets\app\environment\environment.js" />
+    <Content Include="Assets\app\services\metricsAssociationService.js" />
+    <Content Include="Assets\app\services\metricsService.js" />
+    <Content Include="Assets\app\services\projectReleaseService.js" />
     <Content Include="Assets\app\services\projectService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
     <Content Include="Assets\app\controllers\userConfigurationCtrl.js" />
@@ -211,6 +214,7 @@
     <Content Include="Assets\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Assets\bootstrap\css\bootstrap.css" />
     <Content Include="Assets\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Assets\bootstrap\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\bootstrap\js\bootstrap.js" />
     <Content Include="Assets\bootstrap\js\bootstrap.min.js" />
@@ -221,6 +225,8 @@
     <Content Include="Assets\ng\angular-resource.min.js" />
     <Content Include="Assets\ng\angular-route.min.js" />
     <Content Include="Assets\ng\angular.min.js" />
+    <Content Include="Assets\ng\Ui-grid\ui-grid.min.css" />
+    <Content Include="Assets\ng\Ui-grid\ui-grid.min.js" />
     <Content Include="Assets\styles\styles.css" />
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap-progressbar-3.3.4.min.css" />
@@ -231,7 +237,10 @@
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\green.css" />
     <Content Include="Content\css\jqvmap.min.css" />
+    <Content Include="Content\css\metricsAssociation.css" />
     <Content Include="Content\css\nprogress.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\back_disabled.png" />
     <Content Include="Content\images\back_enabled.png" />
     <Content Include="Content\images\back_enabled_hover.png" />
@@ -298,13 +307,56 @@
     <Content Include="Views\App\Home.cshtml" />
     <Content Include="Views\App\Register.cshtml" />
     <Content Include="Views\App\SignIn.cshtml" />
-    <Content Include="Views\App\TodoManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\App\MetricsAssociation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\font-awesome.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\Project.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\bootstrap\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\bootstrap\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\bootstrap\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\bootstrap\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\bootstrap\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\Metrics.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ng\Ui-grid\ui-grid.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ng\Ui-grid\ui-grid.ttf" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

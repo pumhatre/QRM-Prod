@@ -42,7 +42,16 @@ namespace QRMService.Controllers
         [HttpPost]
         public IHttpActionResult InsertProjectRelease(ProjectReleaseModel request)
         {
-            var response = ProjectReleaseRepository.InsertProjectRelease(request.ProjectID,request.ReleaseName);
+            var response = new ProjectReleasesResponseModel();
+            if (ModelState.IsValid)
+            {
+                response = ProjectReleaseRepository.InsertProjectRelease(request.ProjectID, request.ReleaseName);
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.ResponseMessage = "Invalid input.";
+            }
             return Ok(response);
         }
 
@@ -57,5 +66,21 @@ namespace QRMService.Controllers
             var response = ProjectReleaseRepository.UpdateProjectRelease(request.ProjectReleaseId, request.ReleaseName);
             return Ok(response);
         }
+
+        public IHttpActionResult GetProjectDetails(int projectID)
+        {
+            var data = ProjectRepository.GetProjectDetails(projectID);
+
+            return Ok(data);
+        }
+        
+        public IHttpActionResult DeleteProject(int projectID)
+        {
+            var data = ProjectRepository.DeleteProject(projectID);
+            return Ok();
+           
+        }
+        
+
     }
 }
