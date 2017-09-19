@@ -52,7 +52,7 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                int lastRoleId = db.RoleMasters.Max(x => x.RoleId);
+                int lastRoleId = db.RoleMasters.Count() == 0 ? 0 : db.RoleMasters.Max(x => x.RoleId);
                 foreach (var r in roles)
                 {
                     if (r.RoleId != 0)
