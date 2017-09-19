@@ -9,7 +9,8 @@
     'project',
     'ui.grid',
     'ui.grid.edit',
-    'ui.grid.selection'
+    'ui.grid.selection',
+    'role'
 ]);
 
 app.constant('config', {
@@ -71,6 +72,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/Projects', {
         templateUrl: 'App/Project',
         controller: 'projectCtrl'
+    });
+    $routeProvider.when('/Role', {
+        templateUrl: 'App/Role',
+        controller: 'roleCtrl'
     });
 
     $routeProvider.otherwise({

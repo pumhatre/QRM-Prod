@@ -260,7 +260,7 @@ warning 6002: The table/view 'QRMPortal.dbo.Period' does not have a primary key 
           <Key>
             <PropertyRef Name="ProjectReleaseId" />
           </Key>
-          <Property Name="ProjectReleaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ProjectID" Type="int" />
           <Property Name="ReleaseName" Type="nvarchar" MaxLength="100" />
         </EntityType>
@@ -290,6 +290,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           </Key>
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="TestingDataStaging">
           <Key>
@@ -1108,6 +1109,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserProjectRoleAssociations" Relationship="Self.FK_UserProjectRoleAssociation_RoleMasterTable" FromRole="RoleMaster" ToRole="UserProjectRoleAssociation" />
+          <Property Name="IsActive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="TestingDataStaging">
           <Key>
@@ -1992,6 +1994,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="RoleMasters">
             <EntityTypeMapping TypeName="QRMPortalModel.RoleMaster">
               <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
               </MappingFragment>
