@@ -9,7 +9,8 @@
     'project',
     'ui.grid',
     'ui.grid.edit',
-    'ui.grid.selection'
+    'ui.grid.selection',
+    'userConfiguration'
 ]);
 
 app.constant('config', {
