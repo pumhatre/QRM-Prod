@@ -52,12 +52,18 @@
         this.SaveProject = function () {
             projectService.InsertUpdateProjectMaster(projectDetail, config)
                 .then(function (successResponse) {
+
                     this.GetProjectList(config);
 
                 }, function (errorResponse) {
 
                 });
         }
+        $scope.SaveRow = function () {
+            debugger;
+            window.console && console.log(this.row);
+        };
+
         $scope.gridOptions = {
             data: 'projectList',
             enableRowSelection: false,
@@ -65,19 +71,49 @@
             multiSelect: false,
             columnDefs: [
                 {
-                    field: 'ProjectName', displayName: 'Project Name', enableCellEditOnFocus: true,
-                    editableCellTemplate: $scope.cellInputEditableTemplate
+                    field: 'ProjectName', displayName: 'Project Name', editableCellTemplate: '<input type="textbox"  ng-model="ProjectName"></input>'
+
                 },
                 {
-                    field: 'ServiceLine', displayName: 'Service Line', cellTemplate: ' <select class="form-control" ng-model="ServiceLine">< option ></option><option ng-repeat="serviceLine in serviceList" value="{{serviceLine.ReferenceCode}}">{{ serviceLine.ReferenceValue }}</option> </select>'
+                    field: 'ServiceLine', displayName: 'Service Line'
                 }
                 ,
+                {
+                    field: 'ProjectManager', displayName: 'Project Manager'
+                },
+                {
+                    field: 'ClientName', displayName: 'Client Name'
+                },
+                {
+                    field: 'Technology', displayName: 'Technology'
+                },
+                {
+                    field: 'Industry', displayName: 'Industry'
+                },
+
+                {
+                    field: 'LifeCycle', displayName: 'LifeCycle'
+                },
+                {
+                    field: 'Director', displayName: 'Director'
+
+                },
+                {
+                    field: 'SeniorManager', displayName: 'SeniorManager'
+
+                },
+                {
+                    field: 'ProjectID', displayName: ' ', cellTemplate: '<div><button ng-click="SaveRow()">Edit</button></div>'
+                }
+
 
             ]
         };
 
 
-
-
-
     }]);
+
+
+
+
+
