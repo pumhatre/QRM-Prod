@@ -86,7 +86,7 @@ namespace QRMService.Repositories
                                 }
                             }
                         }
-                        if (deletedUserIds != null)
+                        if (deletedUserIds.Count > 0)
                         {
                             foreach (var userId in deletedUserIds)
                             {
