@@ -73,7 +73,7 @@
                                     <a href="QRMIndex.html"><i class="fa fa-home"></i> Home </a>
 
                                 </li>
-                                <li>
+                                <li ng-if="IsSuperUser">
                                     <a><i class="fa fa-wrench"></i> Configuration <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>
@@ -84,7 +84,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a href="#!/Metrics">Metrics</a></li>
+                                        <li><a href="#!/Metrics" >Metrics</a></li>
                                         <li><a href=#!/UserConfiguration>User</a></li>
                                         <li><a href="#!/Role">Role</a></li>
                                     </ul>
