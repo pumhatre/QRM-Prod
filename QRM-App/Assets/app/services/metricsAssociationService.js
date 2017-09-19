@@ -1,7 +1,15 @@
-﻿app.service('projectReleaseService', ['$http', function ($http) {
+﻿app.service('metricsAssociationService', ['$http', function ($http) {
 
-    this.getMetricsAssociationGrid = function () {
-        var data = [];
-        return $http.post(config.apiUrl + 'api/ProjectRelease/GetProjectReleases', data);
+    this.getMetricsAssociationDetails = function (config) {
+
+        return $http.get(config.apiUrl + 'api/MetricsAssociation/GetMetricsList');
+
+    }
+
+    this.getReleaseList = function (config,projectId) {
+
+        return $http.get(config.apiUrl + 'api/MetricsAssociation/GetProjectReleaseList?projectId=' + projectId);
+
+
     }
 }]);

@@ -1,25 +1,22 @@
 ﻿angular.module('signIn', ['ngCookies'])
-    .controller('signInCtrl', ['$scope' ,'$rootScope', '$http', '$cookies', '$cookieStore', '$location', '$routeParams', function ($scope, $rootScope, $http, $cookies, $cookieStore, $location, $routeParams) {
-        $scope.message = $routeParams.message;
-        $scope.signIn = function () {
+    .controller('signInCtrl', ['$scope', '$rootScope', '$http', '$cookies', '$cookieStore', '$location',  function ($scope, $rootScope, $http, $cookies, $cookieStore, $location) {
+        $scope.signIn = function () {           
             $scope.showMessage = false;
+            var apiUrl='http://localhost:60038/api/oauth/login';
             var params = "grant_type=password&username=" + $scope.username + "&password=" + $scope.password;
-            $http({
-                url: '/Token',
-                method: "POST",
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                data: params
-            })
-            .success(function (data, status, headers, config) {
-                $http.defaults.headers.common.Authorization = "Bearer " + data.access_token;
-                $http.defaults.headers.common.RefreshToken = data.refresh_token;
-                
-                $cookieStore.put('_Token', data.access_token);
-                window.location = '#/todomanager';
-            })
-            .error(function (data, status, headers, config) {
-                $scope.message = data.error_description.replace(/["']{1}/gi, "");
-                $scope.showMessage = true;
-            });
+            $http.post(apiUrl, params, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                .then(function (successReponse) {                  
+                    $http.defaults.headers.common.Authorization = "Bearer " + successReponse.data.access_token;
+                    $cookieStore.put('_Token', successReponse.data.access_token);
+                    $cookieStore.put('_UserId', successReponse.data.UserId);
+                    $cookieStore.put('_UserName', successReponse.data.UserName);
+                    $cookieStore.put('_RoleName', successReponse.data.RoleName);
+                    window.location.href = '/#!home';
+
+
+                }, function (errorReponse) {
+                    $scope.message = errorReponse.data.error_description.replace(/["']{1}/gi, "");
+                    $scope.showMessage = true;
+                })
         }
     }]);

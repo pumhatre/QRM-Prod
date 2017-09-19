@@ -14,7 +14,6 @@ app.service('projectService', ['$http', function ($http) {
             return reponse;
 
         });
-
     }
 
     this.InsertUpdateProjectMaster = function (projectDetail, config) {

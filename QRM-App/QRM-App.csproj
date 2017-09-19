@@ -210,6 +210,8 @@
     <Content Include="Assets\app\services\projectReleaseService.js" />
     <Content Include="Assets\app\services\projectService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
+    <Content Include="Assets\app\controllers\userConfigurationCtrl.js" />
+    <Content Include="Assets\app\services\userDetailsService.js" />
     <Content Include="Assets\app\services\roleService.js" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -349,6 +351,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\App\Metrics.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ng\Ui-grid\ui-grid.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ng\Ui-grid\ui-grid.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\UserConfiguration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\App\Role.cshtml" />
