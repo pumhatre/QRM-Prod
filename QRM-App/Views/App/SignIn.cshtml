@@ -5,6 +5,10 @@
 
 <div class="animate form login_form" ng-app="signIn" ng-controller="signInCtrl">
     <section class="login_content">
+
+        <div ng-if="showMessage">
+            <span style="font:bold;color:red;">{{message}}</span>
+        </div>
         <form name="formLogin" ng-submit="signIn()">
             <h1>Login Form</h1>
             <div>
