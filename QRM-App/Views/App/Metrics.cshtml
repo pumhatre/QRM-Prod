@@ -12,61 +12,12 @@
                         <div class="x_panel">
 
                             <div class="x_content">
-                                <!-- start project list -->
-                                <table class="table table-striped projects" style="width:100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>Metric Master#</th>
-                                            <th>Category Code</th>
-                                            <th>Category Description</th>
-                                            <th>SubCategory Code</th>
-                                            <th>SubCategory Description</th>
-                                            <th>Type Code</th>
-                                            <th>Type Description</th>
-                                            <th style="width: 20%">#Edit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="metric in metrics">
-                                            <td>{{metric.MetricsMasterId}}</td>
-                                            <td>{{metric.CategoryCode}}</td>
-                                            <td>{{metric.CategoryDescription}}</td>
-                                            <td>{{metric.SubCategoryCode}}</td>
-                                            <td>{{metric.SubCategoryDescription}}</td>
-                                            <td>{{metric.TypeCode}}</td>
-                                            <td>{{metric.TypeDescription}}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                                <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <input type="text" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" />
-                                            </td>
-                                            <td></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                                <!-- end project list -->
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <div>
+                                    <div class="col-md-12">
+                                        <div id="mGrid" ui-grid="metricsGrid" class="grid" style="height: auto !important; width:100%"></div>
+                                    </div>
+                                </div>
+                                <button id="saveBtn" class="btn btn-success" style="margin-top: 2%" ng-click="saveData()">Save</button>
                             </div>
                         </div>
                     </div>
