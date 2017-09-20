@@ -39,5 +39,31 @@ namespace QRMService.Repositories
                 return releaseDetails;
             }
         }
+
+        public static ProjectReleasesResponseModel SaveMetricsAssociation(int projectId, string releaseName)
+        {
+            var response = new ProjectReleasesResponseModel();
+            using (var db = new QRMEntities())
+            {
+                var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectId && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim()).FirstOrDefault();
+                if (projectRelease == null)
+                {
+                    var release = new ProjectReleaseMaster
+                    {
+                        ProjectID = projectId,
+                        ReleaseName = releaseName
+                    };
+                    db.ProjectReleaseMasters.Add(release);
+                    db.SaveChanges();
+                    response.IsSuccess = true;
+                    response.ResponseMessage = "Project Release added successfully";
+                }
+                else
+                {
+                    response.ResponseMessage = "Release Name already exists.";
+                }
+                return response;
+            }
+        }
     }
 }

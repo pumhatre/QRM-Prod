@@ -20,17 +20,21 @@
         $scope.gridOptions = {
             enableSorting: false,
             enableHiding: true,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            selectionRowHeaderWidth: 45,
             columnDefs: [
-                { name: 'id', displayName: '#', cellTemplate: '<input type="checkbox" ng-click="callFunction()">', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
+                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
+                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
                 { field: 'TypeCode', name: 'TypeCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
                 { field: 'MetricDescription', name: 'MetricDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false }
             ],
 
-            //onRegisterApi: function (gridApi) {
-            //    $scope.gridApi = gridApi;
-            //    var cellTemplate = 'ui-grid/selectionRowHeader';   // you could use your own template here
-            //    $scope.gridApi.core.addRowHeaderColumn({ name: 'rowHeaderCol', displayName: '', width: 30, cellTemplate: cellTemplate });
-            //}
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                //var cellTemplate = 'ui-grid/selectionRowHeader';   // you could use your own template here
+                //$scope.gridApi.core.addRowHeaderColumn({ name: 'rowHeaderCol', displayName: '', width: 30, cellTemplate: cellTemplate });
+            }
         };
 
         //function to load metrics association grid
@@ -95,8 +99,7 @@
                     });
             }
         }
-
-
+        
         $scope.GetAllProjectReleases = function () {
             projectReleaseService.GetAllProjectReleases(config)
                 .then(function (successResponse) {
@@ -116,10 +119,21 @@
 
         // load all project releases
         $scope.GetAllProjectReleases();
+        $scope.metricsMasterIdList = [];
+        $scope.saveMetricsAssociation = function () {
+            $scope.selectedRows = $scope.gridApi.selection.getSelectedRows();
+            angular.forEach($scope.selectedRows, function (value, key) {
+                $scope.metricsMasterIdList.push(value.MetricsMasterId);
+            });
+            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
+                .then(function (successResponse) {
+                    if (successResponse.data.IsSuccess) {
+                        alert("Success");
+                    }
 
+                }, function (errorResponse) {
 
-        $scope.callFunction = function () {
-            alert("Heloo Hi");
+                });
         }
 
     }]);
