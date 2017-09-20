@@ -49,5 +49,15 @@ namespace QRM_App.Controllers
         {
             return View("~/Views/Main/Index.cshtml");
         }
+
+        public ActionResult UserConfiguration()
+        {
+            return PartialView();
+        }
+
+        public ActionResult Role()
+        {
+            return PartialView();
+        }
     }
 }

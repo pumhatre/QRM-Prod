@@ -202,6 +202,7 @@
     <Content Include="Assets\app\controllers\metricsCtrl.js" />
     <Content Include="Assets\app\controllers\projectCtrl.js" />
     <Content Include="Assets\app\controllers\registerCtrl.js" />
+    <Content Include="Assets\app\controllers\roleCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
     <Content Include="Assets\app\environment\environment.js" />
     <Content Include="Assets\app\services\metricsAssociationService.js" />
@@ -209,6 +210,9 @@
     <Content Include="Assets\app\services\projectReleaseService.js" />
     <Content Include="Assets\app\services\projectService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
+    <Content Include="Assets\app\controllers\userConfigurationCtrl.js" />
+    <Content Include="Assets\app\services\userDetailsService.js" />
+    <Content Include="Assets\app\services\roleService.js" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Assets\bootstrap\css\bootstrap.css" />
@@ -356,6 +360,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ng\Ui-grid\ui-grid.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\UserConfiguration.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\Role.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

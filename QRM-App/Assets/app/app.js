@@ -9,7 +9,9 @@
     'project',
     'ui.grid',
     'ui.grid.edit',
-    'ui.grid.selection'
+    'ui.grid.selection',
+    'userConfiguration',
+    'role'
 ]);
 
 app.constant('config', {
@@ -72,7 +74,16 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: 'App/Project',
         controller: 'projectCtrl'
     });
+    $routeProvider.when('/Role', {
+        templateUrl: 'App/Role',
+        controller: 'roleCtrl'
+    });
 
+    $routeProvider.when('/UserConfiguration', {
+        templateUrl: 'App/UserConfiguration',
+        controller: 'userConfigurationCtrl'
+    });
+    
     $routeProvider.otherwise({
         redirectTo: '/home'
     });    

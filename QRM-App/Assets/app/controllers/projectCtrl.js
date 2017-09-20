@@ -52,11 +52,28 @@
         this.SaveProject = function () {
             projectService.InsertUpdateProjectMaster(projectDetail, config)
                 .then(function (successResponse) {
+
                     this.GetProjectList(config);
 
                 }, function (errorResponse) {
 
                 });
+        }
+        $scope.SaveRow = function () {
+            debugger;
+            window.console && console.log(this.row);
+        };
+        var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
+        $scope.editRow = function (row) {
+            var index = $scope.gridOptions1.data.indexOf(row);
+            $scope.gridOptions1.data[index].editable = !$scope.gridOptions1.data[index].editable;
+            $scope.grid1Api.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
+        }
+
+        $scope.deleteRow = function (row) {
+            var index = $scope.gridOptions1.data.indexOf(row);
+            $scope.arr.push(row.userId);
+            $scope.gridOptions1.data.splice(index, 1);
         }
         $scope.gridOptions = {
             data: 'projectList',
@@ -65,19 +82,65 @@
             multiSelect: false,
             columnDefs: [
                 {
-                    field: 'ProjectName', displayName: 'Project Name', enableCellEditOnFocus: true,
-                    editableCellTemplate: $scope.cellInputEditableTemplate
+                    field: 'ProjectName', displayName: 'Project Name', cellTemplate: tmpl
+
+                },
+                //{
+                //    field: 'ServiceLine', displayName: 'Service Line'
+                //}
+                 {
+                     name: 'ServiceLine',
+                     displayName: 'Service Line',
+                    editableCellTemplate: 'ui-grid/dropdownEditor',
+                    width: '10%',  
+                    enableCellEdit: true,
+                    editDropdownValueLabel: 'role',
+                    editDropdownOptionsArray: [
+                        { id: 1, Value: 'SI' },
+                        { id: 2, Value: 'AMS' },
+                        {id:3,Value:'DD'}
+                    ]
+                },
+               
+                 
+                {
+                    field: 'ProjectManager', displayName: 'Project Manager', cellTemplate: tmpl
                 },
                 {
-                    field: 'ServiceLine', displayName: 'Service Line', cellTemplate: ' <select class="form-control" ng-model="ServiceLine">< option ></option><option ng-repeat="serviceLine in serviceList" value="{{serviceLine.ReferenceCode}}">{{ serviceLine.ReferenceValue }}</option> </select>'
-                }
-                ,
+                    field: 'ClientName', displayName: 'Client Name', cellTemplate: tmpl
+                },
+                {
+                    field: 'Technology', displayName: 'Technology'
+                },
+                {
+                    field: 'Industry', displayName: 'Industry'
+                },
 
-            ]
+                {
+                    field: 'LifeCycle', displayName: 'LifeCycle', cellTemplate: tmpl
+                },
+                {
+                    field: 'Director', displayName: 'Director', cellTemplate: tmpl
+
+                },
+                {
+                    field: 'SeniorManager', displayName: 'SeniorManager', cellTemplate: tmpl
+
+                },
+                
+                 { field: 'edit', name: '#Edit', cellTemplate: '<a ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a> <a ng-click="grid.appScope.deleteRow(row.entity)"  class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>' }
+
+
+
+            ], onRegisterApi: function (gridApi) {
+                $scope.grid1Api = gridApi;
+            }
         };
 
 
-
-
-
     }]);
+
+
+
+
+
