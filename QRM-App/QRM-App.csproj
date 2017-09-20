@@ -197,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\app\app.js" />
+    <Content Include="Assets\app\controllers\generatereportCtrl.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
     <Content Include="Assets\app\controllers\metricsAssociationCtrl.js" />
     <Content Include="Assets\app\controllers\metricsCtrl.js" />
@@ -366,6 +367,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\App\Role.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\GenerateReport.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\ViewPreference.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

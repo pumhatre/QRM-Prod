@@ -59,5 +59,13 @@ namespace QRM_App.Controllers
         {
             return PartialView();
         }
+        public ActionResult GenerateReport()
+        {
+            return PartialView();
+        }
+        public ActionResult ViewPreference()
+        {
+            return PartialView();
+        }
     }
 }

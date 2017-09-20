@@ -1,0 +1,127 @@
+﻿<div class="x_panel" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Generate Reports</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="ibox-content" ng-if="generatereport.showSucessMessage">
+            <div class="row">
+                <div class="alert alert-success fade in" role="alert">
+                    {{generatereport.responseMessage}}
+                </div>
+            </div>
+        </div>
+        <div class="ibox-content" ng-if="generatereport.showErrorMessage">
+            <div class="row">
+                <div class="alert alert-error fade in" role="alert">
+                    {{generatereport.responseMessage}}
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="generatereport.showSelectionPage">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left" novalidate>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Project</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="projectList" ng-model="generatereport.selectedProject"
+                                            ng-change="generatereport.SelectProject(generatereport.selectedProject)"
+                                            ng-options="g.ProjectName for g in generatereport.projectList" required autofocus>
+                                        <option value="">Select Project</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="monthList" ng-model="generatereport.selectedMonth"
+                                            ng-options="g.MonthName for g in generatereport.monthList" required autofocus>
+                                        <option value="">Select Month</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="releaseList" ng-model="generatereport.selectedRelease"
+                                            ng-options="g.ReleaseName for g in generatereport.releaseList" required autofocus>
+                                        <option value="">Select Release</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="break-lg"></div>
+                            <br />
+                            <div class="form-group" style="padding-left:26%;">
+                                <button type="submit" class="btn btn-success" ng-click="generatereport.ShowNextPage()">Create New Report</button>
+                                <button type="submit" class="btn btn-success" ng-click="generatereport.ViewPreference()">View Preferences</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row" ng-if="generatereport.showFinalPage">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Project</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <span>{{generatereport.selectedProject.ProjectName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <span class="control-label">
+                                        {{generatereport.selectedMonth.MonthName}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <span>{{generatereport.selectedRelease.ReleaseName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div style="height: 130px;  overflow: auto;  width: 330px;  border: 1px solid #000; list-style-type: none; margin: 0;">
+                                        <label ng-repeat="metric in generatereport.metricsList">
+                                            <input name="metric" type="checkbox" value="{{metric.MetricMasterID}}" ng-model="metric.showMetrics[$index].checked"
+                                                   ng-click="generatereport.SelectMetric(metric.MetricMasterID)" />
+                                            {{metric.MetricCategoryDescription}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Report Name</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <input type="text" class="form-control" name="reportName" maxlength="50" ng-model="generatereport.reportName" required />
+                                </div>
+                            </div>
+                            <div class="break-lg"></div>
+                            <br />
+                            <div class="form-group" style="padding-left:26%;">
+                                <button type="submit" class="btn btn-success" ng-click="generatereport.SaveReportPreference()">Save As Prefered</button>
+                                <button type="submit" class="btn btn-success" ng-click="generatereport.CreateReport()">Generate Report</button>
+                                <button type="submit" class="btn btn-success" ng-click="generatereport.BackToSelectionPage()">Back</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -52,6 +52,8 @@
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" />
+        <EntityTypeShape EntityType="QRMPortalModel.PreferredReportMetricsAssociation" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="QRMPortalModel.UserReportAssociation" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
