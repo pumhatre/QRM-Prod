@@ -299,6 +299,7 @@
     <Compile Include="Models\LoginResponseModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\ProjectMasterModel.cs" />
+    <Compile Include="Models\ProjectMetricsAssociationModel.cs" />
     <Compile Include="Models\ProjectReleaseModel.cs" />
     <Compile Include="Models\ProjectReleaseRequestModel.cs" />
     <Compile Include="Models\ProjectReleasesResponseModel.cs" />

@@ -11,9 +11,9 @@
         return $http.get(config.apiUrl + 'api/MetricsAssociation/GetProjectReleaseList?projectId=' + projectId);
     }
 
-    this.saveMetricsAssociation = function (metricsMasterIdList, projectName, release, config) {
+    this.saveMetricsAssociation = function (metricsMasterIdList, projectIdPost, releaseIdPost, config) {
         var metricIdList = metricsMasterIdList;
-        var data = { ProjectID: projectID, ReleaseName: releaseName };
+        var data = { MetricsMasterIdList: metricsMasterIdList, ProjectId: projectIdPost, ReleaseId: releaseIdPost };
         return $http.post(config.apiUrl + 'api/MetricsAssociation/SaveMetricsAssociation', data);
     }
 }]);
