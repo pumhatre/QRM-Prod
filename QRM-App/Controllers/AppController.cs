@@ -11,6 +11,11 @@ namespace QRM_App.Controllers
     /// </summary>
     public class AppController : Controller
     {
+        public ActionResult Qrm()
+        {
+            return View("~/Views/App/Home.cshtml");
+        }
+
         public ActionResult Register()
         {
             return PartialView();

@@ -14,6 +14,12 @@ namespace QRM_App
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+              name: "AppIndex",
+              url: "App/QRM",
+              defaults: new { controller = "App", action = "Qrm" }
+          );
+
+            routes.MapRoute(
                name: "SignIn",
                url: "App/SignIn",
                defaults: new { controller = "App", action = "SignIn" }
@@ -22,7 +28,7 @@ namespace QRM_App
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Main", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "App", action = "SignIn", id = UrlParameter.Optional }
             );
         }
     }
