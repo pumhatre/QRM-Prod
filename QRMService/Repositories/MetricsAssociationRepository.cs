@@ -39,5 +39,56 @@ namespace QRMService.Repositories
                 return releaseDetails;
             }
         }
+
+        public static ProjectReleasesResponseModel SaveMetricsAssociation(ProjectMetricsAssociationModel modelData)
+        {
+            var response = new ProjectReleasesResponseModel();
+            using (var db = new QRMEntities())
+            {
+                var metricsMasterIdList = modelData.MetricsMasterIdList;
+                int projectId = modelData.ProjectId;
+                var releaseId = modelData.ReleaseId;
+                foreach (int id in metricsMasterIdList)
+                {
+                    var metricsAssociation = db.ProjectMetricAssociations.Where(a=>a.MetricMasterID==id && a.ProjectId==projectId && a.ReleaseId==releaseId).FirstOrDefault();
+                    if (metricsAssociation == null)
+                    {
+                        var projectMetricsAssociationData = new ProjectMetricAssociation
+                        {
+                            ProjectId = projectId,
+                            ReleaseId = releaseId,
+                            MetricMasterID = id
+                        };
+                        db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
+                        db.SaveChanges();
+                        response.IsSuccess = true;
+                        response.ResponseMessage = "Project Metrics Association added successfully";
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Release Metrics Association already exists.";
+                    }
+                }
+                
+                //var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectId && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim()).FirstOrDefault();
+                //if (projectRelease == null)
+                //{
+                //    var release = new ProjectReleaseMaster
+                //    {
+                //        ProjectID = projectId,
+                //        ReleaseName = releaseName
+                //    };
+                //    db.ProjectReleaseMasters.Add(release);
+                //    db.SaveChanges();
+                //    response.IsSuccess = true;
+                //    response.ResponseMessage = "Project Release added successfully";
+                //}
+                //else
+                //{
+                //    response.ResponseMessage = "Release Name already exists.";
+                //}
+                return response;
+            }
+        }
     }
 }

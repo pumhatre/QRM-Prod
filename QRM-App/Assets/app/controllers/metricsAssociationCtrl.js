@@ -3,9 +3,11 @@
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.metricsAssociationData = [];
+        $scope.gridData = [];
+        $scope.metricsMasterIdList = [];
         $scope.selectedProjectReleaseDropdown = '';
         $scope.alertType = null;
-        LoadMetricsAssociationGrid();
+        
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
             projectReleaseService.GetProjectsLists(config)
@@ -17,28 +19,13 @@
         }
         //Load Metrics Association grid on Page load
 
-        $scope.gridOptions = {
-            enableSorting: false,
-            enableHiding: true,
-            columnDefs: [
-                { name: 'id', displayName: '#', cellTemplate: '<input type="checkbox" ng-click="callFunction()">', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'TypeCode', name: 'TypeCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'MetricDescription', name: 'MetricDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false }
-            ],
-
-            //onRegisterApi: function (gridApi) {
-            //    $scope.gridApi = gridApi;
-            //    var cellTemplate = 'ui-grid/selectionRowHeader';   // you could use your own template here
-            //    $scope.gridApi.core.addRowHeaderColumn({ name: 'rowHeaderCol', displayName: '', width: 30, cellTemplate: cellTemplate });
-            //}
-        };
-
+        
         //function to load metrics association grid
-        function LoadMetricsAssociationGrid(projectId) {
-            metricsAssociationService.getMetricsAssociationDetails(config, 2)
+        function LoadMetricsAssociationGrid() {
+            metricsAssociationService.getMetricsAssociationDetails(config)
                 .then(function (successResponse) {
                     //$scope.metricsAssociationData = successResponse.data;
-                    $scope.gridOptions.data = successResponse.data;
+                    $scope.gridData= successResponse.data;
                 }, function (errorResponse) {
 
                 });
@@ -95,8 +82,7 @@
                     });
             }
         }
-
-
+        
         $scope.GetAllProjectReleases = function () {
             projectReleaseService.GetAllProjectReleases(config)
                 .then(function (successResponse) {
@@ -113,13 +99,42 @@
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
-
+        LoadMetricsAssociationGrid();
         // load all project releases
         $scope.GetAllProjectReleases();
 
+        $scope.gridOptions = {
+            data: 'gridData',
+            enableSorting: false,
+            //enableHiding: true,
+            enableRowSelection: false,
+            enableSelectAll: true,
+            //selectionRowHeaderWidth: 45,
+            columnDefs: [
+                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
+                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
+                { field: 'TypeCode', name: 'TypeCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
+                { field: 'MetricDescription', name: 'MetricDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false }
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+            }
+        };
 
-        $scope.callFunction = function () {
-            alert("Heloo Hi");
+        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
+            $scope.selectedRows = $scope.gridApi.selection.getSelectedRows();
+            angular.forEach($scope.selectedRows, function (value, key) {
+                $scope.metricsMasterIdList.push(value.MetricsMasterId);
+            });
+            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
+                .then(function (successResponse) {
+                    if (successResponse.data.IsSuccess) {
+                        alert("Success");
+                    }
+
+                }, function (errorResponse) {
+
+                });
         }
 
     }]);

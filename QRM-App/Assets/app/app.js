@@ -11,7 +11,8 @@
     'ui.grid.edit',
     'ui.grid.selection',
     'userConfiguration',
-    'role'
+    'role',
+    'generateReport'
 ]);
 
 app.constant('config', {
@@ -82,6 +83,14 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/UserConfiguration', {
         templateUrl: 'App/UserConfiguration',
         controller: 'userConfigurationCtrl'
+    });
+    $routeProvider.when('/GenerateReport', {
+        templateUrl: 'App/GenerateReport',
+        controller: 'generatereportCtrl as generatereport'
+    });
+    $routeProvider.when('/ViewPreference', {
+        templateUrl: 'App/ViewPreference',
+        // controller: 'generatereportCtrl as generatereport'
     });
     
     $routeProvider.otherwise({

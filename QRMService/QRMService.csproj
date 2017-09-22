@@ -219,6 +219,7 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ReferenceDataController.cs" />
     <Compile Include="Controllers\ProjectReleaseController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="DataBase\DefectDataDetail.cs">
@@ -243,6 +244,9 @@
       <DependentUpon>QRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Period.cs">
+      <DependentUpon>QRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\PreferredReportMetricsAssociation.cs">
       <DependentUpon>QRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\ProjectMaster.cs">
@@ -290,6 +294,9 @@
     <Compile Include="DataBase\UserProjectRoleAssociation.cs">
       <DependentUpon>QRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\UserReportAssociation.cs">
+      <DependentUpon>QRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,12 +305,17 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
+    <Compile Include="Models\MonthDetailsModel.cs" />
+    <Compile Include="Models\ProjectDetailsModel.cs" />
     <Compile Include="Models\ProjectMasterModel.cs" />
+    <Compile Include="Models\ProjectMetricDetailsModel.cs" />
+    <Compile Include="Models\ProjectMetricsAssociationModel.cs" />
     <Compile Include="Models\ProjectReleaseModel.cs" />
     <Compile Include="Models\ProjectReleaseRequestModel.cs" />
     <Compile Include="Models\ProjectReleasesResponseModel.cs" />
     <Compile Include="Models\ReferenceTableRequestModel.cs" />
     <Compile Include="Models\ReferenceTableResponseModel.cs" />
+    <Compile Include="Models\SaveReportRequestModel.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
@@ -315,10 +327,15 @@
     <Compile Include="Repositories\ProjectReleaseRepository.cs" />
     <Compile Include="Repositories\ReferenceRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Wrapper\MonthDetailsWrapper.cs" />
+    <Compile Include="Wrapper\ProjectDetailsWrapper.cs" />
+    <Compile Include="Wrapper\ProjectMatricsDetailsWrapper.cs" />
+    <Compile Include="Wrapper\ProjectReleaseDetailsWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -377,7 +394,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

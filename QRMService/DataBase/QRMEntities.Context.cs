@@ -43,5 +43,7 @@ namespace QRMService.DataBase
         public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
         public virtual DbSet<ProjectReleaseMaster> ProjectReleaseMasters { get; set; }
         public virtual DbSet<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
+        public virtual DbSet<PreferredReportMetricsAssociation> PreferredReportMetricsAssociations { get; set; }
+        public virtual DbSet<UserReportAssociation> UserReportAssociations { get; set; }
     }
 }
