@@ -23,12 +23,18 @@ namespace QRM_App
             bundles.Add(new ScriptBundle("~/ng").Include(
                         "~/Assets/ng/angular.min.js",
                         "~/Assets/ng/angular-route.min.js",
-                        "~/Assets/ng/angular-cookies.min.js"));
+                        "~/Assets/ng/angular-cookies.min.js",
+                        "~/Assets/ng/angular-animate.min.js",
+                        "~/Assets/ng/angular-touch.min.js"));
+
+            bundles.Add(new ScriptBundle("~/uigrid").Include(
+                        "~/Assets/ng/ui-bootstrap-tpls-2.5.0.min.js",
+                       "~/Assets/ng/Ui-grid/ui-grid.min.js"));
 
             bundles.Add(new ScriptBundle("~/app").IncludeDirectory("~/Assets/app", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/jquery").Include(
-                        "~/Assets/jquery/jquery.min.js"));            
+                        "~/Assets/jquery/jquery.min.js"));
 
             bundles.Add(new ScriptBundle("~/custom").Include(
                       "~/Content/js/fastclick.js",

@@ -24,7 +24,8 @@
     'ui.grid.exporter',
     'ui.grid.infiniteScroll',
     'ui.grid.importer',
-    'ui.grid.grouping'    
+    'ui.grid.grouping',
+    'ui.bootstrap'
 ]);
 
 app.constant('config', {

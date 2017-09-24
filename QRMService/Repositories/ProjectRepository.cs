@@ -35,7 +35,7 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                var projects = db.ProjectMasters.Select(a => new ProjectMasterModel()
+                var projects = db.ProjectMasters.Where(x => x.IsActive == true).Select(a => new ProjectMasterModel()
                 {
                     ProjectID = a.ProjectID,
                     ProjectName = a.ProjectName,
@@ -58,12 +58,24 @@ namespace QRMService.Repositories
 
                 foreach (var project in projects)
                 {
-                    project.ServiceLine = refData.Where(a => a.ReferenceTableName == Constants.ServiceLineTableName &&
-                      a.ReferenceCode == project.ServiceLineCode).FirstOrDefault().ReferenceValue;
-                    project.Technology = refData.Where(a => a.ReferenceTableName == Constants.TechnologyTableName &&
-                    a.ReferenceCode == project.ServiceLineCode).FirstOrDefault().ReferenceValue;
-                    project.Industry = refData.Where(a => a.ReferenceTableName == Constants.IndustryTableName &&
-                    a.ReferenceCode == project.ServiceLineCode).FirstOrDefault().ReferenceValue;
+                    var serviceLine = refData.Where(a => a.ReferenceTableName == Constants.ServiceLineTableName &&
+                        a.ReferenceCode == project.ServiceLineCode).FirstOrDefault();
+                    if (serviceLine != null)
+                    {
+                        project.ServiceLine = serviceLine.ReferenceValue;
+                    }
+                    var technology = refData.Where(a => a.ReferenceTableName == Constants.TechnologyTableName &&
+                      a.ReferenceCode == project.TechnologyCode).FirstOrDefault();
+                    if (technology != null)
+                    {
+                        project.Technology = technology.ReferenceValue;
+                    }
+                    var industry = refData.Where(a => a.ReferenceTableName == Constants.IndustryTableName &&
+                     a.ReferenceCode == project.IndustryCode).FirstOrDefault();
+                    if (industry != null)
+                    {
+                        project.Industry = industry.ReferenceValue;
+                    }
                 }
 
                 return projects;
@@ -81,11 +93,9 @@ namespace QRMService.Repositories
             var response = new ProjectReleasesResponseModel();
             using (var db = new QRMEntities())
             {
-                ProjectMaster project = db.ProjectMasters.Find(projectMaster.ProjectID);
-
-                if (project == null)
+                if (projectMaster.ProjectID == 0)
                 {
-                    project = new ProjectMaster
+                    var project = new ProjectMaster
                     {
                         ProjectID = projectMaster.ProjectID,
                         ProjectName = projectMaster.ProjectName,
@@ -100,6 +110,7 @@ namespace QRMService.Repositories
                         Solution = projectMaster.Solution,
                         Director = projectMaster.Director,
                         SeniorManager = projectMaster.SeniorManager,
+                        IsActive=true
                     };
 
                     db.ProjectMasters.Add(project);
@@ -109,6 +120,8 @@ namespace QRMService.Repositories
                 }
                 else
                 {
+
+                    ProjectMaster project = db.ProjectMasters.Find(projectMaster.ProjectID);
                     project.ProjectName = projectMaster.ProjectName;
                     project.ServiceLine = projectMaster.ServiceLineCode;
                     project.Capability = projectMaster.Capability;
@@ -155,16 +168,16 @@ namespace QRMService.Repositories
         /// <returns></returns>
         public static bool DeleteProject(int projectID)
         {
-            var isSuccess = false;
+            var response = new ProjectReleasesResponseModel();
             using (var db = new QRMEntities())
             {
                 var project = db.ProjectMasters.Where(a => a.ProjectID == projectID).FirstOrDefault();
                 project.IsActive = false;
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
-                isSuccess = true;
+                response.IsSuccess = true;
             }
-            return isSuccess;
+            return response.IsSuccess;
         }
     }
 }
