@@ -4,35 +4,32 @@
         $scope.selectedservice = null;
         $scope.projectDetail = null;
         $scope.projectList = [];
-        $scope.serviceList = [];
+        $scope.serviceLineList = [];
         $scope.technologyList = [];
         $scope.industryList = [];
 
-        this.GetProjectList = function (config) {
-            debugger;
+        this.GetProjectList = function () {
             projectService.getProjectList(config)
                 .then(function (successResponse) {
-                    debugger;
                     $scope.projectList = successResponse.data;
                     $scope.projectDetail = null;
                 }, function (errorResponse) {
 
                 });
         }
-        this.GetProjectList(config);
 
-        referenceDataService.getReferenceTable("SERVICELINE", config).then(function (response) {
-            $scope.serviceList = response.data;
+        referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
+            $scope.serviceLineList = response.data;
         }, function (error) {
             console.log(error);
         });
-        referenceDataService.getReferenceTable("SERVICELINE", config).then(function (response) {
+        referenceDataService.getReferenceTable("Technology", config).then(function (response) {
             $scope.technologyList = response.data;
         }, function (error) {
             console.log(error);
 
         });
-        referenceDataService.getReferenceTable("SERVICELINE", config).then(function (response) {
+        referenceDataService.getReferenceTable("Industry", config).then(function (response) {
             $scope.industryList = response.data;
         }, function (error) {
             console.log(error);
@@ -60,20 +57,20 @@
                 });
         }
         $scope.SaveRow = function () {
-            debugger;
-            window.console && console.log(this.row);
+           
         };
+
         var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
         $scope.editRow = function (row) {
-            var index = $scope.gridOptions1.data.indexOf(row);
-            $scope.gridOptions1.data[index].editable = !$scope.gridOptions1.data[index].editable;
+            var index = $scope.gridOptions.data.indexOf(row);
+            $scope.gridOptions.data[index].editable = !$scope.gridOptions.data[index].editable;
             $scope.grid1Api.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
         }
 
         $scope.deleteRow = function (row) {
-            var index = $scope.gridOptions1.data.indexOf(row);
+            var index = $scope.gridOptions.data.indexOf(row);
             $scope.arr.push(row.userId);
-            $scope.gridOptions1.data.splice(index, 1);
+            $scope.gridOptions.data.splice(index, 1);
         }
         $scope.gridOptions = {
             data: 'projectList',

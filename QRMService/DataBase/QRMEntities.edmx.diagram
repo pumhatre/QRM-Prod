@@ -29,16 +29,6 @@
         <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_RoleMasterTable" ManuallyRouted="false" />
         <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails" ManuallyRouted="false" />
         <EntityTypeShape EntityType="QRMPortalModel.ProjectWidgetDetail" Width="1.5" PointX="3" PointY="49.375" />
-        <EntityTypeShape EntityType="QRMPortalModel.ProjectMaster" Width="1.5" PointX="0.75" PointY="35.25" />
-        <AssociationConnector Association="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_DevMetrics_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster1" />
-        <AssociationConnector Association="QRMPortalModel.FK_EffortDetails_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" />
         <EntityTypeShape EntityType="QRMPortalModel.ProjectReleaseMaster" Width="1.5" PointX="0.75" PointY="4" />
         <AssociationConnector Association="QRMPortalModel.FK_DefectDataDetails_ReleaseId" />
         <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId" />
@@ -50,10 +40,20 @@
         <EntityTypeShape EntityType="QRMPortalModel.ProjectMetricAssociation" Width="1.5" PointX="6" PointY="21.25" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" />
-        <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" />
         <EntityTypeShape EntityType="QRMPortalModel.PreferredReportMetricsAssociation" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="QRMPortalModel.UserReportAssociation" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="QRMPortalModel.ProjectMaster" Width="1.5" PointX="0.75" PointY="33" />
+        <AssociationConnector Association="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_DevMetrics_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster1" />
+        <AssociationConnector Association="QRMPortalModel.FK_EffortDetails_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" />
+        <AssociationConnector Association="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

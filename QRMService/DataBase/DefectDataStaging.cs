@@ -37,7 +37,7 @@ namespace QRMService.DataBase
     
         public virtual MonthMaster MonthMaster { get; set; }
         public virtual MonthMaster MonthMaster1 { get; set; }
-        public virtual ProjectMaster ProjectMaster { get; set; }
         public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
+        public virtual ProjectMaster ProjectMaster { get; set; }
     }
 }

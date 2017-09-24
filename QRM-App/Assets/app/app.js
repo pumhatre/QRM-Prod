@@ -7,12 +7,24 @@
     'metricsAssociation',
     'metrics',
     'project',
-    'ui.grid',
-    'ui.grid.edit',
-    'ui.grid.selection',
     'userConfiguration',
     'role',
-    'generateReport'
+    'generateReport',
+    'ui.grid',
+    'ui.grid.pagination',
+    'ui.grid.selection',
+    'ui.grid.cellNav',
+    'ui.grid.expandable',
+    'ui.grid.edit',
+    'ui.grid.rowEdit',
+    'ui.grid.saveState',
+    'ui.grid.resizeColumns',
+    'ui.grid.pinning',
+    'ui.grid.moveColumns',
+    'ui.grid.exporter',
+    'ui.grid.infiniteScroll',
+    'ui.grid.importer',
+    'ui.grid.grouping'    
 ]);
 
 app.constant('config', {
@@ -23,7 +35,7 @@ app.constant('config', {
 
 
 app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $routeProvider, $httpProvider) {
-    
+
     //================================================
     // Ignore Template Request errors if a page that was requested was not found or unauthorized.  The GET operation could still show up in the browser debugger, but it shouldn't show a $compile:tpload error.
     //================================================
@@ -38,7 +50,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     // Add an interceptor for AJAX errors
     //================================================
     $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
-        return {            
+        return {
             'responseError': function (response) {
                 if (response.status === 401)
                     $location.url('/signin');
@@ -47,7 +59,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         };
     }]);
 
-        
+
     //================================================
     // Routes
     //================================================
@@ -64,7 +76,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         controller: 'signInCtrl'
     });
     $routeProvider.when('/MetricsAssociation', {
-        templateUrl: 'App/MetricsAssociation',
+        templateUrl: '/App/MetricsAssociation',
         controller: 'metricsAssociationCtrl'
     });
     $routeProvider.when('/Metrics', {
@@ -72,7 +84,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         , controller: 'metricsCtrl'
     });
     $routeProvider.when('/Projects', {
-        templateUrl: 'App/Project',
+        templateUrl: '/App/Project',
         controller: 'projectCtrl'
     });
     $routeProvider.when('/Role', {
@@ -81,7 +93,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     });
 
     $routeProvider.when('/UserConfiguration', {
-        templateUrl: 'App/UserConfiguration',
+        templateUrl: '/App/UserConfiguration',
         controller: 'userConfigurationCtrl'
     });
     $routeProvider.when('/GenerateReport', {
@@ -92,10 +104,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: 'App/ViewPreference',
         // controller: 'generatereportCtrl as generatereport'
     });
-    
+
     $routeProvider.otherwise({
         redirectTo: '/home'
-    });    
+    });
 }]);
 
 // authentication code
@@ -113,7 +125,7 @@ app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookie
 app.run(['$rootScope', '$http', '$cookies', '$cookieStore', function ($rootScope, $http, $cookies, $cookieStore) {
 
     $rootScope.logout = function () {
-        
+
         $http.post('/api/Account/Logout')
             .success(function (data, status, headers, config) {
                 $http.defaults.headers.common.Authorization = null;
@@ -126,6 +138,6 @@ app.run(['$rootScope', '$http', '$cookies', '$cookieStore', function ($rootScope
 
     }
 
-   
+
 }]);
 
