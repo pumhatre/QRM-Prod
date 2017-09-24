@@ -106,7 +106,7 @@ app.controller('AppController', ['$scope', '$cookies', '$cookieStore',
         $scope.UserName = $cookies.get('_UserName');
     }]);
 
-app.run(['$http', '$cookies', '$rootScope', '$cookieStore', 'UserService', function ($http, $cookies, $cookieStore, UserService, $rootScope) {
+app.run(['$http', '$cookies', '$rootScope', '$cookieStore', function ($http, $cookies, $cookieStore, $rootScope) {
     //If a token exists in the cookie, load it after the app is loaded, so that the application can maintain the authenticated state.
     $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('_Token');  
     $http.defaults.headers.common.RefreshToken = $cookies.get('_RefreshToken');   
