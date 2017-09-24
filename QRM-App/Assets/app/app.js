@@ -64,15 +64,15 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     // Routes
     //================================================
     $routeProvider.when('/home', {
-        templateUrl: 'App/Home',
+        templateUrl: '/App/Home',
         controller: 'homeCtrl'
     });
     $routeProvider.when('/register', {
-        templateUrl: 'App/Register',
+        templateUrl: '/App/Register',
         controller: 'registerCtrl'
     });
-    $routeProvider.when('/signin/:message?', {
-        templateUrl: 'App/SignIn',
+    $routeProvider.when('/signin', {
+        templateUrl: '/App/SignIn',
         controller: 'signInCtrl'
     });
     $routeProvider.when('/MetricsAssociation', {
@@ -80,7 +80,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         controller: 'metricsAssociationCtrl'
     });
     $routeProvider.when('/Metrics', {
-        templateUrl: 'App/Metrics'
+        templateUrl: '/App/Metrics'
         , controller: 'metricsCtrl'
     });
     $routeProvider.when('/Projects', {
@@ -88,7 +88,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         controller: 'projectCtrl'
     });
     $routeProvider.when('/Role', {
-        templateUrl: 'App/Role',
+        templateUrl: '/App/Role',
         controller: 'roleCtrl'
     });
 
@@ -97,11 +97,11 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         controller: 'userConfigurationCtrl'
     });
     $routeProvider.when('/GenerateReport', {
-        templateUrl: 'App/GenerateReport',
+        templateUrl: '/App/GenerateReport',
         controller: 'generatereportCtrl as generatereport'
     });
     $routeProvider.when('/ViewPreference', {
-        templateUrl: 'App/ViewPreference',
+        templateUrl: '/App/ViewPreference',
         // controller: 'generatereportCtrl as generatereport'
     });
 
@@ -112,28 +112,42 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
 
 // authentication code
 
-app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookieStore) {
+app.controller('AppController', ['$scope', '$cookies', '$cookieStore',
+    function ($scope, $cookies, $cookieStore) {       
+        $scope.IsSuperUser = $cookies.get('_IsSuperUser');
+        $scope.UserName = $cookies.get('_UserName');
+    }]);
+
+app.run(['$http', '$cookies', '$rootScope', '$cookieStore', 'UserService', function ($http, $cookies, $cookieStore, UserService, $rootScope) {
     //If a token exists in the cookie, load it after the app is loaded, so that the application can maintain the authenticated state.
-    $http.defaults.headers.common.Authorization = 'Bearer ' + $cookieStore.get('_Token');
-    $http.defaults.headers.common.RefreshToken = $cookieStore.get('_RefreshToken');
+    $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('_Token');  
+    $http.defaults.headers.common.RefreshToken = $cookies.get('_RefreshToken');   
+    $rootScope.RoleName = $cookies.get('_IsSuperUser'); 
 }]);
+
+
 
 //GLOBAL FUNCTIONS - pretty much a root/global controller.
 //Get username on each page
 //Get updated token on page change.
 //Logout available on each page.
-app.run(['$rootScope', '$http', '$cookies', '$cookieStore', function ($rootScope, $http, $cookies, $cookieStore) {
+app.run(['$rootScope', '$http', '$cookies',  '$cookieStore', function ($rootScope, $http, $cookies, $cookieStore) {
 
     $rootScope.logout = function () {
-
-        $http.post('/api/Account/Logout')
-            .success(function (data, status, headers, config) {
+        var apiUrl = 'http://localhost:60038/api/Account/Logout';
+        $http.post(apiUrl)
+            .then(function (data, status, headers, config) {             
                 $http.defaults.headers.common.Authorization = null;
                 $http.defaults.headers.common.RefreshToken = null;
-                $cookieStore.remove('_Token');
+                //$cookieStore.remove('_Token');
                 $rootScope.username = '';
                 $rootScope.loggedIn = false;
-                window.location.href = '/app/signin';
+                $rootScope.RoleName = '';
+                $cookies.remove("_Token", { path: "/" });
+                $cookies.remove("_UserId", { path: "/" });
+                $cookies.remove("_UserName", { path: "/" });
+                $cookies.remove("_RoleName", { path: "/" });
+                window.location.href = '/app/SignIn';                              
             });
 
     }

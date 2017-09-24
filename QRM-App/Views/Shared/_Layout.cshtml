@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app" ng-controller="AppController">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -60,7 +60,7 @@
                             <!--<img src="images/img1.jpg" alt="..." class="img-circle profile_img">-->
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
+                            <span>Welcome <span style="font-weight:bold;">{{UserName}}</span></span>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -76,7 +76,7 @@
                                     <a href="QRMIndex.html"><i class="fa fa-home"></i> Home </a>
 
                                 </li>
-                                <li>                                   
+                                <li ng-if="IsSuperUser=='true'">                                   
                                     <a><i class="fa fa-wrench"></i> Configuration  <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">   
                                         <li>

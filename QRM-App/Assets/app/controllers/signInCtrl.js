@@ -6,20 +6,20 @@
             var apiUrl='http://localhost:60038/api/oauth/login';
             var params = "grant_type=password&username=" + $scope.username + "&password=" + $scope.password;
             $http.post(apiUrl, params, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-                .then(function (successReponse) { 
+                .then(function (successReponse) {                   
                     $http.defaults.headers.common.Authorization = "Bearer " + successReponse.data.access_token;
-                    $cookieStore.put('_Token', successReponse.data.access_token);
-                    $cookieStore.put('_UserId', successReponse.data.UserId);
-                    $cookieStore.put('_UserName', successReponse.data.UserName);
-                    $cookieStore.put('_RoleName', successReponse.data.RoleName); 
-                    window.location.href = '/#!home';                  
+                    $cookies.put('_Token', successReponse.data.access_token);
+                    $cookies.put('_UserId', successReponse.data.UserId);
+                    $cookies.put('_UserName', successReponse.data.UserName);
+                    $cookies.put('_RoleName', successReponse.data.RoleName); 
+                            
                     if (successReponse.data.RoleName == "SuperUser")
                     {
-                        $rootScope.IsSuperUser = true;                       
+                        $cookies.put('_IsSuperUser', true);                  
                     } else {
-                        $rootScope.IsSuperUser = false;                     
+                        $cookies.put('_IsSuperUser', false);                       
                     }
-                  
+                    window.location.href = '/app/qrm/#!home';         
                 }, function (errorReponse) {                   
                     $scope.message = errorReponse.data.error_description.replace(/["']{1}/gi, "");
                     $scope.showMessage = true;
