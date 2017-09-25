@@ -1,2 +1,94 @@
-﻿
-<h1>View Preference Page</h1>
+﻿<div class="x_panel" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Reports</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="ibox-content" ng-if="generatereport.showSucessMessage">
+            <div class="row">
+                <div class="alert alert-success fade in" role="alert">
+                    {{viewPreferencesReport.responseMessage}}
+                </div>
+            </div>
+        </div>
+        <div class="ibox-content" ng-if="generatereport.showErrorMessage">
+            <div class="row">
+                <div class="alert alert-error fade in" role="alert">
+                    {{viewPreferencesReport.responseMessage}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Project</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <span>{{viewPreferencesReport.ProjectName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <span class="control-label">
+                                        {{viewPreferencesReport.MonthName}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <span>{{viewPreferencesReport.ReleaseName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="!viewPreferencesReport.EditClicked">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Preferred Report</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="monthList" ng-model="viewPreferencesReport.selectedReport"
+                                            ng-options="g.ReportName for g in viewPreferencesReport.reportList">
+                                        <option value="">Select a Report</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <div style="height: 130px;  overflow: auto;  width: 330px;  border: 1px solid #000; list-style-type: none; margin: 0;">
+                                        <label ng-repeat="metric in viewPreferencesReport.metricsList">
+                                            <input name="metric" type="checkbox" value="{{metric.MetricMasterID}}" ng-model="metric.showMetrics[$index].checked"
+                                                   ng-click="viewPreferencesReport.SelectMetric(metric.MetricMasterID)" />
+                                            {{metric.MetricCategoryDescription}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="form-group" ng-if="viewPreferencesReport.EditClicked">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Report Name</label>
+                                <div class="col-md-3" style="padding-top:7px;">
+                                    <input type="text" class="form-control" name="reportName" maxlength="50" ng-model="viewPreferencesReport.reportName" required />
+                                </div>
+                            </div>
+                            <div class="break-lg"></div>
+                            <br />
+                            <div class="form-group" style="padding-left:26%;">
+                                <div ng-if="viewPreferencesReport.showEditButton" style="float: left">
+                                <button type="submit" class="btn btn-success" ng-click="viewPreferencesReport.EditClick()">Edit</button>
+                                    </div>
+                                <button type="submit" class="btn btn-success" ng-click="viewPreferencesReport.SaveReportPreference()">Save</button>
+                                <button type="submit" class="btn btn-success" ng-click="viewPreferencesReport.CreateReport()">Generate Report</button>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

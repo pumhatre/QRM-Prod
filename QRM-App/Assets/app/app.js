@@ -25,7 +25,8 @@
     'ui.grid.infiniteScroll',
     'ui.grid.importer',
     'ui.grid.grouping',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'viewPreferences'
 ]);
 
 app.constant('config', {
@@ -103,7 +104,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     });
     $routeProvider.when('/ViewPreference', {
         templateUrl: '/App/ViewPreference',
-        // controller: 'generatereportCtrl as generatereport'
+        controller: 'viewPreferencesReportCtrl as viewPreferencesReport'
     });
 
     $routeProvider.otherwise({
