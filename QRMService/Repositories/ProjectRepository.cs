@@ -166,7 +166,7 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="projectID">The project identifier.</param>
         /// <returns></returns>
-        public static bool DeleteProject(int projectID)
+        public static ProjectReleasesResponseModel DeleteProject(int projectID)
         {
             var response = new ProjectReleasesResponseModel();
             using (var db = new QRMEntities())
@@ -177,7 +177,7 @@ namespace QRMService.Repositories
                 db.SaveChanges();
                 response.IsSuccess = true;
             }
-            return response.IsSuccess;
+            return response;
         }
     }
 }

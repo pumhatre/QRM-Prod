@@ -33,6 +33,18 @@
             });
         };
 
+        $scope.loadProjects = function () {
+            projectService.getProjectList(config)
+              .then(function (successResponse) {
+                  $scope.gridOptions.data = successResponse.data;
+                  $scope.loading = false;
+                  $scope.loadAttempted = true;
+              }, function (errorResponse) {
+                  $scope.loading = false;
+                  $scope.loadAttempted = true;
+              });
+        }
+
         $scope.addNew = function () {
             $scope.NewProject = {};
         };
@@ -46,10 +58,10 @@
                     //Display Successfull message after save
                     if (response.data.IsSuccess)
                     {
-                        $scope.GetProjects();
-                        $scope.showModal = false;
+                        $scope.loadProjects();
+                        $('#addModal').modal('hide');
                         $scope.alerts.push({
-                            msg: 'Project updated successfully',
+                            msg: 'Project added successfully',
                             type: 'success'
                         });
                        
@@ -106,6 +118,7 @@
             //Call the function to save the data to database
             projectService.InsertUpdateProjectMaster($scope.Project, config).then(function (response) {
                 if (response.data.IsSuccess) {
+                    $scope.loadProjects();
                     $scope.alerts.push({
                         msg: 'Project updated successfully',
                         type: 'success'
@@ -130,7 +143,7 @@
 
             projectService.DeleteProjectMaster($scope.Project, config).then(function (response) {
                 if (response.data.IsSuccess) {
-                    $scope.GetProjects();
+                    $scope.loadProjects();
                     //Display Successfull message after save
                     $scope.alerts.push({
                         msg: 'Project deleted successfully',
@@ -159,8 +172,8 @@
                       cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: 'ServiceLineCode', displayName: "Service Line", field: "ServiceLineCode", enableColumnMenu: false,width:'10%',
-                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="MODEL_COL_FIELD"><option value="">Select Service Line</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceValue}}</option> </select></div>'
+                        name: 'ServiceLine', displayName: "Service Line", field: "ServiceLine", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLineCode"><option value="">Select Service Line</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceValue}}</option> </select></div>'
                     },
                     {
                         name: 'ProjectManager', displayName: "Project Manager", field: "ProjectManager", enableColumnMenu: false, width: '10%',
@@ -171,12 +184,12 @@
                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: 'TechnologyCode', displayName: "Technology", field: "TechnologyCode", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="MODEL_COL_FIELD"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceValue}}</option> </select></div>'
+                        name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.TechnologyCode"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceValue}}</option> </select></div>'
                     },
                     {
-                        name: 'IndustryCode', displayName: "Industry", field: "IndustryCode", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="MODEL_COL_FIELD"><option value="">Select Industry</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
+                        name: 'Industry', displayName: "Industry", field: "Industry", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.IndustryCode"><option value="">Select Industry</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
                     },
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '8%',
@@ -204,15 +217,7 @@
                 }
             };
             //Function to load the data from database
-            projectService.getProjectList(config)
-                .then(function (successResponse) {
-                    $scope.gridOptions.data = successResponse.data;
-                    $scope.loading = false;
-                    $scope.loadAttempted = true;
-                }, function (errorResponse) {
-                    $scope.loading = false;
-                    $scope.loadAttempted = true;
-                });
+            $scope.loadProjects();
         };
 
         // call function to load ref data
