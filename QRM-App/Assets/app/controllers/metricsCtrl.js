@@ -22,7 +22,6 @@ angular.module('metrics', []).controller('metricsCtrl', ['$scope', '$http', 'uiG
                 "deletedMetrics": $scope.metricsToBeDeleted
             };
             metricservice.SaveMetricsData(dataToPost, config).then(function (successResponse) {
-                alert('Success');
             }, function (errorResponse) {
                 alert('Failure');
             });
