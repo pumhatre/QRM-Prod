@@ -305,6 +305,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
+    <Compile Include="Models\MetricsAssociationMasterModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\MonthDetailsModel.cs" />
     <Compile Include="Models\ProjectDetailsModel.cs" />

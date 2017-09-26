@@ -30,5 +30,11 @@ namespace QRMService.Controllers
             var data = MetricsAssociationRepository.SaveMetricsAssociation(modelData);
             return Ok(data);
         }
+
+        public IHttpActionResult GetSavedMetricsAssociation(int projectId, int releaseId)
+        {
+            var data = MetricsAssociationRepository.GetSavedMetricsAssociation(projectId,releaseId);
+            return Ok(data);
+        }
     }
 }

@@ -37,6 +37,7 @@
                 .then(function (successResponse) {
                     //$scope.metricsAssociationData = successResponse.data;
                     $scope.releaseDropdown = successResponse.data;
+                    $scope.gridApi.selection.clearSelectedRows();
                 }, function (errorResponse) {
 
                 });
@@ -129,9 +130,32 @@
             metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
                 .then(function (successResponse) {
                     if (successResponse.data.IsSuccess) {
-                        alert("Success");
+                        alert(successResponse);
                     }
 
+                }, function (errorResponse) {
+
+                });
+            $scope.gridApi.selection.clearSelectedRows();
+        }
+
+        $scope.metricList = [];
+        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
+            $scope.metricList = [];
+            $scope.gridApi.selection.clearSelectedRows();
+            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
+                .then(function (successResponse) {
+                    $scope.metricsListWithProjects = successResponse.data;
+                    angular.forEach($scope.gridData, function (valueGrid, keyGrid) {
+                        angular.forEach($scope.metricsListWithProjects, function (value, key) {
+                            if (valueGrid.MetricsMasterId == value) {
+                                $scope.metricList.push($scope.gridData[keyGrid]);
+                            }
+                        });
+                    });
+                    angular.forEach($scope.metricList, function (value, key) {
+                        $scope.gridApi.selection.selectRow($scope.metricList[key]);
+                    });
                 }, function (errorResponse) {
 
                 });
