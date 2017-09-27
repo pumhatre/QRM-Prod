@@ -4,19 +4,24 @@
         $scope.myData;
         $scope.selectedProjectReleaseDropdown = '';
         $scope.projectsDropdown = [];
+        $scope.showSucessMessage = false;
+        $scope.showErrorMessage = false;
+        $scope.responseMessage = "";
         $scope.LoadProjectsDropDown = function () {
             projectReleaseService.GetProjectsLists(config)
                 .then(function (successResponse) {
                     $scope.projectsDropdown = successResponse.data;
                 }, function (errorResponse) {
-
+                    $scope.showErrorMessage = true;
+                    $scope.responseMessage = "Failed to load project list";
                 });
         }
         $scope.getProjectUsers = function (projectId) {
             userDetailsService.GetProjectUsers(projectId, config).then(function (successResponse) {
                 $scope.gridOptions1.data = successResponse.data.userDetails;
             }, function (errorResponse) {
-                alert('Failure');
+                $scope.showErrorMessage = true;
+                $scope.responseMessage = "Failed to load user details";
             });
         }
         $scope.saveData = function () {
@@ -33,9 +38,14 @@
                 "deletedUser": userToBeDeleted
             };
             userDetailsService.SaveUsersData(dataToPost, config).then(function (successResponse) {
+                $scope.showSucessMessage = true;
+                $scope.responseMessage = "Successful"
                 $scope.getProjectUsers($scope.selectedProjectReleaseDropdown);
+
+
             }, function (errorResponse) {
-                alert('Failure');
+                $scope.showErrorMessage = true;
+                $scope.responseMessage = "Failed to save data";
             });
         }
 
