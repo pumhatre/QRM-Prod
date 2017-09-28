@@ -1,5 +1,5 @@
 ﻿angular.module('metricsAssociation', [])
-    .controller('metricsAssociationCtrl', ['$scope', '$http', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', function ($scope, $http, projectReleaseService, config, uiGridConstants, metricsAssociationService) {
+    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.metricsAssociationData = [];
@@ -204,7 +204,7 @@
                     }
                     else {
                         $scope.GetAllProjectReleases();
-                    }                    
+                    }
                 }
 
             }, function (error) {
@@ -216,22 +216,24 @@
 
 
         $scope.deleteRow = function (row) {
+            $confirm({ text: 'Are you sure you want to delete this record?' })
+            .then(function () {
+                projectReleaseService.DeleteProjectRelease(row.ProjectReleaseId, config).then(function (response) {
+                    if (response.data.IsSuccess) {
+                        $scope.alertType = "Success";
+                        $scope.alertMessage = response.data.ResponseMessage;
+                        if ($scope.selectedProjectDropDown > 0) {
+                            $scope.GetProjectReleasesByProjectId();
+                        }
+                        else {
+                            $scope.GetAllProjectReleases();
+                        }
 
-            projectReleaseService.DeleteProjectRelease(row.ProjectReleaseId, config).then(function (response) {
-                if (response.data.IsSuccess) {
-                    $scope.alertType = "Success";
-                    $scope.alertMessage = response.data.ResponseMessage;
-                    if ($scope.selectedProjectDropDown > 0) {
-                        $scope.GetProjectReleasesByProjectId();
                     }
-                    else {
-                        $scope.GetAllProjectReleases();
-                    }
-                    
-                }
-            }, function (error) {
-                $scope.alertType = "Failure";
-                $scope.alertMessage = error.data.ResponseMessage;
+                }, function (error) {
+                    $scope.alertType = "Failure";
+                    $scope.alertMessage = error.data.ResponseMessage;
+                });
             });
         };
 

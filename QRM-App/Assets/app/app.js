@@ -26,6 +26,7 @@
     'ui.grid.importer',
     'ui.grid.grouping',
     'ui.bootstrap',
+    'angular-confirm',
     'viewPreferences'
 ]);
 

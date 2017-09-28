@@ -228,6 +228,7 @@
     <Content Include="Assets\misc\modernizr.min.js" />
     <Content Include="Assets\misc\respond.min.js" />
     <Content Include="Assets\ng\angular-animate.min.js" />
+    <Content Include="Assets\ng\angular-confirm.js" />
     <Content Include="Assets\ng\angular-cookies.min.js" />
     <Content Include="Assets\ng\angular-resource.min.js" />
     <Content Include="Assets\ng\angular-route.min.js" />

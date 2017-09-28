@@ -25,7 +25,8 @@ namespace QRM_App
                         "~/Assets/ng/angular-route.min.js",
                         "~/Assets/ng/angular-cookies.min.js",
                         "~/Assets/ng/angular-animate.min.js",
-                        "~/Assets/ng/angular-touch.min.js"));
+                        "~/Assets/ng/angular-touch.min.js",
+                        "~/Assets/ng/angular-confirm.js"));
 
             bundles.Add(new ScriptBundle("~/uigrid").Include(
                         "~/Assets/ng/ui-bootstrap-tpls-2.5.0.min.js",
