@@ -6,6 +6,7 @@
         $scope.gridData = [];
         $scope.metricsMasterIdList = [];
         $scope.selectedProjectReleaseDropdown = '';
+        $scope.selectedProjectDropDown = '';
         $scope.alertType = null;
         $scope.alerts = [];
         $scope.projectReleaseGridOptions = {};
@@ -64,8 +65,8 @@
             columnDefs: [
                 //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
                 //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'TypeCode', name: 'TypeCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'MetricDescription', name: 'MetricDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false }
+                { field: 'TypeCode', name: 'TypeCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '45%' },
+                { field: 'MetricDescription', name: 'MetricDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '45%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -115,8 +116,8 @@
 
         // function to get project releases by project id
         $scope.GetProjectReleasesByProjectId = function () {
-            if ($scope.selectedProjectReleaseDropdown > 0) {
-                projectReleaseService.GetProjectReleases($scope.selectedProjectReleaseDropdown, config)
+            if ($scope.selectedProjectDropDown > 0) {
+                projectReleaseService.GetProjectReleases($scope.selectedProjectDropDown, config)
                     .then(function (successResponse) {
                         $scope.projectReleaseGridOptions.data = successResponse.data;
                         $scope.loading = false;
@@ -136,7 +137,7 @@
         // function to insert release name for selected project
         $scope.InsertProjectRelease = function (formIsVallid) {
             if (formIsVallid) {
-                projectReleaseService.InsertProjectRelease($scope.selectedProjectReleaseDropdown, $scope.ProjectReleaseName, config)
+                projectReleaseService.InsertProjectRelease($scope.selectedProjectDropDown, $scope.ProjectReleaseName, config)
                     .then(function (successResponse) {
                         if (successResponse.data.IsSuccess) {
                             // show success alert
@@ -198,7 +199,7 @@
                 if (response.data.IsSuccess) {
                     $scope.alertType = "Success";
                     $scope.alertMessage = response.data.ResponseMessage;
-                    if ($scope.selectedProjectReleaseDropdown > 0) {
+                    if ($scope.selectedProjectDropDown > 0) {
                         $scope.GetProjectReleasesByProjectId();
                     }
                     else {
@@ -220,7 +221,7 @@
                 if (response.data.IsSuccess) {
                     $scope.alertType = "Success";
                     $scope.alertMessage = response.data.ResponseMessage;
-                    if ($scope.selectedProjectReleaseDropdown > 0) {
+                    if ($scope.selectedProjectDropDown > 0) {
                         $scope.GetProjectReleasesByProjectId();
                     }
                     else {
