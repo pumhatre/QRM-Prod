@@ -19,11 +19,13 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                return db.ProjectMasters.Select(a => new SelectListItem
-                {
-                    Text = a.ProjectName,
-                    Value = a.ProjectID.ToString()
-                }).OrderBy(b => b.Text).ToList();
+                return db.ProjectMasters
+                    .Where(a => a.IsActive == true)
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.ProjectName,
+                        Value = a.ProjectID.ToString()
+                    }).OrderBy(b => b.Text).ToList();
             }
         }
 
@@ -110,7 +112,7 @@ namespace QRMService.Repositories
                         Solution = projectMaster.Solution,
                         Director = projectMaster.Director,
                         SeniorManager = projectMaster.SeniorManager,
-                        IsActive=true
+                        IsActive = true
                     };
 
                     db.ProjectMasters.Add(project);

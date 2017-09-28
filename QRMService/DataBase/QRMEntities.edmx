@@ -274,8 +274,9 @@ warning 6002: The table/view 'QRMPortal.dbo.Period' does not have a primary key 
             <PropertyRef Name="ProjectReleaseId" />
           </Key>
           <Property Name="ProjectReleaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjectID" Type="int" />
-          <Property Name="ReleaseName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ReleaseName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1073,8 +1074,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectReleaseId" Type="Int32" />
           <Property Name="MonthId" Type="Int32" />
           <NavigationProperty Name="MonthMaster" Relationship="Self.FK_DefectDataDetails_MonthId" FromRole="DefectDataDetails" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="DefectDataDetail" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="DefectDataDetail" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="DefectDataDetail" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="DefectDataStaging">
           <Key>
@@ -1102,8 +1103,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="MonthId" Type="Int32" />
           <NavigationProperty Name="MonthMaster" Relationship="Self.FK_DefectDataStaging_MonthId" FromRole="DefectDataStaging" ToRole="MonthMaster" />
           <NavigationProperty Name="MonthMaster1" Relationship="Self.FK_DefectDataStaging_Period" FromRole="DefectDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="DefectDataStaging" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="DefectDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="DefectDataStaging" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="MetricMaster">
           <Key>
@@ -1202,8 +1203,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ComplexTestCasesExecution" Type="Int32" />
           <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
           <NavigationProperty Name="MonthMaster" Relationship="Self.FK_TestingDataStaging_MonthId" FromRole="TestingDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="TestingDetail">
           <Key>
@@ -1250,8 +1251,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MonthMaster" Relationship="Self.FK_TestingDetails_MonthId" FromRole="TestingDetails" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
@@ -1348,8 +1349,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
           <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
           <Property Name="ProjectReleaseId" Type="Int32" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="DevMetric" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DevMetrics_ProjectMaster" FromRole="DevMetric" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="DevMetric" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="EffortDataStaging">
           <Key>
@@ -1378,8 +1379,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectReleaseId" Type="Int32" />
           <Property Name="MonthId" Type="Int32" />
           <NavigationProperty Name="MonthMaster" Relationship="Self.FK_EffortDataStaging_MonthId" FromRole="EffortDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster1" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="EffortDetail">
           <Key>
@@ -1408,8 +1409,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="MonthId" Type="Int32" />
           <Property Name="WidgetType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MonthMaster" Relationship="Self.FK_EffortDetails_MonthId" FromRole="EffortDetails" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="EffortDetail" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="EffortDetail" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="EffortDetail" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="Period">
           <Key>
@@ -1586,35 +1587,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
           </AssociationSet>
           <EntitySet Name="ProjectWidgetDetails" EntityType="QRMPortalModel.ProjectWidgetDetail" />
-          <EntitySet Name="ProjectReleaseMasters" EntityType="QRMPortalModel.ProjectReleaseMaster" />
-          <AssociationSet Name="FK_DefectDataDetails_ReleaseId" Association="QRMPortalModel.FK_DefectDataDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DefectDataStaging_ReleaseId" Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DevMetrics_ReleaseId" Association="QRMPortalModel.FK_DevMetrics_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="DevMetric" EntitySet="DevMetrics" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="QRMPortalModel.FK_EffortDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="EffortDetail" EntitySet="EffortDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="TestingDetail" EntitySet="TestingDetails" />
-          </AssociationSet>
           <EntitySet Name="ProjectMetricAssociations" EntityType="QRMPortalModel.ProjectMetricAssociation" />
           <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster">
             <End Role="MetricMaster" EntitySet="MetricMasters" />
@@ -1622,10 +1594,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           </AssociationSet>
           <AssociationSet Name="FK_ProjectMetricAssociation_MonthId" Association="QRMPortalModel.FK_ProjectMetricAssociation_MonthId">
             <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_ReleaseId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
           </AssociationSet>
           <EntitySet Name="PreferredReportMetricsAssociations" EntityType="QRMPortalModel.PreferredReportMetricsAssociation" />
@@ -1671,6 +1639,39 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectMaster" EntitySet="ProjectMasters" />
             <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
           </AssociationSet>
+          <EntitySet Name="ProjectReleaseMasters" EntityType="QRMPortalModel.ProjectReleaseMaster" />
+          <AssociationSet Name="FK_DefectDataDetails_ReleaseId" Association="QRMPortalModel.FK_DefectDataDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_ReleaseId" Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMetricAssociation_ReleaseId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevMetrics_ReleaseId" Association="QRMPortalModel.FK_DevMetrics_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="DevMetric" EntitySet="DevMetrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="QRMPortalModel.FK_EffortDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="EffortDetail" EntitySet="EffortDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ProjectWidgetDetail">
           <Key>
@@ -1682,106 +1683,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="WidgetName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectWidgetDetail" ToRole="ProjectMaster" />
         </EntityType>
-        <EntityType Name="ProjectReleaseMaster">
-          <Key>
-            <PropertyRef Name="ProjectReleaseId" />
-          </Key>
-          <Property Name="ProjectReleaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectID" Type="Int32" />
-          <Property Name="ReleaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataDetail" />
-          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataStaging" />
-          <NavigationProperty Name="DevMetrics" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DevMetric" />
-          <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDataStaging" />
-          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDetail" />
-          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDataStaging" />
-          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDetail" />
-          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="ProjectMetricAssociation" />
-        </EntityType>
-        <Association Name="FK_DefectDataDetails_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.DefectDataDetail" Role="DefectDataDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="DefectDataDetail">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DefectDataStaging_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.DefectDataStaging" Role="DefectDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="DefectDataStaging">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DevMetrics_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="DevMetric">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EffortDataStaging_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.EffortDataStaging" Role="EffortDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="EffortDataStaging">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EffortDetails_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="EffortDetail">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDataStaging_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDetails_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="TestingDetail">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ProjectMetricAssociation">
           <Key>
             <PropertyRef Name="ProjectMetricAssociationID" />
@@ -1794,8 +1695,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ReleaseId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MetricMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="ProjectMetricAssociation" ToRole="MetricMaster" />
           <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" FromRole="ProjectMetricAssociation" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectMetricAssociation" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMetricAssociation" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectMetricAssociation" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <Association Name="FK_ProjectMetricAssociation_MetricMaster">
           <End Type="QRMPortalModel.MetricMaster" Role="MetricMaster" Multiplicity="1" />
@@ -1818,18 +1719,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Principal>
             <Dependent Role="ProjectMetricAssociation">
               <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectMetricAssociation_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="ReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2003,6 +1892,119 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Principal>
             <Dependent Role="UserProjectRoleAssociation">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProjectReleaseMaster">
+          <Key>
+            <PropertyRef Name="ProjectReleaseId" />
+          </Key>
+          <Property Name="ProjectReleaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataDetail" />
+          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="ProjectMetricAssociation" />
+          <NavigationProperty Name="DevMetrics" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DevMetric" />
+          <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDetail" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDetail" />
+        </EntityType>
+        <Association Name="FK_DefectDataDetails_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.DefectDataDetail" Role="DefectDataDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="DefectDataDetail">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectDataStaging_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.DefectDataStaging" Role="DefectDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="DefectDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMetricAssociation_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="ProjectMetricAssociation">
+              <PropertyRef Name="ReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevMetrics_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="DevMetric">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDataStaging_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.EffortDataStaging" Role="EffortDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="EffortDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDetails_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="EffortDetail">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDataStaging_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2372,15 +2374,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProjectReleaseMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.ProjectReleaseMaster">
-              <MappingFragment StoreEntitySet="ProjectReleaseMaster">
-                <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProjectMetricAssociations">
             <EntityTypeMapping TypeName="QRMPortalModel.ProjectMetricAssociation">
               <MappingFragment StoreEntitySet="ProjectMetricAssociation">
@@ -2436,6 +2429,16 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectReleaseMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectReleaseMaster">
+              <MappingFragment StoreEntitySet="ProjectReleaseMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
