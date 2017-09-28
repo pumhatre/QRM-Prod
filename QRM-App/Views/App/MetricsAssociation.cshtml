@@ -5,7 +5,7 @@
     }
 
     .gridDiv {
-        height: 420px !important;
+        height: 240px !important;
     }
 
 
@@ -66,74 +66,72 @@
                                             </div>
                                             <div class="x_content">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="x_panel">
-                                                        <div ng-show="alertType" ng-class="{'alert-success': alertType=='Success','alert-danger': alertType=='Failure'}" class="alert alert-dismissable">
-                                                            <span style="cursor:pointer;" class="close" aria-label="close" ng-click="ClearAlert()">&times;</span>
-                                                            <strong>{{alertType}}!</strong> {{alertMessage}}
-                                                        </div>
-                                                        <div class="x_content">
-                                                            <form name="formRelease" ng-submit="InsertProjectRelease(formRelease.$valid)" novalidate>
-                                                                <div class="form-group">
-                                                                    <div class="col-md-3"></div>
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
-                                                                    <div class="col-md-3">
-                                                                        <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="GetProjectReleasesByProjectId()" required>
-                                                                            <option value="">Select a Project</option>
-                                                                            <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-3"></div>
-                                                                </div>
-                                                                <br>
-                                                                <br>
-                                                                <div class="form-group">
-                                                                    <div class="col-md-3"></div>
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
-                                                                    <div class="col-md-3">
-                                                                        <input type="text" class="form-control" ng-model="ProjectReleaseName" maxlength="100" required>
-                                                                    </div>
-                                                                    <div class="col-md-3"></div>
-                                                                </div>
-                                                                <br>
-                                                                <br>
-                                                                <div class="row">
-                                                                    <div class="col-md-3"></div>
-                                                                    <div class="col-md-3"></div>
-                                                                    <div class="col-md-3">
-                                                                        &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button class="btn btn-success" type="submit" id="btnSave" ng-disabled="formRelease.$invalid"> Add</button>
-                                                                    </div>
-                                                                    <div class="col-md-3"></div>
-                                                                </div>
-                                                            </form>
-                                                            <div class="clearfix"></div>
-                                                            <br>
-                                                            <div>
-                                                                <div class="col-md-3"></div>
-                                                                <div class="col-md-6">
-                                                                    <!-- start project list -->
-                                                                    <table class="table table-striped projects" id="tbl_ProjectMetrics" ng-show="projectsReleases.length">
-                                                                        <thead style="text-align:center;">
-                                                                            <tr>
-                                                                                <th>Release No</th>
-                                                                                <th>Project Name</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr ng-repeat="projectRelease in projectsReleases">
-                                                                                <td>{{projectRelease.ReleaseName}}</td>
-                                                                                <td>{{projectRelease.ProjectName}}</td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                    <!-- end project list -->
-                                                                    <span style="text-align:center;" ng-show="!projectsReleases.length">No record found!</span>
-                                                                </div>
-                                                                <div class="col-md-3">
 
+                                                    <div ng-show="alertType" ng-class="{'alert-success': alertType=='Success','alert-danger': alertType=='Failure'}" class="alert alert-dismissable">
+                                                        <span style="cursor:pointer;" class="close" aria-label="close" ng-click="ClearAlert()">&times;</span>
+                                                        <strong>{{alertType}}!</strong> {{alertMessage}}
+                                                    </div>
+                                                    <div class="x_content">
+                                                        <form name="formRelease" ng-submit="InsertProjectRelease(formRelease.$valid)" novalidate>
+                                                            <div class="form-group">
+                                                                <div class="col-md-3"></div>
+                                                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
+                                                                <div class="col-md-3">
+                                                                    <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="GetProjectReleasesByProjectId()" required>
+                                                                        <option value="">Select a Project</option>
+                                                                        <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
+                                                                    </select>
                                                                 </div>
+                                                                <div class="col-md-3"></div>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                            <div class="form-group">
+                                                                <div class="col-md-3"></div>
+                                                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
+                                                                <div class="col-md-3">
+                                                                    <input type="text" class="form-control" ng-model="ProjectReleaseName" maxlength="100" required>
+                                                                </div>
+                                                                <div class="col-md-3"></div>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-md-3"></div>
+                                                                <div class="col-md-3"></div>
+                                                                <div class="col-md-3">
+                                                                    &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button class="btn btn-success" type="submit" id="btnSave" ng-disabled="formRelease.$invalid"> Add</button>
+                                                                </div>
+                                                                <div class="col-md-3"></div>
+                                                            </div>
+                                                        </form>
+                                                        <div class="clearfix"></div>
+                                                        <br>
+                                                        <div>
+                                                            <div class="col-md-2"></div>
+                                                            <div class="col-md-8">
+                                                                <div class="gridDiv grid" ui-grid="projectReleaseGridOptions" ui-grid-pagination="">
+                                                                    <div class="grid-msg-overlay" ng-show="loading">
+                                                                        <div class="msg">
+                                                                            <span>
+                                                                                Loading Data...
+                                                                                <i class="fa fa-spinner fa-spin"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="grid-msg-overlay" ng-hide="loading || projectReleaseGridOptions.data.length">
+                                                                        <div class="msg">
+                                                                            <span>No Data</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+
                                                             </div>
                                                         </div>
                                                     </div>
+
 
                                                 </div>
                                             </div>

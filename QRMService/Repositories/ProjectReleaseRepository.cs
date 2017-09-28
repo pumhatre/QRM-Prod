@@ -21,7 +21,7 @@ namespace QRMService.Repositories
             {
                 var projectReleases = (from pr in db.ProjectReleaseMasters
                                        join p in db.ProjectMasters on pr.ProjectID equals p.ProjectID
-                                       where pr.ProjectID== ProjectId
+                                       where pr.ProjectID== ProjectId && pr.IsActive==true && p.IsActive==true
                                        select new ProjectReleaseModel
                                        {
                                            ProjectReleaseId = pr.ProjectReleaseId,
@@ -43,13 +43,14 @@ namespace QRMService.Repositories
             {
                 var projectReleases = (from pr in db.ProjectReleaseMasters
                                        join p in db.ProjectMasters on pr.ProjectID equals p.ProjectID
+                                       where pr.IsActive == true && p.IsActive == true
                                        select new ProjectReleaseModel
                                        {
                                            ProjectReleaseId = pr.ProjectReleaseId,
                                            ProjectID = p.ProjectID,
                                            ProjectName = p.ProjectName,
                                            ReleaseName = pr.ReleaseName
-                                       }).OrderBy(a=>a.ProjectName).OrderBy(b=>b.ProjectReleaseId).ToList();
+                                       }).OrderBy(a=>a.ProjectName).ToList();
                 return projectReleases;
             }
         }
@@ -71,7 +72,8 @@ namespace QRMService.Repositories
                     var release = new ProjectReleaseMaster
                     {
                         ProjectID = projectId,
-                        ReleaseName = releaseName
+                        ReleaseName = releaseName,
+                        IsActive=true
                     };
                     db.ProjectReleaseMasters.Add(release);
                     db.SaveChanges();
@@ -106,6 +108,34 @@ namespace QRMService.Repositories
 
                     response.IsSuccess = true;
                     response.ResponseMessage = "Project Release updated successfully";
+                }
+                else
+                {
+                    response.ResponseMessage = "Project Release does not exist.";
+                }
+                return response;
+            }
+        }
+
+        /// <summary>
+        /// Deletes the project release.
+        /// </summary>
+        /// <param name="projectReleaseId">The project release identifier.</param>
+        /// <returns></returns>
+        public static ProjectReleasesResponseModel DeleteProjectRelease(int projectReleaseId)
+        {
+            var response = new ProjectReleasesResponseModel();
+            using (var db = new QRMEntities())
+            {
+                var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectReleaseId == projectReleaseId).FirstOrDefault();
+                if (projectRelease != null)
+                {
+                    projectRelease.IsActive = false;
+                    db.Entry(projectRelease).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    response.IsSuccess = true;
+                    response.ResponseMessage = "Project Release deleted successfully.";
                 }
                 else
                 {

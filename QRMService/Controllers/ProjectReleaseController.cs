@@ -67,13 +67,35 @@ namespace QRMService.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Deletes the project release.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult DeleteProjectRelease(ProjectReleaseModel request)
+        {
+            var response = ProjectReleaseRepository.DeleteProjectRelease(request.ProjectReleaseId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Gets the project details.
+        /// </summary>
+        /// <param name="projectID">The project identifier.</param>
+        /// <returns></returns>
         public IHttpActionResult GetProjectDetails(int projectID)
         {
             var data = ProjectRepository.GetProjectDetails(projectID);
 
             return Ok(data);
         }
-        
+
+        /// <summary>
+        /// Deletes the project.
+        /// </summary>
+        /// <param name="projectID">The project identifier.</param>
+        /// <returns></returns>
         public IHttpActionResult DeleteProject(int projectID)
         {
             var data = ProjectRepository.DeleteProject(projectID);

@@ -7,7 +7,9 @@
         $scope.metricsMasterIdList = [];
         $scope.selectedProjectReleaseDropdown = '';
         $scope.alertType = null;
-        
+        $scope.alerts = [];
+        $scope.projectReleaseGridOptions = {};
+
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
             projectReleaseService.GetProjectsLists(config)
@@ -19,13 +21,13 @@
         }
         //Load Metrics Association grid on Page load
 
-        
+
         //function to load metrics association grid
         function LoadMetricsAssociationGrid() {
             metricsAssociationService.getMetricsAssociationDetails(config)
                 .then(function (successResponse) {
                     //$scope.metricsAssociationData = successResponse.data;
-                    $scope.gridData= successResponse.data;
+                    $scope.gridData = successResponse.data;
                 }, function (errorResponse) {
 
                 });
@@ -33,7 +35,7 @@
         $scope.data = [];
         //var projectId;
         $scope.getProjectReleases = function (projectId) {
-            metricsAssociationService.getReleaseList(config,projectId)
+            metricsAssociationService.getReleaseList(config, projectId)
                 .then(function (successResponse) {
                     //$scope.metricsAssociationData = successResponse.data;
                     $scope.releaseDropdown = successResponse.data;
@@ -44,65 +46,13 @@
         }
 
 
-        // function to get project releases by project id
-        $scope.GetProjectReleasesByProjectId = function () {
-            if ($scope.selectedProjectReleaseDropdown > 0) {
-                projectReleaseService.GetProjectReleases($scope.selectedProjectReleaseDropdown, config)
-                    .then(function (successResponse) {
-                        $scope.projectsReleases = successResponse.data;
-
-                    }, function (errorResponse) {
-
-                    });
-            }
-            else {
-                // load all project releases
-                $scope.GetAllProjectReleases();
-            }
-        }
-
-        // function to insert release name for selected project
-        $scope.InsertProjectRelease = function (formIsVallid) {
-            if (formIsVallid) {
-                projectReleaseService.InsertProjectRelease($scope.selectedProjectReleaseDropdown, $scope.ProjectReleaseName, config)
-                    .then(function (successResponse) {
-                        if (successResponse.data.IsSuccess) {
-                            // show success alert
-                            $scope.ProjectReleaseName = "";
-                            $scope.alertType = "Success";
-                            $scope.alertMessage = successResponse.data.ResponseMessage;
-                            $scope.GetProjectReleasesByProjectId();
-                        }
-                        else {
-                            // show failure alert
-                            $scope.alertType = "Failure";
-                            $scope.alertMessage = successResponse.data.ResponseMessage;
-                        }
-                    }, function (errorResponse) {
-
-                    });
-            }
-        }
-        
-        $scope.GetAllProjectReleases = function () {
-            projectReleaseService.GetAllProjectReleases(config)
-                .then(function (successResponse) {
-                    $scope.projectsReleases = successResponse.data;
-                }, function (errorResponse) {
-
-                });
-        }
-
         $scope.ClearAlert = function () {
-            debugger;
             $scope.alertType = null;
         }
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
         LoadMetricsAssociationGrid();
-        // load all project releases
-        $scope.GetAllProjectReleases();
 
         $scope.gridOptions = {
             data: 'gridData',
@@ -161,4 +111,161 @@
                 });
         }
 
+        //////////////// Project release UI Grid and add, edit, update, delete functions //////////////////////
+
+        // function to get project releases by project id
+        $scope.GetProjectReleasesByProjectId = function () {
+            if ($scope.selectedProjectReleaseDropdown > 0) {
+                projectReleaseService.GetProjectReleases($scope.selectedProjectReleaseDropdown, config)
+                    .then(function (successResponse) {
+                        $scope.projectReleaseGridOptions.data = successResponse.data;
+                        $scope.loading = false;
+                        $scope.loadAttempted = true;
+
+                    }, function (errorResponse) {
+                        $scope.loading = false;
+                        $scope.loadAttempted = true;
+                    });
+            }
+            else {
+                // load all project releases
+                $scope.GetAllProjectReleases();
+            }
+        }
+
+        // function to insert release name for selected project
+        $scope.InsertProjectRelease = function (formIsVallid) {
+            if (formIsVallid) {
+                projectReleaseService.InsertProjectRelease($scope.selectedProjectReleaseDropdown, $scope.ProjectReleaseName, config)
+                    .then(function (successResponse) {
+                        if (successResponse.data.IsSuccess) {
+                            // show success alert
+                            $scope.ProjectReleaseName = "";
+                            $scope.alertType = "Success";
+                            $scope.alertMessage = successResponse.data.ResponseMessage;
+                            $scope.GetProjectReleasesByProjectId();
+                        }
+                        else {
+                            // show failure alert
+                            $scope.alertType = "Failure";
+                            $scope.alertMessage = successResponse.data.ResponseMessage;
+                        }
+                    }, function (errorResponse) {
+
+                    });
+            }
+        }
+
+        $scope.GetAllProjectReleases = function () {
+            projectReleaseService.GetAllProjectReleases(config)
+                .then(function (successResponse) {
+                    $scope.projectReleaseGridOptions.data = successResponse.data;
+                    $scope.loading = false;
+                    $scope.loadAttempted = true;
+                }, function (errorResponse) {
+                    $scope.loading = false;
+                    $scope.loadAttempted = true;
+                });
+        }
+
+        //Passing the selected row object as parameter, we use this row object to identify  the edited row
+        $scope.edit = function (row) {
+            //Get the index of selected row from row object
+            var index = $scope.projectReleaseGridOptions.data.indexOf(row);
+            //Use that to set the editrow attrbute value for seleted rows
+            $scope.projectReleaseGridOptions.data[index].editrow = !$scope.projectReleaseGridOptions.data[index].editrow;
+        };
+
+        //Method to cancel the edit mode in UIGrid
+        $scope.cancelEdit = function (row) {
+            //Get the index of selected row from row object
+            var index = $scope.projectReleaseGridOptions.data.indexOf(row);
+            //Use that to set the editrow attrbute value to false
+            $scope.projectReleaseGridOptions.data[index].editrow = false;
+            //Display Successfull message after save            
+        };
+
+        //Function to save the data
+        //Here we pass the row object as parmater, we use this row object to identify  the edited row
+        $scope.updateRow = function (row) {
+            //get the index of selected row 
+            var index = $scope.projectReleaseGridOptions.data.indexOf(row);
+            //Remove the edit mode when user click on Save button
+            $scope.projectReleaseGridOptions.data[index].editrow = false;
+
+            //Call the function to save the data to database
+            projectReleaseService.UpdateProjectRelease(row.ProjectReleaseId, row.ReleaseName, config).then(function (response) {
+                if (response.data.IsSuccess) {
+                    $scope.alertType = "Success";
+                    $scope.alertMessage = response.data.ResponseMessage;
+                    if ($scope.selectedProjectReleaseDropdown > 0) {
+                        $scope.GetProjectReleasesByProjectId();
+                    }
+                    else {
+                        $scope.GetAllProjectReleases();
+                    }                    
+                }
+
+            }, function (error) {
+                //Display Error message if any error occurs
+                $scope.alertType = "Failure";
+                $scope.alertMessage = error.data.ResponseMessage;
+            });
+        };
+
+
+        $scope.deleteRow = function (row) {
+
+            projectReleaseService.DeleteProjectRelease(row.ProjectReleaseId, config).then(function (response) {
+                if (response.data.IsSuccess) {
+                    $scope.alertType = "Success";
+                    $scope.alertMessage = response.data.ResponseMessage;
+                    if ($scope.selectedProjectReleaseDropdown > 0) {
+                        $scope.GetProjectReleasesByProjectId();
+                    }
+                    else {
+                        $scope.GetAllProjectReleases();
+                    }
+                    
+                }
+            }, function (error) {
+                $scope.alertType = "Failure";
+                $scope.alertMessage = error.data.ResponseMessage;
+            });
+        };
+
+        //Get function to populate the UI-Grid
+        $scope.LoadProjectReleases = function () {
+            $scope.loading = true;
+            $scope.projectReleaseGridOptions = {
+                paginationPageSizes: [10, 50, 100, 200, 500],
+                paginationPageSize: 5,
+                //Declaring column and its related properties
+                columnDefs: [
+                    {
+                        name: 'ReleaseName', displayName: "Release No", field: "ReleaseName", enableColumnMenu: false, width: '35%',
+                        cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                    },
+                     {
+                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '40%',
+                         enableCellEdit: false
+                     },
+                    {
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '25%',
+                        cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                        '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
+                        '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
+                        '<button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
+                        '</div>'
+                    }
+                ],
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                }
+            };
+            //Function to load the data from database
+            $scope.GetAllProjectReleases();
+        };
+
+        $scope.LoadProjectReleases();
     }]);

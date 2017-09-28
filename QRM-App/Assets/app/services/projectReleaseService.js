@@ -14,6 +14,16 @@
         return $http.post(config.apiUrl + 'api/ProjectRelease/InsertProjectRelease', data);
     }
 
+    this.UpdateProjectRelease = function (projectReleaseID, releaseName, config) {
+        var data = { ProjectReleaseId: projectReleaseID, ReleaseName: releaseName };
+        return $http.post(config.apiUrl + 'api/ProjectRelease/UpdateProjectRelease', data);
+    }
+
+    this.DeleteProjectRelease = function (projectReleaseID, config) {
+        var data = { ProjectReleaseId: projectReleaseID};
+        return $http.post(config.apiUrl + 'api/ProjectRelease/DeleteProjectRelease', data);
+    }
+
     this.GetProjectsLists= function (config) {
         return $http.get(config.apiUrl + 'api/Project/GetProjectsList');
     }
