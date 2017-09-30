@@ -70,24 +70,24 @@ namespace QRMService.Repositories
                     }
                 }
                 
-                //var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectId && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim()).FirstOrDefault();
-                //if (projectRelease == null)
-                //{
-                //    var release = new ProjectReleaseMaster
-                //    {
-                //        ProjectID = projectId,
-                //        ReleaseName = releaseName
-                //    };
-                //    db.ProjectReleaseMasters.Add(release);
-                //    db.SaveChanges();
-                //    response.IsSuccess = true;
-                //    response.ResponseMessage = "Project Release added successfully";
-                //}
-                //else
-                //{
-                //    response.ResponseMessage = "Release Name already exists.";
-                //}
                 return response;
+            }
+        }
+
+        public static List<int> GetSavedMetricsAssociation(int projectId, int releaseId)
+        {
+            using (var db = new QRMEntities())
+            {
+                //var releaseDetails = (from m in db.ProjectMetricAssociations
+                //                      where m.ProjectId == projectId & m.ReleaseId==releaseId
+                //                      select new MetricsAssociationMasterModel
+                //                      {
+                //                          MetricsMasterId=m.MetricMasterID,
+                //                      }).ToList();
+                var releaseDetails = (from m in db.ProjectMetricAssociations
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId
+                                      select m.MetricMasterID).ToList();
+                return releaseDetails;
             }
         }
     }

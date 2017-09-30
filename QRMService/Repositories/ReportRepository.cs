@@ -53,7 +53,7 @@ namespace QRMService.Repositories
                 return db.ProjectReleaseMasters.Select(p => new ProjectReleaseModel
                 {
                     ProjectReleaseId = p.ProjectReleaseId,
-                    ProjectID = p.ProjectID.Value,
+                    ProjectID = p.ProjectID,
                     ReleaseName = p.ReleaseName
                 }).ToList();
             }

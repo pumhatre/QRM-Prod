@@ -7,12 +7,27 @@
     'metricsAssociation',
     'metrics',
     'project',
-    'ui.grid',
-    'ui.grid.edit',
-    'ui.grid.selection',
     'userConfiguration',
     'role',
-    'generateReport'
+    'generateReport',
+    'ui.grid',
+    'ui.grid.pagination',
+    'ui.grid.selection',
+    'ui.grid.cellNav',
+    'ui.grid.expandable',
+    'ui.grid.edit',
+    'ui.grid.rowEdit',
+    'ui.grid.saveState',
+    'ui.grid.resizeColumns',
+    'ui.grid.pinning',
+    'ui.grid.moveColumns',
+    'ui.grid.exporter',
+    'ui.grid.infiniteScroll',
+    'ui.grid.importer',
+    'ui.grid.grouping',
+    'ui.bootstrap',
+    'angular-confirm',
+    'viewPreferences'
 ]);
 
 app.constant('config', {
@@ -23,7 +38,7 @@ app.constant('config', {
 
 
 app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $routeProvider, $httpProvider) {
-    
+
     //================================================
     // Ignore Template Request errors if a page that was requested was not found or unauthorized.  The GET operation could still show up in the browser debugger, but it shouldn't show a $compile:tpload error.
     //================================================
@@ -38,7 +53,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     // Add an interceptor for AJAX errors
     //================================================
     $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
-        return {            
+        return {
             'responseError': function (response) {
                 if (response.status === 401)
                     $location.url('/signin');
@@ -47,7 +62,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         };
     }]);
 
-        
+
     //================================================
     // Routes
     //================================================
@@ -90,12 +105,12 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     });
     $routeProvider.when('/ViewPreference', {
         templateUrl: '/App/ViewPreference',
-        // controller: 'generatereportCtrl as generatereport'
+        controller: 'viewPreferencesReportCtrl as viewPreferencesReport'
     });
-    
+
     $routeProvider.otherwise({
         redirectTo: '/home'
-    });    
+    });
 }]);
 
 app.factory('Auth', ['$cookies', function ($cookies) {
@@ -178,6 +193,6 @@ app.run(['$rootScope', '$http', '$cookies',  '$cookieStore', function ($rootScop
 
     }
 
-   
+
 }]);
 

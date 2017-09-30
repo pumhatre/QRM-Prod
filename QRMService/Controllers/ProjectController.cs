@@ -35,5 +35,13 @@ namespace QRMService.Controllers
         }
 
 
+        [HttpPost]
+        public IHttpActionResult DeleteProjectMaster(ProjectMasterModel projectMaster)
+        {
+
+            var response = ProjectRepository.DeleteProject(projectMaster.ProjectID);
+            return Ok(response);
+        }
+
     }
 }
