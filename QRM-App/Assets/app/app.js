@@ -98,20 +98,58 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     });    
 }]);
 
+app.factory('Auth', ['$cookies', function ($cookies) {
+    var user;    
+    user = $cookies.get('_UserName');
+    return {
+        isLoggedIn: function () {
+            if (user == null || typeof (user) == 'undefined' || user == '') {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+}]);
+
+
 // authentication code
 
-app.controller('AppController', ['$scope', '$cookies', '$cookieStore',
-    function ($scope, $cookies, $cookieStore) {       
+app.controller('AppController', ['$scope', '$cookies', '$cookieStore', 'Auth',
+    function ($scope, $cookies, $cookieStore, Auth) {
+      
         $scope.IsSuperUser = $cookies.get('_IsSuperUser');
         $scope.UserName = $cookies.get('_UserName');
+
+        $scope.$watch(Auth.isLoggedIn, function (value, oldValue) {
+            if (!value && oldValue) {
+
+                window.location.href = '/app/SignIn';
+            }
+
+        }, true);
     }]);
 
 app.run(['$http', '$cookies', '$rootScope', '$cookieStore', function ($http, $cookies, $cookieStore, $rootScope) {
     //If a token exists in the cookie, load it after the app is loaded, so that the application can maintain the authenticated state.
+  
     $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('_Token');  
     $http.defaults.headers.common.RefreshToken = $cookies.get('_RefreshToken');   
     $rootScope.RoleName = $cookies.get('_IsSuperUser'); 
 }]);
+
+
+app.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
+    $rootScope.$on('$routeChangeStart', function (event) {
+       
+        if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+            event.preventDefault();
+            window.location.href = '/app/SignIn';   
+        }       
+    });
+}]);
+
 
 
 
