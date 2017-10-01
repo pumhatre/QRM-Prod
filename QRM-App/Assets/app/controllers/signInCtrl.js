@@ -25,4 +25,21 @@
                     $scope.showMessage = true;
                 })
         }
+    }]).run(['$rootScope', '$location', '$cookies',function ($rootScope, $location,$cookies) {   
+        $rootScope.$on('$locationChangeStart', function (e, next, previous, current) {            
+            var domain = previous.split('/').pop().trim();
+            if (domain == "SignIn")
+            {
+                // Remove all the cookies
+                $cookies.remove("_Token", { path: "/" });
+                $cookies.remove("_UserId", { path: "/" });
+                $cookies.remove("_UserName", { path: "/" });
+                $cookies.remove("_RoleName", { path: "/" });
+                $cookies.remove("_Token", { path: "/app" });
+                $cookies.remove("_UserId", { path: "/app" });
+                $cookies.remove("_UserName", { path: "/app" });
+                $cookies.remove("_RoleName", { path: "/app" });
+                //
+            }           
+        });
     }]);

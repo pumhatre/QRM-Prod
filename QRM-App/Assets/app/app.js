@@ -155,9 +155,8 @@ app.run(['$http', '$cookies', '$rootScope', '$cookieStore', function ($http, $co
 
 
 app.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
-    $rootScope.$on('$routeChangeStart', function (event) {
-       
-        if (!Auth.isLoggedIn()) {
+    $rootScope.$on('$routeChangeStart', function (event) {        
+        if (!Auth.isLoggedIn()) {          
             console.log('DENY');
             event.preventDefault();
             window.location.href = '/app/SignIn';   
@@ -184,10 +183,16 @@ app.run(['$rootScope', '$http', '$cookies',  '$cookieStore', function ($rootScop
                 $rootScope.username = '';
                 $rootScope.loggedIn = false;
                 $rootScope.RoleName = '';
+                // Remove all the cookies
                 $cookies.remove("_Token", { path: "/" });
                 $cookies.remove("_UserId", { path: "/" });
                 $cookies.remove("_UserName", { path: "/" });
                 $cookies.remove("_RoleName", { path: "/" });
+                $cookies.remove("_Token", { path: "/app" });
+                $cookies.remove("_UserId", { path: "/app" });
+                $cookies.remove("_UserName", { path: "/app" });
+                $cookies.remove("_RoleName", { path: "/app" });
+                //
                 window.location.href = '/app/SignIn';                              
             });
 

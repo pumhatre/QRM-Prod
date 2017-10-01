@@ -2,6 +2,9 @@
 <html ng-app="app" ng-controller="AppController">
 <head>
     <meta charset="utf-8" />
+    <meta Http-Equiv="Cache-Control" Content="no-cache">
+    <meta Http-Equiv="Pragma" Content="no-cache">
+    <meta Http-Equiv="Expires" Content="0"> 
     <meta name="viewport" content="width=device-width" />
     <script>
         document.write('<base href="' + document.location + '" />');
@@ -125,7 +128,7 @@
                         <a data-toggle="tooltip" data-placement="top" title="Lock">
                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" ng-click="logout()">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
                     </div>
