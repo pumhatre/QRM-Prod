@@ -30,7 +30,7 @@ namespace QRMService.Repositories
             }
         }
 
-        public bool updateDeleteUsers(List<MetricsModel> metricsList, List<int> deletedMetricsMasterIds)
+        public bool updateDeleteMetrics(List<MetricsModel> metricsList, List<int> deletedMetricsMasterIds)
         {
             using (QRMEntities context = new QRMEntities())
             {
@@ -53,6 +53,18 @@ namespace QRMService.Repositories
                                     metricsData.MetricTypeCode = metrics.TypeCode;
                                     metricsData.MetricTypeDescription = metrics.TypeDescription;
                                 }
+
+                                else
+                                {
+                                    MetricMaster newMetrics = new MetricMaster();
+                                    newMetrics.MetricCategoryCode = metrics.CategoryCode;
+                                    newMetrics.MetricCategoryDescription = metrics.CategoryDescription;
+                                    newMetrics.MetricSubCategoryCode = metrics.SubCategoryCode;
+                                    newMetrics.MetricSubCategoryDescription = metrics.SubCategoryDescription;
+                                    newMetrics.MetricTypeCode = metrics.TypeCode;
+                                    newMetrics.MetricTypeDescription = metrics.TypeDescription;
+                                    context.MetricMasters.Add(newMetrics);
+                                }
                             }
                         }
                         if (deletedMetricsMasterIds.Count > 0)
@@ -69,6 +81,7 @@ namespace QRMService.Repositories
                     }
                     catch (System.Exception ex)
                     {
+                        var abc = ex.Message;
                         transaction.Rollback();
                     }
                 }
