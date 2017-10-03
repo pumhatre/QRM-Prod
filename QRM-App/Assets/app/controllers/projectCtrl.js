@@ -11,7 +11,7 @@
         //Class to hold the new project data
         $scope.Project = {};
         $scope.gridOptions = {};
-        $scope.showModal = false;
+        $scope.showModal = false;       
 
         $scope.LoadRefData = function () {
             referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
@@ -46,7 +46,11 @@
         }
 
         $scope.addNew = function () {
-            $scope.NewProject = {};
+            $scope.mode = 'Save';
+            var newProject = {};
+            newProject.ProjectID = 0;
+            $scope.gridOptions.data.unshift(newProject);
+            $scope.gridOptions.data[0].editrow = true;
         };
 
         $scope.saveProject = function (formIsVallid) {
@@ -77,6 +81,7 @@
         //function to be called on row edit button click
         //Passing the selected row object as parameter, we use this row object to identify  the edited row
         $scope.edit = function (row) {
+            $scope.mode = 'Update';
             //Get the index of selected row from row object
             var index = $scope.gridOptions.data.indexOf(row);
             //Use that to set the editrow attrbute value for seleted rows
@@ -89,7 +94,11 @@
             var index = $scope.gridOptions.data.indexOf(row);
             //Use that to set the editrow attrbute value to false
             $scope.gridOptions.data[index].editrow = false;
-            //Display Successfull message after save            
+            //Display Successfull message after save   
+            if ($scope.mode === 'Save')
+            {
+                $scope.gridOptions.data.shift();
+            }
         };
 
         //Function to save the data
@@ -159,9 +168,7 @@
                     });
                 });
 
-        };
-
-            
+        };           
 
 
         //Get function to populate the UI-Grid
@@ -211,7 +218,7 @@
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',
                         cellTemplate: '<div><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
-                        '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
+                        '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
                         '<button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
                         '</div>'
