@@ -38,7 +38,7 @@ namespace QRMService.Controllers
             {
                 metricsMasterIds.Add(metrics.MetricsMasterId);
             }
-            bool sucess = metricsRepository.updateDeleteUsers(updatedMetrics, metricsMasterIds);
+            bool sucess = metricsRepository.updateDeleteMetrics(updatedMetrics, metricsMasterIds);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "OK");
             return response;
         }
