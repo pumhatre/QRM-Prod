@@ -8,6 +8,18 @@
             $http.post(apiUrl, params, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                 .then(function (successReponse) {                   
                     $http.defaults.headers.common.Authorization = "Bearer " + successReponse.data.access_token;
+
+                    // Remove all the cookies
+                    $cookies.remove("_Token", { path: "/" });
+                    $cookies.remove("_UserId", { path: "/" });
+                    $cookies.remove("_UserName", { path: "/" });
+                    $cookies.remove("_RoleName", { path: "/" });
+                    $cookies.remove("_Token", { path: "/app" });
+                    $cookies.remove("_UserId", { path: "/app" });
+                    $cookies.remove("_UserName", { path: "/app" });
+                    $cookies.remove("_RoleName", { path: "/app" });
+                    //
+
                     $cookies.put('_Token', successReponse.data.access_token);
                     $cookies.put('_UserId', successReponse.data.UserId);
                     $cookies.put('_UserName', successReponse.data.UserName);
