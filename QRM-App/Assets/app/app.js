@@ -27,7 +27,10 @@
     'ui.grid.grouping',
     'ui.bootstrap',
     'angular-confirm',
-    'viewPreferences'
+    'viewPreferences',
+    'upload',
+    'stepTabs',
+    'uploadFile'
 ]);
 
 app.constant('config', {
@@ -107,6 +110,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: '/App/ViewPreference',
         controller: 'viewPreferencesReportCtrl as viewPreferencesReport'
     });
+    $routeProvider.when('/Upload', {
+        templateUrl: '/App/UploadWizard',
+        controller: 'uploadCtrl'
+    });
 
     $routeProvider.otherwise({
         redirectTo: '/home'
@@ -155,7 +162,10 @@ app.run(['$http', '$cookies', '$rootScope', '$cookieStore', function ($http, $co
 
 
 app.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
-    $rootScope.$on('$routeChangeStart', function (event) {        
+    $rootScope.$on('$routeChangeStart', function (event ,next, current) {
+        if (!current) {
+            localStorage.setItem("uploading", "false");
+        }
         if (!Auth.isLoggedIn()) {          
             console.log('DENY');
             event.preventDefault();
@@ -183,6 +193,7 @@ app.run(['$rootScope', '$http', '$cookies',  '$cookieStore', function ($rootScop
                 $rootScope.username = '';
                 $rootScope.loggedIn = false;
                 $rootScope.RoleName = '';
+                localStorage.setItem("uploading", "false");
                 // Remove all the cookies
                 $cookies.remove("_Token", { path: "/" });
                 $cookies.remove("_UserId", { path: "/" });

@@ -37,6 +37,9 @@ namespace QRM_App
             bundles.Add(new ScriptBundle("~/jquery").Include(
                         "~/Assets/jquery/jquery.min.js"));
 
+            bundles.Add(new ScriptBundle("~/jsxlsx").Include(
+                       "~/Assets/jsxlsx/*.js"));
+
             bundles.Add(new ScriptBundle("~/custom").Include(
                       "~/Content/js/fastclick.js",
                       "~/Content/js/nprogress.js",

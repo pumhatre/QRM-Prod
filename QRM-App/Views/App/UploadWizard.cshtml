@@ -1,0 +1,103 @@
+﻿<div class="x_panel" role="main">
+    <div class="">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Upload Wizard</h3>
+                </div>
+            </div>
+            <div ng-app="upload" ng-controller="uploadCtrl" ng-init="init()">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                Follow the mentioned steps to upload the QRM sheet.
+                                <div class="container">
+                                    <step-tabs options="stepTabsOptions"></step-tabs>
+                                    <div class="row setup-content margin-top15px" id="step-1">
+                                        <div class="col-xs-6 col-md-offset-3">
+                                            <div class="col-md-12">
+                                                <form novalidate name="projectDetailsForm" role="form" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Project</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="getProjectReleases(selectedProjectReleaseDropdown)" ng-required="true">
+                                                                <option value="">Select a Project</option>
+                                                                <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Month</label>
+                                                        <div class="col-sm-10">
+                                                            <select ng-model="data.month" class="form-control" ng-required="true">
+                                                                <option value="">Select a Month</option>
+                                                                <option ng-repeat="option in months" value="{{option.id}}">{{option.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Release</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control" ng-model="selectedReleaseDropdown" ng-required="true">
+                                                                <option value="">Select a Release</option>
+                                                                <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <button class="btn btn-success nextBtn btn-md pull-right" type="button" ng-disabled="projectDetailsForm.$invalid">Next</button>
+                                                            <button class="btn btn-primary previousBtn btn-md pull-right" type="button" ng-disabled="true">Previous</button>
+                                                            <button class="btn btn-default btn-md pull-right" type="button" ng-disabled="true">Finalize</button>
+                                                            <button class="btn btn-default btn-md pull-right" type="button">Save as Draft</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row setup-content" id="step-2">
+                                        <div class="col-xs-6 col-md-offset-3">
+                                            <div class="col-md-12">
+                                                <form novalidate name="uploadDetailsForm" role="form" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <upload-file></upload-file>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btn-success nextBtn btn-md pull-right" type="button" ng-disabled="uploadDetailsForm.$invalid">Next</button>
+                                                        <button class="btn btn-primary previousBtn btn-md pull-right" type="button">Previous</button>
+                                                        <button class="btn btn-default btn-md pull-right" type="button" ng-disabled="true">Finalize</button>
+                                                        <button class="btn btn-default btn-md pull-right" type="button">Save as Draft</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row setup-content" id="step-4">
+                                        <div class="col-xs-6 col-md-offset-3">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">DO</label>
+                                                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-success nextBtn btn-md pull-right" type="button">Next</button>
+                                                    <button class="btn btn-primary previousBtn btn-md pull-right" type="button">Previous</button>
+                                                    <button class="btn btn-default btn-md pull-right" type="button">Finalize</button>
+                                                    <button class="btn btn-default btn-md pull-right" type="button">Save as Draft</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

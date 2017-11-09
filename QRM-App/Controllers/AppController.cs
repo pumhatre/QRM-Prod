@@ -72,5 +72,9 @@ namespace QRM_App.Controllers
         {
             return PartialView();
         }
+        public ActionResult UploadWizard()
+        {
+            return PartialView();
+        }
     }
 }

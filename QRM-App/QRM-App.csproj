@@ -205,7 +205,10 @@
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\roleCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
+    <Content Include="Assets\app\controllers\uploadCtrl.js" />
     <Content Include="Assets\app\controllers\viewPreferencesReportCtrl.js" />
+    <Content Include="Assets\app\directives\stepTabsDirective.js" />
+    <Content Include="Assets\app\directives\uploadFileDirective.js" />
     <Content Include="Assets\app\environment\environment.js" />
     <Content Include="Assets\app\services\generateReportService.js" />
     <Content Include="Assets\app\services\metricsAssociationService.js" />
@@ -214,8 +217,10 @@
     <Content Include="Assets\app\services\projectService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
     <Content Include="Assets\app\controllers\userConfigurationCtrl.js" />
+    <Content Include="Assets\app\services\uploadService.js" />
     <Content Include="Assets\app\services\userDetailsService.js" />
     <Content Include="Assets\app\services\roleService.js" />
+    <Content Include="Assets\app\workers\uploadWorker.js" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Assets\bootstrap\css\bootstrap.css" />
@@ -225,6 +230,8 @@
     <Content Include="Assets\bootstrap\js\bootstrap.js" />
     <Content Include="Assets\bootstrap\js\bootstrap.min.js" />
     <Content Include="Assets\jquery\jquery.min.js" />
+    <Content Include="Assets\jsxlsx\jszip.js" />
+    <Content Include="Assets\jsxlsx\xlsx.js" />
     <Content Include="Assets\misc\modernizr.min.js" />
     <Content Include="Assets\misc\respond.min.js" />
     <Content Include="Assets\ng\angular-animate.min.js" />
@@ -383,6 +390,9 @@
   <ItemGroup>
     <Content Include="Assets\ng\angular-animate.min.js.map" />
     <Content Include="Assets\ng\angular-touch.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\UploadWizard.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
