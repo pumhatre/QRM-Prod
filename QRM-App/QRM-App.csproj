@@ -231,6 +231,7 @@
     <Content Include="Assets\bootstrap\js\bootstrap.min.js" />
     <Content Include="Assets\jquery\jquery.min.js" />
     <Content Include="Assets\jsxlsx\jszip.js" />
+    <Content Include="Assets\jsxlsx\lodash.js" />
     <Content Include="Assets\jsxlsx\xlsx.js" />
     <Content Include="Assets\misc\modernizr.min.js" />
     <Content Include="Assets\misc\respond.min.js" />
