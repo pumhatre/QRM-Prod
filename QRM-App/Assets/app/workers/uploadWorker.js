@@ -7,6 +7,7 @@ this.onmessage = function receiveMessage(message) {
     var needsheets = message.data.neededSheets;
     var neededSheetsViewModels = message.data.neededSheetsViewModels;
     var neededSheetsMandatory=message.data.neededSheetsMandatory;
+    var sheetColumnsRendering=message.data.sheetColumnsRendering;
 
     var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
     var i, f;
@@ -40,6 +41,15 @@ this.onmessage = function receiveMessage(message) {
                     //    count++;
                     //}
                     let s = findSheet(workbook, y);
+                    if (sheetColumnsRendering[y]!==undefined) {
+                        let keys = _.keys(sheetColumnsRendering[y]);
+                        for (let i = 0; i < keys.length; i++) {
+                            s.sheet[keys[i]].v = sheetColumnsRendering[y][keys[i]];
+                            s.sheet[keys[i]].r = "<t>"+sheetColumnsRendering[y][keys[i]]+"</t>";
+                            s.sheet[keys[i]].h = sheetColumnsRendering[y][keys[i]];
+                            s.sheet[keys[i]].w = sheetColumnsRendering[y][keys[i]];
+                        }
+                    }
                     let t = findTable(s.sheet, s.range, neededSheetsViewModels[y]);
                     if (t.firstRow === null) {
                         return null;
@@ -85,7 +95,7 @@ var findSheet = function (workbook, sheetName) {
 var findTable = function (sheet, range, colMap) {
     const ec = (r, c) => { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let firstRow = null,
-        colsToFind = _.keysIn(colMap).length,
+        colsToFind = _.keys(colMap).length,
 
         // colmap lowercase title -> prop
         colLookup = _.reduce(colMap, (m, v, k) => { m[_.isString(v)? v.toLowerCase() : v] = k; return m; }, {}),
