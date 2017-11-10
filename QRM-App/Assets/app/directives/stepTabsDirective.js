@@ -32,13 +32,18 @@ function StepTabs(){
                         $target.find('input:eq(0)').focus();
                 };
 
-                allNextBtn.click(function () {
+                allNextBtn.click(function (e) {
                     var curStep = $(this).closest(".setup-content"),
                         curStepBtn = curStep.attr("id"),
                         nextStepWizard = $('div.setup-panel div button[href="#' + curStepBtn + '"]').parent().next().children("button"),
                         curInputs = curStep.find("input[type='text'],input[type='url']"),
                         isValid = true;
-
+                    var index=_.findIndex($scope.options,function(step){
+                        return step.Id == curStepBtn
+                    });
+                    if ($scope.options[index].NextClickCallback) {
+                        $scope.options[index].NextClickCallback(e);
+                    }
                     $(".form-group").removeClass("has-error");
                     for (var i = 0; i < curInputs.length; i++) {
                         if (!curInputs[i].validity.valid) {

@@ -32,14 +32,6 @@ this.onmessage = function receiveMessage(message) {
             sheet_name_list.forEach(function (y) { /* iterate through sheets */
                 //Convert the cell value to Json
                 if (needsheets.indexOf(y) > -1) {
-                    //var roa = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
-                    //if (roa.length > 0) {
-                    //    //console.log(roa);
-                    //    var sheetObj = {};
-                    //    sheetObj[y] = roa;
-                    //    result[count] = sheetObj;
-                    //    count++;
-                    //}
                     let s = findSheet(workbook, y);
                     if (sheetColumnsRendering[y]!==undefined) {
                         let keys = _.keys(sheetColumnsRendering[y]);
