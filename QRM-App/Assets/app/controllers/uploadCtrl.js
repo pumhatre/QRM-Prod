@@ -13,15 +13,12 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         {
             Id: "step-1",
             DisplayHeaderName: "Step1",
-            DisplaySubHeaderName: "Select the period",
-            NextClickCallback: $scope.step1NextClick
-
+            DisplaySubHeaderName: "Select the period"
         },
         {
             Id: "step-2",
             DisplayHeaderName: "Step2",
-            DisplaySubHeaderName: "Upload Sheet",
-            NextClickCallback: $scope.step2NextClick
+            DisplaySubHeaderName: "Upload Sheet"
         },
         {
             Id: "step-3",
