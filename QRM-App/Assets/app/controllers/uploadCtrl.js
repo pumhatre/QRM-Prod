@@ -1,33 +1,20 @@
 ﻿//uploadCtrl
 
-angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'metricsAssociationService', 'config', '$confirm', function ($scope, $http, uiGridConstants,projectReleaseService,metricsAssociationService, config, $confirm) {
+angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, projectReleaseService, metricsAssociationService,uploadService, config, $confirm) {
     $scope.projectsDropdown = [];
     $scope.projectsReleases = [];
+
     $scope.init = function () {
         $scope.LoadProjectsDropDown();
+        $scope.LoadMonthsDropDown();
     }
-    $scope.data = {
-        month: null
-    }
-    $scope.months = [
-        { id: 0, name: "Jan" },
-        { id: 1, name: "Feb" },
-        { id: 2, name: "Mar" },
-        { id: 3, name: "Apr" },
-        { id: 4, name: "May" },
-        { id: 5, name: "Jun" },
-        { id: 6, name: "Jul" },
-        { id: 7, name: "Aug" },
-        { id: 8, name: "Sep" },
-        { id: 9, name: "Oct" },
-        { id: 10, name: "Nov" },
-        { id: 11, name: "Dec" },
-    ];
+
     $scope.stepTabsOptions = [
         {
             Id: "step-1",
             DisplayHeaderName: "Step1",
-            DisplaySubHeaderName: "Select the period"
+            DisplaySubHeaderName: "Select the period",
+            NextClickCallback: $scope.step1NextClick
 
         },
         {
@@ -42,6 +29,7 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
             DisplaySubHeaderName: "Finalize"
         }
     ];
+
     // function to load projects dropdown
     $scope.LoadProjectsDropDown = function () {
         projectReleaseService.GetProjectsLists(config)
@@ -51,6 +39,7 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
 
             });
     }
+
     $scope.getProjectReleases = function (projectId) {
         metricsAssociationService.getReleaseList(config, projectId)
             .then(function (successResponse) {
@@ -59,8 +48,27 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
 
             });
     }
-    $scope.step2NextClick = function (e) {
-        console.log("hi");
+
+    $scope.LoadMonthsDropDown = function () {
+        uploadService.GetMonthList(config).then(function (response) {
+                if (response.status == 200) {
+                    $scope.months = response.data;
+                }
+            },
+            function (errorResponse) {
+
+            });
+    }
+
+    $scope.nextClick = function (id) {
+        switch (id) {
+            case "step-1":
+                break;
+            case "step-2":
+                break;
+            case "step-3":
+                break;
+        }
     }
 }]);
 

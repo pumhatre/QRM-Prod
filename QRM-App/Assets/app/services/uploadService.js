@@ -101,4 +101,7 @@
         }
         
     }
+    this.GetMonthList = function (config) {
+        return $http.get(config.apiUrl + 'api/Report/GetAllMonthsList');
+    }
 }]);

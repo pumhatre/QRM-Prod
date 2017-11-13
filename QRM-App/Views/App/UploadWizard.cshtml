@@ -14,7 +14,7 @@
                             <div class="x_content">
                                 Follow the mentioned steps to upload the QRM sheet.
                                 <div class="container">
-                                    <step-tabs options="stepTabsOptions"></step-tabs>
+                                    <step-tabs options="stepTabsOptions" callback="nextClick(msg)"></step-tabs>
                                     <div class="row setup-content margin-top15px" id="step-1">
                                         <div class="col-xs-6 col-md-offset-3">
                                             <div class="col-md-12">
@@ -22,7 +22,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label">Project</label>
                                                         <div class="col-sm-10">
-                                                            <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="getProjectReleases(selectedProjectReleaseDropdown)" ng-required="true">
+                                                            <select class="form-control" ng-model="projectDetails.selectedProjectReleaseDropdown" ng-change="getProjectReleases(projectDetails.selectedProjectReleaseDropdown)" ng-required="true">
                                                                 <option value="">Select a Project</option>
                                                                 <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
                                                             </select>
@@ -31,16 +31,16 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label">Month</label>
                                                         <div class="col-sm-10">
-                                                            <select ng-model="data.month" class="form-control" ng-required="true">
+                                                            <select ng-model="projectDetails.month" class="form-control" ng-required="true">
                                                                 <option value="">Select a Month</option>
-                                                                <option ng-repeat="option in months" value="{{option.id}}">{{option.name}}</option>
+                                                                <option ng-repeat="option in months" value="{{option.MonthId}}">{{option.MonthName}}</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-2 control-label">Release</label>
                                                         <div class="col-sm-10">
-                                                            <select class="form-control" ng-model="selectedReleaseDropdown" ng-required="true">
+                                                            <select class="form-control" ng-model="projectDetails.selectedReleaseDropdown" ng-required="true">
                                                                 <option value="">Select a Release</option>
                                                                 <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
                                                             </select>

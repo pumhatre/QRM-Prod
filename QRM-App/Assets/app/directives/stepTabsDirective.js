@@ -4,6 +4,7 @@ function StepTabs(){
             restrict: 'ECA',
             scope: {
                 options: '=',
+                callback:'&'
             },
             template: '<div class="stepwizard col-md-offset-3">' +
                         ' <div class="stepwizard-row setup-panel">' +
@@ -37,12 +38,8 @@ function StepTabs(){
                         curStepBtn = curStep.attr("id"),
                         nextStepWizard = $('div.setup-panel div button[href="#' + curStepBtn + '"]').parent().next().children("button"),
                         curInputs = curStep.find("input[type='text'],input[type='url']");
-                    var index=_.findIndex($scope.options,function(step){
-                        return step.Id == curStepBtn
-                    });
-                    if ($scope.options[index].NextClickCallback) {
-                        $scope.options[index].NextClickCallback(e);
-                    }
+
+                    $scope.callback({ msg: curStepBtn });
 
                     $('div.setup-panel div button[href="#' + curStepBtn + '"]').removeClass('btn-black active').addClass("btn-green completed");
                     $('div.setup-panel div button[href="#' + curStepBtn + '"]').attr('disabled', 'disabled');
