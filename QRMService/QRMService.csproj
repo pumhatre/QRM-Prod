@@ -221,6 +221,7 @@
     <Compile Include="Controllers\ReferenceDataController.cs" />
     <Compile Include="Controllers\ProjectReleaseController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="DataBase\DefectDataDetail.cs">
@@ -303,6 +304,8 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DefectDataModel.cs" />
+    <Compile Include="Models\EffortDataModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
     <Compile Include="Models\MetricsAssociationMasterModel.cs" />
@@ -318,6 +321,8 @@
     <Compile Include="Models\ReferenceTableRequestModel.cs" />
     <Compile Include="Models\ReferenceTableResponseModel.cs" />
     <Compile Include="Models\SaveReportRequestModel.cs" />
+    <Compile Include="Models\TestingDataModel.cs" />
+    <Compile Include="Models\UploadViewModel.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
@@ -330,6 +335,7 @@
     <Compile Include="Repositories\ReferenceRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Repositories\ReportRepository.cs" />
+    <Compile Include="Repositories\UploadRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -417,6 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

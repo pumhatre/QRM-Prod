@@ -2,6 +2,9 @@
 function uploadFile(uploadService) {
     var DDO = {
         restrict: 'ECA',
+        scope: {
+            callback: '&'
+        },
         template: '<div class="uploader-block"><input type="file" name="file" id="fileUpload" class="form-control" onchange="angular.element(this).scope().UploadFile(this.files)" style="display:none"/>' +
                     ' <div class="upload-drop-zone" id="drop-zone">'+
                         'Drag the Metric excel sheet here or click to upload'+
@@ -56,13 +59,11 @@ function uploadFile(uploadService) {
 
             // Save excel data to our database
             $scope.SaveData = function (excelData) {
-                console.log(excelData);
-                $("#dataImport").append("<pre>" + JSON.stringify(excelData, null, 4) + "</pre>");
+                $scope.callback({ msg: excelData });
                 localStorage.setItem("uploading", "false");
                 $(uploaderBlock).show();
                 $(loaderBlock).hide();
             }
-            
         }
     };
     return DDO;

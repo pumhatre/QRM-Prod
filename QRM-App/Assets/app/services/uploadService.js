@@ -104,4 +104,25 @@
     this.GetMonthList = function (config) {
         return $http.get(config.apiUrl + 'api/Report/GetAllMonthsList');
     }
+
+    this.SaveExcelData = function (data) {
+        var updatedData = {};
+        var map = {
+            "Effort Data": "EffortData",
+            "Defect Data": "DefectData",
+            "Testing Data": "TestingData"
+        };
+        _.each(data, function (value, key) {
+            key = map[key] || key;
+            updatedData[key] = value;
+        });
+        var req = {
+            method: 'POST',
+            data: updatedData,
+            url: config.apiUrl + 'api/Upload/SaveExcelData'
+        };
+        return $http(req).then(function (reponse) {
+            return reponse.data;
+        });
+    }
 }]);

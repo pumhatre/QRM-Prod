@@ -20,7 +20,7 @@ this.onmessage = function receiveMessage(message) {
         else reader.readAsArrayBuffer(f);
         reader.onload = function (e) {
             var data = e.target.result;
-            var result = [];
+            var result = {};
             var arr = rABS ? data : btoa(fixdata(data));
             //reading data from excel
             var workbook = XLSX.read(arr, { type: rABS ? 'binary' : 'base64' });
@@ -47,8 +47,7 @@ this.onmessage = function receiveMessage(message) {
                         return null;
                     }
                     const tdata = readTable(s.sheet, s.range, t.columns, t.firstRow, neededSheetsMandatory[y], (row) => false);
-                    result[count] = tdata;
-                    count++;
+                    result[y] = tdata;
                 }
             });
             self.postMessage(result);
