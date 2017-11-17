@@ -12,18 +12,48 @@ namespace QRMService.Repositories
         public static UploadViewModel SaveExcelData(UploadViewModel upload)
         {
              SaveDefectDataModel(upload.DefectData);
-             return upload;
+             //SaveEffortDataModel(upload.EffortData);
+             SaveTestingDataModel(upload.TestingData);
+            return upload;
         }
 
-        private static EffortDataModel SaveEffortDataModel(List<EffortDataModel> domainModel) {
+        private static EffortDataModel SaveEffortDataModel(List<EffortDataModel> domainModel)
+        {
             using (var db = new QRMEntities())
             {
-                //int lastRoleId = db.EffortDataStagings.Count() == 0 ? 0 : db.EffortDataStagings.Max(x => x.RoleId);
-                //foreach (var r in roles)
-                //{
-                //    db.EffortDataStagings.Add();
-                //}
-                //db.SaveChanges();
+                var projectId = domainModel[0].ProjectId;
+                var monthId = domainModel[0].MonthId;
+                var projectReleaseId = domainModel[0].ProjectReleaseId;
+                db.EffortDataStagings.RemoveRange(db.EffortDataStagings.Where(x => x.ProjectID == projectId && x.ProjectReleaseId==projectReleaseId && x.MonthId==monthId));
+                db.SaveChanges();
+                List<EffortDataStaging> obj = domainModel.Select(x => new EffortDataStaging
+                {
+                    ObjectComponentID = x.ObjectComponentID,
+                    ComponentType = x.ComponentType,
+                    WidgetType = x.WidgetType,
+                    Complexity = x.Complexity,
+                    TaskType = x.TaskType,
+                    BaselinedEffort = x.BaselinedEffort,
+                    ActualEffort = x.ActualEffort,
+                    Status = x.Status,
+                    CMMIRollUp = x.CMMIRollUp,
+                    SEQ = x.SEQ,
+                    ScheduledStartDate = x.ScheduledStartDate,
+                    ScheduledEndDate = x.ScheduledEndDate,
+                    ActualStartDate = x.ActualStartDate,
+                    ActualEndDate = x.ActualEndDate,
+                    ProjectID = x.ProjectId,
+                    Release = x.Release,
+                    Module = x.Module,
+                    ComponentName = x.ComponentName,
+                    ReviewType=x.ReviewType,
+                    Remarks = x.Remarks,
+                    ProjectReleaseId = x.ProjectReleaseId,
+                    MonthId = x.MonthId,
+
+                }).ToList();
+                db.EffortDataStagings.AddRange(obj);
+                db.SaveChanges();
             }
             return null;
         }
@@ -32,24 +62,81 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                int lastDefectDataStagingId = db.DefectDataStagings.Count() == 0 ? 0 : db.DefectDataStagings.Max(x => x.DefectDataStagingId);
+                var projectId = domainModel[0].ProjectId;
+                var monthId = domainModel[0].MonthId;
+                var projectReleaseId = domainModel[0].ProjectReleaseId;
+                db.DefectDataStagings.RemoveRange(db.DefectDataStagings.Where(x => x.ProjectId == projectId && x.ProjectReleaseId == projectReleaseId && x.MonthId == monthId));
+                db.SaveChanges();
                 List<DefectDataStaging> obj = domainModel.Select(x => new DefectDataStaging
                 {
-                    DefectDataStagingId= db.DefectDataStagings.Count() == 0 ? 0 : db.DefectDataStagings.Max(y => y.DefectDataStagingId),
-                    DefectID = x.DefectID,
-                    DefectDescription = x.DefectDescription,
-                    Cause = x.Cause,
-                    DefectInfectedStage =x.DefectInfectedStage,
-                    DefectSeverity=x.DefectSeverity,
-                    DefectType=x.DefectType,
+                    DefectID=x.DefectID,
+                    WidgetComponentID=x.WidgetComponentID,
                     DetectedStage=x.DetectedStage,
+                    ReportedDate=x.ReportedDate,
+                    ReportedBy=x.ReportedBy,
+                    DefectDescription=x.DefectDescription,
+                    Status=x.Status,
+                    DefectInfectedStage=x.DefectInfectedStage,
                     ExpectedDetectionPhase=x.ExpectedDetectionPhase,
+                    DefectType=x.DefectType,
+                    Cause=x.Cause,
+                    ReviewType=x.ReviewType,
+                    DefectSeverity=x.DefectSeverity,
+                    FixedOnDate=x.FixedOnDate,
+                    Remarks=x.Remarks,
                     ProjectId=x.ProjectId,
                     ProjectReleaseId=x.ProjectReleaseId,
                     MonthId=x.MonthId,
-                    PeriodId= 2
+                    PeriodId=2
                 }).ToList();
                 db.DefectDataStagings.AddRange(obj);
+                db.SaveChanges();
+            }
+            return null;
+        }
+
+        private static TestingDataModel SaveTestingDataModel(List<TestingDataModel> domainModel)
+        {
+            using (var db = new QRMEntities())
+            {
+                var projectId = domainModel[0].ProjectId;
+                var monthId = domainModel[0].MonthId;
+                var projectReleaseId = domainModel[0].ProjectReleaseId;
+                db.TestingDataStagings.RemoveRange(db.TestingDataStagings.Where(x => x.ProjectId == projectId && x.ProjectReleaseId == projectReleaseId && x.MonthId == monthId));
+                db.SaveChanges();
+                List<TestingDataStaging> obj = domainModel.Select(x => new TestingDataStaging
+                {
+                    TestingPhase=x.TestingPhase,
+                    TestingType=x.TestingType,
+                    Module=x.Module,
+                    Release=x.Release,
+                    TestDesignStatus = x.TestDesignStatus,
+                    ExecutionStatus = x.ExecutionStatus,
+                    PlannedNoOfTestCasesDesigned = x.PlannedNoOfTestCasesDesigned,
+                    ActualNumberOfTestCasesDesigned = x.ActualNumberOfTestCasesDesigned,
+                    NoOfTestCasesReviewComments = x.NoOfTestCasesReviewComments,
+                    PlannedStartDate = x.PlannedStartDate,
+                    PlannedEndDate = x.PlannedEndDate,
+                    ActualStartDate = x.ActualStartDate,
+                    ActualEndDate = x.ActualEndDate,
+                    TestCasePreparationPlanned = x.TestCasePreparationPlanned,
+                    TestCaseReviewPlanned = x.TestCaseReviewPlanned,
+                    TestCaseReworkPlanned = x.TestCaseReworkPlanned,
+                    TestCasePreparationActual = x.TestCasePreparationActual,
+                    TestCaseReviewActual = x.TestCaseReviewActual,
+                    TestCaseReworkActual = x.TestCaseReworkActual,
+                    TestCasedPlannedForExecution = x.TestCasedPlannedForExecution,
+                    PlannedEffortforExecution = x.PlannedEffortforExecution,
+                    TestCasesExecuted = x.TestCasesExecuted,
+                    ActualEffortForExecution = x.ActualEffortForExecution,
+                    TotalCasesPassed = x.TotalCasesPassed,
+                    DefectsFound = x.DefectsFound,
+                    DefectsRejected = x.DefectsRejected,
+                    ProjectId =x.ProjectId,
+                    ProjectReleaseId=x.ProjectReleaseId,
+                    MonthId=x.MonthId
+                }).ToList();
+                db.TestingDataStagings.AddRange(obj);
                 db.SaveChanges();
             }
             return null;

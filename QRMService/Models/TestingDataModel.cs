@@ -11,32 +11,32 @@ namespace QRMService.Models
         public string TestingType { get; set; }
         public string Module { get; set; }
         public string Release { get; set; }
-        public string PlannedNoOfTestCasesDesigned { get; set; }
-        public string ActualNumberOfTestCasesDesigned { get; set; }
-        public string NoOfTestCasesReviewComments { get; set; }
-        public string PlannedStartDate { get; set; }
-        public string PlannedEndDate { get; set; }
-        public string ActualStartDate { get; set; }
-        public string ActualEndDate { get; set; }
+        public int PlannedNoOfTestCasesDesigned { get; set; }
+        public int ActualNumberOfTestCasesDesigned { get; set; }
+        public int? NoOfTestCasesReviewComments { get; set; }
+        public DateTime? PlannedStartDate { get; set; }
+        public DateTime? PlannedEndDate { get; set; }
+        public DateTime? ActualStartDate { get; set; }
+        public DateTime? ActualEndDate { get; set; }
         public string TestDesignStatus { get; set; }
         public string ManualExecutionOrAutomated { get; set; }
-        public string TestCasePreparationPlanned { get; set; }
-        public string TestCaseReviewPlanned { get; set; }
-        public string TestCaseReworkPlanned { get; set; }
-        public string TestCasePreparationActual { get; set; }
-        public string TestCaseReviewActual { get; set; }
-        public string TestCaseReworkActual { get; set; }
-        public string TestCasedPlannedForExecution { get; set; }
-        public string PlannedEffortforExecution { get; set; }
+        public decimal? TestCasePreparationPlanned { get; set; }
+        public decimal? TestCaseReviewPlanned { get; set; }
+        public decimal? TestCaseReworkPlanned { get; set; }
+        public decimal? TestCasePreparationActual { get; set; }
+        public decimal? TestCaseReviewActual { get; set; }
+        public decimal? TestCaseReworkActual { get; set; }
+        public int? TestCasedPlannedForExecution { get; set; }
+        public int PlannedEffortforExecution { get; set; }
         public string ExecutionStatus { get; set; }
-        public string TestCasesExecuted { get; set; }
-        public string ActualEffortForExecution { get; set; }
-        public string TotalCasesPassed { get; set; }
-        public string DefectsFound { get; set; }
-        public string DefectsRejected { get; set; }
-        public string TestDesignProductivity { get; set; }
-        public string TestExectionProductivity { get; set; }
-        public string DefectRejectionPer { get; set; }
+        public int TestCasesExecuted { get; set; }
+        public int ActualEffortForExecution { get; set; }
+        public int TotalCasesPassed { get; set; }
+        public int DefectsFound { get; set; }
+        public int DefectsRejected { get; set; }
+        public double TestDesignProductivity { get; set; }
+        public double TestExectionProductivity { get; set; }
+        public double DefectRejectionPer { get; set; }
         public string MonthTestCaseCreationEndDate { get; set; }
         public int ProjectId { get; set; }
         public int ProjectReleaseId { get; set; }

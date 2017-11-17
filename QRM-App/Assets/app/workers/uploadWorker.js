@@ -7,7 +7,8 @@ this.onmessage = function receiveMessage(message) {
     var needsheets = message.data.neededSheets;
     var neededSheetsViewModels = message.data.neededSheetsViewModels;
     var neededSheetsMandatory=message.data.neededSheetsMandatory;
-    var sheetColumnsRendering=message.data.sheetColumnsRendering;
+    var sheetColumnsRendering = message.data.sheetColumnsRendering;
+    var dateProperties = message.data.dateProperties;
 
     var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
     var i, f;
@@ -46,7 +47,7 @@ this.onmessage = function receiveMessage(message) {
                     if (t.firstRow === null) {
                         return null;
                     }
-                    const tdata = readTable(s.sheet, s.range, t.columns, t.firstRow, neededSheetsMandatory[y], (row) => false);
+                    const tdata = readTable(s.sheet, s.range, t.columns, t.firstRow, neededSheetsMandatory[y],dateProperties, (row) => false);
                     result[y] = tdata;
                 }
             });
@@ -118,7 +119,7 @@ var findTable = function (sheet, range, colMap) {
 
     return { columns, firstRow };
 }
-var readTable = function (sheet, range, columns, firstRow,neededSheetsMandatory, stop) {
+var readTable = function (sheet, range, columns, firstRow,neededSheetsMandatory,dateProperties, stop) {
     const ec = (r, c) => { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let data = [];
 
@@ -132,9 +133,20 @@ var readTable = function (sheet, range, columns, firstRow,neededSheetsMandatory,
         if(stop && stop(row)) {
             break;
         }
-        if (row[neededSheetsMandatory] != null)
-            data.push(row);
+        if (row[neededSheetsMandatory] != null) {
+            var updaterow = row;
+            _.each(row, function (value,key) {
+                if (dateProperties.indexOf(key) > -1) {
+                    updaterow[key] = convertExcelDate(value);
+                }
+            });
+            data.push(updaterow);
+        }
     }
 
     return data;
+}
+
+var convertExcelDate=function(excelDate) {
+    return new Date((excelDate - (25569)) * 86400 * 1000);
 }

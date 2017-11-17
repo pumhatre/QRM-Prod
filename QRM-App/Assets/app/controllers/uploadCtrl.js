@@ -56,21 +56,6 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
 
             });
     }
-    $scope.saveData = function (data) {
-        _.each(data, function (value, key) {
-            _.each(value, function (val) {
-                val["ProjectId"]=parseInt($scope.projectDetails.selectedProjectDropdown);
-                val["ProjectReleaseId"] = parseInt($scope.projectDetails.month);
-                val["MonthId"] = parseInt($scope.projectDetails.selectedReleaseDropdown);
-            })
-        });
-        uploadService.SaveExcelData(data).then(function (response) {
-            console.log(response);
-        },
-       function (error) {
-           console.log(error);
-       });
-    }
     $scope.nextClick = function (id) {
         switch (id) {
             case "step-1":

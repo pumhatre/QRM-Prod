@@ -60,13 +60,11 @@
                                             <div class="col-md-12">
                                                 <form novalidate name="uploadDetailsForm" role="form" class="form-horizontal">
                                                     <div class="form-group">
-                                                        <upload-file callback="saveData(msg)"></upload-file>
+                                                        <upload-file></upload-file>
                                                     </div>
                                                     <div class="col-sm-12">
                                                         <button class="btn btn-green nextBtn btn-md pull-right" type="button" ng-disabled="uploadDetailsForm.$invalid">Next</button>
                                                         <button class="btn btn-primary previousBtn btn-md pull-right" type="button">Previous</button>
-                                                        <button class="btn btn-default btn-md pull-right" type="button" ng-disabled="true">Finalize</button>
-                                                        <button class="btn btn-default btn-md pull-right" type="button">Save as Draft</button>
                                                     </div>
                                                 </form>
                                             </div>

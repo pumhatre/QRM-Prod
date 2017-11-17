@@ -2,9 +2,6 @@
 function uploadFile(uploadService) {
     var DDO = {
         restrict: 'ECA',
-        scope: {
-            callback: '&'
-        },
         template: '<div class="uploader-block"><input type="file" name="file" id="fileUpload" class="form-control" onchange="angular.element(this).scope().UploadFile(this.files)" style="display:none"/>' +
                     ' <div class="upload-drop-zone" id="drop-zone">'+
                         'Drag the Metric excel sheet here or click to upload'+
@@ -23,6 +20,7 @@ function uploadFile(uploadService) {
             //var loaderBlock = element[0].getElementsByClassName("loader-block")[0];
             var uploaderBlock = ".uploader-block";
             var loaderBlock = ".loader-block";
+            var loaderTitle = ".loader-title";
             if (localStorage.getItem("uploading") === "true") {
                 $(uploaderBlock).hide();
                 $(loaderBlock).show();
@@ -59,10 +57,27 @@ function uploadFile(uploadService) {
 
             // Save excel data to our database
             $scope.SaveData = function (excelData) {
-                $scope.callback({ msg: excelData });
-                localStorage.setItem("uploading", "false");
-                $(uploaderBlock).show();
-                $(loaderBlock).hide();
+                console.log(excelData);
+                _.each(excelData, function (value, key) {
+                    _.each(value, function (val) {
+                        val["ProjectId"] = parseInt($scope.projectDetails.selectedProjectDropdown);
+                        val["ProjectReleaseId"] = parseInt($scope.projectDetails.month);
+                        val["MonthId"] = parseInt($scope.projectDetails.selectedReleaseDropdown);
+                    })
+                });
+                $(loaderTitle).text("Saving...");
+                uploadService.SaveExcelData(excelData).then(function (response) {
+                    console.log(response);
+                    $(loaderTitle).text("Uploading...");
+                    $(element.find("input")).val("");
+                    localStorage.setItem("uploading", "false");
+                    $(uploaderBlock).show();
+                    $(loaderBlock).hide();
+                },
+               function (error) {
+                   console.log(error);
+               });
+                
             }
         }
     };

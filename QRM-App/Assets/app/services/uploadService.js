@@ -10,6 +10,18 @@
                 "Defect Data": "DefectID",
                 "Testing Data": "TestingPhase"
             },
+            dateProperties: [
+                "ScheduledStartDate",
+                "ScheduledEndDate",
+                "ActualStartDate",
+                "ActualEndDate",
+                "ReportedDate",
+                "FixedOnDate",
+                "PlannedStartDate",
+                "PlannedEndDate",
+                "ActualStartDate",
+                "ActualEndDate"
+            ],
             sheetColumnsRendering: {
                 "Testing Data": {
                     "N2": "Planned Test Case Preparation",
