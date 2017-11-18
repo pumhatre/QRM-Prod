@@ -28,7 +28,7 @@ namespace QRMService.DataBase
         public Nullable<System.DateTime> ScheduledEndDate { get; set; }
         public Nullable<System.DateTime> ActualStartDate { get; set; }
         public Nullable<System.DateTime> ActualEndDate { get; set; }
-        public int ProjectID { get; set; }
+        public string ProjectID { get; set; }
         public string Release { get; set; }
         public string Module { get; set; }
         public string ComponentName { get; set; }
@@ -36,6 +36,8 @@ namespace QRMService.DataBase
         public string Remarks { get; set; }
         public Nullable<int> ProjectReleaseId { get; set; }
         public Nullable<int> MonthId { get; set; }
+        public int EffortDataStagingId { get; set; }
+        public int ProjectMasterId { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }

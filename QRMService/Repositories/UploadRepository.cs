@@ -24,7 +24,7 @@ namespace QRMService.Repositories
                 var projectId = domainModel[0].ProjectId;
                 var monthId = domainModel[0].MonthId;
                 var projectReleaseId = domainModel[0].ProjectReleaseId;
-                db.EffortDataStagings.RemoveRange(db.EffortDataStagings.Where(x => x.ProjectID == projectId && x.ProjectReleaseId==projectReleaseId && x.MonthId==monthId));
+                db.EffortDataStagings.RemoveRange(db.EffortDataStagings.Where(x => x.ProjectMasterId == projectId && x.ProjectReleaseId==projectReleaseId && x.MonthId==monthId));
                 db.SaveChanges();
                 List<EffortDataStaging> obj = domainModel.Select(x => new EffortDataStaging
                 {
@@ -42,7 +42,7 @@ namespace QRMService.Repositories
                     ScheduledEndDate = x.ScheduledEndDate,
                     ActualStartDate = x.ActualStartDate,
                     ActualEndDate = x.ActualEndDate,
-                    ProjectID = x.ProjectId,
+                    ProjectID = x.ProjectID,
                     Release = x.Release,
                     Module = x.Module,
                     ComponentName = x.ComponentName,
@@ -50,6 +50,7 @@ namespace QRMService.Repositories
                     Remarks = x.Remarks,
                     ProjectReleaseId = x.ProjectReleaseId,
                     MonthId = x.MonthId,
+                    ProjectMasterId=x.ProjectId
 
                 }).ToList();
                 db.EffortDataStagings.AddRange(obj);
@@ -86,8 +87,7 @@ namespace QRMService.Repositories
                     Remarks=x.Remarks,
                     ProjectId=x.ProjectId,
                     ProjectReleaseId=x.ProjectReleaseId,
-                    MonthId=x.MonthId,
-                    PeriodId=2
+                    MonthId=x.MonthId
                 }).ToList();
                 db.DefectDataStagings.AddRange(obj);
                 db.SaveChanges();

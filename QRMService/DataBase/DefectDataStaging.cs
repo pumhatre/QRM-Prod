@@ -30,13 +30,11 @@ namespace QRMService.DataBase
         public string DefectSeverity { get; set; }
         public Nullable<System.DateTime> FixedOnDate { get; set; }
         public string Remarks { get; set; }
-        public int PeriodId { get; set; }
         public int ProjectId { get; set; }
         public Nullable<int> ProjectReleaseId { get; set; }
         public Nullable<int> MonthId { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
-        public virtual MonthMaster MonthMaster1 { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
         public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
     }

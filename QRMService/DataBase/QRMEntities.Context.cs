@@ -26,7 +26,6 @@ namespace QRMService.DataBase
         }
     
         public virtual DbSet<DefectDataDetail> DefectDataDetails { get; set; }
-        public virtual DbSet<DefectDataStaging> DefectDataStagings { get; set; }
         public virtual DbSet<MetricMaster> MetricMasters { get; set; }
         public virtual DbSet<MonthMaster> MonthMasters { get; set; }
         public virtual DbSet<ReferenceTable> ReferenceTables { get; set; }
@@ -36,7 +35,6 @@ namespace QRMService.DataBase
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<UserProjectRoleAssociation> UserProjectRoleAssociations { get; set; }
         public virtual DbSet<DevMetric> DevMetrics { get; set; }
-        public virtual DbSet<EffortDataStaging> EffortDataStagings { get; set; }
         public virtual DbSet<EffortDetail> EffortDetails { get; set; }
         public virtual DbSet<Period> Periods { get; set; }
         public virtual DbSet<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
@@ -45,5 +43,7 @@ namespace QRMService.DataBase
         public virtual DbSet<UserReportAssociation> UserReportAssociations { get; set; }
         public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
         public virtual DbSet<ProjectReleaseMaster> ProjectReleaseMasters { get; set; }
+        public virtual DbSet<DefectDataStaging> DefectDataStagings { get; set; }
+        public virtual DbSet<EffortDataStaging> EffortDataStagings { get; set; }
     }
 }
