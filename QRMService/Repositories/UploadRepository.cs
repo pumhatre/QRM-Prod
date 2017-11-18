@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity.Validation;
 
 namespace QRMService.Repositories
 {
@@ -12,7 +13,7 @@ namespace QRMService.Repositories
         public static UploadViewModel SaveExcelData(UploadViewModel upload)
         {
              SaveDefectDataModel(upload.DefectData);
-             //SaveEffortDataModel(upload.EffortData);
+             SaveEffortDataModel(upload.EffortData);
              SaveTestingDataModel(upload.TestingData);
             return upload;
         }
@@ -27,34 +28,34 @@ namespace QRMService.Repositories
                 db.EffortDataStagings.RemoveRange(db.EffortDataStagings.Where(x => x.ProjectMasterId == projectId && x.ProjectReleaseId==projectReleaseId && x.MonthId==monthId));
                 db.SaveChanges();
                 List<EffortDataStaging> obj = domainModel.Select(x => new EffortDataStaging
-                {
-                    ObjectComponentID = x.ObjectComponentID,
-                    ComponentType = x.ComponentType,
-                    WidgetType = x.WidgetType,
-                    Complexity = x.Complexity,
-                    TaskType = x.TaskType,
-                    BaselinedEffort = x.BaselinedEffort,
-                    ActualEffort = x.ActualEffort,
-                    Status = x.Status,
-                    CMMIRollUp = x.CMMIRollUp,
-                    SEQ = x.SEQ,
-                    ScheduledStartDate = x.ScheduledStartDate,
-                    ScheduledEndDate = x.ScheduledEndDate,
-                    ActualStartDate = x.ActualStartDate,
-                    ActualEndDate = x.ActualEndDate,
-                    ProjectID = x.ProjectID,
-                    Release = x.Release,
-                    Module = x.Module,
-                    ComponentName = x.ComponentName,
-                    ReviewType=x.ReviewType,
-                    Remarks = x.Remarks,
-                    ProjectReleaseId = x.ProjectReleaseId,
-                    MonthId = x.MonthId,
-                    ProjectMasterId=x.ProjectId
+                    {
+                        ObjectComponentID = x.ObjectComponentID,
+                        ComponentType = x.ComponentType,
+                        WidgetType = x.WidgetType,
+                        Complexity = x.Complexity,
+                        TaskType = x.TaskType,
+                        BaselinedEffort = x.BaselinedEffort,
+                        ActualEffort = x.ActualEffort,
+                        Status = x.Status,
+                        CMMIRollUp = x.CMMIRollUp,
+                        SEQ = x.SEQ,
+                        ScheduledStartDate = x.ScheduledStartDate,
+                        ScheduledEndDate = x.ScheduledEndDate,
+                        ActualStartDate = x.ActualStartDate,
+                        ActualEndDate = x.ActualEndDate,
+                        ProjectID = x.ProjectID,
+                        Release = x.Release,
+                        Module = x.Module,
+                        ComponentName = x.ComponentName,
+                        ReviewType = x.ReviewType,
+                        Remarks = x.Remarks,
+                        ProjectReleaseId = x.ProjectReleaseId,
+                        MonthId = x.MonthId,
+                        ProjectMasterId = x.ProjectId
 
-                }).ToList();
-                db.EffortDataStagings.AddRange(obj);
-                db.SaveChanges();
+                    }).ToList();
+                    db.EffortDataStagings.AddRange(obj);
+                    db.SaveChanges();
             }
             return null;
         }

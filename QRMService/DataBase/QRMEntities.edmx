@@ -145,13 +145,13 @@ warning 6002: The table/view 'QRMPortal.dbo.DevMetrics' does not have a primary 
           <Property Name="ProjectID" Type="varchar" MaxLength="50" />
           <Property Name="Release" Type="varchar" MaxLength="50" />
           <Property Name="Module" Type="varchar" MaxLength="50" />
-          <Property Name="ComponentName" Type="varchar" MaxLength="50" />
+          <Property Name="ComponentName" Type="varchar(max)" />
           <Property Name="ReviewType" Type="varbinary" MaxLength="50" />
           <Property Name="Remarks" Type="varchar(max)" />
           <Property Name="ProjectReleaseId" Type="int" />
           <Property Name="MonthId" Type="int" />
-          <Property Name="EffortDataStagingId" Type="int" Nullable="false" />
           <Property Name="ProjectMasterId" Type="int" Nullable="false" />
+          <Property Name="EffortDataStagingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1505,7 +1505,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="TestingDetail" EntitySet="TestingDetails" />
           </AssociationSet>
           <EntitySet Name="DefectDataStagings" EntityType="QRMPortalModel.DefectDataStaging" />
-          <EntitySet Name="EffortDataStagings" EntityType="QRMPortalModel.EffortDataStaging" />
           <AssociationSet Name="FK_DefectDataStaging_MonthId" Association="QRMPortalModel.FK_DefectDataStaging_MonthId">
             <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
@@ -1518,6 +1517,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
           </AssociationSet>
+          <EntitySet Name="EffortDataStagings" EntityType="QRMPortalModel.EffortDataStaging" />
           <AssociationSet Name="FK_EffortDataStaging_MonthId" Association="QRMPortalModel.FK_EffortDataStaging_MonthId">
             <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
@@ -1845,38 +1845,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="DefectDataStaging" ToRole="ProjectMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="DefectDataStaging" ToRole="ProjectReleaseMaster" />
         </EntityType>
-        <EntityType Name="EffortDataStaging">
-          <Key>
-            <PropertyRef Name="EffortDataStagingId" />
-          </Key>
-          <Property Name="ObjectComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ComponentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WidgetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Complexity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ActualEffort" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CMMIRollUp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SEQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ScheduledStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ScheduledEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ComponentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ReviewType" Type="Binary" MaxLength="50" FixedLength="false" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="EffortDataStagingId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectMasterId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_MonthId" FromRole="EffortDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
-        </EntityType>
         <Association Name="FK_DefectDataStaging_MonthId">
           <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
           <End Type="QRMPortalModel.DefectDataStaging" Role="DefectDataStaging" Multiplicity="*" />
@@ -1913,6 +1881,38 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EffortDataStaging">
+          <Key>
+            <PropertyRef Name="EffortDataStagingId" />
+          </Key>
+          <Property Name="ObjectComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComponentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WidgetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Complexity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ActualEffort" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CMMIRollUp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduledStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ScheduledEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComponentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewType" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="ProjectMasterId" Type="Int32" Nullable="false" />
+          <Property Name="EffortDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_MonthId" FromRole="EffortDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
+        </EntityType>
         <Association Name="FK_EffortDataStaging_MonthId">
           <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
           <End Type="QRMPortalModel.EffortDataStaging" Role="EffortDataStaging" Multiplicity="*" />
@@ -2357,8 +2357,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="EffortDataStagings">
             <EntityTypeMapping TypeName="QRMPortalModel.EffortDataStaging">
               <MappingFragment StoreEntitySet="EffortDataStaging">
-                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
                 <ScalarProperty Name="EffortDataStagingId" ColumnName="EffortDataStagingId" />
+                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
                 <ScalarProperty Name="MonthId" ColumnName="MonthId" />
                 <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />

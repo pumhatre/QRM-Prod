@@ -61,8 +61,8 @@ function uploadFile(uploadService) {
                 _.each(excelData, function (value, key) {
                     _.each(value, function (val) {
                         val["ProjectId"] = parseInt($scope.projectDetails.selectedProjectDropdown);
-                        val["ProjectReleaseId"] = parseInt($scope.projectDetails.month);
-                        val["MonthId"] = parseInt($scope.projectDetails.selectedReleaseDropdown);
+                        val["ProjectReleaseId"] = parseInt($scope.projectDetails.selectedReleaseDropdown);
+                        val["MonthId"] = parseInt($scope.projectDetails.month);
                     })
                 });
                 $(loaderTitle).text("Saving...");
