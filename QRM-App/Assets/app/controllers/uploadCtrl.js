@@ -3,7 +3,7 @@
 angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, projectReleaseService, metricsAssociationService,uploadService, config, $confirm) {
     $scope.projectsDropdown = [];
     $scope.projectsReleases = [];
-
+    $scope.isUploaded = true;
     $scope.init = function () {
         $scope.LoadProjectsDropDown();
         $scope.LoadMonthsDropDown();

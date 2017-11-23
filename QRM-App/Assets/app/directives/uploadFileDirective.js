@@ -12,7 +12,13 @@ function uploadFile(uploadService) {
                             '<div id="loader"></div>'+
                         '</div>' +
                         '<span class="loader-title">Uploading...</span>' +
-                    '</div>'+
+                        
+                    '</div>' +
+                    '<div class="complete-block">' +
+                    '<div class="circle-loader">' +
+                          '<div class="checkmark draw"></div>' +
+                        '</div>' +
+                     '</div>'+
                     '<div id="dataImport"></div>',
         link: function ($scope, element, attributes) {
             var dropZone = element[0].getElementsByClassName("upload-drop-zone")[0];
@@ -20,7 +26,11 @@ function uploadFile(uploadService) {
             //var loaderBlock = element[0].getElementsByClassName("loader-block")[0];
             var uploaderBlock = ".uploader-block";
             var loaderBlock = ".loader-block";
+            var completeBlock=".complete-block";
             var loaderTitle = ".loader-title";
+            var circleLoader = ".circle-loader";
+            $(circleLoader).hide();
+            $(completeBlock).hide();
             if (localStorage.getItem("uploading") === "true") {
                 $(uploaderBlock).hide();
                 $(loaderBlock).show();
@@ -66,13 +76,22 @@ function uploadFile(uploadService) {
                     })
                 });
                 $(loaderTitle).text("Saving...");
+                $scope.isUploaded = false;
                 uploadService.SaveExcelData(excelData).then(function (response) {
                     console.log(response);
                     $(loaderTitle).text("Uploading...");
                     $(element.find("input")).val("");
                     localStorage.setItem("uploading", "false");
-                    $(uploaderBlock).show();
+                    $(completeBlock).show();
+                    $(circleLoader).show();
+                    $(circleLoader).toggleClass('load-complete');
+                    $('.checkmark').toggle();
                     $(loaderBlock).hide();
+                    setTimeout(function () {
+                        $(circleLoader).hide();
+                        $(completeBlock).hide();
+                        $(uploaderBlock).show();
+                    }, 1000);
                 },
                function (error) {
                    console.log(error);
