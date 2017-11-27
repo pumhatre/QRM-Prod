@@ -12,9 +12,9 @@ namespace QRMService.Repositories
     {
         public static UploadViewModel SaveExcelData(UploadViewModel upload)
         {
-             SaveDefectDataModel(upload.DefectData);
-             SaveEffortDataModel(upload.EffortData);
-             SaveTestingDataModel(upload.TestingData);
+            SaveDefectDataModel(upload.DefectData);
+            SaveEffortDataModel(upload.EffortData);
+            SaveTestingDataModel(upload.TestingData);
             return upload;
         }
 
@@ -135,7 +135,24 @@ namespace QRMService.Repositories
                     DefectsRejected = x.DefectsRejected,
                     ProjectId =x.ProjectId,
                     ProjectReleaseId=x.ProjectReleaseId,
-                    MonthId=x.MonthId
+                    MonthId=x.MonthId,
+                    ActualEndDateExecution=x.ActualEndDateExecution,
+                    ActualStartDateExecution=x.ActualStartDateExecution,
+                    ManualOrAutomatedExecution=x.ManualOrAutomatedExecution,
+                    MediumTestCasesDesign=x.MediumTestCasesDesign,
+                    Iteration=x.Iteration,
+                    ComplexTestCasesDesign=x.ComplexTestCasesDesign,
+                    ComplexTestCasesExecution=x.ComplexTestCasesExecution,
+                    SimpleTestCasesExecution=x.SimpleTestCasesExecution,
+                    TestingSubphase=x.TestingSubphase,
+                    MediumTestCasesExecution=x.MediumTestCasesExecution,
+                    NormalizedTestCasesDesign=x.NormalizedTestCasesDesign,
+                    NormalizedTestCasesExecution=x.NormalizedTestCasesExecution,
+                    PlannedEndDateExecution=x.PlannedEndDateExecution,
+                    PlannedStartDateExecution=x.PlannedStartDateExecution,
+                    SimpleTestCasesDesign=x.SimpleTestCasesDesign,
+                    VeryComplexTestCasesDesign=x.VeryComplexTestCasesDesign,
+                    VeryComplexTestCasesExecution=x.VeryComplexTestCasesExecution,
                 }).ToList();
                 db.TestingDataStagings.AddRange(obj);
                 db.SaveChanges();

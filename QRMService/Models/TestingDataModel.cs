@@ -19,7 +19,6 @@ namespace QRMService.Models
         public DateTime? ActualStartDate { get; set; }
         public DateTime? ActualEndDate { get; set; }
         public string TestDesignStatus { get; set; }
-        public string ManualExecutionOrAutomated { get; set; }
         public decimal? TestCasePreparationPlanned { get; set; }
         public decimal? TestCaseReviewPlanned { get; set; }
         public decimal? TestCaseReworkPlanned { get; set; }
@@ -41,5 +40,25 @@ namespace QRMService.Models
         public int ProjectId { get; set; }
         public int ProjectReleaseId { get; set; }
         public int MonthId { get; set; }
+        public int? NormalizedTestCasesExecution { get; set; }
+        public DateTime? PlannedStartDateExecution { get; set; }
+        public DateTime? PlannedEndDateExecution { get; set; }
+        public DateTime? ActualStartDateExecution { get; set; }
+        public DateTime? ActualEndDateExecution { get; set; }
+        public string ManualOrAutomatedExecution { get; set; }
+        public int? NormalizedTestCasesDesign { get; set; }
+        public string Iteration { get; set; }
+        public string TestingSubphase { get; set; }
+        public int? SimpleTestCasesDesign { get; set; }
+        public int? MediumTestCasesDesign { get; set; }
+        public int? ComplexTestCasesDesign { get; set; }
+        public int? VeryComplexTestCasesDesign { get; set; }
+        public int? SimpleTestCasesExecution { get; set; }
+        public int? MediumTestCasesExecution { get; set; }
+        public int? ComplexTestCasesExecution { get; set; }
+        public int? VeryComplexTestCasesExecution { get; set; }
+
+
+
     }
 }
