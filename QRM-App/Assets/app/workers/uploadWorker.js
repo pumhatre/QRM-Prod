@@ -43,11 +43,17 @@ this.onmessage = function receiveMessage(message) {
                             s.sheet[keys[i]].w = sheetColumnsRendering[y][keys[i]];
                         }
                     }
-                    let t = findTable(s.sheet, s.range, neededSheetsViewModels[y]);
+                    var excelNames = {};
+                    var columnDataTypes = {};
+                    _.each(neededSheetsViewModels[y], function (value, key) {
+                        excelNames[key] = value.ExcelName;
+                        columnDataTypes[key] = value.Datatype;
+                    })
+                    let t = findTable(s.sheet, s.range, excelNames);
                     if (t.firstRow === null) {
                         return null;
                     }
-                    const tdata = readTable(s.sheet, s.range, t.columns, t.firstRow, neededSheetsMandatory[y],dateProperties, (row) => false);
+                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, neededSheetsMandatory[y], dateProperties, function (row) { return false; });
                     result[y] = tdata;
                 }
             });
@@ -81,19 +87,19 @@ var findSheet = function (workbook, sheetName) {
     range.min = dc(ref.split(':')[0]);
     range.max = dc(ref.split(':')[1]);
 
-    return { sheet, range };
+    return { sheet: sheet, range:range };
 }
 
 var findTable = function (sheet, range, colMap) {
-    const ec = (r, c) => { return XLSX.utils.encode_cell({ r: r, c: c }); };
+    const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let firstRow = null,
         colsToFind = _.keys(colMap).length,
 
         // colmap lowercase title -> prop
-        colLookup = _.reduce(colMap, (m, v, k) => { m[_.isString(v)? v.toLowerCase() : v] = k; return m; }, {}),
+        colLookup = _.reduce(colMap, function(m, v, k) { m[_.isString(v)? v.toLowerCase() : v] = k; return m; }, {}),
 
         // colmap props -> 0-indexed column
-        columns = _.reduce(colMap, (m, v, k) => { m[k] = null; return m; }, {});
+        columns = _.reduce(colMap, function(m, v, k) { m[k] = null; return m; }, {});
 
     // Look for header row and extract columns
     for(let r = range.min.r; r <= range.max.r - 1; ++r) {
@@ -117,25 +123,27 @@ var findTable = function (sheet, range, colMap) {
         }
     }
 
-    return { columns, firstRow };
+    return { columns: columns, firstRow:firstRow };
 }
-var readTable = function (sheet, range, columns, firstRow,neededSheetsMandatory,dateProperties, stop) {
-    const ec = (r, c) => { return XLSX.utils.encode_cell({ r: r, c: c }); };
+var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheetsMandatory,dateProperties, stop) {
+    const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let data = [];
 
     for(let r = firstRow; r <= range.max.r; ++r) {
-        let row = _.reduce(columns, (m, c, k) => {
+        let row = _.reduce(columns, function(m, c, k) {
             let cell = sheet[ec(r, c)];
             m[k] = cell? cell.v : null;
             return m;
         }, {});
 
-        if(stop && stop(row)) {
+        if (stop && stop(row)) {
+            debugger;
             break;
         }
         if (row[neededSheetsMandatory] != null) {
             var updaterow = row;
-            _.each(row, function (value,key) {
+            _.each(row, function (value, key) {
+                validateObject(r, { value: value, key: key }, sheetName);
                 if (dateProperties.indexOf(key) > -1) {
                     updaterow[key] = convertExcelDate(value);
                 }
@@ -149,4 +157,16 @@ var readTable = function (sheet, range, columns, firstRow,neededSheetsMandatory,
 
 var convertExcelDate=function(excelDate) {
     return new Date((excelDate - (25569)) * 86400 * 1000);
+}
+var validateObject = function (row, rowData, sheetName) {
+    //console.log("Row Number :" + row+1);
+    //console.log("Row Data :" + rowData.value);
+    console.log("Error :" + JSON.stringify(
+        {
+            SheetName: sheetName,
+            RowNumber: (row+1),
+            ColumnName: rowData.key,
+            Error: rowData.value
+        }
+    ));
 }

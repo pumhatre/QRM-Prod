@@ -34,88 +34,322 @@
             },
             neededSheetsViewModels: {
                 "Effort Data": {
-                    "ObjectComponentID": "Object/ Component ID",
-                    "ComponentType": "Component Type",
-                    "WidgetType": "Object/ Widget Type",
-                    "Complexity": "Complexity",
-                    "TaskType": "Task Type",
-                    "BaselinedEffort": "Baselined Effort(hrs)",
-                    "ActualEffort": "Actual Effort",
-                    "Status": "Status",
-                    "CMMIRollUp": "CMMI Rollup",
-                    "SEQ": "SEQ",
-                    "ScheduledStartDate": "Scheduled Start Date",
-                    "ScheduledEndDate": "Scheduled End Date",
-                    "ActualStartDate": "Actual Start Date",
-                    "ActualEndDate": "Actual End Date",
-                    "ProjectID": "Project",
-                    "Release": "Release",
-                    "Module": "Module",
-                    "ComponentName": "Object/ Component Name",
-                    "ReviewType": "Review Type",
-                    "Remarks": "Remarks"
+                    "ObjectComponentID": {
+                        ExcelName: "Object/ Component ID",
+                        Datatype:""
+                    },
+                    "ComponentType":{
+                        ExcelName:  "Component Type",
+                        Datatype:""
+                    },
+                    "WidgetType": {
+                        ExcelName: "Object/ Widget Type",
+                        Datatype:""
+                    },
+                    "Complexity":{
+                        ExcelName: "Complexity",
+                        Datatype:""
+                    },
+                    "TaskType":{
+                        ExcelName: "Task Type",
+                        Datatype:""
+                    },
+                    "BaselinedEffort":{
+                        ExcelName: "Baselined Effort(hrs)",
+                        Datatype:""
+                    },
+                    "ActualEffort":{
+                        ExcelName: "Actual Effort",
+                        Datatype:""
+                    },
+                    "Status":{
+                        ExcelName: "Status",
+                        Datatype:""
+                    },
+                    "CMMIRollUp": {
+                        ExcelName: "CMMI Rollup",
+                        Datatype:""
+                    },
+                    "SEQ": {
+                        ExcelName: "SEQ",
+                        Datatype:""
+                    },
+                    "ScheduledStartDate": {
+                        ExcelName: "Scheduled Start Date",
+                        Datatype:""
+                    },
+                    "ScheduledEndDate": {
+                        ExcelName: "Scheduled End Date",
+                        Datatype:""
+                    },
+                    "ActualStartDate": {
+                        ExcelName: "Actual Start Date",
+                        Datatype:""
+                    },
+                    "ActualEndDate":{
+                        ExcelName: "Actual End Date",
+                        Datatype:""
+                    },
+                    "ProjectID": {
+                        ExcelName: "Project",
+                        Datatype:""
+                    },
+                    "Release": {
+                        ExcelName: "Release",
+                        Datatype:""
+                    },
+                    "Module": {
+                        ExcelName: "Module",
+                        Datatype:""
+                    },
+                    "ComponentName": {
+                        ExcelName: "Object/ Component Name",
+                        Datatype:""
+                    },
+                    "ReviewType": {
+                        ExcelName: "Review Type",
+                        Datatype:""
+                    },
+                    "Remarks": {
+                        ExcelName: "Remarks",
+                        Datatype:""
+                    }
                 },
                 "Defect Data": {
-                    "DefectID": "Defect ID",
-                    "WidgetComponentID": "Object/ Widget ID",
-                    "DetectedStage": "Defect Detected Stage",
-                    "ReportedDate": "Reported Date",
-                    "ReportedBy": "Reported By",
-                    "DefectDescription": "Defect Description",
-                    "Status": "Status",
-                    "DefectInfectedStage": "Defect Injected Stage",
-                    "ExpectedDetectionPhase": "Expected Detection Phase",
-                    "DefectType": "Defect Type",
-                    "Cause": "Cause",
-                    "ReviewType": "Review Type",
-                    "DefectSeverity": "Defect Severity",
-                    "FixedOnDate": "Fixed On Date",
-                    "Remarks": "Remarks/ Notes"
+                    "DefectID": {
+                        ExcelName: "Defect ID",
+                        Datatype:""
+                    },
+                    "WidgetComponentID": {
+                        ExcelName: "Object/ Widget ID",
+                        Datatype:""
+                    },
+                    "DetectedStage": {
+                        ExcelName: "Defect Detected Stage",
+                        Datatype:""
+                    },
+                    "ReportedDate": {
+                        ExcelName: "Reported Date",
+                        Datatype:""
+                    },
+                    "ReportedBy": {
+                        ExcelName: "Reported By",
+                        Datatype:""
+                    },
+                    "DefectDescription": {
+                        ExcelName: "Defect Description",
+                        Datatype:""
+                    },
+                    "Status": {
+                        ExcelName: "Status",
+                        Datatype:""
+                    },
+                    "DefectInfectedStage": {
+                        ExcelName: "Defect Injected Stage",
+                        Datatype:""
+                    },
+                    "ExpectedDetectionPhase": {
+                        ExcelName: "Expected Detection Phase",
+                        Datatype:""
+                    },
+                    "DefectType": {
+                        ExcelName: "Defect Type",
+                        Datatype:""
+                    },
+                    "Cause": {
+                        ExcelName: "Cause",
+                        Datatype:""
+                    },
+                    "ReviewType": {
+                        ExcelName: "Review Type",
+                        Datatype:""
+                    },
+                    "DefectSeverity": {
+                        ExcelName: "Defect Severity",
+                        Datatype:""
+                    },
+                    "FixedOnDate": {
+                        ExcelName: "Fixed On Date",
+                        Datatype:""
+                    },
+                    "Remarks": {
+                        ExcelName: "Remarks/ Notes",
+                        Datatype:""
+                    }
                 },
                 "Testing Data": {
-                    "TestingPhase": "Testing Phase",
-                    "TestingType": "Testing Type",
-                    "Module": "Module",
-                    "Release": "Release",
-                    "PlannedNoOfTestCasesDesigned": "Planned No. of Test cases Designed",
-                    "ActualNumberOfTestCasesDesigned": "Actual No. of Test cases Designed",
-                    "NoOfTestCasesReviewComments": "No. of Test Case Review Comments",
-                    "PlannedStartDate": "Test Design Planned Start Date",
-                    "PlannedEndDate": "Test Design Plannned End Date",
-                    "ActualStartDate": "Test Design Actual Start Date",
-                    "ActualEndDate": "Test Design Actual End Date",
-                    "TestDesignStatus": "Test Design Status",
-                    "ManualExecutionOrAutomated": "Manual execution or Automated?",
-                    "TestCasePreparationPlanned": "Planned Test Case Preparation (Design)",
-                    "TestCaseReviewPlanned": "Planned Test Case Review (Design)",
-                    "TestCaseReworkPlanned": "Planned Test Case Rework (Design)",
-                    "TestCasePreparationActual": "Actual Test Case Preparation (Design)",
-                    "TestCaseReviewActual": "Actual Test Case Review (Design)",
-                    "TestCaseReworkActual": "Actual Test Case Rework (Design)",
-                    "TestCasedPlannedForExecution": "No. of Test cases Planned for execution",
-                    "PlannedEffortforExecution": "Planned Effort for Test Execution",
-                    "ExecutionStatus": "Test Execution Status",
-                    "TestCasesExecuted": "No. of Test cases Executed",
-                    "ActualEffortForExecution": "Actual Effort for Test Execution",
-                    "TotalCasesPassed": "Total Test Cases passed",
-                    "DefectsFound": "Total valid Defects found",
-                    "DefectsRejected": "Defects Fix Rejected",
-                    "Iteration" : "Iteration/Cycle",
-                    "TestingSubphase" : "Testing Sub-phase",
-                    "SimpleTestCasesDesign" : "Simple (Test Design)",
-                    "MediumTestCasesDesign" : "Medium (Test Design)",
-                    "ComplexTestCasesDesign" : "Complex (Test Design)",
-                    "VeryComplexTestCasesDesign" : "Very Complex (Test Design)",
-                    "SimpleTestCasesExecution" : "Simple (Test Execution)",
-                    "MediumTestCasesExecution" : "Medium (Test Execution)",
-                    "ComplexTestCasesExecution" : "Complex (Test Execution)",
-                    "VeryComplexTestCasesExecution" : "Very Complex (Test Execution)",
-                    "NormalizedTestCasesExecution" : "Normalized Size (Test Execution)",
-                    "PlannedStartDateExecution" : "Planned Start Date (Test Execution)",
-                    "PlannedEndDateExecution" : "Plannned End Date (Test Execution)",
-                    "ActualStartDateExecution" : "Actual Start Date (Test Execution)",
-                    "ActualEndDateExecution" : "Actual End Date (Test Execution)",
-                    "NormalizedTestCasesDesign" : "Normalized Size (Test Design)"
+                    "TestingPhase": {
+                        ExcelName: "Testing Phase",
+                        Datatype: ""
+                    },
+                    "TestingType": {
+                        ExcelName: "Testing Type",
+                        Datatype: ""
+                    },
+                    "Module": {
+                        ExcelName: "Module",
+                        Datatype: ""
+                    },
+                    "Release": {
+                        ExcelName: "Release",
+                        Datatype: ""
+                    },
+                    "PlannedNoOfTestCasesDesigned": {
+                        ExcelName: "Planned No. of Test cases Designed",
+                        Datatype: ""
+                    },
+                    "ActualNumberOfTestCasesDesigned": {
+                        ExcelName: "Actual No. of Test cases Designed",
+                        Datatype: ""
+                    },
+                    "NoOfTestCasesReviewComments": {
+                        ExcelName: "No. of Test Case Review Comments",
+                        Datatype: ""
+                    },
+                    "PlannedStartDate": {
+                        ExcelName: "Test Design Planned Start Date",
+                        Datatype: ""
+                    },
+                    "PlannedEndDate": {
+                        ExcelName: "Test Design Plannned End Date",
+                        Datatype: ""
+                    },
+                    "ActualStartDate": {
+                        ExcelName: "Test Design Actual Start Date",
+                        Datatype: ""
+                    },
+                    "ActualEndDate": {
+                        ExcelName: "Test Design Actual End Date",
+                        Datatype: ""
+                    },
+                    "TestDesignStatus": {
+                        ExcelName: "Test Design Status",
+                        Datatype: ""
+                    },
+                    "ManualExecutionOrAutomated": {
+                        ExcelName: "Manual execution or Automated?",
+                        Datatype: ""
+                    },
+                    "TestCasePreparationPlanned": {
+                        ExcelName: "Planned Test Case Preparation (Design)",
+                        Datatype: ""
+                    },
+                    "TestCaseReviewPlanned": {
+                        ExcelName: "Planned Test Case Review (Design)",
+                        Datatype: ""
+                    },
+                    "TestCaseReworkPlanned": {
+                        ExcelName: "Planned Test Case Rework (Design)",
+                        Datatype: ""
+                    },
+                    "TestCasePreparationActual": {
+                        ExcelName: "Actual Test Case Preparation (Design)",
+                        Datatype: ""
+                    },
+                    "TestCaseReviewActual": {
+                        ExcelName: "Actual Test Case Review (Design)",
+                        Datatype: ""
+                    },
+                    "TestCaseReworkActual": {
+                        ExcelName: "Actual Test Case Rework (Design)",
+                        Datatype: ""
+                    },
+                    "TestCasedPlannedForExecution": {
+                        ExcelName: "No. of Test cases Planned for execution",
+                        Datatype: ""
+                    },
+                    "PlannedEffortforExecution": {
+                        ExcelName: "Planned Effort for Test Execution",
+                        Datatype: ""
+                    },
+                    "ExecutionStatus": {
+                        ExcelName: "Test Execution Status",
+                        Datatype: ""
+                    },
+                    "TestCasesExecuted": {
+                        ExcelName: "No. of Test cases Executed",
+                        Datatype: ""
+                    },
+                    "ActualEffortForExecution": {
+                        ExcelName: "Actual Effort for Test Execution",
+                        Datatype: ""
+                    },
+                    "TotalCasesPassed": {
+                        ExcelName: "Total Test Cases passed",
+                        Datatype: ""
+                    },
+                    "DefectsFound": {
+                        ExcelName: "Total valid Defects found",
+                        Datatype: ""
+                    },
+                    "DefectsRejected": {
+                        ExcelName: "Defects Fix Rejected",
+                        Datatype: ""
+                    },
+                    "Iteration" : {
+                        ExcelName: "Iteration/Cycle",
+                        Datatype: ""
+                    },
+                    "TestingSubphase" : {
+                        ExcelName: "Testing Sub-phase",
+                        Datatype: ""
+                    },
+                    "SimpleTestCasesDesign" : {
+                        ExcelName: "Simple (Test Design)",
+                        Datatype: ""
+                    },
+                    "MediumTestCasesDesign" : {
+                        ExcelName: "Medium (Test Design)",
+                        Datatype: ""
+                    },
+                    "ComplexTestCasesDesign" : {
+                        ExcelName: "Complex (Test Design)",
+                        Datatype: ""
+                    },
+                    "VeryComplexTestCasesDesign" : {
+                        ExcelName: "Very Complex (Test Design)",
+                        Datatype: ""
+                    },
+                    "SimpleTestCasesExecution" : {
+                        ExcelName: "Simple (Test Execution)",
+                        Datatype: ""
+                    },
+                    "MediumTestCasesExecution" :  {
+                        ExcelName: "Medium (Test Execution)",
+                        Datatype: ""
+                    },
+                    "ComplexTestCasesExecution" : {
+                        ExcelName: "Complex (Test Execution)",
+                        Datatype: ""
+                    },
+                    "VeryComplexTestCasesExecution" : {
+                        ExcelName: "Very Complex (Test Execution)",
+                        Datatype: ""
+                    },
+                    "NormalizedTestCasesExecution" : {
+                        ExcelName: "Normalized Size (Test Execution)",
+                        Datatype: ""
+                    },
+                    "PlannedStartDateExecution" : {
+                        ExcelName: "Planned Start Date (Test Execution)",
+                        Datatype: ""
+                    },
+                    "PlannedEndDateExecution" : {
+                        ExcelName: "Plannned End Date (Test Execution)",
+                        Datatype: ""
+                    },
+                    "ActualStartDateExecution" : {
+                        ExcelName: "Actual Start Date (Test Execution)",
+                        Datatype: ""
+                    },
+                    "ActualEndDateExecution" : {
+                        ExcelName: "Actual End Date (Test Execution)",
+                        Datatype: ""
+                    },
+                    "NormalizedTestCasesDesign" : {
+                        ExcelName: "Normalized Size (Test Design)",
+                        Datatype: ""
+                    }
                 }
             }
         };
