@@ -4,24 +4,6 @@
         var message = {
             files: files,
             config: config,
-            neededSheets: ["Effort Data", "Defect Data", "Testing Data"],
-            neededSheetsMandatory:{
-                "Effort Data": "ObjectComponentID",
-                "Defect Data": "DefectID",
-                "Testing Data": "TestingPhase"
-            },
-            dateProperties: [
-                "ScheduledStartDate",
-                "ScheduledEndDate",
-                "ActualStartDate",
-                "ActualEndDate",
-                "ReportedDate",
-                "FixedOnDate",
-                "PlannedStartDate",
-                "PlannedEndDate",
-                "ActualStartDate",
-                "ActualEndDate"
-            ],
             sheetColumnsRendering: {
                 //"Testing Data": {
                 //    "N2": "Planned Test Case Preparation",
@@ -36,7 +18,8 @@
                 "Effort Data": {
                     "ObjectComponentID": {
                         ExcelName: "Object/ Component ID",
-                        Datatype:""
+                        Datatype: "",
+                        isMandatory: true
                     },
                     "ComponentType":{
                         ExcelName:  "Component Type",
@@ -76,19 +59,23 @@
                     },
                     "ScheduledStartDate": {
                         ExcelName: "Scheduled Start Date",
-                        Datatype:""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ScheduledEndDate": {
                         ExcelName: "Scheduled End Date",
-                        Datatype:""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ActualStartDate": {
                         ExcelName: "Actual Start Date",
-                        Datatype:""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ActualEndDate":{
                         ExcelName: "Actual End Date",
-                        Datatype:""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ProjectID": {
                         ExcelName: "Project",
@@ -118,7 +105,8 @@
                 "Defect Data": {
                     "DefectID": {
                         ExcelName: "Defect ID",
-                        Datatype:""
+                        Datatype: "",
+                        isMandatory: true
                     },
                     "WidgetComponentID": {
                         ExcelName: "Object/ Widget ID",
@@ -130,7 +118,8 @@
                     },
                     "ReportedDate": {
                         ExcelName: "Reported Date",
-                        Datatype:""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ReportedBy": {
                         ExcelName: "Reported By",
@@ -170,7 +159,8 @@
                     },
                     "FixedOnDate": {
                         ExcelName: "Fixed On Date",
-                        Datatype:""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "Remarks": {
                         ExcelName: "Remarks/ Notes",
@@ -180,7 +170,8 @@
                 "Testing Data": {
                     "TestingPhase": {
                         ExcelName: "Testing Phase",
-                        Datatype: ""
+                        Datatype: "",
+                        isMandatory: true
                     },
                     "TestingType": {
                         ExcelName: "Testing Type",
@@ -208,19 +199,23 @@
                     },
                     "PlannedStartDate": {
                         ExcelName: "Test Design Planned Start Date",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "PlannedEndDate": {
                         ExcelName: "Test Design Plannned End Date",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ActualStartDate": {
                         ExcelName: "Test Design Actual Start Date",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ActualEndDate": {
                         ExcelName: "Test Design Actual End Date",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "TestDesignStatus": {
                         ExcelName: "Test Design Status",
@@ -332,19 +327,23 @@
                     },
                     "PlannedStartDateExecution" : {
                         ExcelName: "Planned Start Date (Test Execution)",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "PlannedEndDateExecution" : {
                         ExcelName: "Plannned End Date (Test Execution)",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ActualStartDateExecution" : {
                         ExcelName: "Actual Start Date (Test Execution)",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "ActualEndDateExecution" : {
                         ExcelName: "Actual End Date (Test Execution)",
-                        Datatype: ""
+                        Datatype: "",
+                        isDateProperty: true
                     },
                     "NormalizedTestCasesDesign" : {
                         ExcelName: "Normalized Size (Test Design)",

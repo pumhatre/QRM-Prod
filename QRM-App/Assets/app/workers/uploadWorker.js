@@ -4,11 +4,8 @@ this.onmessage = function receiveMessage(message) {
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/jszip.js');
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/lodash.js');
     var files = message.data.files;
-    var needsheets = message.data.neededSheets;
     var neededSheetsViewModels = message.data.neededSheetsViewModels;
-    var neededSheetsMandatory=message.data.neededSheetsMandatory;
     var sheetColumnsRendering = message.data.sheetColumnsRendering;
-    var dateProperties = message.data.dateProperties;
 
     var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
     var i, f;
@@ -25,11 +22,14 @@ this.onmessage = function receiveMessage(message) {
             var arr = rABS ? data : btoa(fixdata(data));
             //reading data from excel
             var workbook = XLSX.read(arr, { type: rABS ? 'binary' : 'base64' });
-           
+            
 
             //Getting the sheet names
             var sheet_name_list = workbook.SheetNames;
-            var count = 0;
+            var needsheets = [];
+            _.each(neededSheetsViewModels, function (value, key) {
+                needsheets.push(key);
+            })
             sheet_name_list.forEach(function (y) { /* iterate through sheets */
                 //Convert the cell value to Json
                 if (needsheets.indexOf(y) > -1) {
@@ -45,15 +45,23 @@ this.onmessage = function receiveMessage(message) {
                     }
                     var excelNames = {};
                     var columnDataTypes = {};
+                    var mandatoryField = "";
+                    var dateProperties = [];
                     _.each(neededSheetsViewModels[y], function (value, key) {
                         excelNames[key] = value.ExcelName;
                         columnDataTypes[key] = value.Datatype;
+                        if (value.isMandatory && value.isMandatory!==undefined) {
+                            mandatoryField = key;
+                        }
+                        if (value.isDateProperty && value.isDateProperty !== undefined) {
+                            dateProperties.push(key);
+                        }
                     })
                     let t = findTable(s.sheet, s.range, excelNames);
                     if (t.firstRow === null) {
                         return null;
                     }
-                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, neededSheetsMandatory[y], dateProperties, function (row) { return false; });
+                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, mandatoryField, dateProperties, function (row) { return false; });
                     result[y] = tdata;
                 }
             });
@@ -145,7 +153,7 @@ var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheets
             _.each(row, function (value, key) {
                 validateObject(r, { value: value, key: key }, sheetName);
                 if (dateProperties.indexOf(key) > -1) {
-                    updaterow[key] = convertExcelDate(value);
+                    updaterow[key] = ((value!=null)?convertExcelDate(value):null);
                 }
             });
             data.push(updaterow);
