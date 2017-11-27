@@ -54,6 +54,13 @@ namespace QRMService.DataBase
         public Nullable<int> MediumTestCasesExecution { get; set; }
         public Nullable<int> ComplexTestCasesExecution { get; set; }
         public Nullable<int> VeryComplexTestCasesExecution { get; set; }
+        public Nullable<int> NormalizedTestCasesExecution { get; set; }
+        public Nullable<System.DateTime> PlannedStartDateExecution { get; set; }
+        public Nullable<System.DateTime> PlannedEndDateExecution { get; set; }
+        public Nullable<System.DateTime> ActualStartDateExecution { get; set; }
+        public Nullable<System.DateTime> ActualEndDateExecution { get; set; }
+        public string ManualOrAutomatedExecution { get; set; }
+        public Nullable<int> NormalizedTestCasesDesign { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }

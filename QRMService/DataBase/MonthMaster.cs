@@ -19,11 +19,11 @@ namespace QRMService.DataBase
         {
             this.DefectDataDetails = new HashSet<DefectDataDetail>();
             this.EffortDetails = new HashSet<EffortDetail>();
-            this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
             this.ProjectMetricAssociations = new HashSet<ProjectMetricAssociation>();
             this.DefectDataStagings = new HashSet<DefectDataStaging>();
             this.EffortDataStagings = new HashSet<EffortDataStaging>();
+            this.TestingDataStagings = new HashSet<TestingDataStaging>();
         }
     
         public int MonthId { get; set; }
@@ -38,8 +38,6 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDetail> EffortDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDetail> TestingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
@@ -47,5 +45,7 @@ namespace QRMService.DataBase
         public virtual ICollection<DefectDataStaging> DefectDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDataStaging> EffortDataStagings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
     }
 }
