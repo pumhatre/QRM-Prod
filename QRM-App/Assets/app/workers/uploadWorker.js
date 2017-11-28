@@ -1,4 +1,9 @@
 ﻿var self = this;
+var errors = [];
+var excelNames = {};
+var columnDataTypes = {};
+var mandatoryField = "";
+var dateProperties = [];
 this.onmessage = function receiveMessage(message) {
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/xlsx.js');
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/jszip.js');
@@ -43,10 +48,10 @@ this.onmessage = function receiveMessage(message) {
                             s.sheet[keys[i]].w = sheetColumnsRendering[y][keys[i]];
                         }
                     }
-                    var excelNames = {};
-                    var columnDataTypes = {};
-                    var mandatoryField = "";
-                    var dateProperties = [];
+                    excelNames = {};
+                    columnDataTypes = {};
+                    mandatoryField = "";
+                    dateProperties = [];
                     _.each(neededSheetsViewModels[y], function (value, key) {
                         excelNames[key] = value.ExcelName;
                         columnDataTypes[key] = value.Datatype;
@@ -61,10 +66,11 @@ this.onmessage = function receiveMessage(message) {
                     if (t.firstRow === null) {
                         return null;
                     }
-                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, mandatoryField, dateProperties,columnDataTypes, function (row) { return false; });
+                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, function (row) { return false; });
                     result[y] = tdata;
                 }
             });
+            result["Errors"] = errors;
             self.postMessage(result);
         };
     }
@@ -133,7 +139,7 @@ var findTable = function (sheet, range, colMap) {
 
     return { columns: columns, firstRow:firstRow };
 }
-var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheetsMandatory,dateProperties,columnDataTypes, stop) {
+var readTable = function (sheet, sheetName, range, columns, firstRow, stop) {
     const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let data = [];
 
@@ -148,10 +154,10 @@ var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheets
             debugger;
             break;
         }
-        if (row[neededSheetsMandatory] != null) {
+        if (row[mandatoryField] != null) {
             var updaterow = row;
             _.each(row, function (value, key) {
-                validateObject(r, { value: value, key: key }, sheetName, columnDataTypes[key]);
+                validateObject(r, { value: value, key: key }, sheetName);
                 if (dateProperties.indexOf(key) > -1) {
                     updaterow[key] = ((value!=null)?convertExcelDate(value):null);
                 }
@@ -159,23 +165,72 @@ var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheets
             data.push(updaterow);
         }
     }
-
     return data;
 }
 
 var convertExcelDate=function(excelDate) {
     return new Date((excelDate - (25569)) * 86400 * 1000);
 }
-var validateObject = function (row, rowData, sheetName,dataType) {
-    //console.log("Row Number :" + row+1);
-    //console.log("Row Data :" + rowData.value);
-    console.log("Error :" + JSON.stringify(
-        {
-            SheetName: sheetName,
-            RowNumber: (row+1),
-            ColumnName: rowData.key,
-            Error: rowData.value,
-            DataType: dataType
-        }
-    ));
+var validateObject = function (row, rowData, sheetName) {
+    var valid = true;
+    var error = {
+        SheetName: sheetName,
+        RowNumber: (row + 1),
+        ColumnName: excelNames[rowData.key],
+        Error: ""
+    }
+    var dataType = columnDataTypes[rowData.key];
+    var value = rowData.value;
+    switch (dataType) {
+        case "nullablefloat":
+            if (value === null) {
+                valid = true;
+            } else {
+                valid = Number(value) === parseFloat(value);
+            }
+            if (!valid) {
+                error.Error = "Please enter valid number";
+                errors.push(error);
+            }
+            break;
+        case "nullableint":
+            if (value === null) {
+                valid = true;
+            } else {
+                valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
+            }
+            if (!valid) {
+                error.Error = "Please enter valid number";
+                errors.push(error);
+            }
+            break;
+        case "int":
+            if (value === null) {
+                valid = false;
+            } else {
+                valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
+            }
+            if (!valid) {
+                error.Error = "Please enter valid number";
+                errors.push(error);
+            }
+            break;
+        case "nullabledatetime":
+            if (value === null) {
+                valid = true;
+            } else {
+                if (typeof (value) === "string") {
+                    valid = (value.match(/(\d{1,2})[- \/](\d{1,2})[- \/](\d{4})/) || value.match(/(\d{1,2})[- \/](\d{1,2})[- \/](\d{2})/));
+                } else if (typeof (value) === "number") {
+                    valid = true;
+                }
+            }
+            if (!valid) {
+                error.Error = "Please enter valid datetime";
+                errors.push(error);
+            }
+            break;
+        case "string":
+            break;
+    }
 }

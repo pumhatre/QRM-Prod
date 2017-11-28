@@ -4,6 +4,7 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
     $scope.projectsDropdown = [];
     $scope.projectsReleases = [];
     $scope.isUploaded = true;
+    $scope.errors = [];
     $scope.init = function () {
         $scope.LoadProjectsDropDown();
         $scope.LoadMonthsDropDown();
