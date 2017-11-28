@@ -61,7 +61,7 @@ this.onmessage = function receiveMessage(message) {
                     if (t.firstRow === null) {
                         return null;
                     }
-                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, mandatoryField, dateProperties, function (row) { return false; });
+                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, mandatoryField, dateProperties,columnDataTypes, function (row) { return false; });
                     result[y] = tdata;
                 }
             });
@@ -133,7 +133,7 @@ var findTable = function (sheet, range, colMap) {
 
     return { columns: columns, firstRow:firstRow };
 }
-var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheetsMandatory,dateProperties, stop) {
+var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheetsMandatory,dateProperties,columnDataTypes, stop) {
     const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let data = [];
 
@@ -151,7 +151,7 @@ var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheets
         if (row[neededSheetsMandatory] != null) {
             var updaterow = row;
             _.each(row, function (value, key) {
-                validateObject(r, { value: value, key: key }, sheetName);
+                validateObject(r, { value: value, key: key }, sheetName, columnDataTypes[key]);
                 if (dateProperties.indexOf(key) > -1) {
                     updaterow[key] = ((value!=null)?convertExcelDate(value):null);
                 }
@@ -166,7 +166,7 @@ var readTable = function (sheet,sheetName, range, columns, firstRow,neededSheets
 var convertExcelDate=function(excelDate) {
     return new Date((excelDate - (25569)) * 86400 * 1000);
 }
-var validateObject = function (row, rowData, sheetName) {
+var validateObject = function (row, rowData, sheetName,dataType) {
     //console.log("Row Number :" + row+1);
     //console.log("Row Data :" + rowData.value);
     console.log("Error :" + JSON.stringify(
@@ -174,7 +174,8 @@ var validateObject = function (row, rowData, sheetName) {
             SheetName: sheetName,
             RowNumber: (row+1),
             ColumnName: rowData.key,
-            Error: rowData.value
+            Error: rowData.value,
+            DataType: dataType
         }
     ));
 }
