@@ -19,6 +19,24 @@ function uploadFile(uploadService) {
                             '</div>' +
                          '</div>' +
                     '</div>' +
+                    '<div class="info-block">' +
+                            '<div class="alert alert-warning fade in" style="display:none">'+
+                                '<span class="close">&times;</span>' +
+                                '<strong>Warning!</strong> There was a problem with your <a href="#" class="alert-link">network connection</a>.'+
+                            '</div>'+
+                            '<div class="alert alert-danger fade in" style="display:none">' +
+                                '<span class="close">&times;</span>' +
+                                '<strong>Error!</strong> Excel data not uploaded.Please correct the below rows.'+
+                            '</div>'+
+                            '<div class="alert alert-success fade in" style="display:none">' +
+                                '<span class="close">&times;</span>' +
+                                '<strong>Success!</strong> Excel data uploaded successfully.'+
+                            '</div>'+
+                            '<div class="alert alert-info fade in" style="display:none">' +
+                                '<span class="close">&times;</span>'+
+                                '<strong>Note!</strong> This may take several minutes. Please do not refersh.' +
+                            '</div>'+
+                    '</div>'+
                     '<div class="error-block">' +
                         '<table class="table table-striped">'+
                             '<thead>'+
@@ -48,10 +66,16 @@ function uploadFile(uploadService) {
             var completeBlock=".complete-block";
             var loaderTitle = ".loader-title";
             var circleLoader = ".circle-loader";
-            var errorBlock=".error-block";
+            var errorBlock = ".error-block";
+            var clockAlert = ".close";
+            var infoBlock = ".info-block";
+            var alertInfo = ".alert-info";
+            var alertSuccess = ".alert-success";
+            var alertDanger = ".alert-danger";
             $(circleLoader).hide();
             $(completeBlock).hide();
             $(errorBlock).hide();
+            $(infoBlock).hide();
             if (localStorage.getItem("uploading") === "true") {
                 $(uploaderBlock).hide();
                 $(loaderBlock).show();
@@ -59,7 +83,10 @@ function uploadFile(uploadService) {
                 $(uploaderBlock).show();
                 $(loaderBlock).hide();
             }
-            
+            $(clockAlert).click(function () {
+                var parent = $(this).closest('.alert');
+                $(parent).hide();
+            });
             dropZone.onclick = function (e) {
                 $(element.find("input")).click();
             }
@@ -84,6 +111,11 @@ function uploadFile(uploadService) {
                 $scope.$apply(function () {
                     $scope.isUploaded = true;
                 });
+                $(alertDanger).hide();
+                $(infoBlock).show();
+                $(alertDanger).hide();
+                $(alertSuccess).hide();
+                $(alertInfo).show();
                 $(uploaderBlock).hide();
                 $(loaderBlock).show();
                 uploadService.UploadFile(files, $scope.SaveData);
@@ -107,6 +139,8 @@ function uploadFile(uploadService) {
                     $scope.isUploaded = false;
                     uploadService.SaveExcelData(excelData).then(function (response) {
                         $(loaderTitle).text("Uploading...");
+                        $(alertInfo).hide();
+                        $(alertSuccess).show();
                         $(element.find("input")).val("");
                         localStorage.setItem("uploading", "false");
                         $(completeBlock).show();
@@ -127,6 +161,8 @@ function uploadFile(uploadService) {
                     $scope.$apply(function () {
                         $scope.errors = excelData.Errors;
                     });
+                    $(alertInfo).hide();
+                    $(alertDanger).show();
                     $(loaderTitle).text("Uploading...");
                     $(element.find("input")).val("");
                     localStorage.setItem("uploading", "false");
