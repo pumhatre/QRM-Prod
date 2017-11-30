@@ -1,14 +1,16 @@
 ﻿var self = this;
+var errors = [];
+var excelNames = {};
+var columnDataTypes = {};
+var mandatoryField = "";
+var dateProperties = [];
 this.onmessage = function receiveMessage(message) {
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/xlsx.js');
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/jszip.js');
     importScripts(message.data.config.baseUrl + 'Assets/jsxlsx/lodash.js');
     var files = message.data.files;
-    var needsheets = message.data.neededSheets;
     var neededSheetsViewModels = message.data.neededSheetsViewModels;
-    var neededSheetsMandatory=message.data.neededSheetsMandatory;
     var sheetColumnsRendering = message.data.sheetColumnsRendering;
-    var dateProperties = message.data.dateProperties;
 
     var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
     var i, f;
@@ -25,11 +27,14 @@ this.onmessage = function receiveMessage(message) {
             var arr = rABS ? data : btoa(fixdata(data));
             //reading data from excel
             var workbook = XLSX.read(arr, { type: rABS ? 'binary' : 'base64' });
-           
+            
 
             //Getting the sheet names
             var sheet_name_list = workbook.SheetNames;
-            var count = 0;
+            var needsheets = [];
+            _.each(neededSheetsViewModels, function (value, key) {
+                needsheets.push(key);
+            })
             sheet_name_list.forEach(function (y) { /* iterate through sheets */
                 //Convert the cell value to Json
                 if (needsheets.indexOf(y) > -1) {
@@ -43,14 +48,29 @@ this.onmessage = function receiveMessage(message) {
                             s.sheet[keys[i]].w = sheetColumnsRendering[y][keys[i]];
                         }
                     }
-                    let t = findTable(s.sheet, s.range, neededSheetsViewModels[y]);
+                    excelNames = {};
+                    columnDataTypes = {};
+                    mandatoryField = "";
+                    dateProperties = [];
+                    _.each(neededSheetsViewModels[y], function (value, key) {
+                        excelNames[key] = value.ExcelName;
+                        columnDataTypes[key] = value.Datatype;
+                        if (value.isMandatory && value.isMandatory!==undefined) {
+                            mandatoryField = key;
+                        }
+                        if (value.isDateProperty && value.isDateProperty !== undefined) {
+                            dateProperties.push(key);
+                        }
+                    })
+                    let t = findTable(s.sheet, s.range, excelNames);
                     if (t.firstRow === null) {
                         return null;
                     }
-                    const tdata = readTable(s.sheet, s.range, t.columns, t.firstRow, neededSheetsMandatory[y],dateProperties, (row) => false);
+                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, function (row) { return false; });
                     result[y] = tdata;
                 }
             });
+            result["Errors"] = errors;
             self.postMessage(result);
         };
     }
@@ -81,19 +101,19 @@ var findSheet = function (workbook, sheetName) {
     range.min = dc(ref.split(':')[0]);
     range.max = dc(ref.split(':')[1]);
 
-    return { sheet, range };
+    return { sheet: sheet, range:range };
 }
 
 var findTable = function (sheet, range, colMap) {
-    const ec = (r, c) => { return XLSX.utils.encode_cell({ r: r, c: c }); };
+    const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let firstRow = null,
         colsToFind = _.keys(colMap).length,
 
         // colmap lowercase title -> prop
-        colLookup = _.reduce(colMap, (m, v, k) => { m[_.isString(v)? v.toLowerCase() : v] = k; return m; }, {}),
+        colLookup = _.reduce(colMap, function(m, v, k) { m[_.isString(v)? v.toLowerCase() : v] = k; return m; }, {}),
 
         // colmap props -> 0-indexed column
-        columns = _.reduce(colMap, (m, v, k) => { m[k] = null; return m; }, {});
+        columns = _.reduce(colMap, function(m, v, k) { m[k] = null; return m; }, {});
 
     // Look for header row and extract columns
     for(let r = range.min.r; r <= range.max.r - 1; ++r) {
@@ -117,36 +137,100 @@ var findTable = function (sheet, range, colMap) {
         }
     }
 
-    return { columns, firstRow };
+    return { columns: columns, firstRow:firstRow };
 }
-var readTable = function (sheet, range, columns, firstRow,neededSheetsMandatory,dateProperties, stop) {
-    const ec = (r, c) => { return XLSX.utils.encode_cell({ r: r, c: c }); };
+var readTable = function (sheet, sheetName, range, columns, firstRow, stop) {
+    const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let data = [];
 
     for(let r = firstRow; r <= range.max.r; ++r) {
-        let row = _.reduce(columns, (m, c, k) => {
+        let row = _.reduce(columns, function(m, c, k) {
             let cell = sheet[ec(r, c)];
             m[k] = cell? cell.v : null;
             return m;
         }, {});
 
-        if(stop && stop(row)) {
+        if (stop && stop(row)) {
+            debugger;
             break;
         }
-        if (row[neededSheetsMandatory] != null) {
+        if (row[mandatoryField] != null) {
             var updaterow = row;
-            _.each(row, function (value,key) {
+            _.each(row, function (value, key) {
+                validateObject(r, { value: value, key: key }, sheetName);
                 if (dateProperties.indexOf(key) > -1) {
-                    updaterow[key] = convertExcelDate(value);
+                    updaterow[key] = ((value!=null)?convertExcelDate(value):null);
                 }
             });
             data.push(updaterow);
         }
     }
-
     return data;
 }
 
 var convertExcelDate=function(excelDate) {
     return new Date((excelDate - (25569)) * 86400 * 1000);
+}
+var validateObject = function (row, rowData, sheetName) {
+    var valid = true;
+    var error = {
+        SheetName: sheetName,
+        RowNumber: (row + 1),
+        ColumnName: excelNames[rowData.key],
+        Error: ""
+    }
+    var dataType = columnDataTypes[rowData.key];
+    var value = rowData.value;
+    switch (dataType) {
+        case "nullablefloat":
+            if (value === null) {
+                valid = true;
+            } else {
+                valid = Number(value) === parseFloat(value);
+            }
+            if (!valid) {
+                error.Error = "Please enter valid number";
+                errors.push(error);
+            }
+            break;
+        case "nullableint":
+            if (value === null) {
+                valid = true;
+            } else {
+                valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
+            }
+            if (!valid) {
+                error.Error = "Please enter valid number";
+                errors.push(error);
+            }
+            break;
+        case "int":
+            if (value === null) {
+                valid = false;
+            } else {
+                valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
+            }
+            if (!valid) {
+                error.Error = "Please enter valid number";
+                errors.push(error);
+            }
+            break;
+        case "nullabledatetime":
+            if (value === null) {
+                valid = true;
+            } else {
+                if (typeof (value) === "string") {
+                    valid = (value.match(/(\d{1,2})[- \/](\d{1,2})[- \/](\d{4})/) || value.match(/(\d{1,2})[- \/](\d{1,2})[- \/](\d{2})/));
+                } else if (typeof (value) === "number") {
+                    valid = true;
+                }
+            }
+            if (!valid) {
+                error.Error = "Please enter valid datetime";
+                errors.push(error);
+            }
+            break;
+        case "string":
+            break;
+    }
 }

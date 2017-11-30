@@ -41,18 +41,18 @@
         <AssociationConnector Association="QRMPortalModel.FK_DevMetrics_ReleaseId" />
         <AssociationConnector Association="QRMPortalModel.FK_EffortDetails_ReleaseId" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ReleaseId" />
-        <EntityTypeShape EntityType="QRMPortalModel.DefectDataStaging" Width="1.5" PointX="9" PointY="19.125" />
-        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_MonthId" />
-        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId" />
-        <EntityTypeShape EntityType="QRMPortalModel.EffortDataStaging" Width="1.5" PointX="6" PointY="13.625" />
-        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_MonthId" />
-        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" />
-        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId" />
         <EntityTypeShape EntityType="QRMPortalModel.TestingDataStaging" Width="1.5" PointX="12" PointY="16.375" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_MonthId" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId" />
+        <EntityTypeShape EntityType="QRMPortalModel.DefectDataStaging" Width="1.5" PointX="6" PointY="15.125" />
+        <EntityTypeShape EntityType="QRMPortalModel.EffortDataStaging" Width="1.5" PointX="9" PointY="18.625" />
+        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_MonthId" />
+        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId" />
+        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_MonthId" />
+        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" />
+        <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

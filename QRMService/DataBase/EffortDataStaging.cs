@@ -32,7 +32,7 @@ namespace QRMService.DataBase
         public string Release { get; set; }
         public string Module { get; set; }
         public string ComponentName { get; set; }
-        public byte[] ReviewType { get; set; }
+        public string ReviewType { get; set; }
         public string Remarks { get; set; }
         public Nullable<int> ProjectReleaseId { get; set; }
         public Nullable<int> MonthId { get; set; }

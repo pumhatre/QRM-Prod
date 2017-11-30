@@ -12,9 +12,12 @@ namespace QRMService.Repositories
     {
         public static UploadViewModel SaveExcelData(UploadViewModel upload)
         {
-            SaveDefectDataModel(upload.DefectData);
-            SaveEffortDataModel(upload.EffortData);
-            SaveTestingDataModel(upload.TestingData);
+            if (upload.DefectData != null && upload.DefectData.Count > 0)
+                SaveDefectDataModel(upload.DefectData);
+            if (upload.EffortData != null && upload.EffortData.Count > 0)
+                SaveEffortDataModel(upload.EffortData);
+            if (upload.TestingData != null && upload.TestingData.Count > 0)
+                SaveTestingDataModel(upload.TestingData);
             return upload;
         }
 

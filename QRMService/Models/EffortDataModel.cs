@@ -23,7 +23,7 @@ namespace QRMService.Models
         public int ProjectReleaseId { get; set; }
         public string Release { get; set; }
         public string Remarks { get; set; }
-        public byte[] ReviewType { get; set; }
+        public string ReviewType { get; set; }
         public string SEQ { get; set; }
         public DateTime? ScheduledEndDate { get; set; }
         public DateTime? ScheduledStartDate { get; set; }
