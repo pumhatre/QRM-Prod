@@ -215,6 +215,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DefectDataStagingController.cs" />
     <Compile Include="Controllers\MetricsAssociationController.cs" />
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -305,6 +306,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DefectDataModel.cs" />
+    <Compile Include="Models\DefectDataStagingModel.cs" />
     <Compile Include="Models\EffortDataModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
@@ -328,6 +330,7 @@
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Repositories\DefectStagingRepository.cs" />
     <Compile Include="Repositories\LoginRepository.cs" />
     <Compile Include="Repositories\MetricsAssociationRepository.cs" />
     <Compile Include="Repositories\MetricsRepository.cs" />
@@ -435,6 +438,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QRMFrameworkHelpers\QRMFrameworkHelpers.csproj">
+      <Project>{3381bc71-bc4c-424b-9981-70d215703574}</Project>
+      <Name>QRMFrameworkHelpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

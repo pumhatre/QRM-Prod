@@ -10,5 +10,6 @@ namespace QRMService.Common
         public const string ServiceLineTableName = "ServiceLine";
         public const string TechnologyTableName = "Technology";
         public const string IndustryTableName = "Industry";
+        public const string UspGetDefectStagingData = "[QRM.UspGetDefectStagingData]";
     }
 }
