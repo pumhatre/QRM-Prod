@@ -19,7 +19,7 @@ namespace QRMService.Models
         public string ExpectedDetectionPhase { get; set; }
         public string DefectType { get; set; }
         public string Cause { get; set; }
-        public byte[] ReviewType { get; set; }
+        public string ReviewType { get; set; }
         public string DefectSeverity { get; set; }
         public DateTime? FixedOnDate { get; set; }
         public string Remarks { get; set; }
