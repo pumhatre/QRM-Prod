@@ -210,6 +210,7 @@
     <Content Include="Assets\app\directives\stepTabsDirective.js" />
     <Content Include="Assets\app\directives\uploadFileDirective.js" />
     <Content Include="Assets\app\environment\environment.js" />
+    <Content Include="Assets\app\services\defectDataService.js" />
     <Content Include="Assets\app\services\generateReportService.js" />
     <Content Include="Assets\app\services\metricsAssociationService.js" />
     <Content Include="Assets\app\services\metricsService.js" />
