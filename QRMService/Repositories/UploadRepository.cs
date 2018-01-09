@@ -182,8 +182,11 @@ namespace QRMService.Repositories
         {
             EffortMasterDataViewModel EffortMasterVM = new EffortMasterDataViewModel();
 
+            KeyValuePair<string, object> parameter1 = new KeyValuePair<string, object>("ProcessingDate", DateTime.Now);
+            KeyValuePair<string, object>[] inputParameters = { parameter1 };
+
             var helper = new SqlClientHelper();
-            var dataSet =helper.GetDataSetByProcedure(Constants.UspGetEffortMasterData, "default", true, null);
+            var dataSet =helper.GetDataSetByProcedure(Constants.UspGetEffortMasterData, "default", true, inputParameters);
             if(dataSet != null)
             {
                 if(dataSet.Tables.Count > 0)
@@ -293,29 +296,29 @@ namespace QRMService.Repositories
             });
 
                 //Data Sanity Validations
-                Parallel.ForEach<EffortDataModel>(effortDataModel, (edm) => 
-                {
-                    //check for valid Task Type
-                    if (edm.TaskType != null && effortTaskType.Contains(edm.TaskType))
-                    {
-                        edm.IsValidTaskType = true;
-                    }
-                    else
-                    {
-                        edm.IsValidTaskType = false;
-                    }
+                //Parallel.ForEach<EffortDataModel>(effortDataModel, (edm) => 
+                //{
+                //    //check for valid Task Type
+                //    if (edm.TaskType != null && effortTaskType.Contains(edm.TaskType))
+                //    {
+                //        edm.IsValidTaskType = true;
+                //    }
+                //    else
+                //    {
+                //        edm.IsValidTaskType = false;
+                //    }
 
-                    //check for valid effort Status
-                    if(edm.Status != null && effortTaskStatus.Contains(edm.Status))
-                    {
-                        edm.IsValidEffortStatus = true;
-                    }
-                    else
-                    {
-                        edm.IsValidEffortStatus = false;
-                    }
+                //    //check for valid effort Status
+                //    if(edm.Status != null && effortTaskStatus.Contains(edm.Status))
+                //    {
+                //        edm.IsValidEffortStatus = true;
+                //    }
+                //    else
+                //    {
+                //        edm.IsValidEffortStatus = false;
+                //    }
 
-                });
+                //});
 
                 // get the count of distinct objects in the effort model
                 effortObjectComponentCount = effortDataModel.GroupBy(x => x.ObjectComponentID).Count();
