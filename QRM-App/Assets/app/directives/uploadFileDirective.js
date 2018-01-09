@@ -161,14 +161,14 @@ function uploadFile(uploadService) {
                     $scope.$apply(function () {
                         $scope.errors = excelData.Errors;
                     });
-                    $(alertInfo).hide();
-                    $(alertDanger).show();
                     $(loaderTitle).text("Uploading...");
                     $(element.find("input")).val("");
                     localStorage.setItem("uploading", "false");
                     $(loaderBlock).hide();
                     $(uploaderBlock).show();
                     $(errorBlock).show();
+                    $(alertInfo).hide();
+                    $(alertDanger).show();
                 }
                 
             }
