@@ -30,5 +30,12 @@ namespace QRMService.Models
         public string Status { get; set; }
         public string TaskType { get; set; }
         public string WidgetType { get; set; }
+        public int EffortDataStagingId { get; set; }
+
+        //Data Sanity Validation Properties
+        public bool? IsValidTaskType { get; set; }
+        public bool? IsValidEffortStatus { get; set; }
+        public bool? IsValidComponentType { get; set; }
+
     }
 }

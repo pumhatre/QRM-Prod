@@ -382,4 +382,18 @@
             return reponse.data;
         });
     }
+
+    this.getDefectStagingData = function (defectData) {
+
+        var request = {
+            method: 'POST',
+            data: defectData,
+            url: config.apiUrl + 'api/Upload/GetDefectStagingData'
+        };
+        return $http(request).then(function (response) {
+            return response;
+        });
+    };
+  
+
 }]);

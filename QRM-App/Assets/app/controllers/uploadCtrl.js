@@ -1,10 +1,13 @@
 ﻿//uploadCtrl
 
-angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, projectReleaseService, metricsAssociationService,uploadService, config, $confirm) {
+angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, projectReleaseService, metricsAssociationService, uploadService, config, $confirm) {
     $scope.projectsDropdown = [];
     $scope.projectsReleases = [];
     $scope.isUploaded = true;
     $scope.errors = [];
+
+    $scope.dataSanityResult = [];
+
     $scope.init = function () {
         $scope.LoadProjectsDropDown();
         $scope.LoadMonthsDropDown();
@@ -49,19 +52,38 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
 
     $scope.LoadMonthsDropDown = function () {
         uploadService.GetMonthList(config).then(function (response) {
-                if (response.status == 200) {
-                    $scope.months = response.data;
-                }
-            },
+            if (response.status == 200) {
+                $scope.months = response.data;
+            }
+        },
             function (errorResponse) {
 
             });
     }
+
+    //get data from staging for sanity check
+    $scope.GetStagingData = function () {
+        var requestData = {
+            ProjectId: parseInt($scope.projectDetails.selectedProjectDropdown),
+            ProjectReleaseId: parseInt($scope.projectDetails.selectedReleaseDropdown),
+            MonthId: parseInt($scope.projectDetails.month)
+        }
+        uploadService.getDefectStagingData(requestData).then(function (response) {
+            if (response.status == 200) {
+                $scope.dataSanityResult = response.data;
+            }
+        },
+        function (errorResponse) {
+
+        });
+    }
+
     $scope.nextClick = function (id) {
         switch (id) {
             case "step-1":
                 break;
             case "step-2":
+                $scope.GetStagingData();
                 break;
             case "step-3":
                 break;
