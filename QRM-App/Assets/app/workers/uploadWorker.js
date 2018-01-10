@@ -158,6 +158,10 @@ var readTable = function (sheet, sheetName, range, columns, firstRow, stop) {
             var updaterow = row;
             _.each(row, function (value, key) {
                 validateObject(r, { value: value, key: key }, sheetName);
+                var dataType = columnDataTypes[key];
+                if (dataType == "nullableint" || dataType == "int") {
+                    updaterow[key] = parseInt(value)
+                }
                 if (dateProperties.indexOf(key) > -1) {
                     updaterow[key] = ((value!=null)?convertExcelDate(value):null);
                 }
@@ -193,28 +197,28 @@ var validateObject = function (row, rowData, sheetName) {
                 errors.push(error);
             }
             break;
-        case "nullableint":
-            if (value === null) {
-                valid = true;
-            } else {
-                valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
-            }
-            if (!valid) {
-                error.Error = "Please enter valid number";
-                errors.push(error);
-            }
-            break;
-        case "int":
-            if (value === null) {
-                valid = false;
-            } else {
-                valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
-            }
-            if (!valid) {
-                error.Error = "Please enter valid number";
-                errors.push(error);
-            }
-            break;
+        //case "nullableint":
+        //    if (value === null) {
+        //        valid = true;
+        //    } else {
+        //        valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
+        //    }
+        //    if (!valid) {
+        //        error.Error = "Please enter valid number";
+        //        errors.push(error);
+        //    }
+        //    break;
+        //case "int":
+        //    if (value === null) {
+        //        valid = false;
+        //    } else {
+        //        valid = Number(value) === parseInt(value) && parseInt(value) % 1 === 0;
+        //    }
+        //    if (!valid) {
+        //        error.Error = "Please enter valid number";
+        //        errors.push(error);
+        //    }
+        //    break;
         case "nullabledatetime":
             if (value === null) {
                 valid = true;

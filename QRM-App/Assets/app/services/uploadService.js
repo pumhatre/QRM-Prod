@@ -53,10 +53,10 @@
                         ExcelName: "CMMI Rollup",
                         Datatype: "string"
                     },
-                    "SEQ": {
-                        ExcelName: "SEQ",
-                        Datatype: "string"
-                    },
+                    //"SEQ": {
+                    //    ExcelName: "SEQ",
+                    //    Datatype: "string"
+                    //},
                     "ScheduledStartDate": {
                         ExcelName: "Scheduled Start Date",
                         Datatype: "nullabledatetime",
@@ -273,14 +273,14 @@
                         ExcelName: "Total Test Cases passed",
                         Datatype: "int"
                     },
-                    "DefectsFound": {
-                        ExcelName: "Total valid Defects found",
-                        Datatype: "int"
-                    },
-                    "DefectsRejected": {
-                        ExcelName: "Defects Fix Rejected",
-                        Datatype: "int"
-                    },
+                    //"DefectsFound": {
+                    //    ExcelName: "Total valid Defects found",
+                    //    Datatype: "int"
+                    //},
+                    //"DefectsRejected": {
+                    //    ExcelName: "Defects Fix Rejected",
+                    //    Datatype: "int"
+                    //},
                     "Iteration" : {
                         ExcelName: "Iteration/Cycle",
                         Datatype: "string"
