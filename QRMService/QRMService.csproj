@@ -314,6 +314,7 @@
     <Compile Include="Models\DefectDataStagingModel.cs" />
     <Compile Include="Models\EffortDataModel.cs" />
     <Compile Include="Models\EffortMasterDataViewModel.cs" />
+    <Compile Include="Models\EffortSanityValidationModel.cs" />
     <Compile Include="Models\EffortTaskType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="Models\ProjectReleasesResponseModel.cs" />
     <Compile Include="Models\ReferenceTableRequestModel.cs" />
     <Compile Include="Models\ReferenceTableResponseModel.cs" />
+    <Compile Include="Models\SanitizedDataViewModel.cs" />
     <Compile Include="Models\SaveReportRequestModel.cs" />
     <Compile Include="Models\TestingDataModel.cs" />
     <Compile Include="Models\UploadViewModel.cs" />

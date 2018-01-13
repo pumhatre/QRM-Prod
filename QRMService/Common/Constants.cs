@@ -13,6 +13,7 @@ namespace QRMService.Common
         public const string UspGetDefectStagingData = "[Dbo].[UspGetDefectStagingData]";
         public const string UspGetEffortStagingData = "[Dbo].[UspGetEfforttagingData]";
         public const string UspGetEffortMasterData = "[Dbo].[UspGetEffortMasterData]";
+        public const string UspGetEffortDataSanityResults = "[Dbo].[UspGetEffortDataSanityResults]";
 
         public enum EffortTablesColumnName
         {
@@ -39,6 +40,18 @@ namespace QRMService.Common
             Status,
             TaskType,
             WidgetType
+        }
+
+        public enum EffortSanityValidationColumnName
+        {
+            EffortDataStagingId,
+            IsValidTaskType,
+            IsValidStatus,
+            IsValidComponentType,
+            IsValidWidgetType,
+            IsValidComplexity,
+            IsValidCMMIRollup,
+            IsValidReviewType
         }
     }
 

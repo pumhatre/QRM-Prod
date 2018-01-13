@@ -394,6 +394,17 @@
             return response;
         });
     };
+
+    this.SaveDetailDataService = function (sanityData) {
+        var req = {
+            method: 'POST',
+            data: sanityData,
+            url: config.apiUrl + 'api/Upload/SaveStagingDatatoDetailsTable'
+        };
+        return $http(req).then(function (response) {
+            return response;
+        });
+    };
   
 
 }]);

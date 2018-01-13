@@ -243,7 +243,7 @@ namespace QRMService.Repositories
 
         }
 
-        public static int DataSanityCheck(DataTable projectData, EffortMasterDataViewModel effortMasterData)
+        public static SanitizedDataViewModel DataSanityCheck(DataTable projectData, EffortMasterDataViewModel effortMasterData,UploadViewModel upload)
         {
 
             //effort Task Type master data
@@ -263,7 +263,7 @@ namespace QRMService.Repositories
 
             //effort Staging Data
             var effortDataModel = new List<EffortDataModel>();
-            int effortObjectComponentCount = 0;
+            
 
             projectData.AsEnumerable().ToList().ForEach(row =>
             {
@@ -294,40 +294,106 @@ namespace QRMService.Repositories
                 WidgetType = row.Field<string>(Constants.EffortTablesColumnName.TaskType.ToString())
 
             });
-
-                //Data Sanity Validations
-                //Parallel.ForEach<EffortDataModel>(effortDataModel, (edm) => 
-                //{
-                //    //check for valid Task Type
-                //    if (edm.TaskType != null && effortTaskType.Contains(edm.TaskType))
-                //    {
-                //        edm.IsValidTaskType = true;
-                //    }
-                //    else
-                //    {
-                //        edm.IsValidTaskType = false;
-                //    }
-
-                //    //check for valid effort Status
-                //    if(edm.Status != null && effortTaskStatus.Contains(edm.Status))
-                //    {
-                //        edm.IsValidEffortStatus = true;
-                //    }
-                //    else
-                //    {
-                //        edm.IsValidEffortStatus = false;
-                //    }
-
-                //});
-
-                // get the count of distinct objects in the effort model
-                effortObjectComponentCount = effortDataModel.GroupBy(x => x.ObjectComponentID).Count();
-
             });
 
-            return effortObjectComponentCount;
+            //get the datasanity results from SP
+            var dataSanityResult = ValidateDataSanity(upload);
+
+            //invalid Effort Data
+            var invalidEffortData = new List<EffortDataModel>();
+
+            Parallel.ForEach<EffortSanityValidationModel>(dataSanityResult, (edm) =>
+             {
+                 if (edm.IsValidTaskType.Value && edm.IsValidStatus.Value && edm.IsValidComponentType.Value && edm.IsValidWidgetType.Value && edm.IsValidComplexity.Value && edm.IsValidCMMIRollup.Value && edm.IsValidReviewType.Value)
+                     invalidEffortData.Add(effortDataModel.Where(item => item.EffortDataStagingId == edm.EffortDataStagingId).FirstOrDefault());
+
+             });
 
 
+            SanitizedDataViewModel vm = new SanitizedDataViewModel();
+            vm.SanitizedEffortData = effortDataModel;
+            vm.InvalidEffortData = invalidEffortData;
+
+            return vm;
+
+        }
+
+        private static List<EffortSanityValidationModel> ValidateDataSanity(UploadViewModel upload)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
+            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspGetEffortDataSanityResults, "default", true, parameters.ToArray());
+
+            List <EffortSanityValidationModel> effortSanityValidationList = new List<EffortSanityValidationModel>();
+
+            dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
+            {
+                effortSanityValidationList.Add(new EffortSanityValidationModel
+                {
+                    EffortDataStagingId = row.Field<int>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidTaskType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidStatus = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidComponentType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidWidgetType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidComplexity = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidCMMIRollup = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidReviewType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                });
+            });
+
+            return effortSanityValidationList;
+
+        }
+
+        public static SanitizedDataViewModel SaveDetailData(SanitizedDataViewModel sanitizedViewModel)
+        {
+            if (sanitizedViewModel.SanitizedEffortData != null && sanitizedViewModel.SanitizedEffortData.Count > 0)
+                SaveEffortDetailData(sanitizedViewModel.SanitizedEffortData);
+
+
+            return sanitizedViewModel;
+        }
+
+        private static List<EffortDataModel> SaveEffortDetailData(List<EffortDataModel> effortDataModel)
+        {
+            using (var db = new QRMEntities())
+            {
+                var projectId = effortDataModel[0].ProjectId;
+                var monthId = effortDataModel[0].MonthId;
+                var projectReleaseId = effortDataModel[0].ProjectReleaseId;
+                db.EffortDetails.RemoveRange(db.EffortDetails.Where(x => x.ProjectId == projectId && x.ProjectReleaseId == projectReleaseId && x.MonthId == monthId));
+                db.SaveChanges();
+                List<EffortDetail> obj = effortDataModel.Select(x => new EffortDetail
+                {
+                    //ComponentID = x.ObjectComponentID,
+                    ComponentTypeCode = x.ComponentType,
+                    ComplexityCode = x.Complexity,
+                    TaskTypeCode = x.TaskType,
+                    //BaselineEffort = x.BaselinedEffort,
+                    //ActualEffort = x.ActualEffort,
+                    StatusCode = x.Status,
+                    CMMIRollUpCode = x.CMMIRollUp,                    
+                    ScheduledStartDate = x.ScheduledStartDate,
+                    ScheduledEndDate = x.ScheduledEndDate,
+                    ActualStartDate = x.ActualStartDate,
+                    ActualEndDate = x.ActualEndDate,
+                    ProjectId = x.ProjectId,
+                    ReleaseId = x.ProjectReleaseId,
+                    ModuleName = x.Module,
+                    ComponentName = x.ComponentName,
+                    ReviewTypeCode = x.ReviewType,
+                    Remarks = x.Remarks,
+                    ProjectReleaseId = x.ProjectReleaseId,
+                    MonthId = x.MonthId,
+                    WidgetType = x.WidgetType
+                }).ToList();
+                db.EffortDetails.AddRange(obj);
+                db.SaveChanges();
+            }
+            return null;
         }
 
     }

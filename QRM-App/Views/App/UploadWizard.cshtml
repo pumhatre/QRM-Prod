@@ -73,22 +73,28 @@
                                     <div class="row setup-content margin-top15px"  id="step-3">
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
-                                                <table>
-                                                    <thead>
+                                                <div ng-hide="dataSanityResult.InvalidEffortData">Data Sanity Completed successfully.All the records are valid.</div>
+                                                <table border="0" ng-show="dataSanityResult.InvalidEffortData.length">
                                                         <tr>
-                                                            <th>Total Objects/Components in Effort Data</th>
-                                                            <th>&nbsp;</th>
-                                                            <th>Total Objects/Components in Defect Data</th>
+                                                            
+                                                            <th>ComponentId</th>
+                                                            <th>BaseLined Effort</th>
+                                                            <th>Actual Effort</th>
+                                                            <th>Status</th>
+                                                            
                                                         </tr>
-                                                    </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="dataSanityEntity in dataSanityResult">
-                                                            <td>{{dataSanityEntity.EffortComponentCount}}</td>
-                                                            <th>&nbsp;</th>
-                                                            <td>{{dataSanityEntity.DefectComponentCount}}</td>
+                                                        <tr ng-repeat="dataSanityEntity in dataSanityResult.InvalidEffortData">
+                                                            <td>{{dataSanityEntity.ObjectComponentId}}</td>                                                            
+                                                            <td>{{dataSanityEntity.BaselinedEffort}}</td>
+                                                            <td>{{dataSanityEntity.ActualStartDate}}</td>
+                                                            <td>{{dataSanityEntity.Status}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-green btn-md pull-right" ng-disabled="dataSanityResult.InvalidEffortData.length > 0" ng-click="InsertDetailData()" type="button">Finalize</button>
+                                                </div>
                                             </form>
                                         </div>
                                         

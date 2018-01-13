@@ -34,8 +34,14 @@ namespace QRMService.Models
 
         //Data Sanity Validation Properties
         public bool? IsValidTaskType { get; set; }
-        public bool? IsValidEffortStatus { get; set; }
+        public bool? IsValidStatus { get; set; }
         public bool? IsValidComponentType { get; set; }
+        public bool? IsValidWidgetType { get; set; }
+        public bool? IsValidComplexity { get; set; }
+        public bool? IsValidCMMIRollup { get; set; }
+        public bool? IsValidReviewType { get; set; }
+
+
 
     }
 }

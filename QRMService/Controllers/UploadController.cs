@@ -29,12 +29,18 @@ namespace QRMService.Controllers
 
             var effortResult = UploadRepository.GetEffortStaging(upload);
 
-            var effortDataCount = UploadRepository.DataSanityCheck(effortResult, effortMasterData);
+            var dataSanityVM = UploadRepository.DataSanityCheck(effortResult, effortMasterData,upload);
+            
+            return Ok(dataSanityVM);
+        }
 
-            var dataSanityresult = new List<DataSanityModel>();
-            dataSanityresult.Add(new DataSanityModel { EffortComponentCount = effortDataCount, DefectComponentCount = 0 });
 
-            return Ok(dataSanityresult);
+        [HttpPost]
+        public IHttpActionResult SaveStagingDatatoDetailsTable(SanitizedDataViewModel sanitizedModel)
+        {
+            UploadRepository.SaveDetailData(sanitizedModel);
+
+            return Ok();
         }
 
 

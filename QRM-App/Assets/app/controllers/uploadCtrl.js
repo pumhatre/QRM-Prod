@@ -7,6 +7,7 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
     $scope.errors = [];
 
     $scope.dataSanityResult = [];
+    
 
     $scope.init = function () {
         $scope.LoadProjectsDropDown();
@@ -71,6 +72,20 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         uploadService.getDefectStagingData(requestData).then(function (response) {
             if (response.status == 200) {
                 $scope.dataSanityResult = response.data;
+                
+            }
+        },
+        function (errorResponse) {
+
+        });
+    }
+
+    //save effort detail data
+    $scope.SaveDetailData = function () {
+        var effortSanityData = $scope.dataSanityResult;
+        uploadService.SaveDetailDataService(effortSanityData).then(function (response) {
+            if (response.status = 200) {
+                console.log("Effort Detail data saved successfully");
             }
         },
         function (errorResponse) {
@@ -88,6 +103,20 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
             case "step-3":
                 break;
         }
+    }
+
+    //insert detail data
+    $scope.InsertDetailData = function () {
+        var effortDetailData = $scope.dataSanityResult;
+        uploadService.SaveDetailDataService(effortDetailData).then(function (response) {
+            if (response.status == 200) {
+                $scope.dataSanityResult = response.data;
+            }
+        },
+        function (errorResponse) {
+
+        });
+
     }
 }]);
 
