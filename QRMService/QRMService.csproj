@@ -373,6 +373,10 @@
     </Content>
     <Content Include="DB Script\dbscript_1.sql" />
     <Content Include="DB Script\QrmUpdatedScript.sql" />
+    <Content Include="DB Script\Stored Procedures\[dbo].[UspGetEffortDataSanityResults].sql" />
+    <Content Include="DB Script\Stored Procedures\[dbo].[UspGetEfforttagingData].sql" />
+    <Content Include="DB Script\Stored Procedures\[dbo].[UspSaveEffortDetailData].sql" />
+    <Content Include="DB Script\User Defined Types\[dbo].[udttEffortDataStagingType].sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
