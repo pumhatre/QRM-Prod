@@ -14,9 +14,11 @@ namespace QRMService.Common
         public const string UspGetEffortStagingData = "[Dbo].[UspGetEfforttagingData]";
         public const string UspGetEffortMasterData = "[Dbo].[UspGetEffortMasterData]";
         public const string UspGetEffortDataSanityResults = "[Dbo].[UspGetEffortDataSanityResults]";
+        public const string UspSaveEffortDetailData = "[Dbo].[UspSaveEffortDetailData]";
 
         public enum EffortTablesColumnName
         {
+            EffortDataStagingId,
             ActualEffort,
             ActualEndDate,
             ActualStartDate,

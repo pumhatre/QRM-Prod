@@ -30,6 +30,9 @@ namespace QRMService.Controllers
             var effortResult = UploadRepository.GetEffortStaging(upload);
 
             var dataSanityVM = UploadRepository.DataSanityCheck(effortResult, effortMasterData,upload);
+            dataSanityVM.ProjectId = upload.ProjectId;
+            dataSanityVM.MonthId = upload.MonthId;
+            dataSanityVM.ProjectReleaseId = upload.ProjectReleaseId;
             
             return Ok(dataSanityVM);
         }

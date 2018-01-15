@@ -7,11 +7,13 @@ namespace QRMService.Models
 {
     public class SanitizedDataViewModel
     {
-        public int EffortComponentCount { get; set; }
-        public int DefectComponentCount { get; set; }
+
         public List<EffortDataModel> SanitizedEffortData { get; set; }
         public List<EffortDataModel>  InvalidEffortData { get; set; }
         public List<EffortSanityValidationModel> effortSanityValidatonModel { get; set; }
+        public int ProjectId { get; set; }
+        public int ProjectReleaseId { get; set; }
+        public int MonthId { get; set; }
 
     }
 }

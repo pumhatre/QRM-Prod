@@ -25,7 +25,7 @@ namespace QRMService.DataBase
         public string ExpectedDetectionPhase { get; set; }
         public string DefectType { get; set; }
         public string Cause { get; set; }
-        public byte[] ReviewType { get; set; }
+        public string ReviewType { get; set; }
         public string DefectSeverity { get; set; }
         public Nullable<System.DateTime> FixedOnDate { get; set; }
         public string Remarks { get; set; }

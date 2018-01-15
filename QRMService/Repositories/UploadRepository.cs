@@ -186,14 +186,14 @@ namespace QRMService.Repositories
             KeyValuePair<string, object>[] inputParameters = { parameter1 };
 
             var helper = new SqlClientHelper();
-            var dataSet =helper.GetDataSetByProcedure(Constants.UspGetEffortMasterData, "default", true, inputParameters);
-            if(dataSet != null)
+            var dataSet = helper.GetDataSetByProcedure(Constants.UspGetEffortMasterData, "default", true, inputParameters);
+            if (dataSet != null)
             {
-                if(dataSet.Tables.Count > 0)
+                if (dataSet.Tables.Count > 0)
                 {
                     // get Task Type
                     DataTable taskTypeDataTable = dataSet.Tables[0];
-                    if(taskTypeDataTable != null)
+                    if (taskTypeDataTable != null)
                     {
                         var effortTasktype = new List<string>();
                         taskTypeDataTable.AsEnumerable().ToList().ForEach(row =>
@@ -210,7 +210,7 @@ namespace QRMService.Repositories
 
                     //get effort task status
                     DataTable taskStatusDataTable = dataSet.Tables[1];
-                    if(taskStatusDataTable != null)
+                    if (taskStatusDataTable != null)
                     {
                         var effortStatus = new List<string>();
                         taskStatusDataTable.AsEnumerable().ToList().ForEach(row =>
@@ -224,12 +224,12 @@ namespace QRMService.Repositories
                     {
                         EffortMasterVM.EffortStatus = new List<string>();
                     }
-                    
+
                 }
             }
 
             return EffortMasterVM;
-            
+
         }
 
         public static DataTable GetEffortStaging(UploadViewModel upload)
@@ -243,13 +243,13 @@ namespace QRMService.Repositories
 
         }
 
-        public static SanitizedDataViewModel DataSanityCheck(DataTable projectData, EffortMasterDataViewModel effortMasterData,UploadViewModel upload)
+        public static SanitizedDataViewModel DataSanityCheck(DataTable projectData, EffortMasterDataViewModel effortMasterData, UploadViewModel upload)
         {
 
             //effort Task Type master data
             var effortTaskType = new List<string>();
 
-            if(effortMasterData != null && effortMasterData.EffortTaskType != null && effortMasterData.EffortTaskType.Count > 0)
+            if (effortMasterData != null && effortMasterData.EffortTaskType != null && effortMasterData.EffortTaskType.Count > 0)
             {
                 effortTaskType = effortMasterData.EffortTaskType;
             }
@@ -263,37 +263,38 @@ namespace QRMService.Repositories
 
             //effort Staging Data
             var effortDataModel = new List<EffortDataModel>();
-            
+
 
             projectData.AsEnumerable().ToList().ForEach(row =>
             {
-            effortDataModel.Add(new EffortDataModel
-            {
-                ActualEffort = row.Field<decimal?>(Constants.EffortTablesColumnName.ActualEffort.ToString()),
-                ActualEndDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ActualEndDate.ToString()),
-                ActualStartDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ActualStartDate.ToString()),
-                BaselinedEffort = row.Field<decimal?>(Constants.EffortTablesColumnName.BaselinedEffort.ToString()),
-                CMMIRollUp = row.Field<string>(Constants.EffortTablesColumnName.CMMIRollUp.ToString()),
-                Complexity = row.Field<string>(Constants.EffortTablesColumnName.Complexity.ToString()),
-                ComponentName = row.Field<string>(Constants.EffortTablesColumnName.ComponentName.ToString()),
-                ComponentType = row.Field<string>(Constants.EffortTablesColumnName.ComponentType.ToString()),
-                Module = row.Field<string>(Constants.EffortTablesColumnName.Module.ToString()),
-                MonthId = row.Field<int>(Constants.EffortTablesColumnName.MonthId.ToString()),
-                ObjectComponentID = row.Field<string>(Constants.EffortTablesColumnName.ObjectComponentID.ToString()),
-                ProjectID = row.Field<string>(Constants.EffortTablesColumnName.ProjectID.ToString()),
-                ProjectId = row.Field<int>(Constants.EffortTablesColumnName.ProjectMasterId.ToString()),
-                ProjectReleaseId = row.Field<int>(Constants.EffortTablesColumnName.ProjectReleaseId.ToString()),
-                Release = row.Field<string>(Constants.EffortTablesColumnName.Release.ToString()),
-                Remarks = row.Field<string>(Constants.EffortTablesColumnName.Remarks.ToString()),
-                ReviewType = row.Field<string>(Constants.EffortTablesColumnName.ReviewType.ToString()),
-                SEQ = row.Field<string>(Constants.EffortTablesColumnName.SEQ.ToString()),
-                ScheduledEndDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ScheduledEndDate.ToString()),
-                ScheduledStartDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ScheduledStartDate.ToString()),
-                Status = row.Field<string>(Constants.EffortTablesColumnName.Status.ToString()),
-                TaskType = row.Field<string>(Constants.EffortTablesColumnName.TaskType.ToString()),
-                WidgetType = row.Field<string>(Constants.EffortTablesColumnName.TaskType.ToString())
+                effortDataModel.Add(new EffortDataModel
+                {
+                    EffortDataStagingId = row.Field<int>(Constants.EffortTablesColumnName.EffortDataStagingId.ToString()),
+                    ActualEffort = row.Field<decimal?>(Constants.EffortTablesColumnName.ActualEffort.ToString()),
+                    ActualEndDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ActualEndDate.ToString()),
+                    ActualStartDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ActualStartDate.ToString()),
+                    BaselinedEffort = row.Field<decimal?>(Constants.EffortTablesColumnName.BaselinedEffort.ToString()),
+                    CMMIRollUp = row.Field<string>(Constants.EffortTablesColumnName.CMMIRollUp.ToString()),
+                    Complexity = row.Field<string>(Constants.EffortTablesColumnName.Complexity.ToString()),
+                    ComponentName = row.Field<string>(Constants.EffortTablesColumnName.ComponentName.ToString()),
+                    ComponentType = row.Field<string>(Constants.EffortTablesColumnName.ComponentType.ToString()),
+                    Module = row.Field<string>(Constants.EffortTablesColumnName.Module.ToString()),
+                    MonthId = row.Field<int>(Constants.EffortTablesColumnName.MonthId.ToString()),
+                    ObjectComponentID = row.Field<string>(Constants.EffortTablesColumnName.ObjectComponentID.ToString()),
+                    ProjectID = row.Field<string>(Constants.EffortTablesColumnName.ProjectID.ToString()),
+                    ProjectId = row.Field<int>(Constants.EffortTablesColumnName.ProjectMasterId.ToString()),
+                    ProjectReleaseId = row.Field<int>(Constants.EffortTablesColumnName.ProjectReleaseId.ToString()),
+                    Release = row.Field<string>(Constants.EffortTablesColumnName.Release.ToString()),
+                    Remarks = row.Field<string>(Constants.EffortTablesColumnName.Remarks.ToString()),
+                    ReviewType = row.Field<string>(Constants.EffortTablesColumnName.ReviewType.ToString()),
+                    SEQ = row.Field<string>(Constants.EffortTablesColumnName.SEQ.ToString()),
+                    ScheduledEndDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ScheduledEndDate.ToString()),
+                    ScheduledStartDate = row.Field<DateTime?>(Constants.EffortTablesColumnName.ScheduledStartDate.ToString()),
+                    Status = row.Field<string>(Constants.EffortTablesColumnName.Status.ToString()),
+                    TaskType = row.Field<string>(Constants.EffortTablesColumnName.TaskType.ToString()),
+                    WidgetType = row.Field<string>(Constants.EffortTablesColumnName.TaskType.ToString())
 
-            });
+                });
             });
 
             //get the datasanity results from SP
@@ -304,7 +305,7 @@ namespace QRMService.Repositories
 
             Parallel.ForEach<EffortSanityValidationModel>(dataSanityResult, (edm) =>
              {
-                 if (edm.IsValidTaskType.Value && edm.IsValidStatus.Value && edm.IsValidComponentType.Value && edm.IsValidWidgetType.Value && edm.IsValidComplexity.Value && edm.IsValidCMMIRollup.Value && edm.IsValidReviewType.Value)
+                 if (!(edm.IsValidTaskType && edm.IsValidStatus && edm.IsValidComponentType && edm.IsValidWidgetType && edm.IsValidComplexity && edm.IsValidCMMIRollup && edm.IsValidReviewType))
                      invalidEffortData.Add(effortDataModel.Where(item => item.EffortDataStagingId == edm.EffortDataStagingId).FirstOrDefault());
 
              });
@@ -312,7 +313,8 @@ namespace QRMService.Repositories
 
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
             vm.SanitizedEffortData = effortDataModel;
-            vm.InvalidEffortData = invalidEffortData;
+            vm.InvalidEffortData = invalidEffortData;            
+            vm.effortSanityValidatonModel = dataSanityResult != null && dataSanityResult.Count > 0 ? dataSanityResult.FindAll(item => invalidEffortData.Any(x => x.EffortDataStagingId == item.EffortDataStagingId)) : new List<EffortSanityValidationModel>();
 
             return vm;
 
@@ -327,20 +329,20 @@ namespace QRMService.Repositories
             parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
             DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspGetEffortDataSanityResults, "default", true, parameters.ToArray());
 
-            List <EffortSanityValidationModel> effortSanityValidationList = new List<EffortSanityValidationModel>();
+            List<EffortSanityValidationModel> effortSanityValidationList = new List<EffortSanityValidationModel>();
 
             dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
             {
                 effortSanityValidationList.Add(new EffortSanityValidationModel
                 {
                     EffortDataStagingId = row.Field<int>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidTaskType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidStatus = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidComponentType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidWidgetType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidComplexity = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidCMMIRollup = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-                    IsValidReviewType = row.Field<bool?>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
+                    IsValidTaskType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidTaskType.ToString()),
+                    IsValidStatus = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidStatus.ToString()),
+                    IsValidComponentType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidComponentType.ToString()),
+                    IsValidWidgetType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidWidgetType.ToString()),
+                    IsValidComplexity = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidComplexity.ToString()),
+                    IsValidCMMIRollup = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidCMMIRollup.ToString()),
+                    IsValidReviewType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidReviewType.ToString())
                 });
             });
 
@@ -350,52 +352,77 @@ namespace QRMService.Repositories
 
         public static SanitizedDataViewModel SaveDetailData(SanitizedDataViewModel sanitizedViewModel)
         {
-            if (sanitizedViewModel.SanitizedEffortData != null && sanitizedViewModel.SanitizedEffortData.Count > 0)
-                SaveEffortDetailData(sanitizedViewModel.SanitizedEffortData);
+            if (sanitizedViewModel.effortSanityValidatonModel != null)
+                SaveEffortDetailData(sanitizedViewModel);
 
 
             return sanitizedViewModel;
         }
 
-        private static List<EffortDataModel> SaveEffortDetailData(List<EffortDataModel> effortDataModel)
+        private static void SaveEffortDetailData(SanitizedDataViewModel effortSanityModel)
         {
-            using (var db = new QRMEntities())
+            //using (var db = new QRMEntities())
+            //{
+            //    var projectId = effortDataModel[0].ProjectId;
+            //    var monthId = effortDataModel[0].MonthId;
+            //    var projectReleaseId = effortDataModel[0].ProjectReleaseId;
+            //    db.EffortDetails.RemoveRange(db.EffortDetails.Where(x => x.ProjectMasterId == projectId && x.ProjectReleaseId == projectReleaseId && x.MonthId == monthId));
+            //    db.SaveChanges();
+            //    List<EffortDetail> obj = effortDataModel.Select(x => new EffortDetail
+            //    {
+            //        //ComponentID = x.ObjectComponentID,
+            //        ComponentTypeCode = x.ComponentType,
+            //        ComplexityCode = x.Complexity,
+            //        TaskTypeCode = x.TaskType,
+            //        //BaselineEffort = x.BaselinedEffort,
+            //        //ActualEffort = x.ActualEffort,
+            //        StatusCode = x.Status,
+            //        CMMIRollUpCode = x.CMMIRollUp,                    
+            //        ScheduledStartDate = x.ScheduledStartDate,
+            //        ScheduledEndDate = x.ScheduledEndDate,
+            //        ActualStartDate = x.ActualStartDate,
+            //        ActualEndDate = x.ActualEndDate,
+            //        ProjectMasterId = x.ProjectId,
+            //        ReleaseId = x.ProjectReleaseId,
+            //        ModuleName = x.Module,
+            //        ComponentName = x.ComponentName,
+            //        ReviewTypeCode = x.ReviewType,
+            //        Remarks = x.Remarks,
+            //        ProjectReleaseId = x.ProjectReleaseId,
+            //        MonthId = x.MonthId,
+            //        WidgetType = x.WidgetType
+            //    }).ToList();
+            //    db.EffortDetails.AddRange(obj);
+            //    db.SaveChanges();
+            //}
+
+
+
+            // call the sp to insert data into effort details table
+
+            DataTable dataTable = new DataTable("udttEffortDataStagingType");
+            dataTable.Columns.Add("EffortDataStagingId");
+
+            foreach (var sanityEntity in effortSanityModel.effortSanityValidatonModel)
             {
-                var projectId = effortDataModel[0].ProjectId;
-                var monthId = effortDataModel[0].MonthId;
-                var projectReleaseId = effortDataModel[0].ProjectReleaseId;
-                db.EffortDetails.RemoveRange(db.EffortDetails.Where(x => x.ProjectId == projectId && x.ProjectReleaseId == projectReleaseId && x.MonthId == monthId));
-                db.SaveChanges();
-                List<EffortDetail> obj = effortDataModel.Select(x => new EffortDetail
-                {
-                    //ComponentID = x.ObjectComponentID,
-                    ComponentTypeCode = x.ComponentType,
-                    ComplexityCode = x.Complexity,
-                    TaskTypeCode = x.TaskType,
-                    //BaselineEffort = x.BaselinedEffort,
-                    //ActualEffort = x.ActualEffort,
-                    StatusCode = x.Status,
-                    CMMIRollUpCode = x.CMMIRollUp,                    
-                    ScheduledStartDate = x.ScheduledStartDate,
-                    ScheduledEndDate = x.ScheduledEndDate,
-                    ActualStartDate = x.ActualStartDate,
-                    ActualEndDate = x.ActualEndDate,
-                    ProjectId = x.ProjectId,
-                    ReleaseId = x.ProjectReleaseId,
-                    ModuleName = x.Module,
-                    ComponentName = x.ComponentName,
-                    ReviewTypeCode = x.ReviewType,
-                    Remarks = x.Remarks,
-                    ProjectReleaseId = x.ProjectReleaseId,
-                    MonthId = x.MonthId,
-                    WidgetType = x.WidgetType
-                }).ToList();
-                db.EffortDetails.AddRange(obj);
-                db.SaveChanges();
+                DataRow dr = dataTable.NewRow();
+                dr["EffortDataStagingId"] = sanityEntity.EffortDataStagingId;
+                dataTable.Rows.Add(dr);
             }
-            return null;
+
+            
+
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("@EffortStagingIds", dataTable));
+            parameters.Add(new KeyValuePair<string, object>("Project", effortSanityModel.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", effortSanityModel.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", effortSanityModel.ProjectReleaseId));
+
+            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspSaveEffortDetailData, "default", true, parameters.ToArray());
+            
         }
 
     }
-            
+
 }

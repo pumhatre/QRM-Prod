@@ -108,6 +108,7 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
     //insert detail data
     $scope.InsertDetailData = function () {
         var effortDetailData = $scope.dataSanityResult;
+
         uploadService.SaveDetailDataService(effortDetailData).then(function (response) {
             if (response.status == 200) {
                 $scope.dataSanityResult = response.data;

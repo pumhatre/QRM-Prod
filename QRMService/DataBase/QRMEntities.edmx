@@ -20,7 +20,7 @@
           <Property Name="ExpectedDetectionPhase" Type="varchar" MaxLength="50" />
           <Property Name="DefectType" Type="varchar" MaxLength="100" />
           <Property Name="Cause" Type="varchar" MaxLength="100" />
-          <Property Name="ReviewType" Type="varbinary" MaxLength="50" />
+          <Property Name="ReviewType" Type="varchar" MaxLength="50" />
           <Property Name="DefectSeverity" Type="varchar" MaxLength="50" />
           <Property Name="FixedOnDate" Type="datetime" />
           <Property Name="Remarks" Type="varchar(max)" />
@@ -153,8 +153,6 @@ warning 6002: The table/view 'QRMPortal.dbo.DevMetrics' does not have a primary 
           <Property Name="ProjectMasterId" Type="int" Nullable="false" />
           <Property Name="EffortDataStagingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="EffortDetails">
           <Key>
             <PropertyRef Name="EffortId" />
@@ -172,15 +170,16 @@ warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a prima
           <Property Name="ScheduledEndDate" Type="date" />
           <Property Name="ActualStartDate" Type="date" />
           <Property Name="ActualEndDate" Type="date" />
-          <Property Name="ProjectId" Type="int" />
+          <Property Name="ProjectId" Type="varchar" MaxLength="50" />
           <Property Name="ReleaseId" Type="int" />
           <Property Name="ModuleName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ComponentName" Type="nvarchar" MaxLength="500" />
-          <Property Name="ReviewTypeCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="ComponentName" Type="varchar(max)" />
+          <Property Name="ReviewTypeCode" Type="varchar" MaxLength="50" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="ProjectReleaseId" Type="int" />
           <Property Name="MonthId" Type="int" />
           <Property Name="WidgetType" Type="varchar(max)" />
+          <Property Name="ProjectMasterId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MetricMaster">
           <Key>
@@ -401,6 +400,13 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="NoofTestCases" Type="int" />
           <Property Name="Iteration" Type="varchar" MaxLength="100" />
           <Property Name="TestingSubphase" Type="varchar" MaxLength="100" />
+          <Property Name="NormalizedTestCasesExecution" Type="int" />
+          <Property Name="PlannedStartDateExecution" Type="datetime" />
+          <Property Name="PlannedEndDateExecution" Type="datetime" />
+          <Property Name="ActualStartDateExecution" Type="datetime" />
+          <Property Name="ActualEndDateExecution" Type="datetime" />
+          <Property Name="ManualOrAutomatedExecution" Type="varchar" MaxLength="50" />
+          <Property Name="NormalizedTestCasesDesign" Type="int" />
         </EntityType>
         <EntityType Name="UserDetails">
           <Key>
@@ -579,14 +585,14 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EffortDetails_ProjectMaster">
-          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="0..1" />
+          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
           <End Role="EffortDetails" Type="Self.EffortDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectMaster">
               <PropertyRef Name="ProjectID" />
             </Principal>
             <Dependent Role="EffortDetails">
-              <PropertyRef Name="ProjectId" />
+              <PropertyRef Name="ProjectMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -774,6 +780,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySet Name="DefectDataDetails" EntityType="Self.DefectDataDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DefectDataStaging" EntityType="Self.DefectDataStaging" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EffortDataStaging" EntityType="Self.EffortDataStaging" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EffortDetails" EntityType="Self.EffortDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetricMaster" EntityType="Self.MetricMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthMaster" EntityType="Self.MonthMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PreferredReportMetricsAssociation" EntityType="Self.PreferredReportMetricsAssociation" Schema="dbo" store:Type="Tables" />
@@ -855,32 +862,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
     [DevMetrics].[ActualEndDate] AS [ActualEndDate], 
     [DevMetrics].[ProjectReleaseId] AS [ProjectReleaseId]
     FROM [dbo].[DevMetrics] AS [DevMetrics]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="EffortDetails" EntityType="Self.EffortDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [EffortDetails].[EffortId] AS [EffortId], 
-    [EffortDetails].[ComponentId] AS [ComponentId], 
-    [EffortDetails].[ComponentTypeCode] AS [ComponentTypeCode], 
-    [EffortDetails].[ComplexityCode] AS [ComplexityCode], 
-    [EffortDetails].[TaskTypeCode] AS [TaskTypeCode], 
-    [EffortDetails].[BaselineEffort] AS [BaselineEffort], 
-    [EffortDetails].[ActualEffort] AS [ActualEffort], 
-    [EffortDetails].[StatusCode] AS [StatusCode], 
-    [EffortDetails].[CMMIRollUpCode] AS [CMMIRollUpCode], 
-    [EffortDetails].[ScheduledStartDate] AS [ScheduledStartDate], 
-    [EffortDetails].[ScheduledEndDate] AS [ScheduledEndDate], 
-    [EffortDetails].[ActualStartDate] AS [ActualStartDate], 
-    [EffortDetails].[ActualEndDate] AS [ActualEndDate], 
-    [EffortDetails].[ProjectId] AS [ProjectId], 
-    [EffortDetails].[ReleaseId] AS [ReleaseId], 
-    [EffortDetails].[ModuleName] AS [ModuleName], 
-    [EffortDetails].[ComponentName] AS [ComponentName], 
-    [EffortDetails].[ReviewTypeCode] AS [ReviewTypeCode], 
-    [EffortDetails].[Remarks] AS [Remarks], 
-    [EffortDetails].[ProjectReleaseId] AS [ProjectReleaseId], 
-    [EffortDetails].[MonthId] AS [MonthId], 
-    [EffortDetails].[WidgetType] AS [WidgetType]
-    FROM [dbo].[EffortDetails] AS [EffortDetails]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Period" EntityType="Self.Period" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1016,6 +997,140 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QRMPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QRMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DefectDataDetails" EntityType="QRMPortalModel.DefectDataDetail" />
+          <EntitySet Name="DefectDataStagings" EntityType="QRMPortalModel.DefectDataStaging" />
+          <EntitySet Name="EffortDataStagings" EntityType="QRMPortalModel.EffortDataStaging" />
+          <EntitySet Name="EffortDetails" EntityType="QRMPortalModel.EffortDetail" />
+          <EntitySet Name="MetricMasters" EntityType="QRMPortalModel.MetricMaster" />
+          <EntitySet Name="MonthMasters" EntityType="QRMPortalModel.MonthMaster" />
+          <EntitySet Name="PreferredReportMetricsAssociations" EntityType="QRMPortalModel.PreferredReportMetricsAssociation" />
+          <EntitySet Name="ProjectMasters" EntityType="QRMPortalModel.ProjectMaster" />
+          <EntitySet Name="ProjectMetricAssociations" EntityType="QRMPortalModel.ProjectMetricAssociation" />
+          <EntitySet Name="ProjectReleaseMasters" EntityType="QRMPortalModel.ProjectReleaseMaster" />
+          <EntitySet Name="ReferenceTables" EntityType="QRMPortalModel.ReferenceTable" />
+          <EntitySet Name="RoleMasters" EntityType="QRMPortalModel.RoleMaster" />
+          <EntitySet Name="TestingDataStagings" EntityType="QRMPortalModel.TestingDataStaging" />
+          <EntitySet Name="TestingDetails" EntityType="QRMPortalModel.TestingDetail" />
+          <EntitySet Name="UserDetails" EntityType="QRMPortalModel.UserDetail" />
+          <EntitySet Name="UserProjectRoleAssociations" EntityType="QRMPortalModel.UserProjectRoleAssociation" />
+          <EntitySet Name="UserReportAssociations" EntityType="QRMPortalModel.UserReportAssociation" />
+          <EntitySet Name="DevMetrics" EntityType="QRMPortalModel.DevMetric" />
+          <EntitySet Name="Periods" EntityType="QRMPortalModel.Period" />
+          <EntitySet Name="ProjectWidgetDetails" EntityType="QRMPortalModel.ProjectWidgetDetail" />
+          <AssociationSet Name="FK_DefectDataDetails_MonthId" Association="QRMPortalModel.FK_DefectDataDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataDetails_ProjectMaster" Association="QRMPortalModel.FK_DefectDataDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataDetails_ReleaseId" Association="QRMPortalModel.FK_DefectDataDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_MonthId" Association="QRMPortalModel.FK_DefectDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_ProjectMaster" Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectDataStaging_ReleaseId" Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDataStaging_MonthId" Association="QRMPortalModel.FK_EffortDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDataStaging_ProjectMaster" Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_MonthId" Association="QRMPortalModel.FK_EffortDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="EffortDetail" EntitySet="EffortDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_ProjectMaster" Association="QRMPortalModel.FK_EffortDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="EffortDetail" EntitySet="EffortDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="QRMPortalModel.FK_EffortDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="EffortDetail" EntitySet="EffortDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster">
+            <End Role="MetricMaster" EntitySet="MetricMasters" />
+            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMetricAssociation_MonthId" Association="QRMPortalModel.FK_ProjectMetricAssociation_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDataStaging_MonthId" Association="QRMPortalModel.FK_TestingDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_MonthId" Association="QRMPortalModel.FK_TestingDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevMetrics_ProjectMaster" Association="QRMPortalModel.FK_DevMetrics_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="DevMetric" EntitySet="DevMetrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMetricAssociation_ProjectId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectWidgetDetails_ProjectMaster" Association="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="ProjectWidgetDetail" EntitySet="ProjectWidgetDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDataStaging_ProjectMaster" Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_ProjectMaster" Association="QRMPortalModel.FK_TestingDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectMetricAssociation_ReleaseId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevMetrics_ReleaseId" Association="QRMPortalModel.FK_DevMetrics_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="DevMetric" EntitySet="DevMetrics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProjectRoleAssociation_RoleMasterTable" Association="QRMPortalModel.FK_UserProjectRoleAssociation_RoleMasterTable">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProjectRoleAssociation_UserDetails" Association="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="DefectDataDetail">
           <Key>
             <PropertyRef Name="DefectDataDetailsId" />
@@ -1031,16 +1146,106 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ExpectedDetectionPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DefectType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Cause" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ReviewType" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="ReviewType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DefectSeverity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FixedOnDate" Type="DateTime" Precision="3" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
           <Property Name="ProjectReleaseId" Type="Int32" />
           <Property Name="MonthId" Type="Int32" />
-          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_DefectDataDetails_MonthId" FromRole="DefectDataDetails" ToRole="MonthMaster" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_MonthId" FromRole="DefectDataDetail" ToRole="MonthMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="DefectDataDetail" ToRole="ProjectMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="DefectDataDetail" ToRole="ProjectReleaseMaster" />
+        </EntityType>
+        <EntityType Name="DefectDataStaging">
+          <Key>
+            <PropertyRef Name="DefectDataStagingId" />
+          </Key>
+          <Property Name="DefectDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DefectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WidgetComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DetectedStage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReportedDate" Type="DateTime" Precision="3" />
+          <Property Name="ReportedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DefectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DefectInfectedStage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpectedDetectionPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DefectType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cause" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DefectSeverity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FixedOnDate" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_MonthId" FromRole="DefectDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="DefectDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="DefectDataStaging" ToRole="ProjectReleaseMaster" />
+        </EntityType>
+        <EntityType Name="EffortDataStaging">
+          <Key>
+            <PropertyRef Name="EffortDataStagingId" />
+          </Key>
+          <Property Name="ObjectComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComponentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WidgetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Complexity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ActualEffort" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CMMIRollUp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduledStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ScheduledEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComponentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="ProjectMasterId" Type="Int32" Nullable="false" />
+          <Property Name="EffortDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_MonthId" FromRole="EffortDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
+        </EntityType>
+        <EntityType Name="EffortDetail">
+          <Key>
+            <PropertyRef Name="EffortId" />
+          </Key>
+          <Property Name="EffortId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentId" Type="Int32" />
+          <Property Name="ComponentTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ComplexityCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TaskTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BaselineEffort" Type="Int32" />
+          <Property Name="ActualEffort" Type="Int32" />
+          <Property Name="StatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CMMIRollUpCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduledStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ScheduledEndDate" Type="DateTime" Precision="0" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="0" />
+          <Property Name="ProjectId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReleaseId" Type="Int32" />
+          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ComponentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="WidgetType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectMasterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_EffortDetails_MonthId" FromRole="EffortDetail" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="EffortDetail" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="EffortDetail" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="MetricMaster">
           <Key>
@@ -1062,18 +1267,93 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <PropertyRef Name="MonthId" />
           </Key>
           <Property Name="MonthId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MonthName" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MonthName" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="DefectDataDetails" Relationship="Self.FK_DefectDataDetails_MonthId" FromRole="MonthMaster" ToRole="DefectDataDetails" />
-          <NavigationProperty Name="EffortDetails" Relationship="Self.FK_EffortDetails_MonthId" FromRole="MonthMaster" ToRole="EffortDetails" />
-          <NavigationProperty Name="TestingDetails" Relationship="Self.FK_TestingDetails_MonthId" FromRole="MonthMaster" ToRole="TestingDetails" />
-          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" FromRole="MonthMaster" ToRole="ProjectMetricAssociation" />
-          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_MonthId" FromRole="MonthMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_MonthId" FromRole="MonthMaster" ToRole="DefectDataDetail" />
           <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_MonthId" FromRole="MonthMaster" ToRole="DefectDataStaging" />
           <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_MonthId" FromRole="MonthMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_MonthId" FromRole="MonthMaster" ToRole="EffortDetail" />
+          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" FromRole="MonthMaster" ToRole="ProjectMetricAssociation" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_MonthId" FromRole="MonthMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_MonthId" FromRole="MonthMaster" ToRole="TestingDetail" />
+        </EntityType>
+        <EntityType Name="PreferredReportMetricsAssociation">
+          <Key>
+            <PropertyRef Name="PreferredReportMetricsAssociationID" />
+          </Key>
+          <Property Name="PreferredReportMetricsAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectReleaseID" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="MetricAssociationID" Type="Int32" />
+          <Property Name="UserReportAssociationID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Capability" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectManager" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Enddate" Type="DateTime" Precision="3" />
+          <Property Name="GDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Industry" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LifeCycle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Solution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Director" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SeniorManager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ProjectEndDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataDetail" />
+          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDetail" />
+          <NavigationProperty Name="DevMetric" Relationship="QRMPortalModel.FK_DevMetrics_ProjectMaster" FromRole="ProjectMaster" ToRole="DevMetric" />
+          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMaster" ToRole="ProjectMetricAssociation" />
+          <NavigationProperty Name="ProjectWidgetDetails" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="ProjectWidgetDetail" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDetail" />
+          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectRoleAssociation" />
+        </EntityType>
+        <EntityType Name="ProjectMetricAssociation">
+          <Key>
+            <PropertyRef Name="ProjectMetricAssociationID" />
+          </Key>
+          <Property Name="ProjectMetricAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetricMasterID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MetricMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="ProjectMetricAssociation" ToRole="MetricMaster" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" FromRole="ProjectMetricAssociation" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMetricAssociation" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectMetricAssociation" ToRole="ProjectReleaseMaster" />
+        </EntityType>
+        <EntityType Name="ProjectReleaseMaster">
+          <Key>
+            <PropertyRef Name="ProjectReleaseId" />
+          </Key>
+          <Property Name="ProjectReleaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataDetail" />
+          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataStaging" />
+          <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDataStaging" />
+          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDetail" />
+          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="ProjectMetricAssociation" />
+          <NavigationProperty Name="DevMetrics" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DevMetric" />
+          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDataStaging" />
+          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDetail" />
         </EntityType>
         <EntityType Name="ReferenceTable">
           <Key>
@@ -1090,8 +1370,63 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="Self.FK_UserProjectRoleAssociation_RoleMasterTable" FromRole="RoleMaster" ToRole="UserProjectRoleAssociation" />
           <Property Name="IsActive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_RoleMasterTable" FromRole="RoleMaster" ToRole="UserProjectRoleAssociation" />
+        </EntityType>
+        <EntityType Name="TestingDataStaging">
+          <Key>
+            <PropertyRef Name="TestingDataStagingId" />
+          </Key>
+          <Property Name="TestingDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestingPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlannedNoOfTestCasesDesigned" Type="Int32" />
+          <Property Name="ActualNumberOfTestCasesDesigned" Type="Int32" />
+          <Property Name="NoOfTestCasesReviewComments" Type="Int32" />
+          <Property Name="PlannedStartDate" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="TestDesignStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestCasePreparationPlanned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReviewPlanned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReworkPlanned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCasePreparationActual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReviewActual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReworkActual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCasedPlannedForExecution" Type="Int32" />
+          <Property Name="PlannedEffortforExecution" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExecutionStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestCasesExecuted" Type="Int32" />
+          <Property Name="ActualEffortForExecution" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalCasesPassed" Type="Int32" />
+          <Property Name="DefectsFound" Type="Int32" />
+          <Property Name="DefectsRejected" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SimpleTestCasesDesign" Type="Int32" />
+          <Property Name="MediumTestCasesDesign" Type="Int32" />
+          <Property Name="ComplexTestCasesDesign" Type="Int32" />
+          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
+          <Property Name="SimpleTestCasesExecution" Type="Int32" />
+          <Property Name="MediumTestCasesExecution" Type="Int32" />
+          <Property Name="ComplexTestCasesExecution" Type="Int32" />
+          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
+          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
+          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_MonthId" FromRole="TestingDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
         </EntityType>
         <EntityType Name="TestingDetail">
           <Key>
@@ -1137,7 +1472,14 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="NoofTestCases" Type="Int32" />
           <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_TestingDetails_MonthId" FromRole="TestingDetails" ToRole="MonthMaster" />
+          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
+          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDetails_MonthId" FromRole="TestingDetail" ToRole="MonthMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
         </EntityType>
@@ -1153,7 +1495,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="Self.FK_UserProjectRoleAssociation_UserDetails" FromRole="UserDetails" ToRole="UserProjectRoleAssociation" />
+          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails" FromRole="UserDetail" ToRole="UserProjectRoleAssociation" />
         </EntityType>
         <EntityType Name="UserProjectRoleAssociation">
           <Key>
@@ -1163,9 +1505,19 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="UserId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" />
-          <NavigationProperty Name="RoleMaster" Relationship="Self.FK_UserProjectRoleAssociation_RoleMasterTable" FromRole="UserProjectRoleAssociation" ToRole="RoleMaster" />
-          <NavigationProperty Name="UserDetail" Relationship="Self.FK_UserProjectRoleAssociation_UserDetails" FromRole="UserProjectRoleAssociation" ToRole="UserDetails" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="UserProjectRoleAssociation" ToRole="ProjectMaster" />
+          <NavigationProperty Name="RoleMaster" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_RoleMasterTable" FromRole="UserProjectRoleAssociation" ToRole="RoleMaster" />
+          <NavigationProperty Name="UserDetail" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails" FromRole="UserProjectRoleAssociation" ToRole="UserDetail" />
+        </EntityType>
+        <EntityType Name="UserReportAssociation">
+          <Key>
+            <PropertyRef Name="UserReportAssociationID" />
+          </Key>
+          <Property Name="UserReportAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ReportName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectReleaseID" Type="Int32" />
+          <Property Name="MonthID" Type="Int32" />
         </EntityType>
         <EntityType Name="DevMetric">
           <Key>
@@ -1239,36 +1591,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DevMetrics_ProjectMaster" FromRole="DevMetric" ToRole="ProjectMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="DevMetric" ToRole="ProjectReleaseMaster" />
         </EntityType>
-        <EntityType Name="EffortDetail">
-          <Key>
-            <PropertyRef Name="EffortId" />
-          </Key>
-          <Property Name="EffortId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ComponentId" Type="Int32" />
-          <Property Name="ComponentTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ComplexityCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TaskTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="BaselineEffort" Type="Int32" />
-          <Property Name="ActualEffort" Type="Int32" />
-          <Property Name="StatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CMMIRollUpCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ScheduledStartDate" Type="DateTime" Precision="0" />
-          <Property Name="ScheduledEndDate" Type="DateTime" Precision="0" />
-          <Property Name="ActualStartDate" Type="DateTime" Precision="0" />
-          <Property Name="ActualEndDate" Type="DateTime" Precision="0" />
-          <Property Name="ProjectId" Type="Int32" />
-          <Property Name="ReleaseId" Type="Int32" />
-          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ComponentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ReviewTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="WidgetType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MonthMaster" Relationship="Self.FK_EffortDetails_MonthId" FromRole="EffortDetails" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="EffortDetail" ToRole="ProjectMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="EffortDetail" ToRole="ProjectReleaseMaster" />
-        </EntityType>
         <EntityType Name="Period">
           <Key>
             <PropertyRef Name="PeriodId" />
@@ -1278,206 +1600,12 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <PropertyRef Name="EndDate" />
           </Key>
           <Property Name="PeriodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PeriodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PeriodName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SortOrder" Type="Int32" />
         </EntityType>
-        <Association Name="FK_DefectDataDetails_MonthId">
-          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
-          <End Role="DefectDataDetails" Type="Self.DefectDataDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthMaster">
-              <PropertyRef Name="MonthId" />
-            </Principal>
-            <Dependent Role="DefectDataDetails">
-              <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EffortDetails_MonthId">
-          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
-          <End Role="EffortDetails" Type="Self.EffortDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthMaster">
-              <PropertyRef Name="MonthId" />
-            </Principal>
-            <Dependent Role="EffortDetails">
-              <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDetails_MonthId">
-          <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
-          <End Role="TestingDetails" Type="Self.TestingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthMaster">
-              <PropertyRef Name="MonthId" />
-            </Principal>
-            <Dependent Role="TestingDetails">
-              <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProjectRoleAssociation_RoleMasterTable">
-          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
-          <End Role="UserProjectRoleAssociation" Type="Self.UserProjectRoleAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RoleMaster">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UserProjectRoleAssociation">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProjectRoleAssociation_UserDetails">
-          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="0..1" />
-          <End Role="UserProjectRoleAssociation" Type="Self.UserProjectRoleAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserDetails">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserProjectRoleAssociation">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="QRMEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DefectDataDetails" EntityType="Self.DefectDataDetail" />
-          <EntitySet Name="MetricMasters" EntityType="Self.MetricMaster" />
-          <EntitySet Name="MonthMasters" EntityType="Self.MonthMaster" />
-          <EntitySet Name="ReferenceTables" EntityType="Self.ReferenceTable" />
-          <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
-          <EntitySet Name="TestingDetails" EntityType="Self.TestingDetail" />
-          <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
-          <EntitySet Name="UserProjectRoleAssociations" EntityType="Self.UserProjectRoleAssociation" />
-          <EntitySet Name="DevMetrics" EntityType="Self.DevMetric" />
-          <EntitySet Name="EffortDetails" EntityType="Self.EffortDetail" />
-          <EntitySet Name="Periods" EntityType="Self.Period" />
-          <AssociationSet Name="FK_DefectDataDetails_MonthId" Association="Self.FK_DefectDataDetails_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="DefectDataDetails" EntitySet="DefectDataDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_MonthId" Association="Self.FK_EffortDetails_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="EffortDetails" EntitySet="EffortDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_MonthId" Association="Self.FK_TestingDetails_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="TestingDetails" EntitySet="TestingDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProjectRoleAssociation_RoleMasterTable" Association="Self.FK_UserProjectRoleAssociation_RoleMasterTable">
-            <End Role="RoleMaster" EntitySet="RoleMasters" />
-            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProjectRoleAssociation_UserDetails" Association="Self.FK_UserProjectRoleAssociation_UserDetails">
-            <End Role="UserDetails" EntitySet="UserDetails" />
-            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
-          </AssociationSet>
-          <EntitySet Name="ProjectWidgetDetails" EntityType="QRMPortalModel.ProjectWidgetDetail" />
-          <EntitySet Name="ProjectMetricAssociations" EntityType="QRMPortalModel.ProjectMetricAssociation" />
-          <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster">
-            <End Role="MetricMaster" EntitySet="MetricMasters" />
-            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_MonthId" Association="QRMPortalModel.FK_ProjectMetricAssociation_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
-          </AssociationSet>
-          <EntitySet Name="PreferredReportMetricsAssociations" EntityType="QRMPortalModel.PreferredReportMetricsAssociation" />
-          <EntitySet Name="UserReportAssociations" EntityType="QRMPortalModel.UserReportAssociation" />
-          <EntitySet Name="ProjectMasters" EntityType="QRMPortalModel.ProjectMaster" />
-          <AssociationSet Name="FK_DefectDataDetails_ProjectMaster" Association="QRMPortalModel.FK_DefectDataDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DevMetrics_ProjectMaster" Association="QRMPortalModel.FK_DevMetrics_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="DevMetric" EntitySet="DevMetrics" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_ProjectMaster" Association="QRMPortalModel.FK_EffortDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="EffortDetail" EntitySet="EffortDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_ProjectId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectWidgetDetails_ProjectMaster" Association="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="ProjectWidgetDetail" EntitySet="ProjectWidgetDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_ProjectMaster" Association="QRMPortalModel.FK_TestingDetails_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="TestingDetail" EntitySet="TestingDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="UserProjectRoleAssociation" EntitySet="UserProjectRoleAssociations" />
-          </AssociationSet>
-          <EntitySet Name="ProjectReleaseMasters" EntityType="QRMPortalModel.ProjectReleaseMaster" />
-          <AssociationSet Name="FK_DefectDataDetails_ReleaseId" Association="QRMPortalModel.FK_DefectDataDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="DefectDataDetail" EntitySet="DefectDataDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_ReleaseId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DevMetrics_ReleaseId" Association="QRMPortalModel.FK_DevMetrics_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="DevMetric" EntitySet="DevMetrics" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="QRMPortalModel.FK_EffortDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="EffortDetail" EntitySet="EffortDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="TestingDetail" EntitySet="TestingDetails" />
-          </AssociationSet>
-          <EntitySet Name="TestingDataStagings" EntityType="QRMPortalModel.TestingDataStaging" />
-          <AssociationSet Name="FK_TestingDataStaging_MonthId" Association="QRMPortalModel.FK_TestingDataStaging_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_ProjectMaster" Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
-          </AssociationSet>
-          <EntitySet Name="DefectDataStagings" EntityType="QRMPortalModel.DefectDataStaging" />
-          <EntitySet Name="EffortDataStagings" EntityType="QRMPortalModel.EffortDataStaging" />
-          <AssociationSet Name="FK_DefectDataStaging_MonthId" Association="QRMPortalModel.FK_DefectDataStaging_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DefectDataStaging_ProjectMaster" Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DefectDataStaging_ReleaseId" Association="QRMPortalModel.FK_DefectDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="DefectDataStaging" EntitySet="DefectDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_MonthId" Association="QRMPortalModel.FK_EffortDataStaging_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_ProjectMaster" Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
-          </AssociationSet>
-          </EntityContainer>
         <EntityType Name="ProjectWidgetDetail">
           <Key>
             <PropertyRef Name="ProjectWidgetDetailID" />
@@ -1488,98 +1616,18 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="WidgetName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectWidgetDetail" ToRole="ProjectMaster" />
         </EntityType>
-        <EntityType Name="ProjectMetricAssociation">
-          <Key>
-            <PropertyRef Name="ProjectMetricAssociationID" />
-          </Key>
-          <Property Name="ProjectMetricAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MetricMasterID" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ReleaseId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MetricMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="ProjectMetricAssociation" ToRole="MetricMaster" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" FromRole="ProjectMetricAssociation" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMetricAssociation" ToRole="ProjectMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectMetricAssociation" ToRole="ProjectReleaseMaster" />
-        </EntityType>
-        <Association Name="FK_ProjectMetricAssociation_MetricMaster">
-          <End Type="QRMPortalModel.MetricMaster" Role="MetricMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MetricMaster">
-              <PropertyRef Name="MetricMasterID" />
-            </Principal>
-            <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="MetricMasterID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectMetricAssociation_MonthId">
+        <Association Name="FK_DefectDataDetails_MonthId">
           <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <End Type="QRMPortalModel.DefectDataDetail" Role="DefectDataDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MonthMaster">
               <PropertyRef Name="MonthId" />
             </Principal>
-            <Dependent Role="ProjectMetricAssociation">
+            <Dependent Role="DefectDataDetail">
               <PropertyRef Name="MonthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PreferredReportMetricsAssociation">
-          <Key>
-            <PropertyRef Name="PreferredReportMetricsAssociationID" />
-          </Key>
-          <Property Name="PreferredReportMetricsAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectReleaseID" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="MetricAssociationID" Type="Int32" />
-          <Property Name="UserReportAssociationID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="UserReportAssociation">
-          <Key>
-            <PropertyRef Name="UserReportAssociationID" />
-          </Key>
-          <Property Name="UserReportAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="ReportName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectReleaseID" Type="Int32" />
-          <Property Name="MonthID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ProjectMaster">
-          <Key>
-            <PropertyRef Name="ProjectID" />
-          </Key>
-          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Capability" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectManager" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="Enddate" Type="DateTime" Precision="3" />
-          <Property Name="GDM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Industry" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LifeCycle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Solution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Director" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SeniorManager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectEndDate" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataDetail" />
-          <NavigationProperty Name="DevMetric" Relationship="QRMPortalModel.FK_DevMetrics_ProjectMaster" FromRole="ProjectMaster" ToRole="DevMetric" />
-          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDetail" />
-          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMaster" ToRole="ProjectMetricAssociation" />
-          <NavigationProperty Name="ProjectWidgetDetails" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="ProjectWidgetDetail" />
-          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDetail" />
-          <NavigationProperty Name="UserProjectRoleAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectRoleAssociation" />
-          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDataStaging" />
-          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataStaging" />
-          <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDataStaging" />
-        </EntityType>
         <Association Name="FK_DefectDataDetails_ProjectMaster">
           <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
           <End Type="QRMPortalModel.DefectDataDetail" Role="DefectDataDetail" Multiplicity="*" />
@@ -1592,95 +1640,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DevMetrics_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="DevMetric">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EffortDetails_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="EffortDetail">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectMetricAssociation_ProjectId">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectWidgetDetails_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.ProjectWidgetDetail" Role="ProjectWidgetDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="ProjectWidgetDetail">
-              <PropertyRef Name="ProjectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDetails_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="TestingDetail">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProjectRoleAssociation_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.UserProjectRoleAssociation" Role="UserProjectRoleAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="UserProjectRoleAssociation">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ProjectReleaseMaster">
-          <Key>
-            <PropertyRef Name="ProjectReleaseId" />
-          </Key>
-          <Property Name="ProjectReleaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ReleaseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataDetail" />
-          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="ProjectMetricAssociation" />
-          <NavigationProperty Name="DevMetrics" Relationship="QRMPortalModel.FK_DevMetrics_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DevMetric" />
-          <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDetail" />
-          <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDetail" />
-          <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="TestingDataStaging" />
-          <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="DefectDataStaging" />
-          <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="ProjectReleaseMaster" ToRole="EffortDataStaging" />
-        </EntityType>
         <Association Name="FK_DefectDataDetails_ReleaseId">
           <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
           <End Type="QRMPortalModel.DefectDataDetail" Role="DefectDataDetail" Multiplicity="*" />
@@ -1693,204 +1652,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectMetricAssociation_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="ReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DevMetrics_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="DevMetric">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EffortDetails_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="EffortDetail">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDetails_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="TestingDetail">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TestingDataStaging">
-          <Key>
-            <PropertyRef Name="TestingDataStagingId" />
-          </Key>
-          <Property Name="TestingDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestingPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TestingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PlannedNoOfTestCasesDesigned" Type="Int32" />
-          <Property Name="ActualNumberOfTestCasesDesigned" Type="Int32" />
-          <Property Name="NoOfTestCasesReviewComments" Type="Int32" />
-          <Property Name="PlannedStartDate" Type="DateTime" Precision="3" />
-          <Property Name="PlannedEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
-          <Property Name="TestDesignStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TestCasePreparationPlanned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReviewPlanned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReworkPlanned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCasePreparationActual" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReviewActual" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReworkActual" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCasedPlannedForExecution" Type="Int32" />
-          <Property Name="PlannedEffortforExecution" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExecutionStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TestCasesExecuted" Type="Int32" />
-          <Property Name="ActualEffortForExecution" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TotalCasesPassed" Type="Int32" />
-          <Property Name="DefectsFound" Type="Int32" />
-          <Property Name="DefectsRejected" Type="Int32" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SimpleTestCasesDesign" Type="Int32" />
-          <Property Name="MediumTestCasesDesign" Type="Int32" />
-          <Property Name="ComplexTestCasesDesign" Type="Int32" />
-          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
-          <Property Name="SimpleTestCasesExecution" Type="Int32" />
-          <Property Name="MediumTestCasesExecution" Type="Int32" />
-          <Property Name="ComplexTestCasesExecution" Type="Int32" />
-          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
-          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
-          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_MonthId" FromRole="TestingDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
-        </EntityType>
-        <Association Name="FK_TestingDataStaging_MonthId">
-          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthMaster">
-              <PropertyRef Name="MonthId" />
-            </Principal>
-            <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDataStaging_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDataStaging_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DefectDataStaging">
-          <Key>
-            <PropertyRef Name="DefectDataStagingId" />
-          </Key>
-          <Property Name="DefectDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DefectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WidgetComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DetectedStage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ReportedDate" Type="DateTime" Precision="3" />
-          <Property Name="ReportedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefectInfectedStage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpectedDetectionPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefectType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Cause" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ReviewType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefectSeverity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FixedOnDate" Type="DateTime" Precision="3" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_MonthId" FromRole="DefectDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="DefectDataStaging" ToRole="ProjectMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_DefectDataStaging_ReleaseId" FromRole="DefectDataStaging" ToRole="ProjectReleaseMaster" />
-        </EntityType>
-        <EntityType Name="EffortDataStaging">
-          <Key>
-            <PropertyRef Name="EffortDataStagingId" />
-          </Key>
-          <Property Name="ObjectComponentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ComponentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WidgetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Complexity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ActualEffort" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CMMIRollUp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SEQ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ScheduledStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ScheduledEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ProjectID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ComponentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ReviewType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="ProjectMasterId" Type="Int32" Nullable="false" />
-          <Property Name="EffortDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_MonthId" FromRole="EffortDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
-        </EntityType>
         <Association Name="FK_DefectDataStaging_MonthId">
           <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
           <End Type="QRMPortalModel.DefectDataStaging" Role="DefectDataStaging" Multiplicity="*" />
@@ -1963,6 +1724,234 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EffortDetails_MonthId">
+          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="EffortDetail">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="EffortDetail">
+              <PropertyRef Name="ProjectMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EffortDetails_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="EffortDetail">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMetricAssociation_MetricMaster">
+          <End Type="QRMPortalModel.MetricMaster" Role="MetricMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MetricMaster">
+              <PropertyRef Name="MetricMasterID" />
+            </Principal>
+            <Dependent Role="ProjectMetricAssociation">
+              <PropertyRef Name="MetricMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMetricAssociation_MonthId">
+          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="ProjectMetricAssociation">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDataStaging_MonthId">
+          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_MonthId">
+          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevMetrics_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="DevMetric">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMetricAssociation_ProjectId">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectMetricAssociation">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectWidgetDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectWidgetDetail" Role="ProjectWidgetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectWidgetDetail">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDataStaging_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProjectRoleAssociation_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.UserProjectRoleAssociation" Role="UserProjectRoleAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="UserProjectRoleAssociation">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectMetricAssociation_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="ProjectMetricAssociation">
+              <PropertyRef Name="ReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevMetrics_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.DevMetric" Role="DevMetric" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="DevMetric">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDataStaging_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProjectRoleAssociation_RoleMasterTable">
+          <End Type="QRMPortalModel.RoleMaster" Role="RoleMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.UserProjectRoleAssociation" Role="UserProjectRoleAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserProjectRoleAssociation">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProjectRoleAssociation_UserDetails">
+          <End Type="QRMPortalModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.UserProjectRoleAssociation" Role="UserProjectRoleAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProjectRoleAssociation">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1972,381 +1961,24 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="DefectDataDetails">
             <EntityTypeMapping TypeName="QRMPortalModel.DefectDataDetail">
               <MappingFragment StoreEntitySet="DefectDataDetails">
-                <ScalarProperty Name="DefectDataDetailsId" ColumnName="DefectDataDetailsId" />
-                <ScalarProperty Name="DefectID" ColumnName="DefectID" />
-                <ScalarProperty Name="DetectedStage" ColumnName="DetectedStage" />
-                <ScalarProperty Name="ReportedDate" ColumnName="ReportedDate" />
-                <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
-                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DefectInfectedStage" ColumnName="DefectInfectedStage" />
-                <ScalarProperty Name="ExpectedDetectionPhase" ColumnName="ExpectedDetectionPhase" />
-                <ScalarProperty Name="DefectType" ColumnName="DefectType" />
-                <ScalarProperty Name="Cause" ColumnName="Cause" />
-                <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
-                <ScalarProperty Name="DefectSeverity" ColumnName="DefectSeverity" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="FixedOnDate" ColumnName="FixedOnDate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MetricMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.MetricMaster">
-              <MappingFragment StoreEntitySet="MetricMaster">
-                <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
-                <ScalarProperty Name="MetricCategoryCode" ColumnName="MetricCategoryCode" />
-                <ScalarProperty Name="MetricCategoryDescription" ColumnName="MetricCategoryDescription" />
-                <ScalarProperty Name="MetricSubCategoryCode" ColumnName="MetricSubCategoryCode" />
-                <ScalarProperty Name="MetricSubCategoryDescription" ColumnName="MetricSubCategoryDescription" />
-                <ScalarProperty Name="MetricTypeCode" ColumnName="MetricTypeCode" />
-                <ScalarProperty Name="MetricTypeDescription" ColumnName="MetricTypeDescription" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MetricsDescription" ColumnName="MetricsDescription" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MonthMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.MonthMaster">
-              <MappingFragment StoreEntitySet="MonthMaster">
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReferenceTables">
-            <EntityTypeMapping TypeName="QRMPortalModel.ReferenceTable">
-              <MappingFragment StoreEntitySet="ReferenceTable">
-                <ScalarProperty Name="ReferenceTableId" ColumnName="ReferenceTableId" />
-                <ScalarProperty Name="ReferenceTableName" ColumnName="ReferenceTableName" />
-                <ScalarProperty Name="ReferenceCode" ColumnName="ReferenceCode" />
-                <ScalarProperty Name="ReferenceValue" ColumnName="ReferenceValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoleMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.RoleMaster">
-              <MappingFragment StoreEntitySet="RoleMaster">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TestingDetails">
-            <EntityTypeMapping TypeName="QRMPortalModel.TestingDetail">
-              <MappingFragment StoreEntitySet="TestingDetails">
-                <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
-                <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
-                <ScalarProperty Name="TestingTypeCode" ColumnName="TestingTypeCode" />
-                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
-                <ScalarProperty Name="PlannedNumberOfTestCasesDesigned" ColumnName="PlannedNumberOfTestCasesDesigned" />
-                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
-                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
-                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
-                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
-                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="TestDesignStatusCode" ColumnName="TestDesignStatusCode" />
-                <ScalarProperty Name="TestExecutionTypeCode" ColumnName="TestExecutionTypeCode" />
-                <ScalarProperty Name="TestCasePreparationPlannedEffort" ColumnName="TestCasePreparationPlannedEffort" />
-                <ScalarProperty Name="TestCaseReviewPlannedEffort" ColumnName="TestCaseReviewPlannedEffort" />
-                <ScalarProperty Name="TestCaseReworkPlannedEffort" ColumnName="TestCaseReworkPlannedEffort" />
-                <ScalarProperty Name="TestCasePreparationActualEffort" ColumnName="TestCasePreparationActualEffort" />
-                <ScalarProperty Name="TestCaseReviewActualEffort" ColumnName="TestCaseReviewActualEffort" />
-                <ScalarProperty Name="TestCaseReworkActualEffort" ColumnName="TestCaseReworkActualEffort" />
-                <ScalarProperty Name="NumberOfTestCasesPlannedForExecution" ColumnName="NumberOfTestCasesPlannedForExecution" />
-                <ScalarProperty Name="PlannedEffortForTestCaseExecution" ColumnName="PlannedEffortForTestCaseExecution" />
-                <ScalarProperty Name="ExecutionStatusCode" ColumnName="ExecutionStatusCode" />
-                <ScalarProperty Name="NumberOfTestCasesExecuted" ColumnName="NumberOfTestCasesExecuted" />
-                <ScalarProperty Name="ActualEffortForTestCasesExecution" ColumnName="ActualEffortForTestCasesExecution" />
-                <ScalarProperty Name="TotalTestCasesPassed" ColumnName="TotalTestCasesPassed" />
-                <ScalarProperty Name="TotalDefectsFound" ColumnName="TotalDefectsFound" />
-                <ScalarProperty Name="TotalDefectsRejected" ColumnName="TotalDefectsRejected" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
-                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
-                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
-                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
-                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
-                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
-                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
-                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
-                <ScalarProperty Name="NoofTestCases" ColumnName="NoofTestCases" />
-                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
-                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserDetails">
-            <EntityTypeMapping TypeName="QRMPortalModel.UserDetail">
-              <MappingFragment StoreEntitySet="UserDetails">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserProjectRoleAssociations">
-            <EntityTypeMapping TypeName="QRMPortalModel.UserProjectRoleAssociation">
-              <MappingFragment StoreEntitySet="UserProjectRoleAssociation">
-                <ScalarProperty Name="UserProjectRoleId" ColumnName="UserProjectRoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DevMetrics">
-            <EntityTypeMapping TypeName="QRMPortalModel.DevMetric">
-              <MappingFragment StoreEntitySet="DevMetrics">
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="ReleaseIteration" ColumnName="ReleaseIteration" />
-                <ScalarProperty Name="Module" ColumnName="Module" />
-                <ScalarProperty Name="WidgetID" ColumnName="WidgetID" />
-                <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
-                <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
-                <ScalarProperty Name="Complexity" ColumnName="Complexity" />
+                <ScalarProperty Name="DefectSeverity" ColumnName="DefectSeverity" />
+                <ScalarProperty Name="ReviewType" ColumnName="ReviewType" />
+                <ScalarProperty Name="Cause" ColumnName="Cause" />
+                <ScalarProperty Name="DefectType" ColumnName="DefectType" />
+                <ScalarProperty Name="ExpectedDetectionPhase" ColumnName="ExpectedDetectionPhase" />
+                <ScalarProperty Name="DefectInfectedStage" ColumnName="DefectInfectedStage" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ComplexityPoints" ColumnName="ComplexityPoints" />
-                <ScalarProperty Name="PlannedEffort" ColumnName="PlannedEffort" />
-                <ScalarProperty Name="PEFDDDevelopment" ColumnName="PEFDDDevelopment" />
-                <ScalarProperty Name="PEFDDReview" ColumnName="PEFDDReview" />
-                <ScalarProperty Name="PEFDDRework" ColumnName="PEFDDRework" />
-                <ScalarProperty Name="PETDDDevelopment" ColumnName="PETDDDevelopment" />
-                <ScalarProperty Name="PETDDReview" ColumnName="PETDDReview" />
-                <ScalarProperty Name="PETDDRework" ColumnName="PETDDRework" />
-                <ScalarProperty Name="PECoding" ColumnName="PECoding" />
-                <ScalarProperty Name="PECodeReview" ColumnName="PECodeReview" />
-                <ScalarProperty Name="PEUTCPreparation" ColumnName="PEUTCPreparation" />
-                <ScalarProperty Name="PEUTCReview" ColumnName="PEUTCReview" />
-                <ScalarProperty Name="PEUTCExecution" ColumnName="PEUTCExecution" />
-                <ScalarProperty Name="PECUTRework" ColumnName="PECUTRework" />
-                <ScalarProperty Name="PEOtherRework" ColumnName="PEOtherRework" />
-                <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
-                <ScalarProperty Name="AEFDDDevelopment" ColumnName="AEFDDDevelopment" />
-                <ScalarProperty Name="AEFDDReview" ColumnName="AEFDDReview" />
-                <ScalarProperty Name="AEFDDRework" ColumnName="AEFDDRework" />
-                <ScalarProperty Name="AETDDDevelopment" ColumnName="AETDDDevelopment" />
-                <ScalarProperty Name="AETDDReview" ColumnName="AETDDReview" />
-                <ScalarProperty Name="AETDDRework" ColumnName="AETDDRework" />
-                <ScalarProperty Name="AECoding" ColumnName="AECoding" />
-                <ScalarProperty Name="AECodeReview" ColumnName="AECodeReview" />
-                <ScalarProperty Name="AEUTCPreparation" ColumnName="AEUTCPreparation" />
-                <ScalarProperty Name="AEUTCReview" ColumnName="AEUTCReview" />
-                <ScalarProperty Name="AEUTCExecution" ColumnName="AEUTCExecution" />
-                <ScalarProperty Name="AECUTRework" ColumnName="AECUTRework" />
-                <ScalarProperty Name="AEOtherRework" ColumnName="AEOtherRework" />
-                <ScalarProperty Name="TotalDEVdefects" ColumnName="TotalDEVdefects" />
-                <ScalarProperty Name="FDDReviewDefects" ColumnName="FDDReviewDefects" />
-                <ScalarProperty Name="TDDReviewDefects" ColumnName="TDDReviewDefects" />
-                <ScalarProperty Name="CodeReviewDefects" ColumnName="CodeReviewDefects" />
-                <ScalarProperty Name="UTCReviewDefects" ColumnName="UTCReviewDefects" />
-                <ScalarProperty Name="UnitTestingDefects" ColumnName="UnitTestingDefects" />
-                <ScalarProperty Name="TotalDEVDD" ColumnName="TotalDEVDD" />
-                <ScalarProperty Name="FDDDD" ColumnName="FDDDD" />
-                <ScalarProperty Name="TDDDD" ColumnName="TDDDD" />
-                <ScalarProperty Name="CodeReviewDD" ColumnName="CodeReviewDD" />
-                <ScalarProperty Name="UTCReviewDD" ColumnName="UTCReviewDD" />
-                <ScalarProperty Name="UnitTestingDD" ColumnName="UnitTestingDD" />
-                <ScalarProperty Name="TotalDEVDDR" ColumnName="TotalDEVDDR" />
-                <ScalarProperty Name="FDDDDR" ColumnName="FDDDDR" />
-                <ScalarProperty Name="TDDDDR" ColumnName="TDDDDR" />
-                <ScalarProperty Name="CodeReviewDDR" ColumnName="CodeReviewDDR" />
-                <ScalarProperty Name="UTCReviewDDR" ColumnName="UTCReviewDDR" />
-                <ScalarProperty Name="UnitTestingDDR" ColumnName="UnitTestingDDR" />
-                <ScalarProperty Name="TotalDEVProductivity" ColumnName="TotalDEVProductivity" />
-                <ScalarProperty Name="FDDProductivity" ColumnName="FDDProductivity" />
-                <ScalarProperty Name="TDDProductivity" ColumnName="TDDProductivity" />
-                <ScalarProperty Name="CodingProductivity" ColumnName="CodingProductivity" />
-                <ScalarProperty Name="UTProductivity" ColumnName="UTProductivity" />
-                <ScalarProperty Name="PlannedStartdate" ColumnName="PlannedStartdate" />
-                <ScalarProperty Name="PlannedEnddate" ColumnName="PlannedEnddate" />
-                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
-                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EffortDetails">
-            <EntityTypeMapping TypeName="QRMPortalModel.EffortDetail">
-              <MappingFragment StoreEntitySet="EffortDetails">
-                <ScalarProperty Name="EffortId" ColumnName="EffortId" />
-                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
-                <ScalarProperty Name="ComponentTypeCode" ColumnName="ComponentTypeCode" />
-                <ScalarProperty Name="ComplexityCode" ColumnName="ComplexityCode" />
-                <ScalarProperty Name="TaskTypeCode" ColumnName="TaskTypeCode" />
-                <ScalarProperty Name="BaselineEffort" ColumnName="BaselineEffort" />
-                <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-                <ScalarProperty Name="CMMIRollUpCode" ColumnName="CMMIRollUpCode" />
-                <ScalarProperty Name="ScheduledStartDate" ColumnName="ScheduledStartDate" />
-                <ScalarProperty Name="ScheduledEndDate" ColumnName="ScheduledEndDate" />
-                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
-                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
-                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
-                <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
-                <ScalarProperty Name="ReviewTypeCode" ColumnName="ReviewTypeCode" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Periods">
-            <EntityTypeMapping TypeName="QRMPortalModel.Period">
-              <MappingFragment StoreEntitySet="Period">
-                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
-                <ScalarProperty Name="PeriodName" ColumnName="PeriodName" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectWidgetDetails">
-            <EntityTypeMapping TypeName="QRMPortalModel.ProjectWidgetDetail">
-              <MappingFragment StoreEntitySet="ProjectWidgetDetails">
-                <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ProjectWidgetDetailID" ColumnName="ProjectWidgetDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectMetricAssociations">
-            <EntityTypeMapping TypeName="QRMPortalModel.ProjectMetricAssociation">
-              <MappingFragment StoreEntitySet="ProjectMetricAssociation">
-                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
-                <ScalarProperty Name="ProjectMetricAssociationID" ColumnName="ProjectMetricAssociationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PreferredReportMetricsAssociations">
-            <EntityTypeMapping TypeName="QRMPortalModel.PreferredReportMetricsAssociation">
-              <MappingFragment StoreEntitySet="PreferredReportMetricsAssociation">
-                <ScalarProperty Name="UserReportAssociationID" ColumnName="UserReportAssociationID" />
-                <ScalarProperty Name="MetricAssociationID" ColumnName="MetricAssociationID" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
-                <ScalarProperty Name="PreferredReportMetricsAssociationID" ColumnName="PreferredReportMetricsAssociationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserReportAssociations">
-            <EntityTypeMapping TypeName="QRMPortalModel.UserReportAssociation">
-              <MappingFragment StoreEntitySet="UserReportAssociation">
-                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
-                <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
-                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserReportAssociationID" ColumnName="UserReportAssociationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.ProjectMaster">
-              <MappingFragment StoreEntitySet="ProjectMaster">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
-                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
-                <ScalarProperty Name="SeniorManager" ColumnName="SeniorManager" />
-                <ScalarProperty Name="Director" ColumnName="Director" />
-                <ScalarProperty Name="Solution" ColumnName="Solution" />
-                <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
-                <ScalarProperty Name="Industry" ColumnName="Industry" />
-                <ScalarProperty Name="Technology" ColumnName="Technology" />
-                <ScalarProperty Name="GDM" ColumnName="GDM" />
-                <ScalarProperty Name="Enddate" ColumnName="Enddate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
-                <ScalarProperty Name="Capability" ColumnName="Capability" />
-                <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectReleaseMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.ProjectReleaseMaster">
-              <MappingFragment StoreEntitySet="ProjectReleaseMaster">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TestingDataStagings">
-            <EntityTypeMapping TypeName="QRMPortalModel.TestingDataStaging">
-              <MappingFragment StoreEntitySet="TestingDataStaging">
-                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
-                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
-                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
-                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
-                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
-                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
-                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
-                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
-                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
-                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
-                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
-                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
-                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
-                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
-                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
-                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
-                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="DefectsRejected" ColumnName="DefectsRejected" />
-                <ScalarProperty Name="DefectsFound" ColumnName="DefectsFound" />
-                <ScalarProperty Name="TotalCasesPassed" ColumnName="TotalCasesPassed" />
-                <ScalarProperty Name="ActualEffortForExecution" ColumnName="ActualEffortForExecution" />
-                <ScalarProperty Name="TestCasesExecuted" ColumnName="TestCasesExecuted" />
-                <ScalarProperty Name="ExecutionStatus" ColumnName="ExecutionStatus" />
-                <ScalarProperty Name="PlannedEffortforExecution" ColumnName="PlannedEffortforExecution" />
-                <ScalarProperty Name="TestCasedPlannedForExecution" ColumnName="TestCasedPlannedForExecution" />
-                <ScalarProperty Name="TestCaseReworkActual" ColumnName="TestCaseReworkActual" />
-                <ScalarProperty Name="TestCaseReviewActual" ColumnName="TestCaseReviewActual" />
-                <ScalarProperty Name="TestCasePreparationActual" ColumnName="TestCasePreparationActual" />
-                <ScalarProperty Name="TestCaseReworkPlanned" ColumnName="TestCaseReworkPlanned" />
-                <ScalarProperty Name="TestCaseReviewPlanned" ColumnName="TestCaseReviewPlanned" />
-                <ScalarProperty Name="TestCasePreparationPlanned" ColumnName="TestCasePreparationPlanned" />
-                <ScalarProperty Name="TestDesignStatus" ColumnName="TestDesignStatus" />
-                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
-                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
-                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
-                <ScalarProperty Name="NoOfTestCasesReviewComments" ColumnName="NoOfTestCasesReviewComments" />
-                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
-                <ScalarProperty Name="PlannedNoOfTestCasesDesigned" ColumnName="PlannedNoOfTestCasesDesigned" />
-                <ScalarProperty Name="Release" ColumnName="Release" />
-                <ScalarProperty Name="Module" ColumnName="Module" />
-                <ScalarProperty Name="TestingType" ColumnName="TestingType" />
-                <ScalarProperty Name="TestingPhase" ColumnName="TestingPhase" />
-                <ScalarProperty Name="TestingDataStagingId" ColumnName="TestingDataStagingId" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
+                <ScalarProperty Name="ReportedDate" ColumnName="ReportedDate" />
+                <ScalarProperty Name="DetectedStage" ColumnName="DetectedStage" />
+                <ScalarProperty Name="DefectID" ColumnName="DefectID" />
+                <ScalarProperty Name="DefectDataDetailsId" ColumnName="DefectDataDetailsId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2405,7 +2037,372 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+          <EntitySetMapping Name="EffortDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.EffortDetail">
+              <MappingFragment StoreEntitySet="EffortDetails">
+                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
+                <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="ReviewTypeCode" ColumnName="ReviewTypeCode" />
+                <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="ScheduledEndDate" ColumnName="ScheduledEndDate" />
+                <ScalarProperty Name="ScheduledStartDate" ColumnName="ScheduledStartDate" />
+                <ScalarProperty Name="CMMIRollUpCode" ColumnName="CMMIRollUpCode" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+                <ScalarProperty Name="BaselineEffort" ColumnName="BaselineEffort" />
+                <ScalarProperty Name="TaskTypeCode" ColumnName="TaskTypeCode" />
+                <ScalarProperty Name="ComplexityCode" ColumnName="ComplexityCode" />
+                <ScalarProperty Name="ComponentTypeCode" ColumnName="ComponentTypeCode" />
+                <ScalarProperty Name="ComponentId" ColumnName="ComponentId" />
+                <ScalarProperty Name="EffortId" ColumnName="EffortId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetricMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.MetricMaster">
+              <MappingFragment StoreEntitySet="MetricMaster">
+                <ScalarProperty Name="MetricsDescription" ColumnName="MetricsDescription" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MetricTypeDescription" ColumnName="MetricTypeDescription" />
+                <ScalarProperty Name="MetricTypeCode" ColumnName="MetricTypeCode" />
+                <ScalarProperty Name="MetricSubCategoryDescription" ColumnName="MetricSubCategoryDescription" />
+                <ScalarProperty Name="MetricSubCategoryCode" ColumnName="MetricSubCategoryCode" />
+                <ScalarProperty Name="MetricCategoryDescription" ColumnName="MetricCategoryDescription" />
+                <ScalarProperty Name="MetricCategoryCode" ColumnName="MetricCategoryCode" />
+                <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.MonthMaster">
+              <MappingFragment StoreEntitySet="MonthMaster">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreferredReportMetricsAssociations">
+            <EntityTypeMapping TypeName="QRMPortalModel.PreferredReportMetricsAssociation">
+              <MappingFragment StoreEntitySet="PreferredReportMetricsAssociation">
+                <ScalarProperty Name="UserReportAssociationID" ColumnName="UserReportAssociationID" />
+                <ScalarProperty Name="MetricAssociationID" ColumnName="MetricAssociationID" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
+                <ScalarProperty Name="PreferredReportMetricsAssociationID" ColumnName="PreferredReportMetricsAssociationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectMaster">
+              <MappingFragment StoreEntitySet="ProjectMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+                <ScalarProperty Name="SeniorManager" ColumnName="SeniorManager" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Solution" ColumnName="Solution" />
+                <ScalarProperty Name="LifeCycle" ColumnName="LifeCycle" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="GDM" ColumnName="GDM" />
+                <ScalarProperty Name="Enddate" ColumnName="Enddate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
+                <ScalarProperty Name="Capability" ColumnName="Capability" />
+                <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMetricAssociations">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectMetricAssociation">
+              <MappingFragment StoreEntitySet="ProjectMetricAssociation">
+                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
+                <ScalarProperty Name="ProjectMetricAssociationID" ColumnName="ProjectMetricAssociationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectReleaseMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectReleaseMaster">
+              <MappingFragment StoreEntitySet="ProjectReleaseMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReferenceTables">
+            <EntityTypeMapping TypeName="QRMPortalModel.ReferenceTable">
+              <MappingFragment StoreEntitySet="ReferenceTable">
+                <ScalarProperty Name="ReferenceValue" ColumnName="ReferenceValue" />
+                <ScalarProperty Name="ReferenceCode" ColumnName="ReferenceCode" />
+                <ScalarProperty Name="ReferenceTableName" ColumnName="ReferenceTableName" />
+                <ScalarProperty Name="ReferenceTableId" ColumnName="ReferenceTableId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.RoleMaster">
+              <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestingDataStagings">
+            <EntityTypeMapping TypeName="QRMPortalModel.TestingDataStaging">
+              <MappingFragment StoreEntitySet="TestingDataStaging">
+                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
+                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
+                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
+                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
+                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
+                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
+                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="DefectsRejected" ColumnName="DefectsRejected" />
+                <ScalarProperty Name="DefectsFound" ColumnName="DefectsFound" />
+                <ScalarProperty Name="TotalCasesPassed" ColumnName="TotalCasesPassed" />
+                <ScalarProperty Name="ActualEffortForExecution" ColumnName="ActualEffortForExecution" />
+                <ScalarProperty Name="TestCasesExecuted" ColumnName="TestCasesExecuted" />
+                <ScalarProperty Name="ExecutionStatus" ColumnName="ExecutionStatus" />
+                <ScalarProperty Name="PlannedEffortforExecution" ColumnName="PlannedEffortforExecution" />
+                <ScalarProperty Name="TestCasedPlannedForExecution" ColumnName="TestCasedPlannedForExecution" />
+                <ScalarProperty Name="TestCaseReworkActual" ColumnName="TestCaseReworkActual" />
+                <ScalarProperty Name="TestCaseReviewActual" ColumnName="TestCaseReviewActual" />
+                <ScalarProperty Name="TestCasePreparationActual" ColumnName="TestCasePreparationActual" />
+                <ScalarProperty Name="TestCaseReworkPlanned" ColumnName="TestCaseReworkPlanned" />
+                <ScalarProperty Name="TestCaseReviewPlanned" ColumnName="TestCaseReviewPlanned" />
+                <ScalarProperty Name="TestCasePreparationPlanned" ColumnName="TestCasePreparationPlanned" />
+                <ScalarProperty Name="TestDesignStatus" ColumnName="TestDesignStatus" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+                <ScalarProperty Name="NoOfTestCasesReviewComments" ColumnName="NoOfTestCasesReviewComments" />
+                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
+                <ScalarProperty Name="PlannedNoOfTestCasesDesigned" ColumnName="PlannedNoOfTestCasesDesigned" />
+                <ScalarProperty Name="Release" ColumnName="Release" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="TestingType" ColumnName="TestingType" />
+                <ScalarProperty Name="TestingPhase" ColumnName="TestingPhase" />
+                <ScalarProperty Name="TestingDataStagingId" ColumnName="TestingDataStagingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestingDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.TestingDetail">
+              <MappingFragment StoreEntitySet="TestingDetails">
+                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
+                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
+                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
+                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
+                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
+                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
+                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
+                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+                <ScalarProperty Name="NoofTestCases" ColumnName="NoofTestCases" />
+                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="TotalDefectsRejected" ColumnName="TotalDefectsRejected" />
+                <ScalarProperty Name="TotalDefectsFound" ColumnName="TotalDefectsFound" />
+                <ScalarProperty Name="TotalTestCasesPassed" ColumnName="TotalTestCasesPassed" />
+                <ScalarProperty Name="ActualEffortForTestCasesExecution" ColumnName="ActualEffortForTestCasesExecution" />
+                <ScalarProperty Name="NumberOfTestCasesExecuted" ColumnName="NumberOfTestCasesExecuted" />
+                <ScalarProperty Name="ExecutionStatusCode" ColumnName="ExecutionStatusCode" />
+                <ScalarProperty Name="PlannedEffortForTestCaseExecution" ColumnName="PlannedEffortForTestCaseExecution" />
+                <ScalarProperty Name="NumberOfTestCasesPlannedForExecution" ColumnName="NumberOfTestCasesPlannedForExecution" />
+                <ScalarProperty Name="TestCaseReworkActualEffort" ColumnName="TestCaseReworkActualEffort" />
+                <ScalarProperty Name="TestCaseReviewActualEffort" ColumnName="TestCaseReviewActualEffort" />
+                <ScalarProperty Name="TestCasePreparationActualEffort" ColumnName="TestCasePreparationActualEffort" />
+                <ScalarProperty Name="TestCaseReworkPlannedEffort" ColumnName="TestCaseReworkPlannedEffort" />
+                <ScalarProperty Name="TestCaseReviewPlannedEffort" ColumnName="TestCaseReviewPlannedEffort" />
+                <ScalarProperty Name="TestCasePreparationPlannedEffort" ColumnName="TestCasePreparationPlannedEffort" />
+                <ScalarProperty Name="TestExecutionTypeCode" ColumnName="TestExecutionTypeCode" />
+                <ScalarProperty Name="TestDesignStatusCode" ColumnName="TestDesignStatusCode" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
+                <ScalarProperty Name="PlannedNumberOfTestCasesDesigned" ColumnName="PlannedNumberOfTestCasesDesigned" />
+                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+                <ScalarProperty Name="TestingTypeCode" ColumnName="TestingTypeCode" />
+                <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
+                <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProjectRoleAssociations">
+            <EntityTypeMapping TypeName="QRMPortalModel.UserProjectRoleAssociation">
+              <MappingFragment StoreEntitySet="UserProjectRoleAssociation">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserProjectRoleId" ColumnName="UserProjectRoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReportAssociations">
+            <EntityTypeMapping TypeName="QRMPortalModel.UserReportAssociation">
+              <MappingFragment StoreEntitySet="UserReportAssociation">
+                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+                <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserReportAssociationID" ColumnName="UserReportAssociationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DevMetrics">
+            <EntityTypeMapping TypeName="QRMPortalModel.DevMetric">
+              <MappingFragment StoreEntitySet="DevMetrics">
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="PlannedEnddate" ColumnName="PlannedEnddate" />
+                <ScalarProperty Name="PlannedStartdate" ColumnName="PlannedStartdate" />
+                <ScalarProperty Name="UTProductivity" ColumnName="UTProductivity" />
+                <ScalarProperty Name="CodingProductivity" ColumnName="CodingProductivity" />
+                <ScalarProperty Name="TDDProductivity" ColumnName="TDDProductivity" />
+                <ScalarProperty Name="FDDProductivity" ColumnName="FDDProductivity" />
+                <ScalarProperty Name="TotalDEVProductivity" ColumnName="TotalDEVProductivity" />
+                <ScalarProperty Name="UnitTestingDDR" ColumnName="UnitTestingDDR" />
+                <ScalarProperty Name="UTCReviewDDR" ColumnName="UTCReviewDDR" />
+                <ScalarProperty Name="CodeReviewDDR" ColumnName="CodeReviewDDR" />
+                <ScalarProperty Name="TDDDDR" ColumnName="TDDDDR" />
+                <ScalarProperty Name="FDDDDR" ColumnName="FDDDDR" />
+                <ScalarProperty Name="TotalDEVDDR" ColumnName="TotalDEVDDR" />
+                <ScalarProperty Name="UnitTestingDD" ColumnName="UnitTestingDD" />
+                <ScalarProperty Name="UTCReviewDD" ColumnName="UTCReviewDD" />
+                <ScalarProperty Name="CodeReviewDD" ColumnName="CodeReviewDD" />
+                <ScalarProperty Name="TDDDD" ColumnName="TDDDD" />
+                <ScalarProperty Name="FDDDD" ColumnName="FDDDD" />
+                <ScalarProperty Name="TotalDEVDD" ColumnName="TotalDEVDD" />
+                <ScalarProperty Name="UnitTestingDefects" ColumnName="UnitTestingDefects" />
+                <ScalarProperty Name="UTCReviewDefects" ColumnName="UTCReviewDefects" />
+                <ScalarProperty Name="CodeReviewDefects" ColumnName="CodeReviewDefects" />
+                <ScalarProperty Name="TDDReviewDefects" ColumnName="TDDReviewDefects" />
+                <ScalarProperty Name="FDDReviewDefects" ColumnName="FDDReviewDefects" />
+                <ScalarProperty Name="TotalDEVdefects" ColumnName="TotalDEVdefects" />
+                <ScalarProperty Name="AEOtherRework" ColumnName="AEOtherRework" />
+                <ScalarProperty Name="AECUTRework" ColumnName="AECUTRework" />
+                <ScalarProperty Name="AEUTCExecution" ColumnName="AEUTCExecution" />
+                <ScalarProperty Name="AEUTCReview" ColumnName="AEUTCReview" />
+                <ScalarProperty Name="AEUTCPreparation" ColumnName="AEUTCPreparation" />
+                <ScalarProperty Name="AECodeReview" ColumnName="AECodeReview" />
+                <ScalarProperty Name="AECoding" ColumnName="AECoding" />
+                <ScalarProperty Name="AETDDRework" ColumnName="AETDDRework" />
+                <ScalarProperty Name="AETDDReview" ColumnName="AETDDReview" />
+                <ScalarProperty Name="AETDDDevelopment" ColumnName="AETDDDevelopment" />
+                <ScalarProperty Name="AEFDDRework" ColumnName="AEFDDRework" />
+                <ScalarProperty Name="AEFDDReview" ColumnName="AEFDDReview" />
+                <ScalarProperty Name="AEFDDDevelopment" ColumnName="AEFDDDevelopment" />
+                <ScalarProperty Name="ActualEffort" ColumnName="ActualEffort" />
+                <ScalarProperty Name="PEOtherRework" ColumnName="PEOtherRework" />
+                <ScalarProperty Name="PECUTRework" ColumnName="PECUTRework" />
+                <ScalarProperty Name="PEUTCExecution" ColumnName="PEUTCExecution" />
+                <ScalarProperty Name="PEUTCReview" ColumnName="PEUTCReview" />
+                <ScalarProperty Name="PEUTCPreparation" ColumnName="PEUTCPreparation" />
+                <ScalarProperty Name="PECodeReview" ColumnName="PECodeReview" />
+                <ScalarProperty Name="PECoding" ColumnName="PECoding" />
+                <ScalarProperty Name="PETDDRework" ColumnName="PETDDRework" />
+                <ScalarProperty Name="PETDDReview" ColumnName="PETDDReview" />
+                <ScalarProperty Name="PETDDDevelopment" ColumnName="PETDDDevelopment" />
+                <ScalarProperty Name="PEFDDRework" ColumnName="PEFDDRework" />
+                <ScalarProperty Name="PEFDDReview" ColumnName="PEFDDReview" />
+                <ScalarProperty Name="PEFDDDevelopment" ColumnName="PEFDDDevelopment" />
+                <ScalarProperty Name="PlannedEffort" ColumnName="PlannedEffort" />
+                <ScalarProperty Name="ComplexityPoints" ColumnName="ComplexityPoints" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Complexity" ColumnName="Complexity" />
+                <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
+                <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
+                <ScalarProperty Name="WidgetID" ColumnName="WidgetID" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="ReleaseIteration" ColumnName="ReleaseIteration" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Periods">
+            <EntityTypeMapping TypeName="QRMPortalModel.Period">
+              <MappingFragment StoreEntitySet="Period">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="PeriodName" ColumnName="PeriodName" />
+                <ScalarProperty Name="PeriodId" ColumnName="PeriodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectWidgetDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.ProjectWidgetDetail">
+              <MappingFragment StoreEntitySet="ProjectWidgetDetails">
+                <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectWidgetDetailID" ColumnName="ProjectWidgetDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
