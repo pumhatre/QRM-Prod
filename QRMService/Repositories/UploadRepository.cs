@@ -168,16 +168,6 @@ namespace QRMService.Repositories
             return null;
         }
 
-        public static DataTable GetDefectStaging(UploadViewModel upload)
-        {
-            var helper = new SqlClientHelper();
-            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
-            parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
-            parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
-            parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
-            return helper.GetDataTableByProcedure(Constants.UspGetDefectStagingData, "default", true, parameters.ToArray());
-        }
-
         public static EffortMasterDataViewModel GetEffortMasterData()
         {
             EffortMasterDataViewModel EffortMasterVM = new EffortMasterDataViewModel();
@@ -243,27 +233,10 @@ namespace QRMService.Repositories
 
         }
 
-        public static SanitizedDataViewModel DataSanityCheck(DataTable projectData, EffortMasterDataViewModel effortMasterData, UploadViewModel upload)
-        {
-
-            //effort Task Type master data
-            var effortTaskType = new List<string>();
-
-            if (effortMasterData != null && effortMasterData.EffortTaskType != null && effortMasterData.EffortTaskType.Count > 0)
-            {
-                effortTaskType = effortMasterData.EffortTaskType;
-            }
-
-            //effort Task Status master data
-            var effortTaskStatus = new List<string>();
-            if (effortMasterData != null && effortMasterData.EffortStatus != null && effortMasterData.EffortStatus.Count > 0)
-            {
-                effortTaskStatus = effortMasterData.EffortStatus;
-            }
-
+        public static SanitizedDataViewModel DataSanityCheck(DataTable projectData, UploadViewModel upload)
+        {   
             //effort Staging Data
             var effortDataModel = new List<EffortDataModel>();
-
 
             projectData.AsEnumerable().ToList().ForEach(row =>
             {
@@ -312,7 +285,7 @@ namespace QRMService.Repositories
 
 
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
-            vm.SanitizedEffortData = effortDataModel;
+           // vm.SanitizedEffortData = effortDataModel;
             vm.InvalidEffortData = invalidEffortData;            
             vm.effortSanityValidatonModel = dataSanityResult != null && dataSanityResult.Count > 0 ? dataSanityResult.FindAll(item => invalidEffortData.Any(x => x.EffortDataStagingId == item.EffortDataStagingId)) : new List<EffortSanityValidationModel>();
 
@@ -354,6 +327,9 @@ namespace QRMService.Repositories
         {
             if (sanitizedViewModel.effortSanityValidatonModel != null)
                 SaveEffortDetailData(sanitizedViewModel);
+
+            if (sanitizedViewModel.defectSanityValidationModel != null)
+                SaveDefectDetailData(sanitizedViewModel);
 
 
             return sanitizedViewModel;
@@ -422,6 +398,129 @@ namespace QRMService.Repositories
             DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspSaveEffortDetailData, "default", true, parameters.ToArray());
             
         }
+
+        public static DataTable GetDefectStaging(UploadViewModel upload)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
+            return helper.GetDataTableByProcedure(Constants.UspGetDefectStagingData, "default", true, parameters.ToArray());
+        }
+
+        public static SanitizedDataViewModel DataSanityCheckDefectData(DataTable projectData, UploadViewModel upload)
+        {
+            //defect Staging Data
+            var defectDataModel = new List<DefectDataModel>();
+
+            projectData.AsEnumerable().ToList().ForEach(row =>
+            {
+                defectDataModel.Add(new DefectDataModel
+                {
+                    DefectDataStagingId = row.Field<int>(Constants.DefectTablesColumnName.DefectDataStagingId.ToString()),
+                    DefectID = row.Field<string>(Constants.DefectTablesColumnName.DefectID.ToString()),
+                    WidgetComponentID = row.Field<string>(Constants.DefectTablesColumnName.WidgetComponentID.ToString()),
+                    DetectedStage = row.Field<string>(Constants.DefectTablesColumnName.DetectedStage.ToString()),
+                    ReportedDate = row.Field<DateTime?>(Constants.DefectTablesColumnName.ReportedDate.ToString()),
+                    ReportedBy = row.Field<string>(Constants.DefectTablesColumnName.ReportedBy.ToString()),
+                    DefectDescription = row.Field<string>(Constants.DefectTablesColumnName.DefectDescription.ToString()),
+                    Status = row.Field<string>(Constants.DefectTablesColumnName.Status.ToString()),
+                    DefectInfectedStage = row.Field<string>(Constants.DefectTablesColumnName.DefectInfectedStage.ToString()),
+                    ExpectedDetectionPhase = row.Field<string>(Constants.DefectTablesColumnName.ExpectedDetectionPhase.ToString()),
+                    DefectType = row.Field<string>(Constants.DefectTablesColumnName.DefectType.ToString()),
+                    Cause = row.Field<string>(Constants.DefectTablesColumnName.Cause.ToString()),
+                    ReviewType = row.Field<string>(Constants.DefectTablesColumnName.ReviewType.ToString()),
+                    DefectSeverity = row.Field<string>(Constants.DefectTablesColumnName.DefectSeverity.ToString()),
+                    FixedOnDate = row.Field<DateTime?>(Constants.DefectTablesColumnName.FixedOnDate.ToString()),
+                    Remarks = row.Field<string>(Constants.DefectTablesColumnName.Remarks.ToString()),
+                    ProjectId = row.Field<int>(Constants.DefectTablesColumnName.ProjectId.ToString()),
+                    ProjectReleaseId = row.Field<int>(Constants.DefectTablesColumnName.ProjectReleaseId.ToString()),
+                    MonthId = row.Field<int>(Constants.DefectTablesColumnName.MonthId.ToString())
+
+                });
+            });
+
+            //get the datasanity results from SP
+     //    var dataSanityResult = ValidateDataSanityDefectData(upload);
+
+            //invalid Effort Data
+            var invalidDefectData = new List<DefectDataModel>();
+
+     //       Parallel.ForEach<DefectSanityValidationModel>(dataSanityResult, (edm) =>
+     //       {
+     //           if (!(edm.IsValidDefectDetectedStage && edm.IsValidDefectStatus && edm.IsValidDefectInjectedStage && edm.IsValidExpectedDetectionPhase && edm.IsValidDefectType && edm.IsValidDefectCause && edm.IsValidDefectSeverity && edm.IsValidReviewType))
+     //               invalidDefectData.Add(defectDataModel.Where(item => item.DefectDataStagingId == edm.DefectDataStagingId).FirstOrDefault());
+
+     //       });
+
+
+            SanitizedDataViewModel vm = new SanitizedDataViewModel();
+           // vm.SanitizedDefectData = invalidDefectData;
+            vm.InvalidDefectData = invalidDefectData;
+     //       vm.defectSanityValidationModel = dataSanityResult != null && dataSanityResult.Count > 0 ? dataSanityResult.FindAll(item => invalidDefectData.Any(x => x.DefectDataStagingId == item.DefectDataStagingId)) : new List<DefectSanityValidationModel>();
+            vm.defectSanityValidationModel = new List<DefectSanityValidationModel>();
+            return vm;
+
+        }
+
+        private static List<DefectSanityValidationModel> ValidateDataSanityDefectData(UploadViewModel upload)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
+            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspGetDefectDataSanityResults, "default", true, parameters.ToArray());
+
+            List<DefectSanityValidationModel> defectSanityValidationList = new List<DefectSanityValidationModel>();
+
+            dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
+            {
+                defectSanityValidationList.Add(new DefectSanityValidationModel
+                {
+                    DefectDataStagingId = row.Field<int>(Constants.DefectSanityValidationColumnName.DefectDataStagingId.ToString()),
+                    IsValidDefectDetectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectDetectedStage.ToString()),
+                    IsValidDefectStatus = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectStatus.ToString()),
+                    IsValidDefectInjectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectInjectedStage.ToString()),
+                    IsValidExpectedDetectionPhase = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidExpectedDetectionPhase.ToString()),
+                    IsValidDefectType = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectType.ToString()),
+                    IsValidDefectCause = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectCause.ToString()),
+                    IsValidDefectSeverity = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectSeverity.ToString()),
+                    IsValidReviewType = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidReviewType.ToString())
+                });
+            });
+
+            return defectSanityValidationList;
+
+        }
+
+        private static void SaveDefectDetailData(SanitizedDataViewModel SanityModel)
+        {
+            // call the sp to insert data into effort details table
+
+            DataTable dataTable = new DataTable("udttDefectDataStagingType");
+            dataTable.Columns.Add("DefectDataStagingId");
+
+            foreach (var sanityEntity in SanityModel.defectSanityValidationModel)
+            {
+                DataRow dr = dataTable.NewRow();
+                dr["DefectDataStagingId"] = sanityEntity.DefectDataStagingId;
+                dataTable.Rows.Add(dr);
+            }
+            
+
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("@DefectStagingIds", dataTable));
+            parameters.Add(new KeyValuePair<string, object>("Project", SanityModel.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", SanityModel.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", SanityModel.ProjectReleaseId));
+
+            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspSaveDefectDetailData, "default", true, parameters.ToArray());
+
+        }
+
 
     }
 

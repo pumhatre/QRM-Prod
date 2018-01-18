@@ -312,6 +312,7 @@
     <Compile Include="Models\DataSanityModel.cs" />
     <Compile Include="Models\DefectDataModel.cs" />
     <Compile Include="Models\DefectDataStagingModel.cs" />
+    <Compile Include="Models\DefectSanityValidationModel.cs" />
     <Compile Include="Models\EffortDataModel.cs" />
     <Compile Include="Models\EffortMasterDataViewModel.cs" />
     <Compile Include="Models\EffortSanityValidationModel.cs" />

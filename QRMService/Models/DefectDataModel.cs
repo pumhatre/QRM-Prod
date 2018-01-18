@@ -25,6 +25,18 @@ namespace QRMService.Models
         public int ProjectId { get; set; }
         public int ProjectReleaseId { get; set; }
         public int MonthId { get; set; }
+
+        public int DefectDataStagingId { get; set; }
+
+        //Data Sanity Validation Properties
+        public bool? IsValidDefectDetectedStage { get; set; }
+        public bool? IsValidDefectStatus { get; set; }
+        public bool? IsValidDefectInjectedStage { get; set; }
+        public bool? IsValidExpectedDetectionPhase { get; set; }
+        public bool? IsValidDefectType { get; set; }
+        public bool? IsValidDefectCause { get; set; }
+        public bool? IsValidDefectSeverity { get; set; }
+        public bool? IsValidReviewType { get; set; }
     }    
 }        
         

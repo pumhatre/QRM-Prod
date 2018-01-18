@@ -15,6 +15,8 @@ namespace QRMService.Common
         public const string UspGetEffortMasterData = "[Dbo].[UspGetEffortMasterData]";
         public const string UspGetEffortDataSanityResults = "[Dbo].[UspGetEffortDataSanityResults]";
         public const string UspSaveEffortDetailData = "[Dbo].[UspSaveEffortDetailData]";
+        public const string UspGetDefectDataSanityResults = "[Dbo].UspGetDefectDataSanityResults";
+        public const string UspSaveDefectDetailData = "[Dbo].[UspSaveDefectDetailData]";
 
         public enum EffortTablesColumnName
         {
@@ -55,6 +57,43 @@ namespace QRMService.Common
             IsValidCMMIRollup,
             IsValidReviewType
         }
+
+        public enum DefectTablesColumnName
+        {
+            DefectDataStagingId,
+            DefectID,
+            WidgetComponentID,
+            DetectedStage,
+            ReportedDate,
+            ReportedBy,
+            DefectDescription,
+            Status,
+            DefectInfectedStage,
+            ExpectedDetectionPhase,
+            DefectType,
+            Cause,
+            ReviewType,
+            DefectSeverity,
+            FixedOnDate,
+            Remarks,
+            ProjectId,
+            ProjectReleaseId,
+            MonthId
+        }
+
+        public enum DefectSanityValidationColumnName
+        {
+            DefectDataStagingId,
+            IsValidDefectDetectedStage,
+            IsValidDefectStatus,
+            IsValidDefectInjectedStage,
+            IsValidExpectedDetectionPhase,
+            IsValidDefectType,
+            IsValidDefectCause,
+            IsValidDefectSeverity,
+            IsValidReviewType
+        }
+
     }
 
  
