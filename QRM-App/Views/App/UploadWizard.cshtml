@@ -74,7 +74,7 @@
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
                                                 <div ng-hide="dataSanityResult.InvalidEffortData">Data Sanity Completed successfully.All the records are valid.</div>
-                                                <table border="0" ng-show="dataSanityResult.InvalidEffortData.length">
+                                                @*<table border="0" ng-show="dataSanityResult.InvalidEffortData.length">
                                                         <tr>
                                                             
                                                             <th>Task Type</th>
@@ -97,7 +97,7 @@
                                                             <td>{{dataSanityEntity.ReviewType}}</td>
                                                         </tr>
                                                     </tbody>
-                                                </table>
+                                                </table>*@
                                                 <div class="col-sm-12">
                                                     @*<button class="btn btn-green btn-md pull-right" ng-disabled="dataSanityResult.InvalidEffortData.length > 0" ng-click="InsertDetailData()" type="button">Finalize</button>*@
                                                     <button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>
