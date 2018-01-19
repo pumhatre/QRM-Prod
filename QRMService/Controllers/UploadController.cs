@@ -27,23 +27,23 @@ namespace QRMService.Controllers
             
 
             // effort staging code
-            var effortResult = UploadRepository.GetEffortStaging(upload);
-            var effortdataSanityVM = UploadRepository.DataSanityCheck(effortResult, upload);
+           // var effortResult = UploadRepository.GetEffortStaging(upload);
+            var effortdataSanityVM = UploadRepository.DataSanityCheck(upload);
 
             dataSanityVM.InvalidEffortData = effortdataSanityVM.InvalidEffortData;
             dataSanityVM.effortSanityValidatonModel = effortdataSanityVM.effortSanityValidatonModel;
 
             // defect staging code
-            var defectResult = UploadRepository.GetDefectStaging(upload);
-            var dataSanityVMDefectResult = UploadRepository.DataSanityCheckDefectData(defectResult, upload);
+           // var defectResult = UploadRepository.GetDefectStaging(upload);
+            var dataSanityVMDefectResult = UploadRepository.DataSanityCheckDefectData(upload);
 
             dataSanityVM.InvalidDefectData = dataSanityVMDefectResult.InvalidDefectData;
             dataSanityVM.defectSanityValidationModel = dataSanityVMDefectResult.defectSanityValidationModel;
 
 
             // test staging code
-           // var testResult = UploadRepository.GetTestStaging(upload);
-           // var testdataSanityVM = UploadRepository.DataSanityCheckTestData()
+            //var testResult = UploadRepository.GetTestStaging(upload);
+            //var testdataSanityVM = UploadRepository.DataSanityCheckTestData(testResult, upload);
             
             
 

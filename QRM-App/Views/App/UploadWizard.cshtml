@@ -73,7 +73,7 @@
                                     <div class="row setup-content margin-top15px"  id="step-3">
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
-                                                <div ng-hide="dataSanityResult.InvalidEffortData">Data Sanity Completed successfully.All the records are valid.</div>
+                                                <div ng-hide="InvalidData">Data Sanity Completed successfully.All the records are valid.</div>
                                                 @*<table border="0" ng-show="dataSanityResult.InvalidEffortData.length">
                                                         <tr>
                                                             
@@ -99,8 +99,8 @@
                                                     </tbody>
                                                 </table>*@
                                                 <div class="col-sm-12">
-                                                    @*<button class="btn btn-green btn-md pull-right" ng-disabled="dataSanityResult.InvalidEffortData.length > 0" ng-click="InsertDetailData()" type="button">Finalize</button>*@
-                                                    <button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>
+                                                    <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize"  type="button">Finalize</button>
+                                                    @*<button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>*@
                                                 </div>
                                             </form>
                                         </div>

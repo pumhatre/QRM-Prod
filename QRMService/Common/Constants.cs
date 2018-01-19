@@ -17,6 +17,7 @@ namespace QRMService.Common
         public const string UspSaveEffortDetailData = "[Dbo].[UspSaveEffortDetailData]";
         public const string UspGetDefectDataSanityResults = "[Dbo].UspGetDefectDataSanityResults";
         public const string UspSaveDefectDetailData = "[Dbo].[UspSaveDefectDetailData]";
+        public const string UspGetTestStagingData = "[Dbo].[UspGetTestStagingData]";
 
         public enum EffortTablesColumnName
         {
@@ -93,6 +94,16 @@ namespace QRMService.Common
             IsValidDefectSeverity,
             IsValidReviewType
         }
+
+        //public enum TestTablesColumnName
+        //{
+        //    TestingDataStagingId,
+        //    TestingPhase,
+        //    TestingType,
+        //    Module,
+        //    Release,
+
+        //}
 
     }
 

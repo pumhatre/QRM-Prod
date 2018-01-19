@@ -7,6 +7,8 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
     $scope.errors = [];
 
     $scope.dataSanityResult = [];
+    $scope.InvalidData = true;
+    $scope.HideFinalize = false;
     
 
     $scope.init = function () {
@@ -72,7 +74,12 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         uploadService.getDefectStagingData(requestData).then(function (response) {
             if (response.status == 200) {
                 $scope.dataSanityResult = response.data;
-                
+                if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0) {
+                    $scope.InvalidData = true;
+                } else {
+                    $scope.InvalidData = false;
+                }
+
             }
         },
         function (errorResponse) {
@@ -86,7 +93,9 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         uploadService.SaveDetailDataService(effortSanityData).then(function (response) {
             if (response.status = 200) {
                 console.log("Effort Detail data saved successfully");
+                
             }
+            
         },
         function (errorResponse) {
 
@@ -112,6 +121,7 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         uploadService.SaveDetailDataService(effortDetailData).then(function (response) {
             if (response.status == 200) {
                 $scope.dataSanityResult = response.data;
+                $scope.HideFinalize = true;
             }
         },
         function (errorResponse) {
