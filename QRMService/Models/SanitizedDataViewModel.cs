@@ -7,11 +7,8 @@ namespace QRMService.Models
 {
     public class SanitizedDataViewModel
     {
-
-        public List<EffortDataModel> SanitizedEffortData { get; set; }
-        public List<EffortDataModel>  InvalidEffortData { get; set; }
+        
         public List<EffortSanityValidationModel> effortSanityValidatonModel { get; set; }
-
         public List<DefectDataModel> SanitizedDefectData { get; set; }
         public List<DefectDataModel> InvalidDefectData { get; set; }
         public List<DefectSanityValidationModel> defectSanityValidationModel { get; set; }

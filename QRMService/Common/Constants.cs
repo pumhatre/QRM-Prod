@@ -50,6 +50,13 @@ namespace QRMService.Common
         public enum EffortSanityValidationColumnName
         {
             EffortDataStagingId,
+            TaskType,
+            Status,
+            ComponentType,
+            WidgetType,
+            Complexity,
+            CMMIRollUp,
+
             IsValidTaskType,
             IsValidStatus,
             IsValidComponentType,

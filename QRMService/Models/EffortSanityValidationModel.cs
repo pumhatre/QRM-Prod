@@ -8,6 +8,15 @@ namespace QRMService.Models
     public class EffortSanityValidationModel
     {
         public int EffortDataStagingId { get; set; }
+        public string TaskType { get; set; }
+        public string Status { get; set; }
+        public string ComponentType { get; set; }
+        public string WidgetType { get; set; }
+        public string Complexity { get; set; }
+        public string CMMIRollUp { get; set; }
+
+
+
         //Data Sanity Validation Properties
         public bool IsValidTaskType { get; set; }
         public bool IsValidStatus { get; set; }

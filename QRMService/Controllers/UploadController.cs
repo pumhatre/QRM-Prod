@@ -21,16 +21,10 @@ namespace QRMService.Controllers
         public IHttpActionResult GetDefectStagingData(UploadViewModel upload)
         {
             
-            // var effortMasterData = UploadRepository.GetEffortMasterData();
-
             SanitizedDataViewModel dataSanityVM = new SanitizedDataViewModel();
             
-
-            // effort staging code
-           // var effortResult = UploadRepository.GetEffortStaging(upload);
+            // effort data sanity check
             var effortdataSanityVM = UploadRepository.DataSanityCheck(upload);
-
-            dataSanityVM.InvalidEffortData = effortdataSanityVM.InvalidEffortData;
             dataSanityVM.effortSanityValidatonModel = effortdataSanityVM.effortSanityValidatonModel;
 
             // defect staging code
