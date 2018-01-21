@@ -24,21 +24,37 @@ BEGIN TRY
 	INTO #tmpEffortSanityResult
 
 	FROM dbo.EffortDataStaging ES
+	WHERE ProjectMasterId = @Project AND MonthId = @Month AND ProjectReleaseId = @Release AND ES.Status = 'Complete'
+
+	-- DELETE ROWS FROM TEMP TABLE IF ALL THE COLUMN VALUES ARE EQUAL TO 1 
+	DELETE FROM #tmpEffortSanityResult
+	WHERE IsValidTaskType = 1 AND IsValidStatus = 1 AND IsValidComponentType = 1 AND IsValidWidgetType = 1 AND IsValidComplexity = 1  AND IsValidCMMIRollup = 1
+
 	
-	WHERE ProjectMasterId = @Project AND MonthId = @Month AND ProjectReleaseId = @Release
+
+	SELECT EDS.EffortDataStagingId,
+	CASE WHEN TMP.IsValidTaskType = 1 THEN 'Valid' ELSE EDS.TaskType END AS TaskType,
+	CASE WHEN TMP.IsValidStatus = 1 THEN 'Valid' ELSE EDS.Status END AS [Status],
+	CASE WHEN TMP.IsValidComponentType = 1 THEN 'Valid' ELSE EDS.ComponentType END AS ComponentType,
+	CASE WHEN TMP.IsValidWidgetType = 1 THEN 'Valid' ELSE EDS.WidgetType END AS WidgetType,
+	CASE WHEN TMP.IsValidComplexity = 1 THEN 'Valid' ELSE EDS.Complexity END AS Complexity,
+	CASE WHEN TMP.IsValidCMMIRollup = 1 THEN 'Valid' ELSE EDS.CMMIRollUp END AS CMMIRollUp
+
+	FROM
+	dbo.EffortDataStaging EDS
+	INNER JOIN #tmpEffortSanityResult TMP ON EDS.EffortDataStagingId = TMP.EffortDataStagingId
 
 
+	--SELECT EffortDataStagingId,
+	-- IsValidTaskType,
+	-- IsValidStatus,
+	-- IsValidComponentType,
+	-- IsValidWidgetType,
+	-- IsValidComplexity,
+	-- IsValidCMMIRollup,
+	-- IsValidReviewType
 
-	SELECT EffortDataStagingId,
-	 IsValidTaskType,
-	 IsValidStatus,
-	 IsValidComponentType,
-	 IsValidWidgetType,
-	 IsValidComplexity,
-	 IsValidCMMIRollup,
-	 IsValidReviewType
-
-	 FROM #tmpEffortSanityResult
+	-- FROM #tmpEffortSanityResult
 
 -- Drop Temp Tables
 	DROP TABLE #tmpEffortSanityResult
@@ -100,6 +116,3 @@ BEGIN CATCH
 
 
 END CATCH
-GO
-
-
