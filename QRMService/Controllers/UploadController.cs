@@ -30,8 +30,6 @@ namespace QRMService.Controllers
             // defect staging code
            // var defectResult = UploadRepository.GetDefectStaging(upload);
             var dataSanityVMDefectResult = UploadRepository.DataSanityCheckDefectData(upload);
-
-            dataSanityVM.InvalidDefectData = dataSanityVMDefectResult.InvalidDefectData;
             dataSanityVM.defectSanityValidationModel = dataSanityVMDefectResult.defectSanityValidationModel;
 
 

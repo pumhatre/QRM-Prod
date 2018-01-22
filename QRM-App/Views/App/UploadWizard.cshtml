@@ -74,7 +74,7 @@
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
                                                 <div ng-hide="InvalidData">Data Sanity Completed successfully.All the records are valid.</div>
-                                                <h3>Dev Effort Data</h3>
+                                                <h4>Dev Effort Data</h4>
                                                 <table border="1" ng-show="dataSanityResult.effortSanityValidatonModel.length">
                                                         <tr>
                                                             
@@ -99,6 +99,35 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+
+                                                <h4>Defect Data</h4>
+                                                <table border="1" ng-show="dataSanityResult.defectSanityValidationModel.length">
+                                                    <tr>
+
+                                                        <th>Detected Stage</th>
+                                                        <th>Status</th>
+                                                        <th>Defect Infected Stage</th>
+                                                        <th>Expected Detection Phase</th>
+                                                        <th>Defect Type</th>
+                                                        <th>Cause</th>
+                                                        <th>DefectSeverity</th>
+                                                        <th>ReviewType</th>
+
+                                                    </tr>
+                                                    <tbody>
+                                                        <tr ng-repeat="defectSanityEntity in dataSanityResult.defectSanityValidationModel track by $index">
+                                                            <td>{{defectSanityEntity.DetectedStage}}</td>
+                                                            <td>{{defectSanityEntity.Status}}</td>
+                                                            <td>{{defectSanityEntity.DefectInfectedStage}}</td>
+                                                            <td>{{defectSanityEntity.ExpectedDetectionPhase}}</td>
+                                                            <td>{{defectSanityEntity.DefectType}}</td>
+                                                            <td>{{defectSanityEntity.Cause}}</td>
+                                                            <td>{{defectSanityEntity.DefectSeverity}}</td>
+                                                            <td>{{dataSanityEntity.ReviewType}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
                                                 <div class="col-sm-12">
                                                     <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize"  type="button">Finalize</button>
                                                     @*<button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>*@

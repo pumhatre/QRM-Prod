@@ -203,7 +203,7 @@ namespace QRMService.Repositories
                     WidgetType = row.Field<string>(Constants.EffortSanityValidationColumnName.WidgetType.ToString()),
                     Complexity = row.Field<string>(Constants.EffortSanityValidationColumnName.Complexity.ToString()),
                     CMMIRollUp = row.Field<string>(Constants.EffortSanityValidationColumnName.CMMIRollUp.ToString())
-                    
+
                 });
             });
 
@@ -301,56 +301,11 @@ namespace QRMService.Repositories
         }
 
         public static SanitizedDataViewModel DataSanityCheckDefectData(UploadViewModel upload)
-        {
-            //defect Staging Data
-            var defectDataModel = new List<DefectDataModel>();
-
-            //projectData.AsEnumerable().ToList().ForEach(row =>
-            //{
-            //    defectDataModel.Add(new DefectDataModel
-            //    {
-            //        DefectDataStagingId = row.Field<int>(Constants.DefectTablesColumnName.DefectDataStagingId.ToString()),
-            //        DefectID = row.Field<string>(Constants.DefectTablesColumnName.DefectID.ToString()),
-            //        WidgetComponentID = row.Field<string>(Constants.DefectTablesColumnName.WidgetComponentID.ToString()),
-            //        DetectedStage = row.Field<string>(Constants.DefectTablesColumnName.DetectedStage.ToString()),
-            //        ReportedDate = row.Field<DateTime?>(Constants.DefectTablesColumnName.ReportedDate.ToString()),
-            //        ReportedBy = row.Field<string>(Constants.DefectTablesColumnName.ReportedBy.ToString()),
-            //        DefectDescription = row.Field<string>(Constants.DefectTablesColumnName.DefectDescription.ToString()),
-            //        Status = row.Field<string>(Constants.DefectTablesColumnName.Status.ToString()),
-            //        DefectInfectedStage = row.Field<string>(Constants.DefectTablesColumnName.DefectInfectedStage.ToString()),
-            //        ExpectedDetectionPhase = row.Field<string>(Constants.DefectTablesColumnName.ExpectedDetectionPhase.ToString()),
-            //        DefectType = row.Field<string>(Constants.DefectTablesColumnName.DefectType.ToString()),
-            //        Cause = row.Field<string>(Constants.DefectTablesColumnName.Cause.ToString()),
-            //        ReviewType = row.Field<string>(Constants.DefectTablesColumnName.ReviewType.ToString()),
-            //        DefectSeverity = row.Field<string>(Constants.DefectTablesColumnName.DefectSeverity.ToString()),
-            //        FixedOnDate = row.Field<DateTime?>(Constants.DefectTablesColumnName.FixedOnDate.ToString()),
-            //        Remarks = row.Field<string>(Constants.DefectTablesColumnName.Remarks.ToString()),
-            //        ProjectId = row.Field<int>(Constants.DefectTablesColumnName.ProjectId.ToString()),
-            //        ProjectReleaseId = row.Field<int>(Constants.DefectTablesColumnName.ProjectReleaseId.ToString()),
-            //        MonthId = row.Field<int>(Constants.DefectTablesColumnName.MonthId.ToString())
-
-            //    });
-            //});
-
+        {  
             //get the datasanity results from SP
-     //    var dataSanityResult = ValidateDataSanityDefectData(upload);
-
-            //invalid Effort Data
-            var invalidDefectData = new List<DefectDataModel>();
-
-     //       Parallel.ForEach<DefectSanityValidationModel>(dataSanityResult, (edm) =>
-     //       {
-     //           if (!(edm.IsValidDefectDetectedStage && edm.IsValidDefectStatus && edm.IsValidDefectInjectedStage && edm.IsValidExpectedDetectionPhase && edm.IsValidDefectType && edm.IsValidDefectCause && edm.IsValidDefectSeverity && edm.IsValidReviewType))
-     //               invalidDefectData.Add(defectDataModel.Where(item => item.DefectDataStagingId == edm.DefectDataStagingId).FirstOrDefault());
-
-     //       });
-
-
+           var dataSanityResult = ValidateDataSanityDefectData(upload);
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
-           // vm.SanitizedDefectData = invalidDefectData;
-            vm.InvalidDefectData = invalidDefectData;
-     //       vm.defectSanityValidationModel = dataSanityResult != null && dataSanityResult.Count > 0 ? dataSanityResult.FindAll(item => invalidDefectData.Any(x => x.DefectDataStagingId == item.DefectDataStagingId)) : new List<DefectSanityValidationModel>();
-            vm.defectSanityValidationModel = new List<DefectSanityValidationModel>();
+            vm.defectSanityValidationModel = dataSanityResult;
             return vm;
 
         }
@@ -371,14 +326,14 @@ namespace QRMService.Repositories
                 defectSanityValidationList.Add(new DefectSanityValidationModel
                 {
                     DefectDataStagingId = row.Field<int>(Constants.DefectSanityValidationColumnName.DefectDataStagingId.ToString()),
-                    IsValidDefectDetectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectDetectedStage.ToString()),
-                    IsValidDefectStatus = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectStatus.ToString()),
-                    IsValidDefectInjectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectInjectedStage.ToString()),
-                    IsValidExpectedDetectionPhase = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidExpectedDetectionPhase.ToString()),
-                    IsValidDefectType = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectType.ToString()),
-                    IsValidDefectCause = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectCause.ToString()),
-                    IsValidDefectSeverity = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectSeverity.ToString()),
-                    IsValidReviewType = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidReviewType.ToString())
+                    DetectedStage = row.Field<string>(Constants.DefectSanityValidationColumnName.DetectedStage.ToString()),
+                    Status = row.Field<string>(Constants.DefectSanityValidationColumnName.Status.ToString()),
+                    DefectInfectedStage = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectInfectedStage.ToString()),
+                    ExpectedDetectionPhase = row.Field<string>(Constants.DefectSanityValidationColumnName.ExpectedDetectionPhase.ToString()),
+                    DefectType = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectType.ToString()),
+                    Cause = row.Field<string>(Constants.DefectSanityValidationColumnName.Cause.ToString()),
+                    DefectSeverity = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectSeverity.ToString()),
+                    ReviewType = row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString())
                 });
             });
 

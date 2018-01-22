@@ -15,7 +15,7 @@ namespace QRMService.Common
         public const string UspGetEffortMasterData = "[Dbo].[UspGetEffortMasterData]";
         public const string UspGetEffortDataSanityResults = "[Dbo].[UspGetEffortDataSanityResults]";
         public const string UspSaveEffortDetailData = "[Dbo].[UspSaveEffortDetailData]";
-        public const string UspGetDefectDataSanityResults = "[Dbo].UspGetDefectDataSanityResults";
+        public const string UspGetDefectDataSanityResults = "[Dbo].[UspGetDefectDataSanityResults]";
         public const string UspSaveDefectDetailData = "[Dbo].[UspSaveDefectDetailData]";
         public const string UspGetTestStagingData = "[Dbo].[UspGetTestStagingData]";
 
@@ -92,6 +92,15 @@ namespace QRMService.Common
         public enum DefectSanityValidationColumnName
         {
             DefectDataStagingId,
+            DetectedStage,
+            Status,
+            DefectInfectedStage,
+            ExpectedDetectionPhase,
+            DefectType,
+            Cause,
+            DefectSeverity,
+            ReviewType,
+
             IsValidDefectDetectedStage,
             IsValidDefectStatus,
             IsValidDefectInjectedStage,
