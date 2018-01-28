@@ -89,24 +89,25 @@
                                                 <div class="table-wrapper">
                                                     <table border="1" ng-show="dataSanityResult.effortSanityValidatonModel.length">
                                                         <tr>
-
+                                                            <th>Object/ Component ID</th>
                                                             <th>Task Type</th>
                                                             <th>Status</th>
                                                             <th>Component Type</th>
                                                             <th>Widget Type</th>
                                                             <th>Complexity</th>
-                                                            <th>CMMIRollUp</th>
+                                                            @*<th>CMMIRollUp</th>*@
                                                             @*<th>ReviewType</th>*@
 
                                                         </tr>
                                                         <tbody>
                                                             <tr ng-repeat="dataSanityEntity in dataSanityResult.effortSanityValidatonModel track by $index">
+                                                                <td>{{dataSanityEntity.ObjectComponentID}}</td>
                                                                 <td>{{dataSanityEntity.TaskType}}</td>
                                                                 <td>{{dataSanityEntity.Status}}</td>
                                                                 <td>{{dataSanityEntity.ComponentType}}</td>
                                                                 <td>{{dataSanityEntity.WidgetType}}</td>
                                                                 <td>{{dataSanityEntity.Complexity}}</td>
-                                                                <td>{{dataSanityEntity.CMMIRollUp}}</td>
+                                                                @*<td>{{dataSanityEntity.CMMIRollUp}}</td>*@
                                                                 @*<td>{{dataSanityEntity.ReviewType}}</td>*@
                                                             </tr>
                                                         </tbody>

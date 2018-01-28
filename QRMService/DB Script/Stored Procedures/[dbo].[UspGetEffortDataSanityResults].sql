@@ -12,13 +12,15 @@ BEGIN TRY
 		
 	SELECT
 	ES.EffortDataStagingId,
+	ES.ObjectComponentID,
 	CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'EffortTaskType' AND ReferenceValue = ES.TaskType ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidTaskType ,
 	CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'EffortStatus' AND ReferenceValue = ES.Status ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidStatus ,
 	CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'ComponentType' AND ReferenceValue = ES.ComponentType ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidComponentType,
 	CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'EffortWidgetType' AND ReferenceValue = ES.WidgetType ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidWidgetType,
 	CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'Complexity' AND ReferenceValue = ES.Complexity ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit)END AS IsValidComplexity,
-	CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'CMMIRollUp' AND ReferenceValue = ES.CMMIRollUp ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidCMMIRollup,
+	--CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'CMMIRollUp' AND ReferenceValue = ES.CMMIRollUp ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidCMMIRollup,
 	--CASE WHEN ( SELECT COUNT(1) FROM dbo.ReferenceTable WHERE ReferenceTableName = 'ReviewType' AND ReferenceValue = ES.ReviewType ) = 1 THEN CAST(1 AS bit) ELSE  CAST(0 AS bit) END AS IsValidReviewType,
+	CAST(1 AS bit) AS IsValidCMMIRollup,
 	CAST(1 AS bit) AS IsValidReviewType
 
 	INTO #tmpEffortSanityResult
@@ -33,12 +35,13 @@ BEGIN TRY
 	
 
 	SELECT EDS.EffortDataStagingId,
-	CASE WHEN TMP.IsValidTaskType = 1 THEN 'Valid' ELSE EDS.TaskType END AS TaskType,
-	CASE WHEN TMP.IsValidStatus = 1 THEN 'Valid' ELSE EDS.Status END AS [Status],
-	CASE WHEN TMP.IsValidComponentType = 1 THEN 'Valid' ELSE EDS.ComponentType END AS ComponentType,
-	CASE WHEN TMP.IsValidWidgetType = 1 THEN 'Valid' ELSE EDS.WidgetType END AS WidgetType,
-	CASE WHEN TMP.IsValidComplexity = 1 THEN 'Valid' ELSE EDS.Complexity END AS Complexity,
-	CASE WHEN TMP.IsValidCMMIRollup = 1 THEN 'Valid' ELSE EDS.CMMIRollUp END AS CMMIRollUp
+	EDS.ObjectComponentID,
+	CASE WHEN TMP.IsValidTaskType = 1 THEN '' ELSE EDS.TaskType END AS TaskType,
+	CASE WHEN TMP.IsValidStatus = 1 THEN '' ELSE EDS.Status END AS [Status],
+	CASE WHEN TMP.IsValidComponentType = 1 THEN '' ELSE EDS.ComponentType END AS ComponentType,
+	CASE WHEN TMP.IsValidWidgetType = 1 THEN '' ELSE EDS.WidgetType END AS WidgetType,
+	CASE WHEN TMP.IsValidComplexity = 1 THEN '' ELSE EDS.Complexity END AS Complexity,
+	CASE WHEN TMP.IsValidCMMIRollup = 1 THEN '' ELSE EDS.CMMIRollUp END AS CMMIRollUp
 
 	FROM
 	dbo.EffortDataStaging EDS

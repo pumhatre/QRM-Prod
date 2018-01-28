@@ -196,7 +196,7 @@ namespace QRMService.Repositories
                 effortSanityValidationList.Add(new EffortSanityValidationModel
                 {
                     EffortDataStagingId = row.Field<int>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
-
+                    ObjectComponentID = row.Field<string>(Constants.EffortSanityValidationColumnName.ObjectComponentID.ToString()),
                     TaskType = row.Field<string>(Constants.EffortSanityValidationColumnName.TaskType.ToString()),
                     Status = row.Field<string>(Constants.EffortSanityValidationColumnName.Status.ToString()),
                     ComponentType = row.Field<string>(Constants.EffortSanityValidationColumnName.ComponentType.ToString()),
