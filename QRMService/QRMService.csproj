@@ -334,6 +334,7 @@
     <Compile Include="Models\SanitizedDataViewModel.cs" />
     <Compile Include="Models\SaveReportRequestModel.cs" />
     <Compile Include="Models\TestingDataModel.cs" />
+    <Compile Include="Models\TestingSanityValidationModel.cs" />
     <Compile Include="Models\UploadViewModel.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\UserModel.cs" />

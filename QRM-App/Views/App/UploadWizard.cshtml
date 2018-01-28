@@ -1,4 +1,15 @@
-﻿<div class="x_panel" role="main">
+﻿<style>
+ .table-wrapper
+{
+    border: 1px solid black;
+    width: 800px;
+    height: 300px;
+    overflow: auto;
+}
+
+</style>
+
+<div class="x_panel" role="main">
     <div class="">
         <div class="">
             <div class="page-title">
@@ -74,10 +85,11 @@
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
                                                 <div ng-hide="InvalidData">Data Sanity Completed successfully.All the records are valid.</div>
-                                                <h4>Dev Effort Data</h4>
-                                                <table border="1" ng-show="dataSanityResult.effortSanityValidatonModel.length">
+                                                <h4 ng-show="dataSanityResult.effortSanityValidatonModel.length">Dev Effort Data</h4>
+                                                <div class="table-wrapper">
+                                                    <table border="1" ng-show="dataSanityResult.effortSanityValidatonModel.length">
                                                         <tr>
-                                                            
+
                                                             <th>Task Type</th>
                                                             <th>Status</th>
                                                             <th>Component Type</th>
@@ -85,48 +97,53 @@
                                                             <th>Complexity</th>
                                                             <th>CMMIRollUp</th>
                                                             @*<th>ReviewType</th>*@
-                                                            
-                                                        </tr>
-                                                    <tbody>
-                                                        <tr ng-repeat="dataSanityEntity in dataSanityResult.effortSanityValidatonModel track by $index">
-                                                            <td>{{dataSanityEntity.TaskType}}</td>                                                            
-                                                            <td>{{dataSanityEntity.Status}}</td>
-                                                            <td>{{dataSanityEntity.ComponentType}}</td>
-                                                            <td>{{dataSanityEntity.WidgetType}}</td>
-                                                            <td>{{dataSanityEntity.Complexity}}</td>
-                                                            <td>{{dataSanityEntity.CMMIRollUp}}</td>
-                                                            @*<td>{{dataSanityEntity.ReviewType}}</td>*@
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
 
-                                                <h4>Defect Data</h4>
-                                                <table border="1" ng-show="dataSanityResult.defectSanityValidationModel.length">
-                                                    <tr>
-
-                                                        <th>Detected Stage</th>
-                                                        <th>Status</th>
-                                                        <th>Defect Infected Stage</th>
-                                                        <th>Expected Detection Phase</th>
-                                                        <th>Defect Type</th>
-                                                        <th>Cause</th>
-                                                        <th>DefectSeverity</th>
-                                                        <th>ReviewType</th>
-
-                                                    </tr>
-                                                    <tbody>
-                                                        <tr ng-repeat="defectSanityEntity in dataSanityResult.defectSanityValidationModel track by $index">
-                                                            <td>{{defectSanityEntity.DetectedStage}}</td>
-                                                            <td>{{defectSanityEntity.Status}}</td>
-                                                            <td>{{defectSanityEntity.DefectInfectedStage}}</td>
-                                                            <td>{{defectSanityEntity.ExpectedDetectionPhase}}</td>
-                                                            <td>{{defectSanityEntity.DefectType}}</td>
-                                                            <td>{{defectSanityEntity.Cause}}</td>
-                                                            <td>{{defectSanityEntity.DefectSeverity}}</td>
-                                                            <td>{{dataSanityEntity.ReviewType}}</td>
                                                         </tr>
-                                                    </tbody>
-                                                </table>
+                                                        <tbody>
+                                                            <tr ng-repeat="dataSanityEntity in dataSanityResult.effortSanityValidatonModel track by $index">
+                                                                <td>{{dataSanityEntity.TaskType}}</td>
+                                                                <td>{{dataSanityEntity.Status}}</td>
+                                                                <td>{{dataSanityEntity.ComponentType}}</td>
+                                                                <td>{{dataSanityEntity.WidgetType}}</td>
+                                                                <td>{{dataSanityEntity.Complexity}}</td>
+                                                                <td>{{dataSanityEntity.CMMIRollUp}}</td>
+                                                                @*<td>{{dataSanityEntity.ReviewType}}</td>*@
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h4 ng-show="dataSanityResult.defectSanityValidationModel.length">Defect Data</h4>
+                                                <div class="table-wrapper">
+                                                    <table border="1" ng-show="dataSanityResult.defectSanityValidationModel.length">
+                                                        <tr>
+
+                                                            <th>Detected Stage</th>
+                                                            <th>Status</th>
+                                                            <th>Defect Infected Stage</th>
+                                                            <th>Expected Detection Phase</th>
+                                                            <th>Defect Type</th>
+                                                            <th>Cause</th>
+                                                            <th>DefectSeverity</th>
+                                                            <th>ReviewType</th>
+
+                                                        </tr>
+                                                        <tbody>
+                                                            <tr ng-repeat="defectSanityEntity in dataSanityResult.defectSanityValidationModel track by $index">
+                                                                <td>{{defectSanityEntity.DetectedStage}}</td>
+                                                                <td>{{defectSanityEntity.Status}}</td>
+                                                                <td>{{defectSanityEntity.DefectInfectedStage}}</td>
+                                                                <td>{{defectSanityEntity.ExpectedDetectionPhase}}</td>
+                                                                <td>{{defectSanityEntity.DefectType}}</td>
+                                                                <td>{{defectSanityEntity.Cause}}</td>
+                                                                <td>{{defectSanityEntity.DefectSeverity}}</td>
+                                                                <td>{{dataSanityEntity.ReviewType}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 
                                                 <div class="col-sm-12">
                                                     <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize"  type="button">Finalize</button>

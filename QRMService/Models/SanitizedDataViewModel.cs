@@ -9,9 +9,10 @@ namespace QRMService.Models
     {
         
         public List<EffortSanityValidationModel> effortSanityValidatonModel { get; set; }
-        public List<DefectDataModel> SanitizedDefectData { get; set; }
-        public List<DefectDataModel> InvalidDefectData { get; set; }
+
         public List<DefectSanityValidationModel> defectSanityValidationModel { get; set; }
+
+        public List<TestingSanityValidationModel> testSanityValidationModel { get; set; }
 
         public int ProjectId { get; set; }
         public int ProjectReleaseId { get; set; }

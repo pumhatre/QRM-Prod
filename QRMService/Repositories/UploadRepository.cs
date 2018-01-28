@@ -219,6 +219,9 @@ namespace QRMService.Repositories
             if (sanitizedViewModel.defectSanityValidationModel != null)
                 SaveDefectDetailData(sanitizedViewModel);
 
+            if (sanitizedViewModel.testSanityValidationModel != null)
+                SaveTestingDetailData(sanitizedViewModel);
+
 
             return sanitizedViewModel;
         }
@@ -288,16 +291,6 @@ namespace QRMService.Repositories
 
             DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspSaveEffortDetailData, "default", true, parameters.ToArray());
             
-        }
-
-        public static DataTable GetDefectStaging(UploadViewModel upload)
-        {
-            var helper = new SqlClientHelper();
-            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
-            parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
-            parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
-            parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
-            return helper.GetDataTableByProcedure(Constants.UspGetDefectStagingData, "default", true, parameters.ToArray());
         }
 
         public static SanitizedDataViewModel DataSanityCheckDefectData(UploadViewModel upload)
@@ -377,67 +370,46 @@ namespace QRMService.Repositories
             return helper.GetDataTableByProcedure(Constants.UspGetTestStagingData, "default", true, parameters.ToArray());
         }
 
-        //public static SanitizedDataViewModel DataSanityCheckTestData(DataTable projectData, UploadViewModel upload)
-        //{
-        //    //test Staging Data
-        //    var testDataModel = new List<TestingDataModel>();
+        public static SanitizedDataViewModel DataSanityCheckTestData(UploadViewModel upload)
+        {
+            //get the datasanity results from SP
+            var dataSanityResult = ValidateDataSanityTestData(upload);
+            SanitizedDataViewModel vm = new SanitizedDataViewModel();
+            vm.testSanityValidationModel = dataSanityResult;
+            return vm;
 
-        //    projectData.AsEnumerable().ToList().ForEach(row =>
-        //    {
-        //        testDataModel.Add(new TestingDataModel
-        //        {
-        //            TestingDataStagingId = row.Field<int>(Constants.DefectTablesColumnName.DefectDataStagingId.ToString()),
-        //            TestingPhase = row.Field<string>(Constants.DefectTablesColumnName.DefectID.ToString()),
-        //            TestingType = row.Field<string>(Constants.DefectTablesColumnName.WidgetComponentID.ToString()),
-        //            Module = row.Field<string>(Constants.DefectTablesColumnName.DetectedStage.ToString()),
-        //            Release = row.Field<DateTime?>(Constants.DefectTablesColumnName.ReportedDate.ToString()),
-        //            PlannedNoOfTestCasesDesigned = row.Field<string>(Constants.DefectTablesColumnName.ReportedBy.ToString()),
-        //            ActualNumberOfTestCasesDesigned = row.Field<string>(Constants.DefectTablesColumnName.DefectDescription.ToString()),
-        //            NoOfTestCasesReviewComments = row.Field<string>(Constants.DefectTablesColumnName.Status.ToString()),
-        //            PlannedStartDate = row.Field<string>(Constants.DefectTablesColumnName.DefectInfectedStage.ToString()),
-        //            PlannedEndDate = row.Field<string>(Constants.DefectTablesColumnName.ExpectedDetectionPhase.ToString()),
-        //            ActualStartDate = row.Field<string>(Constants.DefectTablesColumnName.DefectType.ToString()),
-        //            ActualEndDate = row.Field<string>(Constants.DefectTablesColumnName.Cause.ToString()),
-        //            TestDesignStatus = row.Field<string>(Constants.DefectTablesColumnName.ReviewType.ToString()),
-        //            TestCasePreparationPlanned = row.Field<string>(Constants.DefectTablesColumnName.DefectSeverity.ToString()),
-        //            TestCaseReviewPlanned = row.Field<DateTime?>(Constants.DefectTablesColumnName.FixedOnDate.ToString()),
-        //            TestCaseReworkPlanned = row.Field<string>(Constants.DefectTablesColumnName.Remarks.ToString()),
-        //            TestCasePreparationActual = row.Field<int>(Constants.DefectTablesColumnName.ProjectId.ToString()),
-        //            TestCaseReviewActual = row.Field<int>(Constants.DefectTablesColumnName.ProjectReleaseId.ToString()),
-        //            TestCaseReworkActual = row.Field<int>(Constants.DefectTablesColumnName.MonthId.ToString()),
-        //            TestCasedPlannedForExecution = row.Field<int>(Constants.DefectTablesColumnName.DefectDataStagingId.ToString()),
-        //            PlannedEffortforExecution = row.Field<string>(Constants.DefectTablesColumnName.DefectID.ToString()),
-        //            ExecutionStatus = row.Field<string>(Constants.DefectTablesColumnName.WidgetComponentID.ToString()),
-        //            TestCasesExecuted = row.Field<string>(Constants.DefectTablesColumnName.DetectedStage.ToString()),
-        //            ActualEffortForExecution = row.Field<DateTime?>(Constants.DefectTablesColumnName.ReportedDate.ToString()),
-        //            TotalCasesPassed = row.Field<string>(Constants.DefectTablesColumnName.ReportedBy.ToString()),
-        //            DefectsFound = row.Field<string>(Constants.DefectTablesColumnName.DefectDescription.ToString()),
-        //            DefectsRejected = row.Field<string>(Constants.DefectTablesColumnName.Status.ToString()),
-        //            ProjectId = row.Field<string>(Constants.DefectTablesColumnName.DefectInfectedStage.ToString()),
-        //            ProjectReleaseId = row.Field<string>(Constants.DefectTablesColumnName.ExpectedDetectionPhase.ToString()),
-        //            MonthId = row.Field<string>(Constants.DefectTablesColumnName.DefectType.ToString()),
-        //            Iteration = row.Field<string>(Constants.DefectTablesColumnName.Cause.ToString()),
-        //            TestingSubphase = row.Field<string>(Constants.DefectTablesColumnName.ReviewType.ToString()),
-        //            SimpleTestCasesDesign = row.Field<string>(Constants.DefectTablesColumnName.DefectSeverity.ToString()),
-        //            MediumTestCasesDesign = row.Field<DateTime?>(Constants.DefectTablesColumnName.FixedOnDate.ToString()),
-        //            ComplexTestCasesDesign = row.Field<string>(Constants.DefectTablesColumnName.Remarks.ToString()),
-        //            VeryComplexTestCasesDesign = row.Field<int>(Constants.DefectTablesColumnName.ProjectId.ToString()),
-        //            SimpleTestCasesExecution = row.Field<int>(Constants.DefectTablesColumnName.ProjectReleaseId.ToString()),
-        //            MediumTestCasesExecution = row.Field<int>(Constants.DefectTablesColumnName.MonthId.ToString()),
-        //            ComplexTestCasesExecution = row.Field<int>(Constants.DefectTablesColumnName.DefectDataStagingId.ToString()),
-        //            VeryComplexTestCasesExecution = row.Field<string>(Constants.DefectTablesColumnName.DefectID.ToString()),
-        //            NormalizedTestCasesExecution = row.Field<string>(Constants.DefectTablesColumnName.WidgetComponentID.ToString()),
-        //            PlannedStartDateExecution = row.Field<string>(Constants.DefectTablesColumnName.DetectedStage.ToString()),
-        //            PlannedEndDateExecution = row.Field<DateTime?>(Constants.DefectTablesColumnName.ReportedDate.ToString()),
-        //            ActualStartDateExecution = row.Field<string>(Constants.DefectTablesColumnName.ReportedBy.ToString()),
-        //            ActualEndDateExecution = row.Field<string>(Constants.DefectTablesColumnName.DefectDescription.ToString()),
-        //            ManualOrAutomatedExecution = row.Field<string>(Constants.DefectTablesColumnName.Status.ToString()),
-        //            NormalizedTestCasesDesign = row.Field<string>(Constants.DefectTablesColumnName.DefectInfectedStage.ToString()),
-                   
+        }
+        private static List<TestingSanityValidationModel> ValidateDataSanityTestData(UploadViewModel upload)
+        {   
+            List<TestingSanityValidationModel> defectSanityValidationList = new List<TestingSanityValidationModel>();
+            return defectSanityValidationList;
+        }
 
-        //        });
-        //    });
-        //}
+        private static void SaveTestingDetailData(SanitizedDataViewModel SanityModel)
+        {
+            // call the sp to insert data into effort details table
+
+            DataTable dataTable = new DataTable("udttTestDataStagingType");
+            dataTable.Columns.Add("TestingDataStagingId");
+
+            foreach (var sanityEntity in SanityModel.testSanityValidationModel)
+            {
+                DataRow dr = dataTable.NewRow();
+                dr["TestingDataStagingId"] = sanityEntity.TestingDataStagingId;
+                dataTable.Rows.Add(dr);
+            }
+
+
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("@TestStagingIds", dataTable));
+            parameters.Add(new KeyValuePair<string, object>("Project", SanityModel.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", SanityModel.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", SanityModel.ProjectReleaseId));
+
+            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspSaveTestingDetailData, "default", true, parameters.ToArray());
+
+        }
 
 
     }

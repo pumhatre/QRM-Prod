@@ -18,6 +18,7 @@ namespace QRMService.Common
         public const string UspGetDefectDataSanityResults = "[Dbo].[UspGetDefectDataSanityResults]";
         public const string UspSaveDefectDetailData = "[Dbo].[UspSaveDefectDetailData]";
         public const string UspGetTestStagingData = "[Dbo].[UspGetTestStagingData]";
+        public const string UspSaveTestingDetailData = "[Dbo].[UspSaveTestDetailData]";
 
         public enum EffortTablesColumnName
         {
