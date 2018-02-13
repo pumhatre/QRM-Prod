@@ -16,7 +16,9 @@ namespace QRMService.Models
         public string Cause { get; set; }
         public string DefectSeverity { get; set; }
         public string ReviewType { get; set; }
-        
+        public string ValidInjectedDetectedPhase { get; set; }
+        public string WidgetComponentId { get; set; }
+
 
         //Data Sanity Validation Properties
         public bool IsValidDefectDetectedStage { get; set; }
@@ -27,5 +29,6 @@ namespace QRMService.Models
         public bool IsValidDefectCause { get; set; }
         public bool IsValidDefectSeverity { get; set; }
         public bool IsValidReviewType { get; set; }
+        
     }
 }
