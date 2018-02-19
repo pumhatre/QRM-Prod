@@ -68,6 +68,10 @@ namespace QRM_App.Controllers
         {
             return PartialView();
         }
+        public ActionResult HealthReport()
+        {
+            return PartialView();
+        }
         public ActionResult ViewPreference()
         {
             return PartialView();

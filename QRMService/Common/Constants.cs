@@ -20,6 +20,10 @@ namespace QRMService.Common
         public const string UspGetTestStagingData = "[Dbo].[UspGetTestStagingData]";
         public const string UspSaveTestingDetailData = "[Dbo].[UspSaveTestDetailData]";
 
+        public const string UspGetProjectEffortDashboard = "[Dbo].[uspGenerateProjectEffortDashboard]";
+        public const string UspGetProjectTestingDashboard = "[Dbo].[uspGenerateProjectTestingDashboard]";
+        public const string UspGetProjectDefectDashboard = "[Dbo].[uspGenerateProjectDefectsDashboard]";
+
         public enum EffortTablesColumnName
         {
             EffortDataStagingId,

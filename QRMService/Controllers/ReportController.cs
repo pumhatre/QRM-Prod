@@ -44,7 +44,7 @@ namespace QRMService.Controllers
                 return ReportRepository.GetMonthsList().Select(p => new MonthDetailsWrapper
                 {
                     MonthId = p.MonthId,
-                    MonthName = p.MonthName +'-'+ p.Year
+                    MonthName = p.MonthName + '-' + p.Year
 
                 }).ToList();
             }
@@ -67,7 +67,7 @@ namespace QRMService.Controllers
                 {
                     ProjectID = p.ProjectID,
                     ProjectReleaseId = p.ProjectReleaseId,
-                    ReleaseName=p.ReleaseName
+                    ReleaseName = p.ReleaseName
                 }).ToList();
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace QRMService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public List<ProjectMatricsDetailsWrapper> GetProjectMatricsList(int ProjectReleaseId, int ProjectId,int MonthId)
+        public List<ProjectMatricsDetailsWrapper> GetProjectMatricsList(int ProjectReleaseId, int ProjectId, int MonthId)
         {
             try
             {
@@ -134,6 +134,91 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets all project details
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAllProjectEffort()
+        {
+            try
+            {
+                List<ProjectEffort> projectEffort = new List<ProjectEffort>();
+                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Planned", NotStartedHours = 23, TotalHours = 24, DashBoardType = "Dev Dashboard(Hrs.)", WIPHours = 2 });
+                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Actual", NotStartedHours = 23, TotalHours = 24, WIPHours = 2 });
+
+                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Planned", NotStartedHours = 23, TotalHours = 24, DashBoardType = "Test Dashboard(Hrs.)", WIPHours = 2 });
+                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Actual", NotStartedHours = 23, TotalHours = 24, WIPHours = 2 });
+
+                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Planned", NotStartedHours = 23, TotalHours = 24, DashBoardType = "Project Effort(Hrs.)", WIPHours = 2 });
+                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Actual", NotStartedHours = 23, TotalHours = 24, WIPHours = 2 });
+                return Ok(projectEffort);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets all project defetcs 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAllProjectDefects()
+        {
+            try
+            {
+                List<ProjectDefects> projectDefect = new List<ProjectDefects>();
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Functional Design" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Technical Design" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Code Review" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Unit Test" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Integ/Pre-SIT" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "SIT E2E" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "UAT" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Post" });
+                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Total" });
+                return Ok(projectDefect);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets all project defetcs 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAllProjectTesting()
+        {
+            try
+            {
+                List<ProjectTesting> projectTesting = new List<ProjectTesting>();
+                projectTesting.Add(new ProjectTesting() { PropertyName="Manual",IsManualORAutomatic=true});
+                projectTesting.Add(new ProjectTesting() {PropertyName = "# SIT TC's Planned", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of TC's Executed", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of Passed TC's", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() { PropertyName = "# of Defect Identified", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() { PropertyName = "Automation",IsManualORAutomatic=true });
+
+                projectTesting.Add(new ProjectTesting() {  PropertyName = "# SIT TC's Planned", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of TC's Executed", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of Passed TC's", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of Defect Identified", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                return Ok(projectTesting);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
 
     }
 }

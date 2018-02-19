@@ -10,6 +10,7 @@
     'userConfiguration',
     'role',
     'generateReport',
+    'healthReport',
     'ui.grid',
     'ui.grid.pagination',
     'ui.grid.selection',
@@ -106,6 +107,11 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: '/App/GenerateReport',
         controller: 'generatereportCtrl as generatereport'
     });
+    $routeProvider.when('/HealthReport', {      
+        templateUrl: '/App/HealthReport',
+        controller: 'healthreportCtrl as healthreport'
+    });
+
     $routeProvider.when('/ViewPreference', {
         templateUrl: '/App/ViewPreference',
         controller: 'viewPreferencesReportCtrl as viewPreferencesReport'

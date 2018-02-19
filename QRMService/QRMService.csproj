@@ -323,6 +323,7 @@
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\MonthDetailsModel.cs" />
     <Compile Include="Models\ProjectDetailsModel.cs" />
+    <Compile Include="Models\ProjectHealthMetrics.cs" />
     <Compile Include="Models\ProjectMasterModel.cs" />
     <Compile Include="Models\ProjectMetricDetailsModel.cs" />
     <Compile Include="Models\ProjectMetricsAssociationModel.cs" />

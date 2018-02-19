@@ -1,0 +1,88 @@
+﻿<style>
+    .ui-grid-row, .ui-grid-cell, .ui-grid-cell .ui-grid-vertical-bar {
+        height: 35px !important;
+        vertical-align: middle !important;
+    }
+</style>
+
+<div class="x_panel" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Health Metrics</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content fix">
+                        <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab_content1" target="_self" id="home-tab"  role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content2" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content3" role="tab"  target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
+                                </li>
+                            </ul>
+                            <div id="myTabcontent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab" ng-app="healthReport" ng-controller="healthreportCtrl" ng-init="init()">
+                                    <div class="col-md-12 col-sm-4 col-xs-12">
+                                        <div class="x_panel tile fixed_height_420">
+                                            <div class="x_content">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div id="mGrid1" ui-grid="projectEffortGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab" ng-app="healthReport" ng-controller="healthreportCtrl" ng-init="init()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="x_panel">
+                                                <div class="x_content">
+                                                        <div class="col-md-12">
+                                                            <div id="mGrid2" ui-grid="projectTestingGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="Project-tab" ng-app="healthReport" ng-controller="healthreportCtrl" ng-init="init()">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="x_panel">
+                                                <div class="x_content">
+                                                    <div class="col-md-12">
+                                                        <div id="mGrid3" ui-grid="projectDefectGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
