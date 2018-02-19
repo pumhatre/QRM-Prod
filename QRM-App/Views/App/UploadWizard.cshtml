@@ -120,7 +120,7 @@
                                                 <div class="table-wrapper">
                                                     <table border="1" ng-show="dataSanityResult.defectSanityValidationModel.length">
                                                         <tr>
-
+                                                            <th>Widget Component Id</th>
                                                             <th>Detected Stage</th>
                                                             <th>Status</th>
                                                             <th>Defect Infected Stage</th>
@@ -129,10 +129,12 @@
                                                             <th>Cause</th>
                                                             <th>DefectSeverity</th>
                                                             <th>ReviewType</th>
+                                                            <th>Valid Injected Detected Phase</th>
 
                                                         </tr>
                                                         <tbody>
                                                             <tr ng-repeat="defectSanityEntity in dataSanityResult.defectSanityValidationModel track by $index">
+                                                                <td>{{defectSanityEntity.WidgetComponentId}}</td>
                                                                 <td>{{defectSanityEntity.DetectedStage}}</td>
                                                                 <td>{{defectSanityEntity.Status}}</td>
                                                                 <td>{{defectSanityEntity.DefectInfectedStage}}</td>
@@ -140,7 +142,9 @@
                                                                 <td>{{defectSanityEntity.DefectType}}</td>
                                                                 <td>{{defectSanityEntity.Cause}}</td>
                                                                 <td>{{defectSanityEntity.DefectSeverity}}</td>
-                                                                <td>{{dataSanityEntity.ReviewType}}</td>
+                                                                <td>{{defectSanityEntity.ReviewType}}</td>
+                                                                <td>{{defectSanityEntity.ValidInjectedDetectedPhase}}</td>
+                                                                
                                                             </tr>
                                                         </tbody>
                                                     </table>

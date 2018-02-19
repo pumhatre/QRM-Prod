@@ -319,6 +319,7 @@ namespace QRMService.Repositories
                 defectSanityValidationList.Add(new DefectSanityValidationModel
                 {
                     DefectDataStagingId = row.Field<int>(Constants.DefectSanityValidationColumnName.DefectDataStagingId.ToString()),
+                    WidgetComponentId = row.Field<string>(Constants.DefectSanityValidationColumnName.WidgetComponentId.ToString()),
                     DetectedStage = row.Field<string>(Constants.DefectSanityValidationColumnName.DetectedStage.ToString()),
                     Status = row.Field<string>(Constants.DefectSanityValidationColumnName.Status.ToString()),
                     DefectInfectedStage = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectInfectedStage.ToString()),
@@ -326,7 +327,8 @@ namespace QRMService.Repositories
                     DefectType = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectType.ToString()),
                     Cause = row.Field<string>(Constants.DefectSanityValidationColumnName.Cause.ToString()),
                     DefectSeverity = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectSeverity.ToString()),
-                    ReviewType = row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString())
+                    ReviewType = row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString()),
+                    ValidInjectedDetectedPhase = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidInjectedDetectedPhase.ToString())
                 });
             });
 

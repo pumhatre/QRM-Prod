@@ -98,6 +98,7 @@ namespace QRMService.Common
         public enum DefectSanityValidationColumnName
         {
             DefectDataStagingId,
+            WidgetComponentId,
             DetectedStage,
             Status,
             DefectInfectedStage,
@@ -106,6 +107,7 @@ namespace QRMService.Common
             Cause,
             DefectSeverity,
             ReviewType,
+            ValidInjectedDetectedPhase,
 
             IsValidDefectDetectedStage,
             IsValidDefectStatus,
@@ -115,6 +117,7 @@ namespace QRMService.Common
             IsValidDefectCause,
             IsValidDefectSeverity,
             IsValidReviewType
+
         }
 
         //public enum TestTablesColumnName
