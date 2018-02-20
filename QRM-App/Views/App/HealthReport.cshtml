@@ -5,7 +5,7 @@
     }
 </style>
 
-<div class="x_panel" role="main">
+<div class="x_panel" role="main" ng-app="healthReport" ng-controller="healthreportCtrl">
     <div class="">
         <div class="page-title">
             <div class="title_left">
@@ -20,20 +20,20 @@
                         <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#tab_content1" target="_self"  id="home-tab"  role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
+                                    <a href="#tab_content1" ng-click="LoadProjectEffort()" target="_self"  id="home-tab"  role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content2" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
+                                    <a href="#tab_content2"  ng-click="LoadProjectTesting()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content3" role="tab"  target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
+                                    <a href="#tab_content3"  ng-click="LoadProjectDefect()" role="tab"  target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content4" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
+                                    <a href="#tab_content4"  ng-click="LoadProjectWidget()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
                                 </li>
                             </ul>
                             <div id="myTabcontent" class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab" ng-app="healthReport" ng-controller="healthreportCtrl">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                                     <div class="col-md-12 col-sm-4 col-xs-12">
                                         <div class="x_panel tile fixed_height_420">
                                             <div class="x_content">
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab" ng-app="healthReport" ng-controller="healthreportCtrl" ng-init="init()">
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="x_panel">
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="Project-tab" ng-app="healthReport" ng-controller="healthreportCtrl" ng-init="init()">
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="Project-tab">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="x_panel">
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="Project-tab" ng-app="healthReport" ng-controller="healthreportCtrl" ng-init="init()">
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="Project-tab">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="x_panel">

@@ -7,17 +7,12 @@
 angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
 .controller('healthreportCtrl', ['$scope', 'healthReportService', 'config', 'uiGridConstants', function ($scope, healthReportService, config, uiGridConstants) {
     $scope.projectEffortGrid = {};
-    $scope.init = function () {
-        $scope.LoadProjectTesting();
-        $scope.LoadProjectEffort();
-        $scope.LoadProjectDefect();
-        $scope.LoadProjectWidget();
-    }
    
 
     $scope.LoadProjectEffort = function () {
         healthReportService.GetAllProjectEffort(config)
             .then(function (successResponse) {
+                debugger;
                 $scope.projectEffortGrid.data = successResponse.data;
             }, function (errorResponse) {
 
@@ -160,5 +155,7 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             $scope.mGridApi = gridApi;
         }
     }
+
+    $scope.LoadProjectEffort();
 
 }]);
