@@ -9,11 +9,14 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
     $scope.dataSanityResult = [];
     $scope.InvalidData = true;
     $scope.HideFinalize = false;
+
+    $scope.effortGridData = {};
     
 
     $scope.init = function () {
         $scope.LoadProjectsDropDown();
         $scope.LoadMonthsDropDown();
+       // $scope.LoadGridData();
     }
 
     $scope.stepTabsOptions = [
@@ -74,11 +77,20 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         uploadService.getDefectStagingData(requestData).then(function (response) {
             if (response.status == 200) {
                 $scope.dataSanityResult = response.data;
+
+                //assign effort and defect data to respective grids
+                $scope.effortGridData.data = $scope.dataSanityResult.effortSanityValidatonModel;
+                $scope.loading = false;
+                $scope.loadAttempted = true;
+
                 if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0) {
                     $scope.InvalidData = true;
                 } else {
                     $scope.InvalidData = false;
                 }
+
+                //call function to populate ui grid
+              //  $scope.LoadGridData();
 
             }
         },
@@ -86,6 +98,44 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
 
         });
     }
+
+    //get function to load grid data
+    //$scope.LoadGridData = function () {
+    //    $scope.loading = true;
+        $scope.effortGridData = {
+            paginationPageSizes: [10, 50, 100, 200, 500],
+            paginationPageSize: 5,
+            //Declaring column and its related properties
+            columnDefs: [
+                {
+                    name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", enableColumnMenu: false, width: '15%',
+                    enableCellEdit: false
+                },
+                 {
+                     name: 'TaskType', displayName: "Task Type", field: "TaskType", enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'Status', displayName: "Status", field: "Status", enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'ComponentType', displayName: "Component Type", field: "ComponentType", enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'WidgetType', displayName: "Widget Type", field: "WidgetType", enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+            }
+        };
+
+    //};
+
 
     //save effort detail data
     $scope.SaveDetailData = function () {
@@ -129,6 +179,10 @@ angular.module('upload', []).controller('uploadCtrl', ['$scope', '$http', 'uiGri
         });
 
     }
+
+    //function call to load grid data
+   // $scope.LoadGridData();
+
 }]);
 
 
