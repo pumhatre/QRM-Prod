@@ -12,14 +12,12 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
     $scope.LoadProjectEffort = function () {
         healthReportService.GetAllProjectEffort(config)
             .then(function (successResponse) {
-                debugger;
                 $scope.projectEffortGrid.data = successResponse.data;
             }, function (errorResponse) {
 
             });
     }
 
-    var extraRow = null;
     $scope.LoadProjectTesting = function () {
         healthReportService.GetAllProjectTesting(config)
             .then(function (successResponse) {
@@ -27,8 +25,6 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }, function (errorResponse) {
 
             }).finally(function () {
-                // add initial empty row, and set our reference to it
-                //  extraRow = addEmptyRow($scope.projectTestingGrid.data);
             });
     }
 
@@ -50,27 +46,6 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
               });
     }
-
-    // function to append a row to the grid data
-    //function addEmptyRow(projectTestingGrid) {
-    //    projectTestingGrid.splice(0, 0, {
-    //        "PropertyName": 'Manual',
-    //    });
-    //    projectTestingGrid.splice(5, 0, {
-    //        "PropertyName": 'Automation',
-    //    });
-
-    //    // return a reference to the object
-    //    // since we pushed it, we know it will be at the last index
-    //    return projectTestingGrid[projectTestingGrid.length - 1];
-    //}
-    // var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
-
-    //var tmp2= 
-    //'<div ng-class="{ \'my-css-class\': grid.appScope.rowFormatter( row ) }">' +
-    //            '  <div ng-if="row.entity.IsManualORAutomatic"><b style="background-color:grey">{{row.entity.DashBoardType}}</b></div>' +
-    //            '  <div ng-if="!row.entity.IsManualORAutomatic" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell></div>' +
-    //            '</div>';
 
     var tmp2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectTestingGrid = {
@@ -95,9 +70,6 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
 
     var tmpl1 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
-
-
-    //  var tmpl1 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectEffortGrid = {
         enableSorting: false,
         enableColumnMenus: false,

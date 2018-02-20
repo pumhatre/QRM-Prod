@@ -167,10 +167,10 @@ namespace QRMService.Repositories
             }
             return null;
         }
-        
+
 
         public static SanitizedDataViewModel DataSanityCheck(UploadViewModel upload)
-        {   
+        {
             //get the datasanity results from SP
             var dataSanityResult = ValidateDataSanity(upload);
 
@@ -221,52 +221,38 @@ namespace QRMService.Repositories
 
             if (sanitizedViewModel.testSanityValidationModel != null)
                 SaveTestingDetailData(sanitizedViewModel);
-
+            ExecuteDashboard(Guid.NewGuid());
 
             return sanitizedViewModel;
+        }
+        /// <summary>
+        /// Method to execute all the four stored proecudre once inserted to main table
+        /// </summary>
+        /// <param name="runId"></param>
+        /// <param name="executionStep">1:belongs to execution from main table</param>
+        /// <param name="createdby"></param>
+        private static void ExecuteDashboard(Guid runId, int executionStep=1, int createdby=1)
+        {
+            try
+            {
+                var helper = new SqlClientHelper();
+                List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+                parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+                parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+                parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+                helper.RunProcedure(Constants.UspExecuteDashboard, "default", true, parameters.ToArray());
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
+
         }
 
         private static void SaveEffortDetailData(SanitizedDataViewModel effortSanityModel)
         {
-            //using (var db = new QRMEntities())
-            //{
-            //    var projectId = effortDataModel[0].ProjectId;
-            //    var monthId = effortDataModel[0].MonthId;
-            //    var projectReleaseId = effortDataModel[0].ProjectReleaseId;
-            //    db.EffortDetails.RemoveRange(db.EffortDetails.Where(x => x.ProjectMasterId == projectId && x.ProjectReleaseId == projectReleaseId && x.MonthId == monthId));
-            //    db.SaveChanges();
-            //    List<EffortDetail> obj = effortDataModel.Select(x => new EffortDetail
-            //    {
-            //        //ComponentID = x.ObjectComponentID,
-            //        ComponentTypeCode = x.ComponentType,
-            //        ComplexityCode = x.Complexity,
-            //        TaskTypeCode = x.TaskType,
-            //        //BaselineEffort = x.BaselinedEffort,
-            //        //ActualEffort = x.ActualEffort,
-            //        StatusCode = x.Status,
-            //        CMMIRollUpCode = x.CMMIRollUp,                    
-            //        ScheduledStartDate = x.ScheduledStartDate,
-            //        ScheduledEndDate = x.ScheduledEndDate,
-            //        ActualStartDate = x.ActualStartDate,
-            //        ActualEndDate = x.ActualEndDate,
-            //        ProjectMasterId = x.ProjectId,
-            //        ReleaseId = x.ProjectReleaseId,
-            //        ModuleName = x.Module,
-            //        ComponentName = x.ComponentName,
-            //        ReviewTypeCode = x.ReviewType,
-            //        Remarks = x.Remarks,
-            //        ProjectReleaseId = x.ProjectReleaseId,
-            //        MonthId = x.MonthId,
-            //        WidgetType = x.WidgetType
-            //    }).ToList();
-            //    db.EffortDetails.AddRange(obj);
-            //    db.SaveChanges();
-            //}
-
-
-
-            // call the sp to insert data into effort details table
-
             DataTable dataTable = new DataTable("udttEffortDataStagingType");
             dataTable.Columns.Add("EffortDataStagingId");
 
@@ -277,7 +263,7 @@ namespace QRMService.Repositories
                 dataTable.Rows.Add(dr);
             }
 
-            
+
 
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
@@ -290,13 +276,13 @@ namespace QRMService.Repositories
             parameters.Add(new KeyValuePair<string, object>("Release", effortSanityModel.ProjectReleaseId));
 
             DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspSaveEffortDetailData, "default", true, parameters.ToArray());
-            
+
         }
 
         public static SanitizedDataViewModel DataSanityCheckDefectData(UploadViewModel upload)
-        {  
+        {
             //get the datasanity results from SP
-           var dataSanityResult = ValidateDataSanityDefectData(upload);
+            var dataSanityResult = ValidateDataSanityDefectData(upload);
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
             vm.defectSanityValidationModel = dataSanityResult;
             return vm;
@@ -349,7 +335,7 @@ namespace QRMService.Repositories
                 dr["DefectDataStagingId"] = sanityEntity.DefectDataStagingId;
                 dataTable.Rows.Add(dr);
             }
-            
+
 
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
@@ -382,7 +368,7 @@ namespace QRMService.Repositories
 
         }
         private static List<TestingSanityValidationModel> ValidateDataSanityTestData(UploadViewModel upload)
-        {   
+        {
             List<TestingSanityValidationModel> defectSanityValidationList = new List<TestingSanityValidationModel>();
             return defectSanityValidationList;
         }

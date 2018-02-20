@@ -144,8 +144,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
-                var projectEffort = ReportRepository.GetProjectEffort(g);
+                var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid());
                 return Ok(projectEffort);
 
             }
@@ -165,8 +164,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
-                var projectDefect = ReportRepository.GetProjectDefects(g);
+                var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid());
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -184,8 +182,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
-                var projectTesting = ReportRepository.GetProjectTesting(g);
+                var projectTesting = ReportRepository.GetProjectTesting(Guid.NewGuid());
                 return Ok(projectTesting);
             }
             catch (Exception ex)
@@ -204,13 +201,31 @@ namespace QRMService.Controllers
         {
             try
             {
-                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
-                var projectWidget = ReportRepository.GetProjectWidget(g);
+                var projectWidget = ReportRepository.GetProjectWidget(Guid.NewGuid());
                 return Ok(projectWidget);
             }
             catch (Exception ex)
             {
                 throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Calling three SP with execution step as 1
+        /// </summary>
+        public void FinalizeMethod()
+        {
+            try
+            {
+                ReportRepository.GetProjectEffort(Guid.NewGuid(), 1);
+                ReportRepository.GetProjectWidget(Guid.NewGuid(), 1);
+                ReportRepository.GetProjectTesting(Guid.NewGuid(), 1);
+                ReportRepository.GetProjectDefects(Guid.NewGuid(), 1);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 
