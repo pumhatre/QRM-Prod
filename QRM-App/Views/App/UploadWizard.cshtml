@@ -214,7 +214,7 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     @*<button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Next</button>*@
-                                                    <button class="btn btn-green nextBtn btn-md pull-right" type="button">Next</button>
+                                                    <button class="btn btn-green nextBtn btn-md pull-right" type="button" ng-disabled="InvalidData">Next</button>
                                                     <button class="btn btn-primary previousBtn btn-md pull-right" type="button">Previous</button>
                                                     @*<button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>*@
                                                 </div>
@@ -313,7 +313,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData1()" ng-hide="HideFinalize" type="button">Finalize</button>
+                                            <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Finalize</button>
                                         </div>
 
                                     </div>

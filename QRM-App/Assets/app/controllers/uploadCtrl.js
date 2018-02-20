@@ -111,6 +111,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
     //get function to load grid data
     $scope.effortGridData = {
         paginationPageSizes: [10, 50, 100, 200, 500],
+        enableRowHeaderSelection: false,
         paginationPageSize: 5,
         //Declaring column and its related properties
         columnDefs: [
@@ -156,6 +157,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
     //get function to load grid data
     $scope.defectGridData = {
         paginationPageSizes: [10, 50, 100, 200, 500],
+        enableRowHeaderSelection: false,
         paginationPageSize: 5,
         //Declaring column and its related properties
         columnDefs: [
