@@ -9,4 +9,7 @@
     this.GetAllProjectEffort = function (config) {
         return $http.get(config.apiUrl + 'api/Report/GetAllProjectEffort');
     }
+    this.GetAllProjectWidget = function (config) {
+        return $http.get(config.apiUrl + 'api/Report/GetProjectWidgetDashboard');
+    }
 }]);

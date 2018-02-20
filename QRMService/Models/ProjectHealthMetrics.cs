@@ -12,10 +12,10 @@ namespace QRMService.Models
 
     public class ProjectEffort
     {
-        public int CompleteHours { get; set; }
-        public int WIPHours { get; set; }
-        public int NotStartedHours { get; set; }
-        public int TotalHours { get; set; }
+        public int? CompleteHours { get; set; }
+        public int? WIPHours { get; set; }
+        public int? NotStartedHours { get; set; }
+        public int? TotalHours { get; set; }
         public string DashBoardType { get; set; }
         public string DashboardSubtype { get; set; }
     }
@@ -29,17 +29,30 @@ namespace QRMService.Models
         public int? PreSitE2E { get; set; }
         public int? SitComponent { get; set; }
         public int? SitE2E { get; set; }
-        public bool IsManualORAutomatic { get; set; }
-        public string PropertyName { get; set; }
+        public bool? IsManualORAutomatic { get; set; }
+        public string DashboardSubtype { get; set; }
+        public string DashBoardType { get; set; }
     }
     //Test
 
     public class ProjectDefects
     {
-        public int Overall { get; set; }
-        public int Rejected { get; set; }
-        public int Closed { get; set; }
-        public int Open { get; set; }
-        public string PropertyName { get; set; }
+        public int? Overall { get; set; }
+        public int? Rejected { get; set; }
+        public int? Closed { get; set; }
+        public int? Open { get; set; }
+        public string DashBoardType { get; set; }
     }
+
+
+    public class ProjectWidget
+    {
+        public string DashboardSubtype { get; set; }
+        public string DashBoardType { get; set; }
+        public int? CompletedHours { get; set; }
+        public int? WipHours { get; set; }
+        public int? NotStartedHours { get; set; }
+        public int? TotalHours { get; set; }
+    }
+
 }
