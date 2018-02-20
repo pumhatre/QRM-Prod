@@ -144,15 +144,8 @@ namespace QRMService.Controllers
         {
             try
             {
-                List<ProjectEffort> projectEffort = new List<ProjectEffort>();
-                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Planned", NotStartedHours = 23, TotalHours = 24, DashBoardType = "Dev Dashboard(Hrs.)", WIPHours = 2 });
-                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Actual", NotStartedHours = 23, TotalHours = 24, WIPHours = 2 });
-
-                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Planned", NotStartedHours = 23, TotalHours = 24, DashBoardType = "Test Dashboard(Hrs.)", WIPHours = 2 });
-                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Actual", NotStartedHours = 23, TotalHours = 24, WIPHours = 2 });
-
-                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Planned", NotStartedHours = 23, TotalHours = 24, DashBoardType = "Project Effort(Hrs.)", WIPHours = 2 });
-                projectEffort.Add(new ProjectEffort() { CompleteHours = 1, DashboardSubtype = "Total Actual", NotStartedHours = 23, TotalHours = 24, WIPHours = 2 });
+                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
+                var projectEffort = ReportRepository.GetProjectEffort(g);
                 return Ok(projectEffort);
 
             }
@@ -172,16 +165,8 @@ namespace QRMService.Controllers
         {
             try
             {
-                List<ProjectDefects> projectDefect = new List<ProjectDefects>();
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Functional Design" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Technical Design" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Code Review" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Unit Test" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Integ/Pre-SIT" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "SIT E2E" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "UAT" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Post" });
-                projectDefect.Add(new ProjectDefects() { Closed = 1, Open = 1, Overall = 2, Rejected = 23, PropertyName = "Total" });
+                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
+                var projectDefect = ReportRepository.GetProjectDefects(g);
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -199,19 +184,29 @@ namespace QRMService.Controllers
         {
             try
             {
-                List<ProjectTesting> projectTesting = new List<ProjectTesting>();
-                projectTesting.Add(new ProjectTesting() { PropertyName="Manual",IsManualORAutomatic=true});
-                projectTesting.Add(new ProjectTesting() {PropertyName = "# SIT TC's Planned", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of TC's Executed", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of Passed TC's", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() { PropertyName = "# of Defect Identified", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() { PropertyName = "Automation",IsManualORAutomatic=true });
-
-                projectTesting.Add(new ProjectTesting() {  PropertyName = "# SIT TC's Planned", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of TC's Executed", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of Passed TC's", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
-                projectTesting.Add(new ProjectTesting() {  PropertyName = "# of Defect Identified", PreSitComponent = 1, PreSitE2E = 3, SitComponent = 4, SitE2E = 6 });
+                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
+                var projectTesting = ReportRepository.GetProjectTesting(g);
                 return Ok(projectTesting);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets project widget Dashboard
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetProjectWidgetDashboard()
+        {
+            try
+            {
+                Guid g = new Guid("1B459906-6D4B-43DE-8BE9-F3C8911E86EC");
+                var projectWidget = ReportRepository.GetProjectWidget(g);
+                return Ok(projectWidget);
             }
             catch (Exception ex)
             {

@@ -23,6 +23,7 @@ namespace QRMService.Common
         public const string UspGetProjectEffortDashboard = "[Dbo].[uspGenerateProjectEffortDashboard]";
         public const string UspGetProjectTestingDashboard = "[Dbo].[uspGenerateProjectTestingDashboard]";
         public const string UspGetProjectDefectDashboard = "[Dbo].[uspGenerateProjectDefectsDashboard]";
+        public const string UspGetProjectWidgetDashboard = "[Dbo].[uspGenerateProjectWidgetDashboard]";
 
         public enum EffortTablesColumnName
         {
@@ -120,6 +121,43 @@ namespace QRMService.Common
 
         }
 
+
+        public enum ProjectEffortColumnName
+        {
+            DashBoardType,
+            DashboardSubtype,
+            Complete,
+            Total,
+            WorkinProgress,
+            NotStarted
+        }
+        public enum ProjectTestingColumnName
+        {
+            DashBoardType,
+            DashboardSubtype,
+            PRESITComponent,
+            PRESITE2E,
+            SITComponent,
+            SITE2E
+        }
+        public enum ProjectDefectColumnName
+        {
+            Overall,
+            Rejected,
+            Closed,
+            Open,
+            DashBoardType
+        }
+
+        public enum ProjectWidgetColumnName
+        {
+            DashBoardType,
+            DashboardSubtype,
+            ComleteHours,
+            WipHours,
+            NotStartedHours,
+            TotalHours
+        }
         //public enum TestTablesColumnName
         //{
         //    TestingDataStagingId,
@@ -132,5 +170,5 @@ namespace QRMService.Common
 
     }
 
- 
+
 }

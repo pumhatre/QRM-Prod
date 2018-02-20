@@ -122,72 +122,7 @@
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
                                                 <div ng-hide="InvalidData">Data Sanity Completed successfully.All the records are valid.</div>
-                                                <h4 ng-show="dataSanityResult.effortSanityValidatonModel.length">Dev Effort Data</h4>
-                                                <div class="table-wrapper">
-                                                    <table border="1" ng-show="dataSanityResult.effortSanityValidatonModel.length">
-                                                        <tr>
-                                                            <th>Object/ Component ID</th>
-                                                            <th>Task Type</th>
-                                                            <th>Status</th>
-                                                            <th>Component Type</th>
-                                                            <th>Widget Type</th>
-                                                            <th>Complexity</th>
-                                                            @*<th>CMMIRollUp</th>*@
-                                                            @*<th>ReviewType</th>*@
-
-                                                        </tr>
-                                                        <tbody>
-                                                            <tr ng-repeat="dataSanityEntity in dataSanityResult.effortSanityValidatonModel track by $index">
-                                                                <td>{{dataSanityEntity.ObjectComponentID}}</td>
-                                                                <td>{{dataSanityEntity.TaskType}}</td>
-                                                                <td>{{dataSanityEntity.Status}}</td>
-                                                                <td>{{dataSanityEntity.ComponentType}}</td>
-                                                                <td>{{dataSanityEntity.WidgetType}}</td>
-                                                                <td>{{dataSanityEntity.Complexity}}</td>
-                                                                @*<td>{{dataSanityEntity.CMMIRollUp}}</td>*@
-                                                                @*<td>{{dataSanityEntity.ReviewType}}</td>*@
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <h4 ng-show="dataSanityResult.defectSanityValidationModel.length">Defect Data</h4>
-                                                <div class="table-wrapper">
-                                                    <table border="1" ng-show="dataSanityResult.defectSanityValidationModel.length">
-                                                        <tr>
-                                                            <th>Widget Component Id</th>
-                                                            <th>Detected Stage</th>
-                                                            <th>Status</th>
-                                                            <th>Defect Infected Stage</th>
-                                                            <th>Expected Detection Phase</th>
-                                                            <th>Defect Type</th>
-                                                            <th>Cause</th>
-                                                            <th>DefectSeverity</th>
-                                                            <th>ReviewType</th>
-                                                            <th>Valid Injected Detected Phase</th>
-
-                                                        </tr>
-                                                        <tbody>
-                                                            <tr ng-repeat="defectSanityEntity in dataSanityResult.defectSanityValidationModel track by $index">
-                                                                <td>{{defectSanityEntity.WidgetComponentId}}</td>
-                                                                <td>{{defectSanityEntity.DetectedStage}}</td>
-                                                                <td>{{defectSanityEntity.Status}}</td>
-                                                                <td>{{defectSanityEntity.DefectInfectedStage}}</td>
-                                                                <td>{{defectSanityEntity.ExpectedDetectionPhase}}</td>
-                                                                <td>{{defectSanityEntity.DefectType}}</td>
-                                                                <td>{{defectSanityEntity.Cause}}</td>
-                                                                <td>{{defectSanityEntity.DefectSeverity}}</td>
-                                                                <td>{{defectSanityEntity.ReviewType}}</td>
-                                                                <td>{{defectSanityEntity.ValidInjectedDetectedPhase}}</td>
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-
+                                                
                                                 <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                                         <li role="presentation" class="active">
@@ -215,7 +150,7 @@
                                                                                 <div>
                                                                                     <div class="col-md-2"></div>
                                                                                     <div class="col-md-8">
-                                                                                        @*<div class="gridDivProjectRelease grid" ui-grid="effortGridData" ui-grid-pagination="">
+                                                                                       <div id="mGrid1" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                                 <div class="grid-msg-overlay" ng-show="loading">
                                                                                                     <div class="msg">
                                                                                                         <span>
@@ -229,10 +164,8 @@
                                                                                                         <span>No Data</span>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                            </div>*@
-                                                                                        <div id="mGrid1" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
-                                                                                        </div>
-
+                                                                                            </div>
+                                                                                       
                                                                                     </div>
                                                                                     <div class="col-md-2">
 
@@ -258,9 +191,22 @@
                                                                             <br>
                                                                             <div>
                                                                                 <div class="col-md-12">
-                                                                                    <!-- start project list -->
                                                                                     @*<div ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>*@
-                                                                                    <!-- end project list -->
+                                                                                    <div id="mGrid2" ui-grid="defectGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                        <div class="grid-msg-overlay" ng-show="loading">
+                                                                                            <div class="msg">
+                                                                                                <span>
+                                                                                                    Loading Data...
+                                                                                                    <i class="fa fa-spinner fa-spin"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="grid-msg-overlay" ng-hide="loading || defectGridData.data.length">
+                                                                                            <div class="msg">
+                                                                                                <span>No Data</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                                 <br /><br /><br />
 
@@ -274,12 +220,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
-                                                    <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Finalize</button>
+                                                    @*<button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Next</button>*@
+                                                    <button class="btn btn-green nextBtn btn-md pull-right" type="button">Next</button>
+                                                    <button class="btn btn-primary previousBtn btn-md pull-right" type="button">Previous</button>
                                                     @*<button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>*@
                                                 </div>
                                             </form>
                                         </div>
 
+                                    </div>
+
+                                    <div class="row setup-content margin-top15px" id="step-4">
+                                        <div class="col-md-12">
+                                        </div>
+                                        <button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData1()" ng-hide="HideFinalize" type="button">Finalize</button>
                                     </div>
 
                                 </div>
