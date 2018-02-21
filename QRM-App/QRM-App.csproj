@@ -198,6 +198,7 @@
   <ItemGroup>
     <Content Include="Assets\app\app.js" />
     <Content Include="Assets\app\controllers\generatereportCtrl.js" />
+    <Content Include="Assets\app\controllers\healthreportCtrl.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
     <Content Include="Assets\app\controllers\metricsAssociationCtrl.js" />
     <Content Include="Assets\app\controllers\metricsCtrl.js" />
@@ -212,6 +213,7 @@
     <Content Include="Assets\app\environment\environment.js" />
     <Content Include="Assets\app\services\defectDataService.js" />
     <Content Include="Assets\app\services\generateReportService.js" />
+    <Content Include="Assets\app\services\healthReportService.js" />
     <Content Include="Assets\app\services\metricsAssociationService.js" />
     <Content Include="Assets\app\services\metricsService.js" />
     <Content Include="Assets\app\services\projectReleaseService.js" />
@@ -395,6 +397,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\App\UploadWizard.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\HealthReport.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

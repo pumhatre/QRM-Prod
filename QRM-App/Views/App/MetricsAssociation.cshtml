@@ -30,7 +30,10 @@
                 vertical-align: middle;
             }
 
-  
+    #metricAssociationGrid {
+        width: 700px !important;
+        height: 260px !important;
+    }
 </style>
 <div class="x_panel" role="main">
     <div class="">
@@ -181,13 +184,17 @@
                                                     <div class="clearfix"></div>
                                                     <br>
                                                     <div>
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-2"></div>
+                                                        <div class="col-md-8">
                                                             <!-- start project list -->
-                                                            <div ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>
+                                                            <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>
                                                             <!-- end project list -->
                                                         </div>
-                                                        <br /><br /><br />
-                                                        <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
+                                                        <div class="col-md-2"></div>
+                                                        <div class="clearfix"></div>
+                                                        <div style="text-align:center;">
+                                                            <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
+                                                        </div>
                                                     </div>
                                                 </div>
 

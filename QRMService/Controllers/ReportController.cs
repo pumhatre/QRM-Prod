@@ -44,7 +44,7 @@ namespace QRMService.Controllers
                 return ReportRepository.GetMonthsList().Select(p => new MonthDetailsWrapper
                 {
                     MonthId = p.MonthId,
-                    MonthName = p.MonthName +'-'+ p.Year
+                    MonthName = p.MonthName + '-' + p.Year
 
                 }).ToList();
             }
@@ -67,7 +67,7 @@ namespace QRMService.Controllers
                 {
                     ProjectID = p.ProjectID,
                     ProjectReleaseId = p.ProjectReleaseId,
-                    ReleaseName=p.ReleaseName
+                    ReleaseName = p.ReleaseName
                 }).ToList();
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace QRMService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public List<ProjectMatricsDetailsWrapper> GetProjectMatricsList(int ProjectReleaseId, int ProjectId,int MonthId)
+        public List<ProjectMatricsDetailsWrapper> GetProjectMatricsList(int ProjectReleaseId, int ProjectId, int MonthId)
         {
             try
             {
@@ -134,6 +134,101 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets all project details
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAllProjectEffort()
+        {
+            try
+            {
+                var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid());
+                return Ok(projectEffort);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets all project defetcs 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAllProjectDefects()
+        {
+            try
+            {
+                var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid());
+                return Ok(projectDefect);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets all project defetcs 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAllProjectTesting()
+        {
+            try
+            {
+                var projectTesting = ReportRepository.GetProjectTesting(Guid.NewGuid());
+                return Ok(projectTesting);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets project widget Dashboard
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetProjectWidgetDashboard()
+        {
+            try
+            {
+                var projectWidget = ReportRepository.GetProjectWidget(Guid.NewGuid());
+                return Ok(projectWidget);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Calling three SP with execution step as 1
+        /// </summary>
+        public void FinalizeMethod()
+        {
+            try
+            {
+                ReportRepository.GetProjectEffort(Guid.NewGuid(), 1);
+                ReportRepository.GetProjectWidget(Guid.NewGuid(), 1);
+                ReportRepository.GetProjectTesting(Guid.NewGuid(), 1);
+                ReportRepository.GetProjectDefects(Guid.NewGuid(), 1);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
 
     }
 }
