@@ -141,9 +141,11 @@
                                                                                 <div class="clearfix"></div>
                                                                                 <br>
                                                                                 <div>
-                                                                                    <div class="col-md-2"></div>
-                                                                                    <div class="col-md-8">
-                                                                                        <div id="mGrid1" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                    <div class="col-md-12">
+                                                                                        <div ng-hide="InvalidEffortData">
+                                                                                            <span>Effort Data is Valid</span>
+                                                                                        </div>
+                                                                                        <div id="mGrid1" ng-show="InvalidEffortData" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                             <div class="grid-msg-overlay" ng-show="loading">
                                                                                                 <div class="msg">
                                                                                                     <span>
@@ -184,8 +186,11 @@
                                                                             <br>
                                                                             <div>
                                                                                 <div class="col-md-12">
+                                                                                    <div ng-hide="InvalidDefectData">
+                                                                                        <span>Defect Data is Valid</span>
+                                                                                    </div>
                                                                                     @*<div ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>*@
-                                                                                    <div id="mGrid2" ui-grid="defectGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                    <div id="mGrid2" ng-show="InvalidDefectData" ui-grid="defectGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                         <div class="grid-msg-overlay" ng-show="loading">
                                                                                             <div class="msg">
                                                                                                 <span>

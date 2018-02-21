@@ -314,7 +314,8 @@ namespace QRMService.Repositories
                     Cause = row.Field<string>(Constants.DefectSanityValidationColumnName.Cause.ToString()),
                     DefectSeverity = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectSeverity.ToString()),
                     ReviewType = row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString()),
-                    ValidInjectedDetectedPhase = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidInjectedDetectedPhase.ToString())
+                    ValidInjectedDetectedPhase = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidInjectedDetectedPhase.ToString()),
+                    ValidDefectTypeCause = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidDefectTypeCause.ToString())
                 });
             });
 
