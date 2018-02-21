@@ -324,12 +324,12 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         enableColumnMenus: false,
         enableRowHeaderSelection: false,
         columnDefs: [
-            { field: 'DashBoardType', name: '', cellTemplate: tmpl1, width: '22%' },
-            { field: 'DashboardSubtype', name: 'P/A', cellTemplate: tmpl1, width: '22%' },
-            { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: tmpl1 },
-            { field: 'WIPHours', name: 'WIP', width: '15%', cellTemplate: tmpl1 },
-            { field: 'NotStartedHours', name: 'Not Started', cellTemplate: tmpl1, width: '15%' },
-            { field: 'TotalHours', name: 'Total', cellTemplate: tmpl1, width: '15%' },
+            { field: 'DashBoardType', name: '',cellClass: 'countCell', headerCellClass:'headerClass1', cellTemplate:'<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
+            { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
+            { field: 'CompleteHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl1 },
+            { field: 'WIPHours', name: 'Work in Progress',cellClass: 'countCell', headerCellClass:'headerClass', width: '17%', cellTemplate: tmpl1 },
+            { field: 'NotStartedHours', name: 'Not Started',cellClass: 'countCell', headerCellClass:'headerClass', cellTemplate: tmpl1, width: '15%' },
+            { field: 'TotalHours', name: 'Total',cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl1, width: '15%' },
         ],
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
@@ -343,12 +343,12 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         enableColumnMenus: false,
         enableRowHeaderSelection: false,
         columnDefs: [
-            { field: 'DashBoardType', name: 'M/A', width: '22%', cellTemplate: tmp2 },
-             { field: 'DashboardSubtype', name: '', width: '22%', cellTemplate: tmp2 },
-            { field: 'PreSitComponent', name: 'PRE-SIT Component', width: '15%', cellTemplate: tmp2 },
-            { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellTemplate: tmp2, width: '15%' },
-            { field: 'SitComponent', name: 'SIT-Component', cellTemplate: tmp2, width: '15%' },
-            { field: 'SitE2E', name: 'SIT-E2E', cellTemplate: tmp2, width: '15%' },
+            { field: 'DashBoardType', name: 'Manual/Automation',cellClass: 'countCell', headerCellClass:'headerClass1', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
+             { field: 'DashboardSubtype', name: '', width: '22%', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
+            { field: 'PreSitComponent', name: 'PRE-SIT Component',cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmp2 },
+            { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
+            { field: 'SitComponent', name: 'SIT-Component', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
+            { field: 'SitE2E', name: 'SIT-E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
 
         ],
         onRegisterApi: function (gridApi) {
@@ -364,11 +364,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         enableRowHeaderSelection: false,
         loading: true,
         columnDefs: [
-            { field: 'DashBoardType', name: '', cellTemplate: tmpl2, width: '20%' },
-            { field: 'Overall', name: 'Overall', cellTemplate: tmpl2, width: '20%' },
-            { field: 'Rejected', name: 'Rejected', width: '20%', cellTemplate: tmpl2 },
-            { field: 'Closed', name: 'Closed', width: '20%', cellTemplate: tmpl2 },
-            { field: 'Open', name: 'Open', cellTemplate: tmpl2, width: '20%' },
+            { field: 'DashBoardType', name: '', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '20%' },
+            { field: 'Overall', name: 'Overall', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
+            { field: 'Rejected', name: 'Rejected', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
+            { field: 'Closed', name: 'Closed', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
+            { field: 'Open', name: 'Open', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
         ],
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
@@ -381,12 +381,12 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         enableRowHeaderSelection: false,
         loading: true,
         columnDefs: [
-            { field: 'DashBoardType', name: '', cellTemplate: tmpl2, width: '22%' },
-            { field: 'DashboardSubtype', name: 'Plan', cellTemplate: tmpl2, width: '22%' },
-            { field: 'CompletedHours', name: 'Complete', cellTemplate: tmpl2, width: '15%' },
-            { field: 'WipHours', name: 'WIP', width: '15%', cellTemplate: tmpl2 },
-            { field: 'NotStartedHours', name: 'Not Started', width: '15%', cellTemplate: tmpl2 },
-            { field: 'TotalHours', name: 'Total', cellTemplate: tmpl2, width: '15%' },
+            { field: 'DashBoardType', name: '',cellClass: 'countCell',headerCellClass:'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
+            { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
+            { field: 'CompletedHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '15%' },
+            { field: 'WipHours', name: 'Work in Progress', cellClass: 'countCell', headerCellClass: 'headerClass', width: '18%', cellTemplate: tmpl2 },
+            { field: 'NotStartedHours', name: 'Not Started', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl2 },
+            { field: 'TotalHours', name: 'Total', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '15%' },
         ],
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
