@@ -1,8 +1,13 @@
 ﻿angular.module('userConfiguration', [])
-    .controller('userConfigurationCtrl', ['$scope', '$http', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http, uiGridConstants, projectReleaseService,userDetailsService, config) {
+    .controller('userConfigurationCtrl', ['$scope', '$http', '$confirm', 'roleService', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http, $confirm, uiGridConstants, roleService, projectReleaseService, userDetailsService, config) {
         $scope.arr = [];
+        $scope.alerts = [];
         $scope.myData;
+        $scope.showAdd = false;
+        $scope.roles = [];
         $scope.selectedProjectReleaseDropdown = '';
+        $scope.selectedRoleDropdown = '';
+        $scope.rolesDropdown = [];
         $scope.projectsDropdown = [];
         $scope.showSucessMessage = false;
         $scope.showErrorMessage = false;
@@ -16,101 +21,199 @@
                     $scope.responseMessage = "Failed to load project list";
                 });
         }
+
+        $scope.LoadRoles = function () {
+            userDetailsService.GetRoleList(config)
+                .then(function (response) {
+                    $scope.roles = response.data;
+                }, function (err) {
+                    $scope.showErrorMessage = true;
+                    $scope.responseMessage = "Failed to load Role list";
+                });
+        };
+
+        //function to be called on row edit button click
+        //Passing the selected row object as parameter, we use this row object to identify  the edited row
+        $scope.edit = function (row) {
+            $scope.mode = 'Update';
+            //Get the index of selected row from row object
+            var index = $scope.gridOptions1.data.indexOf(row);
+            //Use that to set the editrow attrbute value for seleted rows
+            $scope.gridOptions1.data[index].editable = !$scope.gridOptions1.data[index].editable;
+        };
+
+        //Method to cancel the edit mode in UIGrid
+        $scope.cancelEdit = function (row) {
+            //Get the index of selected row from row object
+            var index = $scope.gridOptions1.data.indexOf(row);
+            //Use that to set the editrow attrbute value to false
+            $scope.gridOptions1.data[index].editable = false;
+            //Display Successfull message after save   
+            if ($scope.mode === 'Save') {
+                $scope.gridOptions1.data.shift();
+            }
+        };
+
         $scope.getProjectUsers = function (projectId) {
+
             userDetailsService.GetProjectUsers(projectId, config).then(function (successResponse) {
                 $scope.gridOptions1.data = successResponse.data.userDetails;
+                $scope.loading = false;
+                $scope.showErrorMessage = false;
+                $scope.responseMessage = "";
             }, function (errorResponse) {
                 $scope.showErrorMessage = true;
+                $scope.loading = false;
                 $scope.responseMessage = "Failed to load user details";
             });
+            if (projectId != '' && projectId != null) {
+                $scope.showAdd = true;
+            } else {
+                $scope.showAdd = false;
+            }
         }
-        $scope.saveData = function () {
-            
-            var userToBeDeleted = []
-            if ($scope.arr.length > 0) {
-                angular.forEach(response, function (data) {
-                    userToBeDeleted.push({ 'userId': data })
+
+        $scope.updateRow = function (row) {
+         
+            $scope.showErrorMessage = false;
+            $scope.responseMessage = "";
+
+            var ProjectRelease = $scope.selectedProjectReleaseDropdown;
+
+            if (ProjectRelease == '' || ProjectRelease == null) {
+                $scope.showErrorMessage = true;
+                $scope.responseMessage = "Please select Project";
+            }
+            else {
+
+                var index = $scope.gridOptions1.data.indexOf(row);
+                $scope.gridOptions1.data[0].editable = false;
+                $scope.User = {};
+                $scope.User.userId = row.userId;
+                $scope.User.firstName = row.firstName;
+                $scope.User.middleName = row.middleName;
+                $scope.User.lastName = row.lastName;
+                $scope.User.email = row.email;
+                $scope.User.phone = row.phone;
+                $scope.User.roleId = row.roleId;
+                $scope.User.projectId = $scope.selectedProjectReleaseDropdown;
+               
+
+                userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
+                    if (response.data.IsSuccess) {     
+                        $scope.getProjectUsers($scope.User.projectId);
+                        $scope.alerts.push({
+                            msg: 'Project Updated Successfully',
+                            type: 'Success'
+                        });
+                    }
+                }, function (error) {                  
+                    $scope.alerts.push({
+                        msg: error.data.ResponseMessage,
+                        type: 'Success'
+                    });
                 });
             }
-            var dataToPost = {
-                "projectId": $scope.selectedProjectReleaseDropdown,
-                "userData": $scope.gridOptions1.data,
-                "deletedUser": userToBeDeleted
-            };
-            userDetailsService.SaveUsersData(dataToPost, config).then(function (successResponse) {
-                $scope.showSucessMessage = true;
-                $scope.responseMessage = "Successful"
-                $scope.getProjectUsers($scope.selectedProjectReleaseDropdown);
 
-
-            }, function (errorResponse) {
-                $scope.showErrorMessage = true;
-                $scope.responseMessage = "Failed to save data";
-            });
-        }
-
-        $scope.LoadProjectsDropDown();
-        var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
-        $scope.gridOptions1 = {
-            enableSorting: false,
-            enableColumnMenus: false,
-            columnDefs: [
-                { field: 'id', name: '#', width: '3%', cellTemplate: '<span>{{grid.appScope.populateRowId(row.entity)}}</span>' },
-                { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
-                { field: 'userId', name: 'User Id', visible: false },
-                { field: 'userProjectRoleId', name: 'User Project Role Id', visible: false },
-                { field: 'midName', name: 'Middle Name', cellTemplate: tmpl },
-                { field: 'lastName', name: 'Last Name', cellTemplate: tmpl },
-                { field: 'email', name: 'Email', cellTemplate: tmpl },
-                { field: 'phone', name: 'Phone', cellTemplate: tmpl },
-                {
-                    name: 'roleId',
-                    displayName: 'Role',
-                    editableCellTemplate: 'ui-grid/dropdownEditor',
-                    width: '10%', cellFilter: 'mapRole',
-                    enableCellEdit: true,
-                    editDropdownValueLabel: 'role',
-                    editDropdownOptionsArray: [
-                        { id: 1, gender: 'QRM User' },
-                        { id: 2, gender: 'Super User' }
-                    ]
-                },
-                { field: 'edit', name: '#Edit', cellTemplate: '<a ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a> <a ng-click="grid.appScope.deleteRow(row.entity)"  class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>' }
-            ],
-
-            onRegisterApi: function (gridApi) {
-                $scope.grid1Api = gridApi;
-            }
-        }
-
-        $scope.populateRowId = function (row) {
-            var index = $scope.gridOptions1.data.indexOf(row) + 1;
-            return index;
-        }
-
-        $scope.editRow = function (row) {
-            var index = $scope.gridOptions1.data.indexOf(row);
-            $scope.gridOptions1.data[index].editable = !$scope.gridOptions1.data[index].editable;
-            $scope.grid1Api.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
         }
 
         $scope.deleteRow = function (row) {
+
+
+            $confirm({ text: 'Are you sure you want to delete this record?' })
+                .then(function () {
+
+                    userDetailsService.DeleteUser(row.userId, config).
+                        then(function (response) {
+                            if (response.data.IsSuccess) {
+                                $scope.loadProjects();
+                                //Display Successfull message after save
+                                $scope.alerts.push({
+                                    msg: 'Project deleted successfully',
+                                    type: 'success'
+                                });
+                            }
+                        }, function (error) {
+                            //Display Error message if any error occurs
+                            $scope.alerts.push({
+                                msg: error.data.ResponseMessage,
+                                type: 'danger'
+                            });
+                        });
+                });
+
+        };
+
+        $scope.CancelRow = function () {
             var index = $scope.gridOptions1.data.indexOf(row);
-            $scope.arr.push(row.userId);
-            $scope.gridOptions1.data.splice(index, 1);
+            //Use that to set the editrow attrbute value to false
+            $scope.gridOptions1.data[index].editable = false;
+            //Display Successfull message after save   
+            if ($scope.mode === 'Save') {
+                $scope.gridOptions1.data.shift();
+            }
         }
 
-    }]).filter('mapRole', function () {
-        var roleHash = {
-            1: 'QRM User',
-            2: 'Super User'
-        };
 
-        return function (input) {
-            if (!input) {
-                return '';
-            } else {
-                return roleHash[input];
-            }
-        };
-    });
+        $scope.GetUsers = function () {
+            $scope.loading = true;
+            $scope.LoadProjectsDropDown();
+            $scope.LoadRoles();
+            var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="text"></div>';
+            $scope.gridOptions1 = {
+                enableSorting: false,
+                enableColumnMenus: false,
+                columnDefs: [                   
+                    { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
+                    { field: 'userId', name: 'User Id', visible: false },
+                    { field: 'userProjectRoleId', name: 'User Project Role Id', visible: false },
+                    { field: 'middleName', name: 'Middle Name', cellTemplate: tmpl },
+                    { field: 'lastName', name: 'Last Name', cellTemplate: tmpl },
+                    {
+                        field: 'email', name: 'Email', cellTemplate:
+                        '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="email"></div>'
+                    },
+                    {
+                        field: 'phone', name: 'Phone', cellTemplate:
+                        '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"></div>'
+                    },
+                    {
+                        name: 'roleName', displayName: "Role", field: "roleName", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="industry in grid.appScope.roles" value="{{industry.Value}}">{{industry.Text}}</option> </select></div>'
+                    },
+                    {
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',
+                        cellTemplate: '<div><button ng-show="!row.entity.editable" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                        '<button ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
+                        '<button ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
+                        '<button ng-show="!row.entity.editable" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
+                        '</div>'
+                    }
+                ],
+
+                onRegisterApi: function (gridApi) {
+                    $scope.grid1Api = gridApi;
+                }                
+            };
+
+           
+            if (typeof ($scope.selectedProjectReleaseDropdown) != 'undefined' || $scope.selectedProjectReleaseDropdown != null || $scope.selectedProjectReleaseDropdown != '' || $scope.selectedProjectReleaseDropdown != 'null') {
+                $scope.getProjectUsers($scope.selectedProjectReleaseDropdown);                
+            }            
+        }
+      
+        $scope.add = function (row) {
+            $scope.mode = 'Save';
+            var user = {};
+            user.userId = 0;
+            $scope.gridOptions1.data.unshift(user);
+
+            $scope.gridOptions1.data[0].editable = true;
+        }
+        $scope.GetUsers();
+        $scope.LoadRoles();
+
+
+       
+
+    }]);
