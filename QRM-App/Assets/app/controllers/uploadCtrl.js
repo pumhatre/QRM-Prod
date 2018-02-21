@@ -37,7 +37,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         {
             Id: "step-3",
             DisplayHeaderName: "Step3",
-            DisplaySubHeaderName: "Validation Sanity Check"
+            DisplaySubHeaderName: "Sanity Checks"
         },
          {
              Id: "step-4",
@@ -190,7 +190,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                  enableCellEdit: false
              },
              {
-                 name: 'DefectInfectedStage', displayName: "Defect Infected Stage", field: "DefectInfectedStage", enableColumnMenu: false, width: '10%',
+                 name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage", enableColumnMenu: false, width: '10%',
                  enableCellEdit: false
              },
              {
@@ -215,11 +215,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 enableCellEdit: false
             },
              {
-                 name: 'ValidInjectedDetectedPhase', displayName: "Valid Injected Detected Phase", field: "ValidInjectedDetectedPhase", enableColumnMenu: false, width: '10%',
+                 name: 'ValidInjectedDetectedPhase', displayName: "Expected Detection Phase Mapping", field: "ValidInjectedDetectedPhase", enableColumnMenu: false, width: '10%',
                  enableCellEdit: false
              },
             {
-                name: 'ValidDefectTypeCause', displayName: "Valid Defect Type Cause", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
+                name: 'ValidDefectTypeCause', displayName: "Defect Cause Mapping", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
                 enableCellEdit: false
             }
 
