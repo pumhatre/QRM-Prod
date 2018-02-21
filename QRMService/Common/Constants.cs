@@ -110,6 +110,7 @@ namespace QRMService.Common
             DefectSeverity,
             ReviewType,
             ValidInjectedDetectedPhase,
+            ValidDefectTypeCause,
 
             IsValidDefectDetectedStage,
             IsValidDefectStatus,

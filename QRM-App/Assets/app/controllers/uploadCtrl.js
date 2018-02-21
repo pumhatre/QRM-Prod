@@ -10,6 +10,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
     $scope.dataSanityResult = [];
     $scope.InvalidData = true;
     $scope.HideFinalize = false;
+    $scope.InvalidEffortData = true;
+    $scope.InvalidDefectData = true;
 
     $scope.effortGridData = {};
     $scope.defectGridData = {};
@@ -92,6 +94,18 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.loading = false;
                 $scope.loadAttempted = true;
 
+                if ($scope.effortGridData.data.length > 0) {
+                    $scope.InvalidEffortData = true;
+                } else {
+                    $scope.InvalidEffortData = false;
+                }
+
+                if ($scope.defectGridData.data.length > 0) {
+                    $scope.InvalidDefectData = true;
+                } else {
+                    $scope.InvalidDefectData = false;
+                }
+
                 if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0) {
                     $scope.InvalidData = true;
                 } else {
@@ -113,30 +127,31 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         paginationPageSizes: [10, 50, 100, 200, 500],
         enableRowHeaderSelection: false,
         paginationPageSize: 5,
+        loading: true,
         //Declaring column and its related properties
         columnDefs: [
             {
-                name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", enableColumnMenu: false, width: '10%',
+                name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", enableColumnMenu: false, width: '15%',
                 enableCellEdit: false
             },
              {
-                 name: 'TaskType', displayName: "Task Type", field: "TaskType", enableColumnMenu: false, width: '10%',
+                 name: 'TaskType', displayName: "Task Type", field: "TaskType", enableColumnMenu: false, width: '15%',
                  enableCellEdit: false
              },
              {
-                 name: 'Status', displayName: "Status", field: "Status", enableColumnMenu: false, width: '10%',
+                 name: 'Status', displayName: "Status", field: "Status", enableColumnMenu: false, width: '15%',
                  enableCellEdit: false
              },
              {
-                 name: 'ComponentType', displayName: "Component Type", field: "ComponentType", enableColumnMenu: false, width: '10%',
+                 name: 'ComponentType', displayName: "Component Type", field: "ComponentType", enableColumnMenu: false, width: '15%',
                  enableCellEdit: false
              },
              {
-                 name: 'WidgetType', displayName: "Widget Type", field: "WidgetType", enableColumnMenu: false, width: '10%',
+                 name: 'WidgetType', displayName: "Widget Type", field: "WidgetType", enableColumnMenu: false, width: '15%',
                  enableCellEdit: false
              },
             {
-                name: 'Complexity', displayName: "Complexity", field: "Complexity", enableColumnMenu: false, width: '10%',
+                name: 'Complexity', displayName: "Complexity", field: "Complexity", enableColumnMenu: false, width: '15%',
                 enableCellEdit: false
             }
             //{
@@ -159,6 +174,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         paginationPageSizes: [10, 50, 100, 200, 500],
         enableRowHeaderSelection: false,
         paginationPageSize: 5,
+        loading: true,
         //Declaring column and its related properties
         columnDefs: [
             {
@@ -181,6 +197,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                  name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase", enableColumnMenu: false, width: '10%',
                  enableCellEdit: false
              },
+            {
+                name: 'DefectType', displayName: "Defect Type", field: "DefectType", enableColumnMenu: false, width: '10%',
+                enableCellEdit: false
+            },
+
              {
                  name: 'Cause', displayName: "Cause", field: "Cause", enableColumnMenu: false, width: '10%',
                 enableCellEdit: false
@@ -196,7 +217,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
              {
                  name: 'ValidInjectedDetectedPhase', displayName: "Valid Injected Detected Phase", field: "ValidInjectedDetectedPhase", enableColumnMenu: false, width: '10%',
                  enableCellEdit: false
-             }
+             },
+            {
+                name: 'ValidDefectTypeCause', displayName: "Valid Defect Type Cause", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
+                enableCellEdit: false
+            }
 
         ],
         onRegisterApi: function (gridApi) {
