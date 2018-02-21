@@ -241,6 +241,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             if (response.status == 200) {
                 $scope.dataSanityResult = response.data;
                 $scope.HideFinalize = true;
+                $scope.successTextAlert = "Data Saved Successfully!";
+                $scope.showSuccessAlert = true;
             }
         },
         function (errorResponse) {
