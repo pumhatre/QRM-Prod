@@ -336,6 +336,7 @@
     <Compile Include="Models\TestingDataModel.cs" />
     <Compile Include="Models\TestingSanityValidationModel.cs" />
     <Compile Include="Models\UploadViewModel.cs" />
+    <Compile Include="Models\UserConfigurationResponseModel.cs" />
     <Compile Include="Models\UserDetails.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\RoleModel.cs" />

@@ -11,14 +11,54 @@ namespace QRMService.Controllers
     [RoutePrefix("api/User")]
     public class UserController: ApiController
     {   
+
+        
+        [HttpPost]
+        public IHttpActionResult InsertUpdateUser(UserModel user)
+        {
+            UserRepository userRepository = new UserRepository();
+            var response = userRepository.InsertUpdateUsers(user);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetRoles()
+        { 
+            var response = RoleRepository.GetRolesList();
+            return Ok(response);
+        }
+
+
+        [HttpPost]
+        public IHttpActionResult DeleteUser(int UserId)
+        {
+            UserRepository userRepository = new UserRepository();
+            var response = userRepository.DeleteUser(UserId);
+            return Ok(response);
+        }
+
+
+
         [Route("GetUserInfo")]
         [HttpGet]
         public HttpResponseMessage GetUserDetails(string projectId)
         {
             UserRepository userRepo = new UserRepository();
-            var userData = userRepo.GetUsers(System.Int32.Parse(projectId));
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, userData);
-            return response;
+            projectId = string.IsNullOrEmpty(projectId) ? "0" : projectId;
+            
+            if(!string.IsNullOrEmpty(projectId) && projectId != "null")
+            {
+                var userData = userRepo.GetUsers(System.Int32.Parse(projectId));
+                var response = Request.CreateResponse(HttpStatusCode.OK, userData);
+                return response;
+            }
+            else
+            {                
+                var response = Request.CreateErrorResponse(HttpStatusCode.NoContent, "Error");
+                return response;
+
+            }           
+            
         }
 
         [Route("SaveUserInfo")]
@@ -41,6 +81,9 @@ namespace QRMService.Controllers
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "OK");
             return response;
         }
+
+
+
     }
 
 
