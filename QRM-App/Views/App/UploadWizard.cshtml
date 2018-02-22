@@ -141,61 +141,69 @@
                                     <div class="row setup-content margin-top15px" id="step-3">
                                         <div class="col-md-12">
                                             <form novalidate name="dataSanityForm" role="form" class="form-horizontal">
-                                                <div ng-hide="InvalidData">Data Sanity Completed successfully.All the records are valid.</div>
+                                                @*<div ng-hide="InvalidData">Data Sanity Completed successfully.All the records are valid.</div>*@
+
+                                                <div class="alert alert-success" ng-hide="InvalidData">
+                                                    <button type="button" class="close">×</button> <strong>Data Sanity Completed successfully.All the records are valid</strong>
+                                                </div>
+                                                <div class="alert alert-danger" ng-show="InvalidData">
+                                                    <button type="button" class="close">×</button> <strong>Data is Invalid.Please correct the below rows</strong>
+                                                </div>
+
+                                                @*<div class="alert alert-success" ng-hide="InvalidEffortData">
+                                                    <button type="button" class="close">×</button> <strong>Effort Data is Valid</strong>
+                                                </div>
+                                                <div class="alert alert-danger" ng-show="InvalidEffortData">
+                                                    <button type="button" class="close">×</button> <strong>Invalid Effort Data.Please correct the below rows</strong>
+                                                </div>
+                                                <div class="alert alert-success" ng-hide="InvalidDefectData">
+                                                    <button type="button" class="close">×</button> <strong>Defect Data is Valid</strong>
+                                                </div>
+                                                <div class="alert alert-danger" ng-show="InvalidDefectData">
+                                                    <button type="button" class="close">×</button> <strong>Invalid Defect Data.Please correct the below rows</strong>
+                                                </div>*@
 
                                                 <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                                         <li role="presentation" class="active">
-                                                            <a href="#tab_content1" target="_self" id="effort-tab" role="tab" data-toggle="tab" aria-expanded="true">Effort Data</a>
+                                                            <a href="#tab_content1" target="_self"  id="effort-tab" role="tab" data-toggle="tab" aria-expanded="true">Effort Data</a>
                                                         </li>
                                                         <li role="presentation" class="">
-                                                            <a href="#tab_content2" role="tab" target="_self" id="defect-tab" data-toggle="tab" aria-expanded="false">Defect Data</a>
+                                                            <a href="#tab_content2" role="tab"  target="_self" id="defect-tab" data-toggle="tab" aria-expanded="false">Defect Data</a>
                                                         </li>
                                                     </ul>
                                                     <div id="myTabcontent" class="tab-content">
                                                         @*effort data tab implementation*@
                                                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="effort-tab">
-                                                            <div class="col-md-12 col-sm-4 col-xs-12">
-                                                                <div class="x_panel tile fixed_height_420">
-                                                                    <div class="x_title">
-                                                                        <div class="clearfix"></div>
-                                                                    </div>
-                                                                    <div class="x_content">
-                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                                                            <div class="x_content">
-
-                                                                                <div class="clearfix"></div>
-                                                                                <br>
-                                                                                <div>
-                                                                                    <div class="col-md-12">
-                                                                                        <div ng-hide="InvalidEffortData">
-                                                                                            <span>Effort Data is Valid</span>
-                                                                                        </div>
-                                                                                        <div id="mGrid1" ng-show="InvalidEffortData" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
-                                                                                            <div class="grid-msg-overlay" ng-show="loading">
-                                                                                                <div class="msg">
-                                                                                                    <span>
-                                                                                                        Loading Data...
-                                                                                                        <i class="fa fa-spinner fa-spin"></i>
-                                                                                                    </span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="grid-msg-overlay" ng-hide="loading || effortGridData.data.length">
-                                                                                                <div class="msg">
-                                                                                                    <span>No Data</span>
-                                                                                                </div>
+                                                            <div class="x_panel">
+                                                                <div class="x_content" style="align-content:center;">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                        <div class="x_content">
+                                                                            <div class="clearfix"></div>
+                                                                            <br>
+                                                                            <div>
+                                                                                <div class="col-md-12">
+                                                                                    
+                                                                                    <div id="mGrid1" ng-show="InvalidEffortData" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                        <div class="grid-msg-overlay" ng-show="loading">
+                                                                                            <div class="msg">
+                                                                                                <span>
+                                                                                                    Loading Data...
+                                                                                                    <i class="fa fa-spinner fa-spin"></i>
+                                                                                                </span>
                                                                                             </div>
                                                                                         </div>
-
+                                                                                        <div class="grid-msg-overlay" ng-hide="loading || effortGridData.data.length">
+                                                                                            <div class="msg">
+                                                                                                <span>No Data</span>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-md-2">
 
-                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-2">
                                                                                 </div>
                                                                             </div>
-
-
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -213,10 +221,8 @@
                                                                             <br>
                                                                             <div>
                                                                                 <div class="col-md-12">
-                                                                                    <div ng-hide="InvalidDefectData">
-                                                                                        <span>Defect Data is Valid</span>
-                                                                                    </div>
-                                                                                    @*<div ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>*@
+                                                                                    
+                                                                                    <br />
                                                                                     <div id="mGrid2" ng-show="InvalidDefectData" ui-grid="defectGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                         <div class="grid-msg-overlay" ng-show="loading">
                                                                                             <div class="msg">
@@ -245,10 +251,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
-                                                    @*<button class="btn btn-green btn-md pull-right" ng-disabled="InvalidData" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Next</button>*@
                                                     <button class="btn btn-green nextBtn btn-md pull-right" type="button" ng-disabled="InvalidData">Next</button>
                                                     <button class="btn btn-primary previousBtn btn-md pull-right" type="button">Previous</button>
-                                                    @*<button class="btn btn-green btn-md pull-right"  ng-click="InsertDetailData()" type="button">Finalize</button>*@
                                                 </div>
                                             </form>
                                         </div>

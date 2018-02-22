@@ -23,6 +23,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         // $scope.LoadGridData();
     }
 
+
     $scope.stepTabsOptions = [
         {
             Id: "step-1",
