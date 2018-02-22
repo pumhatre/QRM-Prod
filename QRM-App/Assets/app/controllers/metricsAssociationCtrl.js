@@ -1,13 +1,15 @@
 ﻿angular.module('metricsAssociation', [])
-    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService) {
+    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService','ReportService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService,ReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
+        $scope.monthList = [];
         $scope.metricsAssociationData = [];
         $scope.gridData = [];
         $scope.metricsMasterIdList = [];
         $scope.selectedProjectReleaseDropdown = '';
         $scope.selectedProjectDropDown = '';
         $scope.alertType = null;
+        $scope.alertTypeAssociation = null;
         $scope.alerts = [];
         $scope.projectReleaseGridOptions = {};
 
@@ -20,6 +22,18 @@
 
                 });
         }
+
+        $scope.LoadMonthsDropDown = function () {
+            ReportService.GetMonthList(config).then(function (response) {
+                if (response.status == 200) {
+                    $scope.monthList = response.data;
+                }
+            },
+             function (errorResponse) {
+                 
+             });
+        }
+
         //Load Metrics Association grid on Page load
 
 
@@ -49,10 +63,12 @@
 
         $scope.ClearAlert = function () {
             $scope.alertType = null;
+            $scope.alertTypeAssociation = null;
         }
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
+        $scope.LoadMonthsDropDown();
         LoadMetricsAssociationGrid();
 
         $scope.gridOptions = {
@@ -65,23 +81,31 @@
             columnDefs: [
                 //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
                 //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'TypeCode', name: 'TypeCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '45%' },
-                { field: 'MetricDescription', name: 'MetricDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '45%' }
+                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '30%' },
+                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '70%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
             }
         };
 
-        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
+        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown,selectedMonth) {
             $scope.selectedRows = $scope.gridApi.selection.getSelectedRows();
             angular.forEach($scope.selectedRows, function (value, key) {
                 $scope.metricsMasterIdList.push(value.MetricsMasterId);
             });
-            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
+            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth.MonthId, config)
                 .then(function (successResponse) {
                     if (successResponse.data.IsSuccess) {
-                        alert(successResponse);
+                        // show success alert
+                        $scope.alertTypeAssociation = "Success";
+                        $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
+                        $scope.GetProjectReleasesByProjectId();
+                    }
+                    else {
+                        // show failure alert
+                        $scope.alertTypeAssociation = "Failure";
+                        $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
                     }
 
                 }, function (errorResponse) {

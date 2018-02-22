@@ -16,6 +16,7 @@ namespace QRMService.Repositories
             using (var db = new QRMEntities())
             {
                 var metricsDetails = (from m in db.MetricMasters
+                                      where m.IsActive == true
                                        select new MetricsModel
                                        {
                                            MetricsMasterId = m.MetricMasterID,
@@ -52,6 +53,7 @@ namespace QRMService.Repositories
                                     metricsData.MetricSubCategoryDescription = metrics.SubCategoryDescription;
                                     metricsData.MetricTypeCode = metrics.TypeCode;
                                     metricsData.MetricTypeDescription = metrics.TypeDescription;
+                                    metricsData.IsActive = true;
                                 }
 
                                 else
@@ -63,6 +65,7 @@ namespace QRMService.Repositories
                                     newMetrics.MetricSubCategoryDescription = metrics.SubCategoryDescription;
                                     newMetrics.MetricTypeCode = metrics.TypeCode;
                                     newMetrics.MetricTypeDescription = metrics.TypeDescription;
+                                    newMetrics.IsActive = true;
                                     context.MetricMasters.Add(newMetrics);
                                 }
                             }

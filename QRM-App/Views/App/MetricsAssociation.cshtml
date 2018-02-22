@@ -31,8 +31,7 @@
             }
 
     #metricAssociationGrid {
-        width: 700px !important;
-        height: 260px !important;
+        width: 100% !important;
     }
 </style>
 <div class="x_panel" role="main">
@@ -97,6 +96,7 @@
                                                             </div>
                                                             <br>
                                                             <br>
+                                                            
                                                             <div class="row">
                                                                 <div class="col-md-3"></div>
                                                                 <div class="col-md-3"></div>
@@ -145,7 +145,10 @@
                                     <div class="x_panel">
                                         <div class="x_content" style="align-content:center;">
                                             <div class="col-md-12 col-sm-12 col-xs-12">
-
+                                                <div ng-show="alertTypeAssociation" ng-class="{'alert-success': alertTypeAssociation=='Success','alert-danger': alertTypeAssociation=='Failure'}" class="alert alert-dismissable">
+                                                    <span style="cursor:pointer;" class="close" aria-label="close" ng-click="ClearAlert()">&times;</span>
+                                                    <strong>{{alertTypeAssociation}}!</strong> {{alertAssociationMessage}}
+                                                </div>
                                                 <div class="x_content">
                                                     <div class="form-group">
                                                         <div class="col-md-3"></div>
@@ -173,6 +176,19 @@
                                                     </div>
                                                     <br>
                                                     <br>
+                                                    <div class="form-group">
+                                                        <div class="col-md-3"></div>
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
+                                                        <div class="col-md-3">
+                                                            <select class="form-control" name="monthList" ng-model="selectedMonth"
+                                                                    ng-options="g.MonthName for g in monthList" required autofocus>
+                                                                <option value="">Select Month</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3"></div>
+                                                    </div>
+                                                    <br>
+                                                    <br>
                                                     <div class="row">
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-3"></div>
@@ -193,7 +209,7 @@
                                                         <div class="col-md-2"></div>
                                                         <div class="clearfix"></div>
                                                         <div style="text-align:center;">
-                                                            <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
+                                                            <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
                                                         </div>
                                                     </div>
                                                 </div>

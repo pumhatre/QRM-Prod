@@ -14,11 +14,16 @@ namespace QRMService.Repositories
             using (var db = new QRMEntities())
             {
                 var metricsDetails = (from m in db.MetricMasters
+                                      where m.IsActive == true
                                       select new MetricsModel
                                       {
                                           MetricsMasterId = m.MetricMasterID,
+                                          CategoryCode = m.MetricCategoryCode,
+                                          CategoryDescription = m.MetricCategoryDescription,
+                                          SubCategoryCode = m.MetricSubCategoryCode,
+                                          SubCategoryDescription = m.MetricSubCategoryDescription,
                                           TypeCode = m.MetricTypeCode,
-                                          MetricDescription=m.MetricsDescription,
+                                          MetricDescription = m.MetricsDescription,
                                       }).ToList();
                 return metricsDetails;
             }
@@ -29,11 +34,11 @@ namespace QRMService.Repositories
             using (var db = new QRMEntities())
             {
                 var releaseDetails = (from m in db.ProjectReleaseMasters
-                                      where m.ProjectID==projectId
+                                      where m.ProjectID == projectId
                                       select new ProjectReleaseModel
                                       {
                                           ProjectReleaseId = m.ProjectReleaseId,
-                                          ReleaseName=m.ReleaseName,
+                                          ReleaseName = m.ReleaseName,
                                       }).ToList()
                                       ;
                 return releaseDetails;
@@ -48,16 +53,18 @@ namespace QRMService.Repositories
                 var metricsMasterIdList = modelData.MetricsMasterIdList;
                 int projectId = modelData.ProjectId;
                 var releaseId = modelData.ReleaseId;
+                int monthid = modelData.MonthId;
                 foreach (int id in metricsMasterIdList)
                 {
-                    var metricsAssociation = db.ProjectMetricAssociations.Where(a=>a.MetricMasterID==id && a.ProjectId==projectId && a.ReleaseId==releaseId).FirstOrDefault();
+                    var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId).FirstOrDefault();
                     if (metricsAssociation == null)
                     {
                         var projectMetricsAssociationData = new ProjectMetricAssociation
                         {
                             ProjectId = projectId,
                             ReleaseId = releaseId,
-                            MetricMasterID = id
+                            MetricMasterID = id,
+                            MonthId = monthid
                         };
                         db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
                         db.SaveChanges();
@@ -69,7 +76,7 @@ namespace QRMService.Repositories
                         response.ResponseMessage = "Release Metrics Association already exists.";
                     }
                 }
-                
+
                 return response;
             }
         }
