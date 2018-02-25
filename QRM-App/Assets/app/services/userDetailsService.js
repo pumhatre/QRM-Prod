@@ -8,7 +8,9 @@
     this.GetRoleList = function (config) {      
         return $http.get(config.apiUrl + 'api/User/GetRoles');
     }
-
+    this.GetProjectList = function (config) {      
+        return $http.get(config.apiUrl + 'api/User/GetProjects');
+    }
     this.InsertUpdateUser = function (userDetail, config) {      
         
         return $http.post(config.apiUrl + 'api/User/InsertUpdateUser', userDetail);

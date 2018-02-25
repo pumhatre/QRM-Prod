@@ -145,6 +145,13 @@ namespace QRMService.Controllers
             try
             {
                 var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid());
+                for (int i = 0; i < projectEffort.Count; i++)
+                {
+                    if (i%2==0)
+                    {
+                        projectEffort[i].spanCompany = 2;
+                    }
+                }
                 return Ok(projectEffort);
 
             }

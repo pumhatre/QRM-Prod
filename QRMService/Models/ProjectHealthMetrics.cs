@@ -18,6 +18,7 @@ namespace QRMService.Models
         public int? TotalHours { get; set; }
         public string DashBoardType { get; set; }
         public string DashboardSubtype { get; set; }
+        public int spanCompany { get; set; }
     }
 
     //Dev

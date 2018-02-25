@@ -3,6 +3,19 @@
         height: 35px !important;
         vertical-align: middle !important;
     }
+
+    .wrap {
+        white-space: normal;
+    }
+
+    .ui-grid-row {
+        position: relative;
+        z-index: -27;
+    }
+
+    .testClass {
+        z-index: -10;
+    }
 </style>
 
 <div class="x_panel" role="main" ng-app="healthReport" ng-controller="healthreportCtrl">
@@ -19,16 +32,16 @@
                         <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#tab_content1" ng-click="LoadProjectEffort()" target="_self"  id="home-tab"  role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
+                                    <a href="#tab_content1" ng-click="LoadProjectEffort()" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content2"  ng-click="LoadProjectTesting()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
+                                    <a href="#tab_content2" ng-click="LoadProjectTesting()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content3"  ng-click="LoadProjectDefect()" role="tab"  target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
+                                    <a href="#tab_content3" ng-click="LoadProjectDefect()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content4"  ng-click="LoadProjectWidget()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
+                                    <a href="#tab_content4" ng-click="LoadProjectWidget()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
                                 </li>
                             </ul>
                             <div id="myTabcontent" class="tab-content">

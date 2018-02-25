@@ -5,9 +5,11 @@
 */
 "use strict";
 angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-.controller('healthreportCtrl', ['$scope', 'healthReportService', 'config', 'uiGridConstants', function ($scope, healthReportService, config, uiGridConstants) {
+.controller('healthreportCtrl', ['$scope', 'healthReportService', 'config', 'uiGridConstants', '$templateCache', function ($scope, healthReportService, config, uiGridConstants, $templateCache) {
     $scope.projectEffortGrid = {};
    
+    var rowTemplate = '<div role=\"rowgroup\" class=\"ui-grid-viewport\" ng-style=\"colContainer.getViewportStyle()\"><!-- tbody --><div class=\"ui-grid-canvas\"><div ng-repeat=\"(rowRenderIndex, row) in rowContainer.renderedRows track by $index\" class=\"ui-grid-row\" ng-class=\"{\'testClass\': row.entity.spanCompany}\" ng-style=\"Viewport.rowStyle(rowRenderIndex)\"><div role=\"row\" ui-grid-row=\"row\" row-render-index=\"rowRenderIndex\"></div></div></div></div>';
+    $templateCache.put('ui-grid/uiGridViewport', rowTemplate);
 
     $scope.LoadProjectEffort = function () {
         healthReportService.GetAllProjectEffort(config)
@@ -75,7 +77,7 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
         enableColumnMenus: false,
         enableRowHeaderSelection: false,
         columnDefs: [
-            { field: 'DashBoardType', name: '', cellTemplate: tmpl1, width: '22%' },
+            { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanCompany + \'px\', width:col.width+\'px\', position:\'absolute\', display:row.entity.spanCompany==0?\'none\':\'block\', borderStyle:\'solid\', borderWidth:\'1px\', background: \'rgb(253, 241, 186)\'}" >{{COL_FIELD}}</div>', width: '100' },
             { field: 'DashboardSubtype', name: 'P/A', cellTemplate: tmpl1, width: '22%' },
             { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: tmpl1 },
             { field: 'WIPHours', name: 'WIP', width: '15%', cellTemplate: tmpl1 },

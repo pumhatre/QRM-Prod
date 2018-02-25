@@ -9,7 +9,7 @@ namespace QRMService.Repositories
 {
     public class UserRepository
     {
-        public ProjectUserModel GetUsers(int projectId)
+        public ProjectUserModel GetUsers()
         {
             ProjectUserModel projectUserModel = new ProjectUserModel();
 
@@ -17,41 +17,42 @@ namespace QRMService.Repositories
             {
                 projectUserModel.proejectList = db.ProjectMasters.Select(x => x.ProjectID).ToList();
 
-                if (projectId > 0)
-                {
-                    var entities = (from users in db.UserDetails
-                                    join role in db.UserProjectRoleAssociations on users.UserId equals role.UserId
-                                    select new
-                                    {
-                                        users,
-                                        role,
-                                        proejectId = role.ProjectId
+                //if (projectId > 0)
+               // {
+                    //var entities = (from users in db.UserDetails
+                    //                join role in db.UserProjectRoleAssociations on users.UserId equals role.UserId
+                    //                select new
+                    //                {
+                    //                    users,
+                    //                    role,
+                    //                    proejectId = role.ProjectId
 
-                                    }).Where(x => x.proejectId == projectId).ToList();
+                    //                }).Where(x => x.proejectId == projectId).ToList();
                   
-                    List<UserModel> userEntity = new List<UserModel>();
-                    if (entities != null && entities.Any())
-                    {
-                        foreach (var row in entities)
-                        {
-                            UserModel model = new UserModel();
-                            model.userId = row.users.UserId;
-                            model.firstName = row.users.FirstName;
-                            model.lastName = row.users.LastName;
-                            model.middleName = row.users.MiddleName;
-                            model.email = row.users.Email;
-                            model.phone = row.users.Phone;
-                            model.roleId = row.role.RoleId;
-                            model.userProjectRoleId = row.role.UserProjectRoleId;
-                            userEntity.Add(model);
-                        }
-                    }
+                    //List<UserModel> userEntity = new List<UserModel>();
+                    //if (entities != null && entities.Any())
+                    //{
+                    //    foreach (var row in entities)
+                    //    {
+                    //        UserModel model = new UserModel();
+                    //        model.userId = row.users.UserId;
+                    //        model.firstName = row.users.FirstName;
+                    //        model.lastName = row.users.LastName;
+                    //        model.middleName = row.users.MiddleName;
+                    //        model.email = row.users.Email;
+                    //        model.phone = row.users.Phone;
+                    //        model.roleId = row.role.RoleId;
+                    //        model.userProjectRoleId = row.role.UserProjectRoleId;
+                    //        userEntity.Add(model);
+                    //    }
+                    //}
                    
                     
 
                     var userList = (from pd in db.UserDetails
                                     join od in db.UserProjectRoleAssociations on pd.UserId equals od.UserId
-                                    where od.ProjectId == projectId
+                                    join p in db.ProjectMasters on od.ProjectId equals p.ProjectID
+                                 //   where od.ProjectId == projectId
                                     join rd in db.RoleMasters on od.RoleId equals rd.RoleId
                                     select new UserModel
                                     {
@@ -63,10 +64,12 @@ namespace QRMService.Repositories
                                         phone = pd.Phone,
                                         roleId = od.RoleId,
                                         roleName = rd.RoleName,
+                                        projectName=p.ProjectName,
+                                        projectId=p.ProjectID,
                                         userProjectRoleId = od.UserProjectRoleId
                                     }).OrderByDescending(p => p.userId).ToList();
                     projectUserModel.userDetails = userList;
-                }
+               // }
                 
                 return projectUserModel;
             }
