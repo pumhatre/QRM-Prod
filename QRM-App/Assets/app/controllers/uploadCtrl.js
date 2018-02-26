@@ -1,7 +1,7 @@
 ﻿//uploadCtrl
 
 angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-    .controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'healthReportService', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, healthReportService, projectReleaseService, metricsAssociationService, uploadService, config, $confirm) {
+    .controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'healthReportService', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm','$templateCache', function ($scope, $http, uiGridConstants, healthReportService, projectReleaseService, metricsAssociationService, uploadService, config, $confirm,$templateCache) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.isUploaded = true;
@@ -277,6 +277,12 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         //Start Report Region
+        var rowTemplate = '<div role=\"rowgroup\" class=\"ui-grid-viewport\" ng-style=\"colContainer.getViewportStyle()\"><!-- tbody --><div class=\"ui-grid-canvas\"><div ng-repeat=\"(rowRenderIndex, row) in rowContainer.renderedRows track by $index\" class=\"ui-grid-row\" ng-class=\"{\'testClass\': row.entity.spanWidget}\" ng-style=\"Viewport.rowStyle(rowRenderIndex)\"><div role=\"row\" ui-grid-row=\"row\" row-render-index=\"rowRenderIndex\"></div></div></div></div>';
+        $templateCache.put('ui-grid/uiGridViewport', rowTemplate);
+
+        var rowTemplate1 = '<div role=\"rowgroup\" class=\"ui-grid-viewport\" ng-style=\"colContainer.getViewportStyle()\"><!-- tbody --><div class=\"ui-grid-canvas\"><div ng-repeat=\"(rowRenderIndex, row) in rowContainer.renderedRows track by $index\" class=\"ui-grid-row\" ng-class=\"{\'testClass\': row.entity.spanEffort}\" ng-style=\"Viewport.rowStyle(rowRenderIndex)\"><div role=\"row\" ui-grid-row=\"row\" row-render-index=\"rowRenderIndex\"></div></div></div></div>';
+        $templateCache.put('ui-grid/uiGridViewport', rowTemplate1);
+
         var extraRowEffort = null
         var extraRowTesting = null
 
@@ -367,7 +373,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             columnDefs: [
-                { field: 'DashBoardType', name: '', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
+                { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '21%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
                 { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: tmpl1 },
                 { field: 'WIPHours', name: 'Work in Progress', width: '17%', cellTemplate: tmpl1 },
@@ -424,7 +430,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             columnDefs: [
-                { field: 'DashBoardType', name: '', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
+                { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanWidget + \'px\', width:20.5+\'%\', position:\'absolute\', display:row.entity.spanWidget==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '22%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
                 { field: 'CompletedHours', name: 'Complete', cellTemplate: tmpl2, width: '15%' },
                 { field: 'WipHours', name: 'Work in Progress', width: '18%', cellTemplate: tmpl2 },

@@ -77,7 +77,7 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
         enableColumnMenus: false,
         enableRowHeaderSelection: false,
         columnDefs: [
-            { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanCompany + \'px\', width:col.width+\'px\', position:\'absolute\', display:row.entity.spanCompany==0?\'none\':\'block\', borderStyle:\'solid\', borderWidth:\'1px\', background: \'rgb(253, 241, 186)\'}" >{{COL_FIELD}}</div>', width: '100' },
+            { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanCompany + \'px\', width:col.width+\'px\', position:\'absolute\', display:row.entity.spanCompany==0?\'none\':\'block\', background: \'#f3f3f3\'}" >{{COL_FIELD}}</div>', width: '100' },
             { field: 'DashboardSubtype', name: 'P/A', cellTemplate: tmpl1, width: '22%' },
             { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: tmpl1 },
             { field: 'WIPHours', name: 'WIP', width: '15%', cellTemplate: tmpl1 },
