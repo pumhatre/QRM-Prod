@@ -17,9 +17,9 @@
     }
 
     this.DeleteUser = function (userId, config) {
-        var data = {
-            UserId: userId
-        }
-        return $http.post(config.apiUrl + 'api/User/DeleteUser', data);
+        //var data = {
+        //    UserId: userId
+        //}
+        return $http.post(config.apiUrl + 'api/User/DeleteUser?userId=' + userId);
     }
 }]);

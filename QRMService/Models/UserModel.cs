@@ -16,7 +16,7 @@ namespace QRMService.Models
         public int? roleId { get; set; }
         public int userProjectRoleId { get; set; }
         public bool IsDeleted { get; set; }
-        public int projectId { get; set; }
+        public int? projectId { get; set; }
         public string roleName { get; set; }
         public string projectName { get; set; }
     }

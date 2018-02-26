@@ -25,6 +25,7 @@ namespace QRMService.Common
         public const string UspGetProjectDefectDashboard = "[Dbo].[uspGenerateProjectDefectsDashboard]";
         public const string UspGetProjectWidgetDashboard = "[Dbo].[uspGenerateProjectWidgetDashboard]";
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
+        public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
 
         public enum EffortTablesColumnName
         {
@@ -159,6 +160,21 @@ namespace QRMService.Common
             WipHours,
             NotStartedHours,
             TotalHours
+        }
+
+        public enum ProjectColumnName
+        {
+            userId ,
+            firstName ,
+            middleName,
+            lastName,
+            email,
+            phone,
+            roleId ,
+            roleName ,
+            projectName ,
+            projectId,
+            userProjectRoleId,
         }
         //public enum TestTablesColumnName
         //{
