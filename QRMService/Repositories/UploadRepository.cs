@@ -10,6 +10,7 @@ using QRMFrameworkHelpers;
 using QRMService.Common;
 using AutoMapper;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace QRMService.Repositories
 {
@@ -190,9 +191,33 @@ namespace QRMService.Repositories
             DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspGetEffortDataSanityResults, "default", true, parameters.ToArray());
 
             List<EffortSanityValidationModel> effortSanityValidationList = new List<EffortSanityValidationModel>();
-
+            
             dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
             {
+                StringBuilder sb = new StringBuilder();
+
+                //Review Type
+                var isValidTaskType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidTaskType.ToString());
+                var isValidStatus = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidStatus.ToString());
+                var isValidComponentType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidComponentType.ToString());
+                var isValidWidgetType = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidWidgetType.ToString());
+                var isValidComplexity = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidComplexity.ToString());
+                var isValidCMMIRollup = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidCMMIRollup.ToString());
+
+
+                if (!isValidTaskType)
+                    sb.Append("Invalid Task type").Append("|");
+                if (!isValidStatus)
+                    sb.Append("Invalid Status").Append("|");
+                if (!isValidComponentType)
+                    sb.Append("Invalid Component Type").Append("|");
+                if (!isValidWidgetType)
+                    sb.Append("Invalid Widget Type").Append("|");
+                if (!isValidComplexity)
+                    sb.Append("Invalid Complexity").Append("|");
+                if (!isValidCMMIRollup)
+                    sb.Append("Invalid CMMIRollup").Append("|");
+
                 effortSanityValidationList.Add(new EffortSanityValidationModel
                 {
                     EffortDataStagingId = row.Field<int>(Constants.EffortSanityValidationColumnName.EffortDataStagingId.ToString()),
@@ -202,8 +227,8 @@ namespace QRMService.Repositories
                     ComponentType = row.Field<string>(Constants.EffortSanityValidationColumnName.ComponentType.ToString()),
                     WidgetType = row.Field<string>(Constants.EffortSanityValidationColumnName.WidgetType.ToString()),
                     Complexity = row.Field<string>(Constants.EffortSanityValidationColumnName.Complexity.ToString()),
-                    CMMIRollUp = row.Field<string>(Constants.EffortSanityValidationColumnName.CMMIRollUp.ToString())
-
+                    CMMIRollUp = row.Field<string>(Constants.EffortSanityValidationColumnName.CMMIRollUp.ToString()),
+                    ErrorArray = sb.ToString().TrimEnd('|').Split('|')
                 });
             });
 
@@ -302,6 +327,40 @@ namespace QRMService.Repositories
 
             dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
             {
+                StringBuilder sb = new StringBuilder();
+                var defectSanityModel = new DefectSanityValidationModel();
+                //Review Type
+                var isValidDetectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectDetectedStage.ToString());
+                var isValidDefectStatus = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectStatus.ToString());
+                var isValidDefectInjectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectInjectedStage.ToString());
+                var isValidExpectedDetectionPhase = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidExpectedDetectionPhase.ToString());
+                var isValidDefectType = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectType.ToString());
+                var isValidDefectCause = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectCause.ToString());
+                var isValidDefectSeverity = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectSeverity.ToString());
+                var isValidReviewType = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidReviewType.ToString());
+                var isValidInjectedDetectedPhase = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidInjectedDetectedPhase.ToString());
+                var isValidDefectTypeCause = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectTypeCause.ToString());
+
+                if (!isValidDetectedStage)
+                    sb.Append("Invalid Detected Stage").Append("|");
+                if (!isValidDefectStatus)
+                    sb.Append("Invalid Status").Append("|");
+                if (!isValidDefectInjectedStage)
+                    sb.Append("Invalid Injected Stage").Append("|");
+                if (!isValidExpectedDetectionPhase)
+                    sb.Append("Invalid Expected Detection Phase").Append("|");
+                if (!isValidDefectType)
+                    sb.Append("Invalid Type").Append("|");
+                if (!isValidDefectSeverity)
+                    sb.Append("Invalid Severity").Append("|");
+                if (!isValidReviewType)
+                    sb.Append("Invalid Review Type").Append("|");
+                if (!isValidInjectedDetectedPhase)
+                    sb.Append("Incorrect Expected Detection Phase Mapping").Append("|");
+                if (!isValidDefectTypeCause)
+                    sb.Append("Incorrect Defect Cause Mapping").Append("|");
+
+
                 defectSanityValidationList.Add(new DefectSanityValidationModel
                 {
                     DefectDataStagingId = row.Field<int>(Constants.DefectSanityValidationColumnName.DefectDataStagingId.ToString()),
@@ -315,7 +374,10 @@ namespace QRMService.Repositories
                     DefectSeverity = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectSeverity.ToString()),
                     ReviewType = row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString()),
                     ValidInjectedDetectedPhase = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidInjectedDetectedPhase.ToString()),
-                    ValidDefectTypeCause = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidDefectTypeCause.ToString())
+                    ValidDefectTypeCause = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidDefectTypeCause.ToString()),
+                    ErrorDescription = sb.ToString().TrimEnd('|'),
+                    ErrorArray = sb.ToString().TrimEnd('|').Split('|')
+
                 });
             });
 

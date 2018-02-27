@@ -64,7 +64,7 @@ namespace QRMService.Common
             WidgetType,
             Complexity,
             CMMIRollUp,
-
+            ErrorDescription,
             IsValidTaskType,
             IsValidStatus,
             IsValidComponentType,
@@ -119,7 +119,9 @@ namespace QRMService.Common
             IsValidDefectType,
             IsValidDefectCause,
             IsValidDefectSeverity,
-            IsValidReviewType
+            IsValidReviewType,
+            IsValidInjectedDetectedPhase,
+            IsValidDefectTypeCause
 
         }
 

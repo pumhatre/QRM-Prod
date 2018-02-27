@@ -2,244 +2,266 @@
 
 angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
     .controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'healthReportService', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, healthReportService, projectReleaseService, metricsAssociationService, uploadService, config, $confirm) {
-    $scope.projectsDropdown = [];
-    $scope.projectsReleases = [];
-    $scope.isUploaded = true;
-    $scope.errors = [];
+        $scope.projectsDropdown = [];
+        $scope.projectsReleases = [];
+        $scope.isUploaded = true;
+        $scope.errors = [];
 
-    $scope.dataSanityResult = [];
-    $scope.InvalidData = true;
-    $scope.HideFinalize = false;
-    $scope.InvalidEffortData = true;
-    $scope.InvalidDefectData = true;
+        $scope.dataSanityResult = [];
+        $scope.InvalidData = true;
+        $scope.HideFinalize = false;
+        $scope.InvalidEffortData = true;
+        $scope.InvalidDefectData = true;
 
-    $scope.effortGridData = {};
-    $scope.defectGridData = {};
-
-
-    $scope.init = function () {
-        $scope.LoadProjectsDropDown();
-        $scope.LoadMonthsDropDown();
-        // $scope.LoadGridData();
-    }
+        $scope.effortGridData = {};
+        $scope.defectGridData = {};
 
 
-    $scope.stepTabsOptions = [
-        {
-            Id: "step-1",
-            DisplayHeaderName: "Step1",
-            DisplaySubHeaderName: "Select the period"
-        },
-        {
-            Id: "step-2",
-            DisplayHeaderName: "Step2",
-            DisplaySubHeaderName: "Upload Sheet"
-        },
-        {
-            Id: "step-3",
-            DisplayHeaderName: "Step3",
-            DisplaySubHeaderName: "Sanity Checks"
-        },
-         {
-             Id: "step-4",
-             DisplayHeaderName: "Step4",
-             DisplaySubHeaderName: "Health Report"
-         }
+        $scope.init = function () {
+            $scope.LoadProjectsDropDown();
+            $scope.LoadMonthsDropDown();
+            // $scope.LoadGridData();
+        }
 
-    ];
 
-    // function to load projects dropdown
-    $scope.LoadProjectsDropDown = function () {
-        projectReleaseService.GetProjectsLists(config)
-            .then(function (successResponse) {
-                $scope.projectsDropdown = successResponse.data;
-            }, function (errorResponse) {
+        $scope.stepTabsOptions = [
+            {
+                Id: "step-1",
+                DisplayHeaderName: "Step1",
+                DisplaySubHeaderName: "Select the period"
+            },
+            {
+                Id: "step-2",
+                DisplayHeaderName: "Step2",
+                DisplaySubHeaderName: "Upload Sheet"
+            },
+            {
+                Id: "step-3",
+                DisplayHeaderName: "Step3",
+                DisplaySubHeaderName: "Sanity Checks"
+            },
+             {
+                 Id: "step-4",
+                 DisplayHeaderName: "Step4",
+                 DisplaySubHeaderName: "Health Report"
+             }
 
-            });
-    }
+        ];
 
-    $scope.getProjectReleases = function (projectId) {
-        metricsAssociationService.getReleaseList(config, projectId)
-            .then(function (successResponse) {
-                $scope.releaseDropdown = successResponse.data;
-            }, function (errorResponse) {
+        // function to load projects dropdown
+        $scope.LoadProjectsDropDown = function () {
+            projectReleaseService.GetProjectsLists(config)
+                .then(function (successResponse) {
+                    $scope.projectsDropdown = successResponse.data;
+                }, function (errorResponse) {
 
-            });
-    }
+                });
+        }
 
-    $scope.LoadMonthsDropDown = function () {
-        uploadService.GetMonthList(config).then(function (response) {
-            if (response.status == 200) {
-                $scope.months = response.data;
+        $scope.getProjectReleases = function (projectId) {
+            metricsAssociationService.getReleaseList(config, projectId)
+                .then(function (successResponse) {
+                    $scope.releaseDropdown = successResponse.data;
+                }, function (errorResponse) {
+
+                });
+        }
+
+        $scope.LoadMonthsDropDown = function () {
+            uploadService.GetMonthList(config).then(function (response) {
+                if (response.status == 200) {
+                    $scope.months = response.data;
+                }
+            },
+                function (errorResponse) {
+
+                });
+        }
+
+        //get data from staging for sanity check
+        $scope.GetStagingData = function () {
+            var requestData = {
+                ProjectId: parseInt($scope.projectDetails.selectedProjectDropdown),
+                ProjectReleaseId: parseInt($scope.projectDetails.selectedReleaseDropdown),
+                MonthId: parseInt($scope.projectDetails.month)
             }
-        },
+            uploadService.getDefectStagingData(requestData).then(function (response) {
+                if (response.status == 200) {
+                    $scope.dataSanityResult = response.data;
+
+                    //assign effort and defect data to respective grids
+                    $scope.effortGridData.data = $scope.dataSanityResult.effortSanityValidatonModel;
+                    $scope.defectGridData.data = $scope.dataSanityResult.defectSanityValidationModel;
+                    $scope.loading = false;
+                    $scope.loadAttempted = true;
+
+                    if ($scope.effortGridData.data.length > 0) {
+                        $scope.InvalidEffortData = true;
+                    } else {
+                        $scope.InvalidEffortData = false;
+                    }
+
+                    if ($scope.defectGridData.data.length > 0) {
+                        $scope.InvalidDefectData = true;
+                    } else {
+                        $scope.InvalidDefectData = false;
+                    }
+
+                    if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0) {
+                        $scope.InvalidData = true;
+                    } else {
+                        $scope.InvalidData = false;
+                    }
+
+                    //call function to populate ui grid
+                    //  $scope.LoadGridData();
+
+                }
+            },
             function (errorResponse) {
 
             });
-    }
-
-    //get data from staging for sanity check
-    $scope.GetStagingData = function () {
-        var requestData = {
-            ProjectId: parseInt($scope.projectDetails.selectedProjectDropdown),
-            ProjectReleaseId: parseInt($scope.projectDetails.selectedReleaseDropdown),
-            MonthId: parseInt($scope.projectDetails.month)
         }
-        uploadService.getDefectStagingData(requestData).then(function (response) {
-            if (response.status == 200) {
-                $scope.dataSanityResult = response.data;
 
-                //assign effort and defect data to respective grids
-                $scope.effortGridData.data = $scope.dataSanityResult.effortSanityValidatonModel;
-                $scope.defectGridData.data = $scope.dataSanityResult.defectSanityValidationModel;
-                $scope.loading = false;
-                $scope.loadAttempted = true;
+        var renderEffortError = function () {
+                    return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
+                    }
+        //get function to load grid data
+        $scope.effortGridData = {
+            paginationPageSizes: [10, 50, 100, 200, 500],
+            enableRowHeaderSelection: false,
+            paginationPageSize: 5,
+            loading: true,
+            //Declaring column and its related properties
+            columnDefs: [
+                {
+                    name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                    enableCellEdit: false
+                },
+                 {
+                     name: 'TaskType', displayName: "Task Type", field: "TaskType",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'red';
+                         } else {
+                             return 'effortCellClass';
+                         }
+                     },
+                     enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'Status', displayName: "Status", field: "Status", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'ComponentType', displayName: "Component Type", field: "ComponentType", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'WidgetType', displayName: "Widget Type", field: "WidgetType", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                     enableCellEdit: false
+                 },
+                {
+                    name: 'Complexity', displayName: "Complexity", field: "Complexity", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                    enableCellEdit: false
+                },
 
-                if ($scope.effortGridData.data.length > 0) {
-                    $scope.InvalidEffortData = true;
-                } else {
-                    $scope.InvalidEffortData = false;
+                {
+                    name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription", cellClass: 'red', enableColumnMenu: false, width: '30%',
+                    enableCellEdit: false, cellTemplate: renderEffortError()
                 }
 
-                if ($scope.defectGridData.data.length > 0) {
-                    $scope.InvalidDefectData = true;
-                } else {
-                    $scope.InvalidDefectData = false;
-                }
+                //{
+                //    name: 'CMMIRollUp', displayName: "CMMIRollUp", field: "CMMIRollUp", enableColumnMenu: false, width: '15%',
+                //    enableCellEdit: false
+                //},
+                //{
+                //    name: 'ReviewType', displayName: "Review Type", field: "ReviewType", enableColumnMenu: false, width: '15%',
+                //    enableCellEdit: false
+                //}
 
-                if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0) {
-                    $scope.InvalidData = true;
-                } else {
-                    $scope.InvalidData = false;
-                }
-
-                //call function to populate ui grid
-                //  $scope.LoadGridData();
-
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
             }
-        },
-        function (errorResponse) {
+        };
+        
+        var render = function () {
+            return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
+        }
+        //var tmp2 = 
+        //get function to load grid data
+        $scope.defectGridData = {
+                paginationPageSizes: [10, 50, 100, 200, 500],
+                enableRowHeaderSelection: false,
+            paginationPageSize: 5,
+                loading: true,
+            //Declaring column and its related properties
+                columnDefs: [
+                    {
+                        name: 'WidgetComponentId', displayName: "Widget Component Id", field: "WidgetComponentId", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                            enableCellEdit: false
+                },
+                     {
+                         name: 'DetectedStage', displayName: "Detected Stage", field: "DetectedStage", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                             enableCellEdit: false
+                },
+                     {
+                         name: 'Status', displayName: "Status", field: "Status", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                             enableCellEdit: false
+                },
+                     {
+                         name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                             enableCellEdit: false
+                },
+                     {
+                         name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                             enableCellEdit: false
+                },
+                    {
+                        name: 'DefectType', displayName: "Defect Type", field: "DefectType", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                            enableCellEdit: false
+                },
 
-        });
-    }
+                     {
+                         name: 'Cause', displayName: "Cause", field: "Cause", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                             enableCellEdit: false
+                },
+                    {
+                        name: 'DefectSeverity', displayName: "DefectSeverity", field: "defectCellClass", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                            enableCellEdit: false
+                },
+                    {
+                        name: 'ReviewType', displayName: "ReviewType", field: "ReviewType", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
+                            enableCellEdit: false
+                },
 
-    //get function to load grid data
-    $scope.effortGridData = {
-        paginationPageSizes: [10, 50, 100, 200, 500],
-        enableRowHeaderSelection: false,
-        paginationPageSize: 5,
-        loading: true,
-        //Declaring column and its related properties
-        columnDefs: [
-            {
-                name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", enableColumnMenu: false, width: '15%',
-                enableCellEdit: false
-            },
-             {
-                 name: 'TaskType', displayName: "Task Type", field: "TaskType", enableColumnMenu: false, width: '15%',
-                 enableCellEdit: false
-             },
-             {
-                 name: 'Status', displayName: "Status", field: "Status", enableColumnMenu: false, width: '15%',
-                 enableCellEdit: false
-             },
-             {
-                 name: 'ComponentType', displayName: "Component Type", field: "ComponentType", enableColumnMenu: false, width: '15%',
-                 enableCellEdit: false
-             },
-             {
-                 name: 'WidgetType', displayName: "Widget Type", field: "WidgetType", enableColumnMenu: false, width: '15%',
-                 enableCellEdit: false
-             },
-            {
-                name: 'Complexity', displayName: "Complexity", field: "Complexity", enableColumnMenu: false, width: '15%',
-                enableCellEdit: false
-            }
-            //{
-            //    name: 'CMMIRollUp', displayName: "CMMIRollUp", field: "CMMIRollUp", enableColumnMenu: false, width: '15%',
-            //    enableCellEdit: false
-            //},
-            //{
-            //    name: 'ReviewType', displayName: "Review Type", field: "ReviewType", enableColumnMenu: false, width: '15%',
-            //    enableCellEdit: false
-            //}
+                     {
+                         name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription", cellClass: 'errorCellClass', enableColumnMenu: false, width: '30%',
+                             enableCellEdit: false, cellTemplate: render()
+                }
+                    //{
+                    //    name: 'ValidDefectTypeCause', displayName: "Defect Cause Mapping", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
+                    //    enableCellEdit: false
+                    //}
 
         ],
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
-        }
-    };
-
-    //get function to load grid data
-    $scope.defectGridData = {
-        paginationPageSizes: [10, 50, 100, 200, 500],
-        enableRowHeaderSelection: false,
-        paginationPageSize: 5,
-        loading: true,
-        //Declaring column and its related properties
-        columnDefs: [
-            {
-                name: 'WidgetComponentId', displayName: "Widget Component Id", field: "WidgetComponentId", enableColumnMenu: false, width: '10%',
-                enableCellEdit: false
-            },
-             {
-                 name: 'DetectedStage', displayName: "Detected Stage", field: "DetectedStage", enableColumnMenu: false, width: '10%',
-                 enableCellEdit: false
-             },
-             {
-                 name: 'Status', displayName: "Status", field: "Status", enableColumnMenu: false, width: '10%',
-                 enableCellEdit: false
-             },
-             {
-                 name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage", enableColumnMenu: false, width: '10%',
-                 enableCellEdit: false
-             },
-             {
-                 name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase", enableColumnMenu: false, width: '10%',
-                 enableCellEdit: false
-             },
-            {
-                name: 'DefectType', displayName: "Defect Type", field: "DefectType", enableColumnMenu: false, width: '10%',
-                enableCellEdit: false
-            },
-
-             {
-                 name: 'Cause', displayName: "Cause", field: "Cause", enableColumnMenu: false, width: '10%',
-                enableCellEdit: false
-            },
-            {
-                name: 'DefectSeverity', displayName: "DefectSeverity", field: "DefectSeverity", enableColumnMenu: false, width: '10%',
-                enableCellEdit: false
-            },
-            {
-                name: 'ReviewType', displayName: "ReviewType", field: "ReviewType", enableColumnMenu: false, width: '10%',
-                enableCellEdit: false
-            },
-             {
-                 name: 'ValidInjectedDetectedPhase', displayName: "Expected Detection Phase Mapping", field: "ValidInjectedDetectedPhase", enableColumnMenu: false, width: '10%',
-                 enableCellEdit: false
-             },
-            {
-                name: 'ValidDefectTypeCause', displayName: "Defect Cause Mapping", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
-                enableCellEdit: false
-            }
-
-        ],
-        onRegisterApi: function (gridApi) {
+                onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
         }
     };
 
 
 
-    //save effort detail data
-    $scope.SaveDetailData = function () {
+        //save effort detail data
+        $scope.SaveDetailData = function () {
         var effortSanityData = $scope.dataSanityResult;
         uploadService.SaveDetailDataService(effortSanityData).then(function (response) {
             if (response.status = 200) {
                 console.log("Effort Detail data saved successfully");
 
-            }
+        }
 
         },
         function (errorResponse) {
@@ -256,11 +278,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 break;
             case "step-3":
                 break;
-        }
+    }
     }
 
-    //insert detail data
-    $scope.InsertDetailData = function () {
+        //insert detail data
+        $scope.InsertDetailData = function () {
         var effortDetailData = $scope.dataSanityResult;
 
         uploadService.SaveDetailDataService(effortDetailData).then(function (response) {
@@ -269,7 +291,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.HideFinalize = true;
                 $scope.successTextAlert = "Data Saved Successfully!";
                 $scope.showSuccessAlert = true;
-            }
+        }
         },
         function (errorResponse) {
 
@@ -277,8 +299,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
     }
 
-    //Start Report Region
-    $scope.projectEffortGrid = {};
+        //Start Report Region
+        $scope.projectEffortGrid = {};
 
 
     $scope.LoadProjectEffort = function () {
@@ -287,7 +309,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.projectEffortGrid.data = successResponse.data;
             }, function (errorResponse) {
 
-            });
+    });
     }
 
     $scope.LoadProjectTesting = function () {
@@ -296,8 +318,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.projectTestingGrid.data = successResponse.data;
             }, function (errorResponse) {
 
-            }).finally(function () {
-            });
+        }).finally(function () {
+    });
     }
 
 
@@ -307,7 +329,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                   $scope.projectDefectGrid.data = successResponse.data;
               }, function (errorResponse) {
 
-              });
+    });
     }
 
     $scope.LoadProjectWidget = function () {
@@ -316,87 +338,85 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                   $scope.projectWidgetGrid.data = successResponse.data;
               }, function (errorResponse) {
 
-              });
+    });
     }
 
     var tmpl1 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectEffortGrid = {
-        enableSorting: false,
-        enableColumnMenus: false,
-        enableRowHeaderSelection: false,
-        columnDefs: [
-            { field: 'DashBoardType', name: '',cellClass: 'countCell', headerCellClass:'headerClass1', cellTemplate:'<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
-            { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
-            { field: 'CompleteHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl1 },
-            { field: 'WIPHours', name: 'Work in Progress',cellClass: 'countCell', headerCellClass:'headerClass', width: '17%', cellTemplate: tmpl1 },
-            { field: 'NotStartedHours', name: 'Not Started',cellClass: 'countCell', headerCellClass:'headerClass', cellTemplate: tmpl1, width: '15%' },
-            { field: 'TotalHours', name: 'Total',cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl1, width: '15%' },
-        ],
-        onRegisterApi: function (gridApi) {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            columnDefs: [
+                { field: 'DashBoardType', name: '',cellClass: 'countCell', headerCellClass:'headerClass1', cellTemplate:'<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
+                { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
+                { field: 'CompleteHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl1 },
+                { field: 'WIPHours', name: 'Work in Progress',cellClass: 'countCell', headerCellClass:'headerClass', width: '17%', cellTemplate: tmpl1 },
+                { field: 'NotStartedHours', name: 'Not Started',cellClass: 'countCell', headerCellClass:'headerClass', cellTemplate: tmpl1, width: '15%' },
+                { field: 'TotalHours', name: 'Total',cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl1, width: '15%' },
+    ],
+            onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
-        }
+    }
 
     }
 
     var tmp2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectTestingGrid = {
-        enableSorting: false,
-        enableColumnMenus: false,
-        enableRowHeaderSelection: false,
-        columnDefs: [
-            { field: 'DashBoardType', name: 'Manual/Automation',cellClass: 'countCell', headerCellClass:'headerClass1', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-             { field: 'DashboardSubtype', name: '', width: '22%', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-            { field: 'PreSitComponent', name: 'PRE-SIT Component',cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmp2 },
-            { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
-            { field: 'SitComponent', name: 'SIT-Component', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
-            { field: 'SitE2E', name: 'SIT-E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            columnDefs: [
+                { field: 'DashBoardType', name: 'Manual/Automation',cellClass: 'countCell', headerCellClass:'headerClass1', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
+                 { field: 'DashboardSubtype', name: '', width: '22%', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
+                { field: 'PreSitComponent', name: 'PRE-SIT Component',cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmp2 },
+                { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
+                { field: 'SitComponent', name: 'SIT-Component', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
+                { field: 'SitE2E', name: 'SIT-E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
 
-        ],
-        onRegisterApi: function (gridApi) {
+    ],
+            onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
-        }
+    }
 
     }
 
     var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectDefectGrid = {
-        enableSorting: false,
-        enableColumnMenus: false,
-        enableRowHeaderSelection: false,
-        loading: true,
-        columnDefs: [
-            { field: 'DashBoardType', name: '', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '20%' },
-            { field: 'Overall', name: 'Overall', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
-            { field: 'Rejected', name: 'Rejected', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
-            { field: 'Closed', name: 'Closed', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
-            { field: 'Open', name: 'Open', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
-        ],
-        onRegisterApi: function (gridApi) {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'DashBoardType', name: '', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '20%' },
+                { field: 'Overall', name: 'Overall', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
+                { field: 'Rejected', name: 'Rejected', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
+                { field: 'Closed', name: 'Closed', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
+                { field: 'Open', name: 'Open', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
+    ],
+            onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
-        }
+    }
     }
     var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectWidgetGrid = {
-        enableSorting: false,
-        enableColumnMenus: false,
-        enableRowHeaderSelection: false,
-        loading: true,
-        columnDefs: [
-            { field: 'DashBoardType', name: '',cellClass: 'countCell',headerCellClass:'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
-            { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
-            { field: 'CompletedHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '15%' },
-            { field: 'WipHours', name: 'Work in Progress', cellClass: 'countCell', headerCellClass: 'headerClass', width: '18%', cellTemplate: tmpl2 },
-            { field: 'NotStartedHours', name: 'Not Started', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl2 },
-            { field: 'TotalHours', name: 'Total', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '15%' },
-        ],
-        onRegisterApi: function (gridApi) {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'DashBoardType', name: '',cellClass: 'countCell',headerCellClass:'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
+                { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
+                { field: 'CompletedHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '15%' },
+                { field: 'WipHours', name: 'Work in Progress', cellClass: 'countCell', headerCellClass: 'headerClass', width: '18%', cellTemplate: tmpl2 },
+                { field: 'NotStartedHours', name: 'Not Started', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl2 },
+                { field: 'TotalHours', name: 'Total', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '15%' },
+    ],
+            onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
-        }
+    }
     }
 
     $scope.LoadProjectEffort();
-    //End Report Region
+        //End Report Region
 
-}]);
-
-
+}])

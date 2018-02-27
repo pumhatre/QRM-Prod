@@ -31,7 +31,8 @@
     'viewPreferences',
     'upload',
     'stepTabs',
-    'uploadFile'
+    'uploadFile',
+    'splitFilter'
 ]);
 
 app.constant('config', {
