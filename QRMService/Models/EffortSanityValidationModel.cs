@@ -15,6 +15,7 @@ namespace QRMService.Models
         public string WidgetType { get; set; }
         public string Complexity { get; set; }
         public string CMMIRollUp { get; set; }
+        public string[] ErrorArray { get; set; }
 
 
 
