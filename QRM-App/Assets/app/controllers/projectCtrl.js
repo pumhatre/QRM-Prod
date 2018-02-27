@@ -175,7 +175,7 @@
         $scope.GetProjects = function () {
             $scope.loading = true;
             $scope.gridOptions = {
-                paginationPageSizes: [50, 100, 200],
+                paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
                 //Declaring column and its related properties
                 columnDefs: [

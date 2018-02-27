@@ -10,5 +10,7 @@ namespace QRMService.Models
         public List<int> MetricsMasterIdList { get; set; }
         public int ProjectId { get; set; }
         public int ReleaseId { get; set; }
+
+        public int MonthId { get; set; }
     }
 }

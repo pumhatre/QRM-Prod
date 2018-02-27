@@ -27,6 +27,12 @@ namespace QRMService.Controllers
             var response = RoleRepository.GetRolesList();
             return Ok(response);
         }
+        [HttpGet]
+        public IHttpActionResult GetProjects()
+        {
+            var response = RoleRepository.GetProjectList();
+            return Ok(response);
+        }
 
 
         [HttpPost]
@@ -48,7 +54,7 @@ namespace QRMService.Controllers
             
             if(!string.IsNullOrEmpty(projectId) && projectId != "null")
             {
-                var userData = userRepo.GetUsers(System.Int32.Parse(projectId));
+                var userData = userRepo.GetUsers();
                 var response = Request.CreateResponse(HttpStatusCode.OK, userData);
                 return response;
             }

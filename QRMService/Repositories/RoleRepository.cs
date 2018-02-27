@@ -24,6 +24,22 @@ namespace QRMService.Repositories
             }
         }
 
+        /// <summary>
+        /// Gets the projects list.
+        /// </summary>
+        /// <returns></returns>
+        public static List<SelectListItem> GetProjectList()
+        {
+            using (var db = new QRMEntities())
+            {
+                return db.ProjectMasters.Select(a => new SelectListItem
+                {
+                    Text = a.ProjectName,
+                    Value = a.ProjectID.ToString()
+                }).OrderBy(b => b.Text).ToList();
+            }
+        }
+
         public static RoleMaster GetRoleDetails(int projectID)
         {
             using (var db = new QRMEntities())

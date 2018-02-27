@@ -68,26 +68,29 @@ angular.module('metrics', []).controller('metricsCtrl', ['$scope', '$http', 'uiG
         }
 
         $scope.addMetrics = function () {
-            $scope.metricsGrid.data.push({
-                editable: true
-            });
+            var newMetrics = {};
+            newMetrics.MetricsMasterId = 0;
+            $scope.metricsGrid.data.unshift(newMetrics);
+            $scope.metricsGrid.data[0].editable = true;
+
+            //$scope.metricsGrid.data.push({
+            //    editable: true
+            //});
         }
 
         var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
         $scope.metricsGrid = {
             enableSorting: false,
             enableColumnMenus: false,
+            paginationPageSizes: [10, 50, 100],
+            paginationPageSize: 10,
             columnDefs: [
                 { field: 'id', name: '#', width: '3%', cellTemplate: '<span>{{grid.appScope.populateRowId(row.entity)}}</span>', visible: false },
-                { field: 'MetricsMasterId', name: 'Metric Master#'},
-                { field: 'CategoryCode', name: 'Category Code', cellTemplate: tmpl },
-                { field: 'CategoryDescription', name: 'Category Description', cellTemplate: tmpl },
-                { field: 'SubCategoryCode', name: 'SubCategory Code', cellTemplate: tmpl },
-                { field: 'SubCategoryDescription', name: 'SubCategory Description', cellTemplate: tmpl },
-                { field: 'TypeCode', name: 'Type Code', cellTemplate: tmpl },
-                { field: 'TypeDescription', name: 'Type Description', cellTemplate: tmpl },
+                { field: 'MetricsMasterId', name: 'Metric Master#', visible:false},
+                { field: 'CategoryCode', name: 'Category Code', cellTemplate: tmpl, width:'30%' },
+                { field: 'CategoryDescription', name: 'Category Description', cellTemplate: tmpl,width: '50%'},               
                 {
-                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',
+                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '20%',
                     cellTemplate: '<div><button ng-show="!row.entity.editable" ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                     '<button ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
                     '<button ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button

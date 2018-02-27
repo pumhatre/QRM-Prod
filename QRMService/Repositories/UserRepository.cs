@@ -1,7 +1,10 @@
-﻿using QRMService.DataBase;
+﻿using QRMFrameworkHelpers;
+using QRMService.Common;
+using QRMService.DataBase;
 using QRMService.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -9,70 +12,46 @@ namespace QRMService.Repositories
 {
     public class UserRepository
     {
-        public ProjectUserModel GetUsers(int projectId)
+        public ProjectUserModel GetUsers()
         {
             ProjectUserModel projectUserModel = new ProjectUserModel();
 
             using (var db = new QRMEntities())
             {
                 projectUserModel.proejectList = db.ProjectMasters.Select(x => x.ProjectID).ToList();
-
-                if (projectId > 0)
-                {
-                    var entities = (from users in db.UserDetails
-                                    join role in db.UserProjectRoleAssociations on users.UserId equals role.UserId
-                                    select new
-                                    {
-                                        users,
-                                        role,
-                                        proejectId = role.ProjectId
-
-                                    }).Where(x => x.proejectId == projectId).ToList();
-                  
-                    List<UserModel> userEntity = new List<UserModel>();
-                    if (entities != null && entities.Any())
-                    {
-                        foreach (var row in entities)
-                        {
-                            UserModel model = new UserModel();
-                            model.userId = row.users.UserId;
-                            model.firstName = row.users.FirstName;
-                            model.lastName = row.users.LastName;
-                            model.middleName = row.users.MiddleName;
-                            model.email = row.users.Email;
-                            model.phone = row.users.Phone;
-                            model.roleId = row.role.RoleId;
-                            model.userProjectRoleId = row.role.UserProjectRoleId;
-                            userEntity.Add(model);
-                        }
-                    }
-                   
-                    
-
-                    var userList = (from pd in db.UserDetails
-                                    join od in db.UserProjectRoleAssociations on pd.UserId equals od.UserId
-                                    where od.ProjectId == projectId
-                                    join rd in db.RoleMasters on od.RoleId equals rd.RoleId
-                                    select new UserModel
-                                    {
-                                        userId = pd.UserId,
-                                        firstName = pd.FirstName,
-                                        middleName = pd.MiddleName,
-                                        lastName = pd.LastName,
-                                        email = pd.Email,
-                                        phone = pd.Phone,
-                                        roleId = od.RoleId,
-                                        roleName = rd.RoleName,
-                                        userProjectRoleId = od.UserProjectRoleId
-                                    }).OrderByDescending(p => p.userId).ToList();
-                    projectUserModel.userDetails = userList;
-                }
-                
+                projectUserModel.userDetails = GetProjectData();
                 return projectUserModel;
             }
         }
 
-
+        private static List<UserModel> GetProjectData()
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            DataTable dtUserModel = helper.GetDataTableByProcedure(Constants.UspGetProjectData, "default", true);
+            List<UserModel> userModelList = new List<UserModel>();
+            if (dtUserModel != null && dtUserModel.Rows.Count > 0)
+            {
+                dtUserModel.AsEnumerable().ToList().ForEach(row =>
+                {
+                    userModelList.Add(new UserModel
+                    {
+                        userId = row.Field<int>(Constants.ProjectColumnName.userId.ToString()),
+                        firstName = row.Field<string>(Constants.ProjectColumnName.firstName.ToString()),
+                        middleName = row.Field<string>(Constants.ProjectColumnName.middleName.ToString()),
+                        lastName = row.Field<string>(Constants.ProjectColumnName.lastName.ToString()),
+                        email = row.Field<string>(Constants.ProjectColumnName.email.ToString()),
+                        phone = row.Field<string>(Constants.ProjectColumnName.phone.ToString()),
+                        roleId = row.Field<int>(Constants.ProjectColumnName.roleId.ToString()),
+                        roleName = row.Field<string>(Constants.ProjectColumnName.roleName.ToString()),
+                        projectName =row.Field<string>(Constants.ProjectColumnName.projectName.ToString()),
+                        projectId = row.Field<int?>(Constants.ProjectColumnName.projectId.ToString()),
+                        userProjectRoleId = row.Field<int>(Constants.ProjectColumnName.userProjectRoleId.ToString()),
+                    });
+                });
+            }
+            return userModelList;
+        }
 
         public UserConfigurationResponseModel InsertUpdateUsers(UserModel user)
         {
@@ -84,7 +63,7 @@ namespace QRMService.Repositories
                 {
                     try
                     {
-                        if(user.userId == 0)
+                        if (user.userId == 0)
                         {
                             var instance = new UserDetail();
                             var userId = context.UserDetails.OrderByDescending(p => p.UserId).FirstOrDefault().UserId;
@@ -95,19 +74,27 @@ namespace QRMService.Repositories
                             instance.Phone = user.phone;
                             instance.Email = user.email;
                             context.UserDetails.Add(instance);
-                            
+
                             var userrole = new UserProjectRoleAssociation();
                             var userroleId = context.UserProjectRoleAssociations.OrderByDescending(p => p.UserProjectRoleId).FirstOrDefault().UserProjectRoleId;
                             userrole.UserId = userId + 1;
-                            userrole.ProjectId = user.projectId;
+                            if (user.projectId != 0)
+                            {
+                                userrole.ProjectId = user.projectId;
+                            }
+                            else
+                            {
+                                userrole.ProjectId = null;
+                            }
+
                             userrole.RoleId = user.roleId;
-                            userrole.UserProjectRoleId = userroleId +1 ;
+                            userrole.UserProjectRoleId = userroleId + 1;
                             context.UserProjectRoleAssociations.Add(userrole);
                             context.SaveChanges();
                             transaction.Commit();
                             response.IsSuccess = true;
                             response.ResponseMessage = "User Added Successfully";
-                         
+
                         }
                         else
                         {
@@ -135,7 +122,8 @@ namespace QRMService.Repositories
                             response.ResponseMessage = "User Updated Successfully";
 
                         }
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         response.IsSuccess = false;
 
@@ -175,7 +163,7 @@ namespace QRMService.Repositories
 
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
                         response.IsSuccess = false;

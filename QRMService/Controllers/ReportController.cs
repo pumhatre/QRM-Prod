@@ -145,6 +145,13 @@ namespace QRMService.Controllers
             try
             {
                 var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid());
+                for (int i = 0; i < projectEffort.Count; i++)
+                {
+                    if (i%2==0)
+                    {
+                        projectEffort[i].spanEffort = 3;
+                    }
+                }
                 return Ok(projectEffort);
 
             }
@@ -202,6 +209,17 @@ namespace QRMService.Controllers
             try
             {
                 var projectWidget = ReportRepository.GetProjectWidget(Guid.NewGuid());
+                for (int i = 0; i < projectWidget.Count; i++)
+                {
+                    if (i==0)
+                    {
+                        projectWidget[i].spanWidget = 3;
+                    }
+                    else
+                    {
+                        projectWidget[i].spanWidget = 0;
+                    }
+                }
                 return Ok(projectWidget);
             }
             catch (Exception ex)

@@ -215,6 +215,7 @@
     <Content Include="Assets\app\services\defectDataService.js" />
     <Content Include="Assets\app\services\generateReportService.js" />
     <Content Include="Assets\app\services\healthReportService.js" />
+    <Content Include="Assets\app\services\homeService.js" />
     <Content Include="Assets\app\services\metricsAssociationService.js" />
     <Content Include="Assets\app\services\metricsService.js" />
     <Content Include="Assets\app\services\projectReleaseService.js" />

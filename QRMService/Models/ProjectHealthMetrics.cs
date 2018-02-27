@@ -18,6 +18,7 @@ namespace QRMService.Models
         public int? TotalHours { get; set; }
         public string DashBoardType { get; set; }
         public string DashboardSubtype { get; set; }
+        public int spanEffort { get; set; }
     }
 
     //Dev
@@ -53,6 +54,7 @@ namespace QRMService.Models
         public int? WipHours { get; set; }
         public int? NotStartedHours { get; set; }
         public int? TotalHours { get; set; }
+        public int spanWidget { get; set; }
     }
 
 }

@@ -3,8 +3,9 @@
         $scope.arr = [];
         $scope.alerts = [];
         $scope.myData;
-        $scope.showAdd = false;
+        $scope.showAdd = true;
         $scope.roles = [];
+        $scope.projects = [];
         $scope.selectedProjectReleaseDropdown = '';
         $scope.selectedRoleDropdown = '';
         $scope.rolesDropdown = [];
@@ -29,6 +30,16 @@
                 }, function (err) {
                     $scope.showErrorMessage = true;
                     $scope.responseMessage = "Failed to load Role list";
+                });
+        };
+
+        $scope.LoadProjects = function () {
+            userDetailsService.GetProjectList(config)
+                .then(function (response) {
+                    $scope.projects = response.data;
+                }, function (err) {
+                    $scope.showErrorMessage = true;
+                    $scope.responseMessage = "Failed to load projects list";
                 });
         };
 
@@ -66,54 +77,56 @@
                 $scope.loading = false;
                 $scope.responseMessage = "Failed to load user details";
             });
-            if (projectId != '' && projectId != null) {
-                $scope.showAdd = true;
-            } else {
-                $scope.showAdd = false;
-            }
+            //if (projectId != '' && projectId != null) {
+            //    $scope.showAdd = true;
+            //} else {
+            //    $scope.showAdd = false;
+            //}
         }
 
         $scope.updateRow = function (row) {
-         
+
             $scope.showErrorMessage = false;
             $scope.responseMessage = "";
 
             var ProjectRelease = $scope.selectedProjectReleaseDropdown;
 
-            if (ProjectRelease == '' || ProjectRelease == null) {
-                $scope.showErrorMessage = true;
-                $scope.responseMessage = "Please select Project";
-            }
-            else {
+            //if (ProjectRelease == '' || ProjectRelease == null) {
+            //    $scope.showErrorMessage = true;
+            //    $scope.responseMessage = "Please select Project";
+            //}
+            //else {
 
-                var index = $scope.gridOptions1.data.indexOf(row);
-                $scope.gridOptions1.data[0].editable = false;
-                $scope.User = {};
-                $scope.User.userId = row.userId;
-                $scope.User.firstName = row.firstName;
-                $scope.User.middleName = row.middleName;
-                $scope.User.lastName = row.lastName;
-                $scope.User.email = row.email;
-                $scope.User.phone = row.phone;
-                $scope.User.roleId = row.roleId;
-                $scope.User.projectId = $scope.selectedProjectReleaseDropdown;
-               
+            var index = $scope.gridOptions1.data.indexOf(row);
+            $scope.gridOptions1.data[0].editable = false;
+            $scope.User = {};
+            $scope.User.userId = row.userId;
+            $scope.User.firstName = row.firstName;
+            $scope.User.middleName = row.middleName;
+            $scope.User.lastName = row.lastName;
+            $scope.User.email = row.email;
+            $scope.User.phone = row.phone;
+            $scope.User.roleId = row.roleId;
+            $scope.User.projectId = row.projectId;
 
-                userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
-                    if (response.data.IsSuccess) {     
-                        $scope.getProjectUsers($scope.User.projectId);
-                        $scope.alerts.push({
-                            msg: 'Project Updated Successfully',
-                            type: 'Success'
-                        });
-                    }
-                }, function (error) {                  
+            $scope.User.projectName = row.projectName;
+
+
+            userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
+                if (response.data.IsSuccess) {
+                   // $scope.getProjectUsers($scope.User.projectId);
                     $scope.alerts.push({
-                        msg: error.data.ResponseMessage,
+                        msg: 'Project Updated Successfully',
                         type: 'Success'
                     });
+                }
+            }, function (error) {
+                $scope.alerts.push({
+                    msg: error.data.ResponseMessage,
+                    type: 'Success'
                 });
-            }
+            });
+            //}
 
         }
 
@@ -126,7 +139,7 @@
                     userDetailsService.DeleteUser(row.userId, config).
                         then(function (response) {
                             if (response.data.IsSuccess) {
-                                $scope.loadProjects();
+                                $scope.LoadProjects();
                                 //Display Successfull message after save
                                 $scope.alerts.push({
                                     msg: 'Project deleted successfully',
@@ -159,11 +172,16 @@
             $scope.loading = true;
             $scope.LoadProjectsDropDown();
             $scope.LoadRoles();
+            $scope.LoadProjects();
             var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="text"></div>';
             $scope.gridOptions1 = {
                 enableSorting: false,
                 enableColumnMenus: false,
-                columnDefs: [                   
+                columnDefs: [
+                     {
+                         name: 'ProjectName', displayName: "Project Name", field: "projectName", enableColumnMenu: false, width: '10%',
+                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="industry in grid.appScope.projects" value="{{industry.Value}}">{{industry.Text}}</option> </select></div>'
+                     },
                     { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
                     { field: 'userId', name: 'User Id', visible: false },
                     { field: 'userProjectRoleId', name: 'User Project Role Id', visible: false },
@@ -188,20 +206,20 @@
                         '<button ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
                         '<button ng-show="!row.entity.editable" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
                         '</div>'
-                    }
+                    },
                 ],
 
                 onRegisterApi: function (gridApi) {
                     $scope.grid1Api = gridApi;
-                }                
+                }
             };
 
-           
+
             if (typeof ($scope.selectedProjectReleaseDropdown) != 'undefined' || $scope.selectedProjectReleaseDropdown != null || $scope.selectedProjectReleaseDropdown != '' || $scope.selectedProjectReleaseDropdown != 'null') {
-                $scope.getProjectUsers($scope.selectedProjectReleaseDropdown);                
-            }            
+                $scope.getProjectUsers($scope.selectedProjectReleaseDropdown);
+            }
         }
-      
+
         $scope.add = function (row) {
             $scope.mode = 'Save';
             var user = {};
@@ -212,8 +230,9 @@
         }
         $scope.GetUsers();
         $scope.LoadRoles();
+        $scope.LoadProjects();
+        //  $scope.LoadProjectsDropDown();
 
 
-       
 
     }]);

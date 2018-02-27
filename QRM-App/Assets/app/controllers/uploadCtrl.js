@@ -263,11 +263,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
         }
 
-        },
-        function (errorResponse) {
+            },
+            function (errorResponse) {
 
-        });
-    }
+            });
+        }
 
     $scope.nextClick = function (id) {
         switch (id) {
@@ -295,128 +295,179 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         },
         function (errorResponse) {
 
-        });
+            });
 
-    }
+        }
 
         //Start Report Region
+        var rowTemplate = '<div role=\"rowgroup\" class=\"ui-grid-viewport\" ng-style=\"colContainer.getViewportStyle()\"><!-- tbody --><div class=\"ui-grid-canvas\"><div ng-repeat=\"(rowRenderIndex, row) in rowContainer.renderedRows track by $index\" class=\"ui-grid-row\" ng-class=\"{\'testClass\': row.entity.spanWidget}\" ng-style=\"Viewport.rowStyle(rowRenderIndex)\"><div role=\"row\" ui-grid-row=\"row\" row-render-index=\"rowRenderIndex\"></div></div></div></div>';
+        $templateCache.put('ui-grid/uiGridViewport', rowTemplate);
+
+        var rowTemplate1 = '<div role=\"rowgroup\" class=\"ui-grid-viewport\" ng-style=\"colContainer.getViewportStyle()\"><!-- tbody --><div class=\"ui-grid-canvas\"><div ng-repeat=\"(rowRenderIndex, row) in rowContainer.renderedRows track by $index\" class=\"ui-grid-row\" ng-class=\"{\'testClass\': row.entity.spanEffort}\" ng-style=\"Viewport.rowStyle(rowRenderIndex)\"><div role=\"row\" ui-grid-row=\"row\" row-render-index=\"rowRenderIndex\"></div></div></div></div>';
+        $templateCache.put('ui-grid/uiGridViewport', rowTemplate1);
+
+        var extraRowEffort = null
+        var extraRowTesting = null
+
         $scope.projectEffortGrid = {};
 
 
-    $scope.LoadProjectEffort = function () {
-        healthReportService.GetAllProjectEffort(config)
-            .then(function (successResponse) {
-                $scope.projectEffortGrid.data = successResponse.data;
-            }, function (errorResponse) {
+        $scope.LoadProjectEffort = function () {
+            healthReportService.GetAllProjectEffort(config)
+                .then(function (successResponse) {
+                    $scope.projectEffortGrid.data = successResponse.data;
+                }, function (errorResponse) {
 
-    });
-    }
+                }).finally(function () {
+                    // add initial empty row, and set our reference to it
+                    extraRowEffort = addEmptyRow($scope.projectEffortGrid.data);
+                });
+        }
 
-    $scope.LoadProjectTesting = function () {
-        healthReportService.GetAllProjectTesting(config)
-            .then(function (successResponse) {
-                $scope.projectTestingGrid.data = successResponse.data;
-            }, function (errorResponse) {
+        function addEmptyRow(gridData) {
+            gridData.splice(2, 0, {
+                "DashBoardType": '',
+                "DashboardSubtype": '',
+                "CompleteHours": '',
+                "WIPHours": '',
+                "NotStartedHours": '',
+                "TotalHours": ''
+            });
+            gridData.splice(5, 0, {
+                "DashBoardType": '',
+                "DashboardSubtype": '',
+                "CompleteHours": '',
+                "WIPHours": '',
+                "NotStartedHours": '',
+                "TotalHours": ''
+            });
+        }
 
-        }).finally(function () {
-    });
-    }
+        $scope.LoadProjectTesting = function () {
+            healthReportService.GetAllProjectTesting(config)
+                .then(function (successResponse) {
+                    $scope.projectTestingGrid.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add initial empty row, and set our reference to it
+                    extraRowTesting = addEmptyRowTesting($scope.projectTestingGrid.data);
+                });
+        }
+        function addEmptyRowTesting(gridData) {
+            gridData.splice(0, 0, {
+                "DashboardSubtype": 'Manual',
+                "PreSitComponent": '',
+                "PreSitE2E": '',
+                "SitComponent": '',
+                "SitE2E": ''
+            });
+            gridData.splice(5, 0, {
+                "DashboardSubtype": 'Automation',
+                "PreSitComponent": '',
+                "PreSitE2E": '',
+                "SitComponent": '',
+                "SitE2E": ''
+            });
+        }
 
 
-    $scope.LoadProjectDefect = function () {
-        healthReportService.GetAllProjectDefects(config)
-              .then(function (successResponse) {
-                  $scope.projectDefectGrid.data = successResponse.data;
-              }, function (errorResponse) {
+        $scope.LoadProjectDefect = function () {
+            healthReportService.GetAllProjectDefects(config)
+                  .then(function (successResponse) {
+                      $scope.projectDefectGrid.data = successResponse.data;
+                  }, function (errorResponse) {
 
-    });
-    }
+                  });
+        }
 
-    $scope.LoadProjectWidget = function () {
-        healthReportService.GetAllProjectWidget(config)
-              .then(function (successResponse) {
-                  $scope.projectWidgetGrid.data = successResponse.data;
-              }, function (errorResponse) {
+        $scope.LoadProjectWidget = function () {
+            healthReportService.GetAllProjectWidget(config)
+                  .then(function (successResponse) {
+                      $scope.projectWidgetGrid.data = successResponse.data;
+                  }, function (errorResponse) {
 
-    });
-    }
+                  });
+        }
 
-    var tmpl1 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
-    $scope.projectEffortGrid = {
+        var tmpl1 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
+        $scope.projectEffortGrid = {
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             columnDefs: [
-                { field: 'DashBoardType', name: '',cellClass: 'countCell', headerCellClass:'headerClass1', cellTemplate:'<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
-                { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
-                { field: 'CompleteHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl1 },
-                { field: 'WIPHours', name: 'Work in Progress',cellClass: 'countCell', headerCellClass:'headerClass', width: '17%', cellTemplate: tmpl1 },
-                { field: 'NotStartedHours', name: 'Not Started',cellClass: 'countCell', headerCellClass:'headerClass', cellTemplate: tmpl1, width: '15%' },
-                { field: 'TotalHours', name: 'Total',cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl1, width: '15%' },
-    ],
+                { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '21%' },
+                { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
+                { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: tmpl1 },
+                { field: 'WIPHours', name: 'Work in Progress', width: '17%', cellTemplate: tmpl1 },
+                { field: 'NotStartedHours', name: 'Not Started', cellTemplate: tmpl1, width: '15%' },
+                { field: 'TotalHours', name: 'Total', cellTemplate: tmpl1, width: '15%' },
+            ],
             onRegisterApi: function (gridApi) {
-            $scope.mGridApi = gridApi;
-    }
+                $scope.mGridApi = gridApi;
+            }
 
-    }
+        }
 
-    var tmp2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
-    $scope.projectTestingGrid = {
+        var tmp2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
+        $scope.projectTestingGrid = {
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             columnDefs: [
-                { field: 'DashBoardType', name: 'Manual/Automation',cellClass: 'countCell', headerCellClass:'headerClass1', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-                 { field: 'DashboardSubtype', name: '', width: '22%', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-                { field: 'PreSitComponent', name: 'PRE-SIT Component',cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmp2 },
-                { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
-                { field: 'SitComponent', name: 'SIT-Component', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
-                { field: 'SitE2E', name: 'SIT-E2E', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmp2, width: '15%' },
+                //{ field: 'DashBoardType', name: 'Manual/Automation', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
+                { field: 'DashboardSubtype', name: '', width: '25%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
+                { field: 'PreSitComponent', name:'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
+                { field: 'PreSitE2E', name:'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitComponent', name:'SIT-Component', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitE2E', name: 'SIT-E2E', cellTemplate: tmp2, width: '20%' },
 
-    ],
+            ],
             onRegisterApi: function (gridApi) {
-            $scope.mGridApi = gridApi;
-    }
+                $scope.mGridApi = gridApi;
+            }
 
-    }
+        }
 
-    var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
-    $scope.projectDefectGrid = {
+        var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
+        $scope.projectDefectGrid = {
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
             columnDefs: [
-                { field: 'DashBoardType', name: '', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '20%' },
-                { field: 'Overall', name: 'Overall', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
-                { field: 'Rejected', name: 'Rejected', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
-                { field: 'Closed', name: 'Closed', cellClass: 'countCell', headerCellClass: 'headerClass', width: '20%', cellTemplate: tmpl2 },
-                { field: 'Open', name: 'Open', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '20%' },
-    ],
+                { field: 'DashBoardType', name: '', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '20%' },
+                { field: 'Overall', name: 'Overall', cellTemplate: tmpl2, width: '20%' },
+                { field: 'Rejected', name: 'Rejected', width: '20%', cellTemplate: tmpl2 },
+                { field: 'Closed', name: 'Closed', width: '20%', cellTemplate: tmpl2 },
+                { field: 'Open', name: 'Open', cellTemplate: tmpl2, width: '20%' },
+            ],
             onRegisterApi: function (gridApi) {
-            $scope.mGridApi = gridApi;
-    }
-    }
-    var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
-    $scope.projectWidgetGrid = {
+                $scope.mGridApi = gridApi;
+            }
+        }
+        var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
+        $scope.projectWidgetGrid = {
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
             columnDefs: [
-                { field: 'DashBoardType', name: '',cellClass: 'countCell',headerCellClass:'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
-                { field: 'DashboardSubtype', name: 'Planned/Actual', cellClass: 'countCell1', headerCellClass: 'headerClass1', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
-                { field: 'CompletedHours', name: 'Complete', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: tmpl2, width: '15%' },
-                { field: 'WipHours', name: 'Work in Progress', cellClass: 'countCell', headerCellClass: 'headerClass', width: '18%', cellTemplate: tmpl2 },
-                { field: 'NotStartedHours', name: 'Not Started', cellClass: 'countCell', headerCellClass: 'headerClass', width: '15%', cellTemplate: tmpl2 },
-                { field: 'TotalHours', name: 'Total', cellClass: 'countCell', headerCellClass: 'headerClass', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '15%' },
-    ],
+                { field: 'DashBoardType', name: '', cellTemplate: '<div class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanWidget + \'px\', width:20.5+\'%\', position:\'absolute\', display:row.entity.spanWidget==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '22%' },
+                { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
+                { field: 'CompletedHours', name: 'Complete', cellTemplate: tmpl2, width: '15%' },
+                { field: 'WipHours', name: 'Work in Progress', width: '18%', cellTemplate: tmpl2 },
+                { field: 'NotStartedHours', name: 'Not Started', width: '15%', cellTemplate: tmpl2 },
+                { field: 'TotalHours', name: 'Total', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '15%' },
+            ],
             onRegisterApi: function (gridApi) {
-            $scope.mGridApi = gridApi;
-    }
-    }
+                $scope.mGridApi = gridApi;
+            }
+        }
 
-    $scope.LoadProjectEffort();
+        $scope.LoadProjectEffort();
         //End Report Region
 
-}])
+    }]);
+
+
