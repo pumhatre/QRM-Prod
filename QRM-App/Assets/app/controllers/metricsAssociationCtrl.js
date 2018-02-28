@@ -1,4 +1,4 @@
-﻿angular.module('metricsAssociation', [])
+﻿angular.module('metricsAssociation', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
     .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService','ReportService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService,ReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
@@ -74,15 +74,11 @@
         $scope.gridOptions = {
             data: 'gridData',
             enableSorting: false,
-            //enableHiding: true,
             enableRowSelection: false,
             enableSelectAll: true,
-            //selectionRowHeaderWidth: 45,
             columnDefs: [
-                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '30%' },
-                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '70%' }
+                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', enableColumnMenu: false, width: '20%' },
+                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', enableColumnMenu: false, width: '80%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -94,7 +90,7 @@
             angular.forEach($scope.selectedRows, function (value, key) {
                 $scope.metricsMasterIdList.push(value.MetricsMasterId);
             });
-            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth.MonthId, config)
+            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
                 .then(function (successResponse) {
                     if (successResponse.data.IsSuccess) {
                         // show success alert

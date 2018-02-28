@@ -37,5 +37,6 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
         }
+       
     }
 }]);

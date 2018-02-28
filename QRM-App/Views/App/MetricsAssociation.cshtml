@@ -32,6 +32,7 @@
 
     #metricAssociationGrid {
         width: 100% !important;
+         height: 400px !important;
     }
 </style>
 <div class="x_panel" role="main">
@@ -201,13 +202,13 @@
                                                     <div class="clearfix"></div>
                                                     <br>
                                                     <div>
-                                                        <div class="col-md-2"></div>
-                                                        <div class="col-md-8">
+                                                       
+                                                        <div class="col-md-12">
                                                             <!-- start project list -->
                                                             <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>
                                                             <!-- end project list -->
                                                         </div>
-                                                        <div class="col-md-2"></div>
+                                                       @* <div class="col-md-2"></div>*@
                                                         <div class="clearfix"></div>
                                                         <div style="text-align:center;">
                                                             <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
