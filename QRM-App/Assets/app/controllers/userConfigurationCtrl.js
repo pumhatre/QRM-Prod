@@ -108,7 +108,7 @@
 
             userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
                 if (response.data.IsSuccess) {
-                   // $scope.getProjectUsers($scope.User.projectId);
+                    $scope.GetUsers();
                     $scope.alerts.push({
                         msg: 'Project Updated Successfully',
                         type: 'Success'
@@ -133,7 +133,7 @@
                     userDetailsService.DeleteUser(row.userId, config).
                         then(function (response) {
                             if (response.data.IsSuccess) {
-                                $scope.LoadProjects();
+                                $scope.GetUsers();
                                 //Display Successfull message after save
                                 $scope.alerts.push({
                                     msg: 'Project deleted successfully',
