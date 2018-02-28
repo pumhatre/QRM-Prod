@@ -28,7 +28,7 @@ namespace QRMService.Repositories
                                            ProjectID = p.ProjectID,
                                            ProjectName = p.ProjectName,
                                            ReleaseName = pr.ReleaseName
-                                       }).ToList();
+                                       }).OrderBy(a => a.ProjectID).ToList();
                 return projectReleases;
             }
         }
