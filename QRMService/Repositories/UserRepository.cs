@@ -41,10 +41,10 @@ namespace QRMService.Repositories
                         lastName = row.Field<string>(Constants.ProjectColumnName.lastName.ToString()),
                         email = row.Field<string>(Constants.ProjectColumnName.email.ToString()),
                         phone = row.Field<string>(Constants.ProjectColumnName.phone.ToString()),
-                        roleId =Convert.ToString(row.Field<int>(Constants.ProjectColumnName.roleId.ToString())),
+                        roleId =Convert.ToString(row.Field<int?>(Constants.ProjectColumnName.roleId.ToString())),
                         roleName = row.Field<string>(Constants.ProjectColumnName.roleName.ToString()),
                         projectName =row.Field<string>(Constants.ProjectColumnName.projectName.ToString()),
-                        projectId = Convert.ToString(row.Field<int>(Constants.ProjectColumnName.projectId.ToString())),
+                        projectId = row.Field<int?>(Constants.ProjectColumnName.projectId.ToString()).ToString(),
                         userProjectRoleId = row.Field<int>(Constants.ProjectColumnName.userProjectRoleId.ToString()),
                     });
                 });
