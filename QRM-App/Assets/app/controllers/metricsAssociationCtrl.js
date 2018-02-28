@@ -114,6 +114,7 @@
             $scope.gridApi.selection.clearSelectedRows();
         }
 
+        $scope.newMetricData = [];
         $scope.metricList = [];
         $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricList = [];
@@ -125,9 +126,17 @@
                         angular.forEach($scope.metricsListWithProjects, function (value, key) {
                             if (valueGrid.MetricsMasterId == value) {
                                 $scope.metricList.push($scope.gridData[keyGrid]);
+                                $scope.newMetricData.push($scope.gridData[keyGrid])
                             }
                         });
                     });
+                    angular.forEach($scope.gridData, function (valueGrid, keyGrid) {
+                        if ($scope.metricsListWithProjects.indexOf(valueGrid.MetricsMasterId)===-1) {
+                            $scope.newMetricData.push($scope.gridData[keyGrid])
+                        }
+                    });
+                    $scope.gridData = [];
+                    $scope.gridData = $scope.newMetricData;
                     angular.forEach($scope.metricList, function (value, key) {
                         $scope.gridApi.selection.selectRow($scope.metricList[key]);
                     });
