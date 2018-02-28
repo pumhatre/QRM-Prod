@@ -1,7 +1,7 @@
 ﻿//uploadCtrl
 
 angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-    .controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'healthReportService', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', function ($scope, $http, uiGridConstants, healthReportService, projectReleaseService, metricsAssociationService, uploadService, config, $confirm) {
+    .controller('uploadCtrl', ['$scope', '$http', 'uiGridConstants', 'healthReportService', 'projectReleaseService', 'metricsAssociationService', 'uploadService', 'config', '$confirm', '$templateCache', function ($scope, $http, uiGridConstants, healthReportService, projectReleaseService, metricsAssociationService, uploadService, config, $confirm, $templateCache) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.isUploaded = true;
