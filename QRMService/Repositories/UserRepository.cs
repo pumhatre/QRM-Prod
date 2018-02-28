@@ -27,7 +27,6 @@ namespace QRMService.Repositories
         private static List<UserModel> GetProjectData()
         {
             var helper = new SqlClientHelper();
-            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             DataTable dtUserModel = helper.GetDataTableByProcedure(Constants.UspGetProjectData, "default", true);
             List<UserModel> userModelList = new List<UserModel>();
             if (dtUserModel != null && dtUserModel.Rows.Count > 0)
@@ -42,10 +41,10 @@ namespace QRMService.Repositories
                         lastName = row.Field<string>(Constants.ProjectColumnName.lastName.ToString()),
                         email = row.Field<string>(Constants.ProjectColumnName.email.ToString()),
                         phone = row.Field<string>(Constants.ProjectColumnName.phone.ToString()),
-                        roleId = row.Field<int>(Constants.ProjectColumnName.roleId.ToString()),
+                        roleId =Convert.ToString(row.Field<int>(Constants.ProjectColumnName.roleId.ToString())),
                         roleName = row.Field<string>(Constants.ProjectColumnName.roleName.ToString()),
                         projectName =row.Field<string>(Constants.ProjectColumnName.projectName.ToString()),
-                        projectId = row.Field<int?>(Constants.ProjectColumnName.projectId.ToString()),
+                        projectId = Convert.ToString(row.Field<int>(Constants.ProjectColumnName.projectId.ToString())),
                         userProjectRoleId = row.Field<int>(Constants.ProjectColumnName.userProjectRoleId.ToString()),
                     });
                 });
@@ -78,16 +77,16 @@ namespace QRMService.Repositories
                             var userrole = new UserProjectRoleAssociation();
                             var userroleId = context.UserProjectRoleAssociations.OrderByDescending(p => p.UserProjectRoleId).FirstOrDefault().UserProjectRoleId;
                             userrole.UserId = userId + 1;
-                            if (user.projectId != 0)
+                            if (user.projectId != null && Convert.ToInt32(user.projectId) !=0)
                             {
-                                userrole.ProjectId = user.projectId;
+                                userrole.ProjectId = Convert.ToInt32(user.projectId);
                             }
                             else
                             {
                                 userrole.ProjectId = null;
                             }
 
-                            userrole.RoleId = user.roleId;
+                            userrole.RoleId =Convert.ToInt32(user.roleId);
                             userrole.UserProjectRoleId = userroleId + 1;
                             context.UserProjectRoleAssociations.Add(userrole);
                             context.SaveChanges();
@@ -110,8 +109,8 @@ namespace QRMService.Repositories
 
                             var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == user.userId).UserProjectRoleId;
                             UserProjectRoleAssociation roleAssociation = context.UserProjectRoleAssociations.Find(userRoleId);
-                            roleAssociation.RoleId = user.roleId;
-                            roleAssociation.ProjectId = user.projectId;
+                            roleAssociation.RoleId = Convert.ToInt32(user.roleId);
+                            roleAssociation.ProjectId = Convert.ToInt32(user.projectId);
                             context.Entry(roleAssociation).State = System.Data.Entity.EntityState.Modified;
                             context.SaveChanges();
 
@@ -204,7 +203,7 @@ namespace QRMService.Repositories
 
                                 if (role != null)
                                 {
-                                    role.RoleId = user.roleId;
+                                    role.RoleId = Convert.ToInt32(user.roleId);
                                 }
                                 else
                                 {
@@ -213,7 +212,7 @@ namespace QRMService.Repositories
                                     userRoleAssoc.UserId = user.userId;
                                     userRoleAssoc.UserProjectRoleId = roleCounter--;
                                     userRoleAssoc.ProjectId = projectId;
-                                    userRoleAssoc.RoleId = user.roleId;
+                                    userRoleAssoc.RoleId = Convert.ToInt32(user.roleId);
                                 }
                             }
                         }
