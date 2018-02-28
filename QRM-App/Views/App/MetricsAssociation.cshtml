@@ -205,7 +205,22 @@
                                                        
                                                         <div class="col-md-12">
                                                             <!-- start project list -->
-                                                            <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>
+                                                            @*<div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>*@
+                                                            <div id="metricAssociationGrid" class="gridDiv grid" ui-grid="gridOptions" ui-grid-pagination="">
+                                                                <div class="grid-msg-overlay" ng-show="loading">
+                                                                    <div class="msg">
+                                                                        <span>
+                                                                            Loading Data...
+                                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="grid-msg-overlay" ng-hide="loading || gridOptions.data.length">
+                                                                    <div class="msg">
+                                                                        <span>No Data</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <!-- end project list -->
                                                         </div>
                                                        @* <div class="col-md-2"></div>*@

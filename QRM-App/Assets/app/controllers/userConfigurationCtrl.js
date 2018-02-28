@@ -191,11 +191,11 @@
                     },
                     {
                         name: 'roleName', displayName: "Role", field: "roleName", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;" style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="role in grid.appScope.roles" value="{{role.Value}}">{{role.Text}}</option> </select></div>'
+                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="role in grid.appScope.roles" value="{{role.Value}}">{{role.Text}}</option> </select></div>'
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',
-                        cellTemplate: '<div><button ng-show="!row.entity.editable" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                        cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button  ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
                         '<button  ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
                         '<button  ng-show="!row.entity.editable" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button

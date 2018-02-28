@@ -11,7 +11,8 @@
         //Class to hold the new project data
         $scope.Project = {};
         $scope.gridOptions = {};
-        $scope.showModal = false;       
+        $scope.showModal = false;
+        $scope.gridheight="";
 
         $scope.LoadRefData = function () {
             referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
@@ -37,6 +38,7 @@
             projectService.getProjectList(config)
                 .then(function (successResponse) {
                     $scope.gridOptions.data = successResponse.data;
+                    $scope.gridheight = $scope.gridOptions.data.length;
                     $scope.loading = false;
                     $scope.loadAttempted = true;
                 }, function (errorResponse) {
@@ -170,7 +172,7 @@
 
         };           
 
-
+       
         //Get function to populate the UI-Grid
         $scope.GetProjects = function () {
             $scope.loading = true;
@@ -217,7 +219,7 @@
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
-                        cellTemplate: '<div><button style="padding: 5px;" ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                        cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
                         '<button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
@@ -231,7 +233,9 @@
             //Function to load the data from database
             $scope.loadProjects();
         };
-
+        $scope.gridOptions.minRowsToShow = $scope.gridheight;
+        $scope.gridOptions.enableHorizontalScrollbar = false;
+        $scope.gridOptions.enableVerticalScrollbar = false;
         // call function to load ref data
         $scope.LoadRefData();
         //Call  function to load the data
