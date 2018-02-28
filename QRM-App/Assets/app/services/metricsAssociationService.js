@@ -17,10 +17,9 @@
         return $http.post(config.apiUrl + 'api/MetricsAssociation/SaveMetricsAssociation', data);
     }
 
-    this.getSavedMetricsAssociation = function (projectId, releaseId, config) {
-        //var metricIdList = metricsMasterIdList;
-        //var data = { MetricsMasterIdList: null, ProjectId: projectIdPost, ReleaseId: releaseId };
-        return $http.get(config.apiUrl + 'api/MetricsAssociation/GetSavedMetricsAssociation?projectId=' + projectId + '&releaseId=' + releaseId);
+    this.getSavedMetricsAssociation = function (projectId, releaseId,monthId, config) {
+        var data = {ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId };
+        return $http.post(config.apiUrl + 'api/MetricsAssociation/GetSavedMetricsAssociation', data);
     }
 
 }]);

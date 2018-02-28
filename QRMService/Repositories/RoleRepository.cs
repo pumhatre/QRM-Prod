@@ -32,7 +32,7 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                return db.ProjectMasters.Select(a => new SelectListItem
+                return db.ProjectMasters.Where(a=>a.IsActive==true).Select(a => new SelectListItem
                 {
                     Text = a.ProjectName,
                     Value = a.ProjectID.ToString()

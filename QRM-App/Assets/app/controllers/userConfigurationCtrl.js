@@ -90,13 +90,6 @@
             $scope.responseMessage = "";
 
             var ProjectRelease = $scope.selectedProjectReleaseDropdown;
-
-            //if (ProjectRelease == '' || ProjectRelease == null) {
-            //    $scope.showErrorMessage = true;
-            //    $scope.responseMessage = "Please select Project";
-            //}
-            //else {
-
             var index = $scope.gridOptions1.data.indexOf(row);
             $scope.gridOptions1.data[0].editable = false;
             $scope.User = {};
@@ -108,6 +101,7 @@
             $scope.User.phone = row.phone;
             $scope.User.roleId = row.roleId;
             $scope.User.projectId = row.projectId;
+            $scope.User.roleName = row.roleName;
 
             $scope.User.projectName = row.projectName;
 
@@ -180,7 +174,7 @@
                 columnDefs: [
                      {
                          name: 'ProjectName', displayName: "Project Name", field: "projectName", enableColumnMenu: false, width: '10%',
-                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="industry in grid.appScope.projects" value="{{industry.Value}}">{{industry.Text}}</option> </select></div>'
+                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="proj in grid.appScope.projects" value="{{proj.Value}}">{{proj.Text}}</option> </select></div>'
                      },
                     { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
                     { field: 'userId', name: 'User Id', visible: false },
@@ -197,7 +191,7 @@
                     },
                     {
                         name: 'roleName', displayName: "Role", field: "roleName", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="industry in grid.appScope.roles" value="{{industry.Value}}">{{industry.Text}}</option> </select></div>'
+                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="role in grid.appScope.roles" value="{{role.Value}}">{{role.Text}}</option> </select></div>'
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',

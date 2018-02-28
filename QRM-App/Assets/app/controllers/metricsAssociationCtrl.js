@@ -115,10 +115,10 @@
         }
 
         $scope.metricList = [];
-        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
+        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricList = [];
             $scope.gridApi.selection.clearSelectedRows();
-            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
+            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth, config)
                 .then(function (successResponse) {
                     $scope.metricsListWithProjects = successResponse.data;
                     angular.forEach($scope.gridData, function (valueGrid, keyGrid) {

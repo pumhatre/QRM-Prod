@@ -81,18 +81,13 @@ namespace QRMService.Repositories
             }
         }
 
-        public static List<int> GetSavedMetricsAssociation(int projectId, int releaseId)
+        public static List<int> GetSavedMetricsAssociation(int projectId, int releaseId,int month)
         {
             using (var db = new QRMEntities())
             {
-                //var releaseDetails = (from m in db.ProjectMetricAssociations
-                //                      where m.ProjectId == projectId & m.ReleaseId==releaseId
-                //                      select new MetricsAssociationMasterModel
-                //                      {
-                //                          MetricsMasterId=m.MetricMasterID,
-                //                      }).ToList();
                 var releaseDetails = (from m in db.ProjectMetricAssociations
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && m.MonthId== month
+                                      orderby m.ProjectId
                                       select m.MetricMasterID).ToList();
                 return releaseDetails;
             }
