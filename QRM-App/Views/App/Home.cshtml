@@ -1,21 +1,15 @@
 ﻿<style>
-    .ui-grid-row, .ui-grid-cell, .ui-grid-cell .ui-grid-vertical-bar {
-        height: 35px !important;
-        vertical-align: middle !important;
-    }
-
-    .wrap {
-        white-space: normal;
-    }
-
-    .ui-grid-row {
-        position: relative;
-        z-index: -27;
-    }
-
     .testClass {
         z-index: -10;
     }
+
+    .ui-grid-row:last-child > div > div > div {
+        border-bottom: 0.5px solid black !important;
+    }
+
+    /*.ui-grid-row > div > div > div:last-child {
+        border-right: 1px solid black;
+    }*/
 </style>
 
 <div class="x_panel" role="main" ng-app="home" ng-controller="homeCtrl">
@@ -41,7 +35,7 @@
                                     <a href="#tab_content3" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Upcoming Reviews</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content4"  role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
+                                    <a href="#tab_content4" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
                                 </li>
                             </ul>
                             <div id="myTabcontent" class="tab-content">
@@ -51,7 +45,7 @@
                                             <div class="x_content">
                                                 <div class="form-group">
                                                     <div class="col-md-12">
-                                                       Chart
+                                                        Charts
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,7 +58,7 @@
                                             <div class="x_panel">
                                                 <div class="x_content">
                                                     <div class="col-md-12">
-                                                        <div id="mprojectGrid" ui-grid="projectGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                        <div id="mprojectGrid" ui-grid="projectGrid" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -91,7 +85,7 @@
                                             <div class="x_panel">
                                                 <div class="x_content">
                                                     <div class="col-md-12">
-                                                      My Saved Reports
+                                                        My Saved Reports
                                                     </div>
                                                 </div>
                                             </div>

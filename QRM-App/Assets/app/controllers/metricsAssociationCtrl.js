@@ -1,4 +1,4 @@
-﻿angular.module('metricsAssociation', [])
+﻿angular.module('metricsAssociation', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
     .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService','ReportService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService,ReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
@@ -74,15 +74,11 @@
         $scope.gridOptions = {
             data: 'gridData',
             enableSorting: false,
-            //enableHiding: true,
             enableRowSelection: false,
             enableSelectAll: true,
-            //selectionRowHeaderWidth: 45,
             columnDefs: [
-                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                //{ field: 'MetricMasterID', name: 'MetricMasterID', displayName: '#', cellTemplate: '<div><input type="checkbox" ng-change="grid.appScope.callFunction({{MetricMasterID}})" ng-model="MetricMasterID" ></div>', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false },
-                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '30%' },
-                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', headerCellClass: 'headerCell', cellClass: 'headerCell', enableColumnMenu: false, width: '70%' }
+                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', enableColumnMenu: false, width: '30%' },
+                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', enableColumnMenu: false, width: '65%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -91,16 +87,18 @@
 
         $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown,selectedMonth) {
             $scope.selectedRows = $scope.gridApi.selection.getSelectedRows();
-            angular.forEach($scope.selectedRows, function (value, key) {
+            $scope.metricsMasterIdList = [];
+            angular.forEach($scope.selectedRows, function (value, key) {               
                 $scope.metricsMasterIdList.push(value.MetricsMasterId);
             });
-            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth.MonthId, config)
+            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
                 .then(function (successResponse) {
                     if (successResponse.data.IsSuccess) {
                         // show success alert
                         $scope.alertTypeAssociation = "Success";
                         $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
                         $scope.GetProjectReleasesByProjectId();
+                        $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth,config);
                     }
                     else {
                         // show failure alert
@@ -114,20 +112,30 @@
             $scope.gridApi.selection.clearSelectedRows();
         }
 
+        $scope.newMetricData = [];
         $scope.metricList = [];
-        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
+        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricList = [];
+            $scope.newMetricData = [];
             $scope.gridApi.selection.clearSelectedRows();
-            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
+            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth, config)
                 .then(function (successResponse) {
                     $scope.metricsListWithProjects = successResponse.data;
                     angular.forEach($scope.gridData, function (valueGrid, keyGrid) {
                         angular.forEach($scope.metricsListWithProjects, function (value, key) {
                             if (valueGrid.MetricsMasterId == value) {
                                 $scope.metricList.push($scope.gridData[keyGrid]);
+                                $scope.newMetricData.push($scope.gridData[keyGrid])
                             }
                         });
                     });
+                    angular.forEach($scope.gridData, function (valueGrid, keyGrid) {
+                        if ($scope.metricsListWithProjects.indexOf(valueGrid.MetricsMasterId)===-1) {
+                            $scope.newMetricData.push($scope.gridData[keyGrid])
+                        }
+                    });
+                    $scope.gridData = [];
+                    $scope.gridData = $scope.newMetricData;
                     angular.forEach($scope.metricList, function (value, key) {
                         $scope.gridApi.selection.selectRow($scope.metricList[key]);
                     });
@@ -274,11 +282,11 @@
                         cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                      {
-                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '40%',
+                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '35%',
                          enableCellEdit: false
                      },
                     {
-                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '25%',
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '30%',
                         cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button

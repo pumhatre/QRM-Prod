@@ -1,4 +1,4 @@
-﻿angular.module('project', [])
+﻿angular.module('project', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
 
     .controller('projectCtrl', ['$scope', '$http', 'referenceDataService', 'projectService', 'config', 'uiGridConstants', '$confirm', function ($scope, $http, referenceDataService, projectService, config, uiGridConstants,$confirm) {
         $scope.selectedservice = null;
@@ -11,7 +11,8 @@
         //Class to hold the new project data
         $scope.Project = {};
         $scope.gridOptions = {};
-        $scope.showModal = false;       
+        $scope.showModal = false;
+        $scope.gridheight="";
 
         $scope.LoadRefData = function () {
             referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
@@ -37,6 +38,7 @@
             projectService.getProjectList(config)
                 .then(function (successResponse) {
                     $scope.gridOptions.data = successResponse.data;
+                    $scope.gridheight = $scope.gridOptions.data.length;
                     $scope.loading = false;
                     $scope.loadAttempted = true;
                 }, function (errorResponse) {
@@ -170,7 +172,7 @@
 
         };           
 
-
+       
         //Get function to populate the UI-Grid
         $scope.GetProjects = function () {
             $scope.loading = true;
@@ -196,7 +198,7 @@
                         cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '8%',
+                        name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '7%',
                         cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.TechnologyCode"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceValue}}</option> </select></div>'
                     },
                     {
@@ -204,7 +206,7 @@
                         cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.IndustryCode"><option value="">Select Industry</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
                     },
                     {
-                        name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '8%',
+                        name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '7%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
@@ -216,8 +218,8 @@
                         cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',
-                        cellTemplate: '<div><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '18%',
+                        cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
                         '<button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
@@ -231,7 +233,9 @@
             //Function to load the data from database
             $scope.loadProjects();
         };
-
+        $scope.gridOptions.minRowsToShow = $scope.gridheight;
+        $scope.gridOptions.enableHorizontalScrollbar = false;
+        $scope.gridOptions.enableVerticalScrollbar = false;
         // call function to load ref data
         $scope.LoadRefData();
         //Call  function to load the data

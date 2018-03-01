@@ -78,7 +78,7 @@ angular.module('metrics', []).controller('metricsCtrl', ['$scope', '$http', 'uiG
             //});
         }
 
-        var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
+        var tmpl = '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
         $scope.metricsGrid = {
             enableSorting: false,
             enableColumnMenus: false,
@@ -91,7 +91,7 @@ angular.module('metrics', []).controller('metricsCtrl', ['$scope', '$http', 'uiG
                 { field: 'CategoryDescription', name: 'Category Description', cellTemplate: tmpl,width: '50%'},               
                 {
                     name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '20%',
-                    cellTemplate: '<div><button ng-show="!row.entity.editable" ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                    cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                     '<button ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
                     '<button ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
                     '<button ng-show="!row.entity.editable" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button

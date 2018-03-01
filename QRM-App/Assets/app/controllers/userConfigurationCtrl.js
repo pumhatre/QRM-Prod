@@ -90,13 +90,6 @@
             $scope.responseMessage = "";
 
             var ProjectRelease = $scope.selectedProjectReleaseDropdown;
-
-            //if (ProjectRelease == '' || ProjectRelease == null) {
-            //    $scope.showErrorMessage = true;
-            //    $scope.responseMessage = "Please select Project";
-            //}
-            //else {
-
             var index = $scope.gridOptions1.data.indexOf(row);
             $scope.gridOptions1.data[0].editable = false;
             $scope.User = {};
@@ -108,13 +101,14 @@
             $scope.User.phone = row.phone;
             $scope.User.roleId = row.roleId;
             $scope.User.projectId = row.projectId;
+            $scope.User.roleName = row.roleName;
 
             $scope.User.projectName = row.projectName;
 
 
             userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
                 if (response.data.IsSuccess) {
-                   // $scope.getProjectUsers($scope.User.projectId);
+                    $scope.GetUsers();
                     $scope.alerts.push({
                         msg: 'Project Updated Successfully',
                         type: 'Success'
@@ -139,7 +133,7 @@
                     userDetailsService.DeleteUser(row.userId, config).
                         then(function (response) {
                             if (response.data.IsSuccess) {
-                                $scope.LoadProjects();
+                                $scope.GetUsers();
                                 //Display Successfull message after save
                                 $scope.alerts.push({
                                     msg: 'Project deleted successfully',
@@ -173,14 +167,14 @@
             $scope.LoadProjectsDropDown();
             $scope.LoadRoles();
             $scope.LoadProjects();
-            var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="text"></div>';
+            var tmpl = '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="text"></div>';
             $scope.gridOptions1 = {
                 enableSorting: false,
                 enableColumnMenus: false,
                 columnDefs: [
                      {
                          name: 'ProjectName', displayName: "Project Name", field: "projectName", enableColumnMenu: false, width: '10%',
-                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="industry in grid.appScope.projects" value="{{industry.Value}}">{{industry.Text}}</option> </select></div>'
+                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="proj in grid.appScope.projects" value="{{proj.Value}}">{{proj.Text}}</option> </select></div>'
                      },
                     { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
                     { field: 'userId', name: 'User Id', visible: false },
@@ -189,22 +183,22 @@
                     { field: 'lastName', name: 'Last Name', cellTemplate: tmpl },
                     {
                         field: 'email', name: 'Email', cellTemplate:
-                        '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="email"></div>'
+                        '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="email"></div>'
                     },
                     {
                         field: 'phone', name: 'Phone', cellTemplate:
-                        '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"></div>'
+                        '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: 'roleName', displayName: "Role", field: "roleName", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="industry in grid.appScope.roles" value="{{industry.Value}}">{{industry.Text}}</option> </select></div>'
+                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="role in grid.appScope.roles" value="{{role.Value}}">{{role.Text}}</option> </select></div>'
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '16%',
-                        cellTemplate: '<div><button ng-show="!row.entity.editable" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
-                        '<button ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
-                        '<button ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
-                        '<button ng-show="!row.entity.editable" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
+                        cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                        '<button  ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
+                        '<button  ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
+                        '<button  ng-show="!row.entity.editable" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
                         '</div>'
                     },
                 ],

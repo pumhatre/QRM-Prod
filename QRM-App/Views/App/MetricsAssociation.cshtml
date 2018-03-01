@@ -32,6 +32,7 @@
 
     #metricAssociationGrid {
         width: 100% !important;
+         height: 400px !important;
     }
 </style>
 <div class="x_panel" role="main">
@@ -180,9 +181,10 @@
                                                         <div class="col-md-3"></div>
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
                                                         <div class="col-md-3">
-                                                            <select class="form-control" name="monthList" ng-model="selectedMonth"
-                                                                    ng-options="g.MonthName for g in monthList" required autofocus>
-                                                                <option value="">Select Month</option>
+                                                            <select class="form-control" name="monthList" ng-model="selectedMonth">
+                                                                <option ng-repeat="month in monthList" value="{{month.MonthId}}">{{month.MonthName}}</option>
+                                                                    @*ng-options="g.MonthName for g in monthList" required autofocus>
+                                                                <option value="">Select Month</option>*@
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3"></div>
@@ -193,20 +195,20 @@
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-3">
-                                                            &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button type="submit" class="btn btn-success" id="btnSave" ng-click="getMetricsList(selectedProjectReleaseDropdown,selectedReleaseDropdown)"> Search</button>
+                                                            &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button type="submit" class="btn btn-success" id="btnSave" ng-click="getMetricsList(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)"> Search</button>
                                                         </div>
                                                         <div class="col-md-3"></div>
                                                     </div>
                                                     <div class="clearfix"></div>
                                                     <br>
                                                     <div>
-                                                        <div class="col-md-2"></div>
-                                                        <div class="col-md-8">
+                                                       
+                                                        <div class="col-md-12">
                                                             <!-- start project list -->
-                                                            <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-selection></div>
+                                                            <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize></div>
                                                             <!-- end project list -->
                                                         </div>
-                                                        <div class="col-md-2"></div>
+                                                       @* <div class="col-md-2"></div>*@
                                                         <div class="clearfix"></div>
                                                         <div style="text-align:center;">
                                                             <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>

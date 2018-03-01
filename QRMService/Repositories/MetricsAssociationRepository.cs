@@ -54,9 +54,13 @@ namespace QRMService.Repositories
                 int projectId = modelData.ProjectId;
                 var releaseId = modelData.ReleaseId;
                 int monthid = modelData.MonthId;
+
+                var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId && x.MonthId == monthid);
+                db.ProjectMetricAssociations.RemoveRange(deleteItems);
+                db.SaveChanges();
                 foreach (int id in metricsMasterIdList)
                 {
-                    var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId).FirstOrDefault();
+                    var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId == monthid).FirstOrDefault();
                     if (metricsAssociation == null)
                     {
                         var projectMetricsAssociationData = new ProjectMetricAssociation
@@ -81,18 +85,13 @@ namespace QRMService.Repositories
             }
         }
 
-        public static List<int> GetSavedMetricsAssociation(int projectId, int releaseId)
+        public static List<int> GetSavedMetricsAssociation(int projectId, int releaseId, int month)
         {
             using (var db = new QRMEntities())
             {
-                //var releaseDetails = (from m in db.ProjectMetricAssociations
-                //                      where m.ProjectId == projectId & m.ReleaseId==releaseId
-                //                      select new MetricsAssociationMasterModel
-                //                      {
-                //                          MetricsMasterId=m.MetricMasterID,
-                //                      }).ToList();
                 var releaseDetails = (from m in db.ProjectMetricAssociations
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && m.MonthId == month
+                                      orderby m.ProjectId
                                       select m.MetricMasterID).ToList();
                 return releaseDetails;
             }

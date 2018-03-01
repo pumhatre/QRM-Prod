@@ -17,7 +17,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    var tmpl2 = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
+    var tmpl2 = '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
     $scope.projectGrid = {
         enableSorting: false,
         enableColumnMenus: false,
@@ -37,5 +37,6 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
         }
+       
     }
 }]);

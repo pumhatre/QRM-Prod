@@ -13,10 +13,10 @@ namespace QRMService.Models
         public string lastName { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
-        public int? roleId { get; set; }
+        public string roleId { get; set; }
         public int userProjectRoleId { get; set; }
         public bool IsDeleted { get; set; }
-        public int? projectId { get; set; }
+        public string projectId { get; set; }
         public string roleName { get; set; }
         public string projectName { get; set; }
     }

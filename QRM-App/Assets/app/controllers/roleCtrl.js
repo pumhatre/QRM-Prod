@@ -103,7 +103,7 @@
                 },
                 {
                     name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false,
-                    cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn btn-info btn-xs" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i>Edit</button>' +  //Edit Button
+                    cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editrow" class="btn btn-info btn-xs" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i>Edit</button>' +  //Edit Button
                                    '<button ng-show="!row.entity.editrow" class="btn btn-danger btn-xs" ng-click="grid.appScope.delete(row.entity)"><i class="fa fa-times"></i>Delete</button>' + //Delete Button
                                    '</div>'
                 }
