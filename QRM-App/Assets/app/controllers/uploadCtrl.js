@@ -417,10 +417,10 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             columnDefs: [
                 //{ field: 'DashBoardType', name: 'Manual/Automation', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
                 { field: 'DashboardSubtype', name: '', width: '25%', cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-                { field: 'PreSitComponent', name:'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
-                { field: 'PreSitE2E', name:'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
-                { field: 'SitComponent', name:'SIT-Component', cellTemplate: tmp2, width: '20%' },
-                { field: 'SitE2E', name: 'SIT-E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'PreSitComponent', name: 'Pre Sit Component', width: '20%', cellTemplate: tmp2 },
+                { field: 'PreSitE2E', name: 'Pre Sit E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitComponent', name: 'Sit Component', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitE2E', name: 'Sit E2E', cellTemplate: tmp2, width: '20%' },
 
             ],
             onRegisterApi: function (gridApi) {

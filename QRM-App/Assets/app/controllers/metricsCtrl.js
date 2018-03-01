@@ -78,7 +78,7 @@ angular.module('metrics', []).controller('metricsCtrl', ['$scope', '$http', 'uiG
             //});
         }
 
-        var tmpl = '<div ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
+        var tmpl = '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD"</div>';
         $scope.metricsGrid = {
             enableSorting: false,
             enableColumnMenus: false,

@@ -97,6 +97,7 @@
                         $scope.alertTypeAssociation = "Success";
                         $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
                         $scope.GetProjectReleasesByProjectId();
+                        $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth,config);
                     }
                     else {
                         // show failure alert
@@ -114,6 +115,7 @@
         $scope.metricList = [];
         $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricList = [];
+            $scope.newMetricData = [];
             $scope.gridApi.selection.clearSelectedRows();
             metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth, config)
                 .then(function (successResponse) {
