@@ -87,7 +87,8 @@
 
         $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown,selectedMonth) {
             $scope.selectedRows = $scope.gridApi.selection.getSelectedRows();
-            angular.forEach($scope.selectedRows, function (value, key) {
+            $scope.metricsMasterIdList = [];
+            angular.forEach($scope.selectedRows, function (value, key) {               
                 $scope.metricsMasterIdList.push(value.MetricsMasterId);
             });
             metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
