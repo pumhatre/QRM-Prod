@@ -124,8 +124,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         var renderEffortError = function () {
-                    return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
-                    }
+            return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
+        }
         //get function to load grid data
         $scope.effortGridData = {
             paginationPageSizes: [10, 50, 100, 200, 500],
@@ -151,19 +151,51 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                      enableCellEdit: false
                  },
                  {
-                     name: 'Status', displayName: "Status", field: "Status", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                     name: 'Status', displayName: "Status", field: "Status",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'red';
+                         } else {
+                             return 'effortCellClass';
+                         }
+                     },
+                     enableColumnMenu: false, width: '15%',
                      enableCellEdit: false
                  },
                  {
-                     name: 'ComponentType', displayName: "Component Type", field: "ComponentType", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                     name: 'ComponentType', displayName: "Component Type", field: "ComponentType",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'red';
+                         } else {
+                             return 'effortCellClass';
+                         }
+                     },
+                     enableColumnMenu: false, width: '15%',
                      enableCellEdit: false
                  },
                  {
-                     name: 'WidgetType', displayName: "Widget Type", field: "WidgetType", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                     name: 'WidgetType', displayName: "Widget Type", field: "WidgetType",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'red';
+                         } else {
+                             return 'effortCellClass';
+                         }
+                     },
+                     enableColumnMenu: false, width: '15%',
                      enableCellEdit: false
                  },
                 {
-                    name: 'Complexity', displayName: "Complexity", field: "Complexity", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                    name: 'Complexity', displayName: "Complexity", field: "Complexity",
+                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                        if (grid.getCellValue(row, col) === '-Missing-') {
+                            return 'red';
+                        } else {
+                            return 'effortCellClass';
+                        }
+                    },
+                    enableColumnMenu: false, width: '15%',
                     enableCellEdit: false
                 },
 
@@ -186,114 +218,196 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.gridApi = gridApi;
             }
         };
-        
+
         var render = function () {
             return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
         }
         //var tmp2 = 
         //get function to load grid data
         $scope.defectGridData = {
-                paginationPageSizes: [10, 50, 100, 200, 500],
-                enableRowHeaderSelection: false,
+            paginationPageSizes: [10, 50, 100, 200, 500],
+            enableRowHeaderSelection: false,
             paginationPageSize: 5,
-                loading: true,
+            loading: true,
             //Declaring column and its related properties
-                columnDefs: [
-                    {
-                        name: 'WidgetComponentId', displayName: "Widget Component Id", field: "WidgetComponentId", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                            enableCellEdit: false
+            columnDefs: [
+                {
+                    name: 'WidgetComponentId', displayName: "Widget Component Id", field: "WidgetComponentId",
+                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                        if (grid.getCellValue(row, col) === '-Missing-') {
+                            return 'redDefectCellClass';
+                        } else {
+                            return 'defectCellClass';
+                        }
+                    },
+                    enableColumnMenu: false,
+                    width: '10%',
+                    enableCellEdit: false
                 },
-                     {
-                         name: 'DetectedStage', displayName: "Detected Stage", field: "DetectedStage", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                             enableCellEdit: false
-                },
-                     {
-                         name: 'Status', displayName: "Status", field: "Status", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                             enableCellEdit: false
-                },
-                     {
-                         name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                             enableCellEdit: false
-                },
-                     {
-                         name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                             enableCellEdit: false
-                },
-                    {
-                        name: 'DefectType', displayName: "Defect Type", field: "DefectType", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                            enableCellEdit: false
+                 {
+                     name: 'DetectedStage', displayName: "Detected Stage", field: "DetectedStage",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'redDefectCellClass';
+                         } else {
+                             return 'defectCellClass';
+                         }
+                     },
+                     enableColumnMenu: false,
+                     width: '10%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'Status', displayName: "Status", field: "Status",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'redDefectCellClass';
+                         } else {
+                             return 'defectCellClass';
+                         }
+                     },
+                     enableColumnMenu: false,
+                     width: '10%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'redDefectCellClass';
+                         } else {
+                             return 'defectCellClass';
+                         }
+                     },
+                     enableColumnMenu: false,
+                     width: '10%',
+                     enableCellEdit: false
+                 },
+                 {
+                     name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'redDefectCellClass';
+                         } else {
+                             return 'defectCellClass';
+                         }
+                     },
+                     enableColumnMenu: false,
+                     width: '10%',
+                     enableCellEdit: false
+                 },
+                {
+                    name: 'DefectType', displayName: "Defect Type", field: "DefectType",
+                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                        if (grid.getCellValue(row, col) === '-Missing-') {
+                            return 'redDefectCellClass';
+                        } else {
+                            return 'defectCellClass';
+                        }
+                    },
+                    enableColumnMenu: false,
+                    width: '10%',
+                    senableCellEdit: false
                 },
 
-                     {
-                         name: 'Cause', displayName: "Cause", field: "Cause", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                             enableCellEdit: false
+                 {
+                     name: 'Cause', displayName: "Cause", field: "Cause",
+                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                         if (grid.getCellValue(row, col) === '-Missing-') {
+                             return 'redDefectCellClass';
+                         } else {
+                             return 'defectCellClass';
+                         }
+                     },
+                     enableColumnMenu: false,
+                     width: '10%',
+                     enableCellEdit: false
+                 },
+                {
+                    name: 'DefectSeverity', displayName: "DefectSeverity", field: "defectCellClass",
+                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                        if (grid.getCellValue(row, col) === '-Missing-') {
+                            return 'redDefectCellClass';
+                        } else {
+                            return 'defectCellClass';
+                        }
+                    },
+                    enableColumnMenu: false, width: '10%',
+                    enableCellEdit: false
                 },
-                    {
-                        name: 'DefectSeverity', displayName: "DefectSeverity", field: "defectCellClass", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                            enableCellEdit: false
-                },
-                    {
-                        name: 'ReviewType', displayName: "ReviewType", field: "ReviewType", cellClass: 'defectCellClass', enableColumnMenu: false, width: '10%',
-                            enableCellEdit: false
+                {
+                    name: 'ReviewType', displayName: "ReviewType", field: "ReviewType",
+                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                        if (grid.getCellValue(row, col) === '-Missing-') {
+                            return 'redDefectCellClass';
+                        } else {
+                            return 'defectCellClass';
+                        }
+                    },
+                    enableColumnMenu: false, width: '10%',
+                    enableCellEdit: false
                 },
 
-                     {
-                         name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription", cellClass: 'errorCellClass', enableColumnMenu: false, width: '30%',
-                             enableCellEdit: false, cellTemplate: render()
-                }
-                    //{
-                    //    name: 'ValidDefectTypeCause', displayName: "Defect Cause Mapping", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
-                    //    enableCellEdit: false
-                    //}
+                 {
+                     name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription",
+                     cellClass: 'errorCellClass',
+                     enableColumnMenu: false, width: '30%',
+                     enableCellEdit: false,
+                     cellTemplate: render()
+                 }
+                //{
+                //    name: 'ValidDefectTypeCause', displayName: "Defect Cause Mapping", field: "ValidDefectTypeCause", enableColumnMenu: false, width: '10%',
+                //    enableCellEdit: false
+                //}
 
-        ],
-                onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
-        }
-    };
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+            }
+        };
 
 
 
         //save effort detail data
         $scope.SaveDetailData = function () {
-        var effortSanityData = $scope.dataSanityResult;
-        uploadService.SaveDetailDataService(effortSanityData).then(function (response) {
-            if (response.status = 200) {
-                console.log("Effort Detail data saved successfully");
+            var effortSanityData = $scope.dataSanityResult;
+            uploadService.SaveDetailDataService(effortSanityData).then(function (response) {
+                if (response.status = 200) {
+                    console.log("Effort Detail data saved successfully");
 
-        }
+                }
 
             },
-            function (errorResponse) {
+                function (errorResponse) {
 
-            });
+                });
         }
 
-    $scope.nextClick = function (id) {
-        switch (id) {
-            case "step-1":
-                break;
-            case "step-2":
-                $scope.GetStagingData();
-                break;
-            case "step-3":
-                break;
-    }
-    }
+        $scope.nextClick = function (id) {
+            switch (id) {
+                case "step-1":
+                    break;
+                case "step-2":
+                    $scope.GetStagingData();
+                    break;
+                case "step-3":
+                    break;
+            }
+        }
 
         //insert detail data
         $scope.InsertDetailData = function () {
-        var effortDetailData = $scope.dataSanityResult;
+            var effortDetailData = $scope.dataSanityResult;
 
-        uploadService.SaveDetailDataService(effortDetailData).then(function (response) {
-            if (response.status == 200) {
-                $scope.dataSanityResult = response.data;
-                $scope.HideFinalize = true;
-                $scope.successTextAlert = "Data Saved Successfully!";
-                $scope.showSuccessAlert = true;
-        }
-        },
-        function (errorResponse) {
+            uploadService.SaveDetailDataService(effortDetailData).then(function (response) {
+                if (response.status == 200) {
+                    $scope.dataSanityResult = response.data;
+                    $scope.HideFinalize = true;
+                    $scope.successTextAlert = "Data Saved Successfully!";
+                    $scope.showSuccessAlert = true;
+                }
+            },
+            function (errorResponse) {
 
             });
 
@@ -417,9 +531,9 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             columnDefs: [
                 //{ field: 'DashBoardType', name: 'Manual/Automation', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
                 { field: 'DashboardSubtype', name: '', width: '25%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-                { field: 'PreSitComponent', name:'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
-                { field: 'PreSitE2E', name:'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
-                { field: 'SitComponent', name:'SIT-Component', cellTemplate: tmp2, width: '20%' },
+                { field: 'PreSitComponent', name: 'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
+                { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitComponent', name: 'SIT-Component', cellTemplate: tmp2, width: '20%' },
                 { field: 'SitE2E', name: 'SIT-E2E', cellTemplate: tmp2, width: '20%' },
 
             ],
