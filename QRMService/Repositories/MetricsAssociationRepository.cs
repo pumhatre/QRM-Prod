@@ -56,7 +56,7 @@ namespace QRMService.Repositories
                 int monthid = modelData.MonthId;
                 foreach (int id in metricsMasterIdList)
                 {
-                    var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId).FirstOrDefault();
+                    var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId== monthid).FirstOrDefault();
                     if (metricsAssociation == null)
                     {
                         var projectMetricsAssociationData = new ProjectMetricAssociation

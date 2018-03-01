@@ -77,8 +77,8 @@
             enableRowSelection: false,
             enableSelectAll: true,
             columnDefs: [
-                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', enableColumnMenu: false, width: '20%' },
-                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', enableColumnMenu: false, width: '80%' }
+                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', enableColumnMenu: false, width: '30%' },
+                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', enableColumnMenu: false, width: '65%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
@@ -281,11 +281,11 @@
                         cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                      {
-                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '40%',
+                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '35%',
                          enableCellEdit: false
                      },
                     {
-                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '25%',
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '30%',
                         cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button

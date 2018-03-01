@@ -1,9 +1,15 @@
 ﻿<style>
-   
-
     .testClass {
         z-index: -10;
     }
+
+    .ui-grid-row:last-child > div > div > div {
+        border-bottom: 0.5px solid black !important;
+    }
+
+    /*.ui-grid-row > div > div > div:last-child {
+        border-right: 1px solid black;
+    }*/
 </style>
 
 <div class="x_panel" role="main" ng-app="home" ng-controller="homeCtrl">
@@ -29,7 +35,7 @@
                                     <a href="#tab_content3" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Upcoming Reviews</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content4"  role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
+                                    <a href="#tab_content4" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
                                 </li>
                             </ul>
                             <div id="myTabcontent" class="tab-content">
@@ -39,7 +45,7 @@
                                             <div class="x_content">
                                                 <div class="form-group">
                                                     <div class="col-md-12">
-                                                       Chart
+                                                        Charts
                                                     </div>
                                                 </div>
                                             </div>
@@ -79,7 +85,7 @@
                                             <div class="x_panel">
                                                 <div class="x_content">
                                                     <div class="col-md-12">
-                                                      My Saved Reports
+                                                        My Saved Reports
                                                     </div>
                                                 </div>
                                             </div>
