@@ -32,7 +32,7 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                return db.ProjectMasters.Where(a=>a.IsActive==true).Select(a => new SelectListItem
+                return db.ProjectMasters.Where(a => a.IsActive == true).Select(a => new SelectListItem
                 {
                     Text = a.ProjectName,
                     Value = a.ProjectID.ToString()
@@ -90,20 +90,50 @@ namespace QRMService.Repositories
                         db.RoleMasters.Add(role);
                     }
                 }
-            db.SaveChanges();
+                db.SaveChanges();
+            }
         }
-    }
 
-    public static void DeleteRole(int id)
-    {
-        using (var db = new QRMEntities())
+        //public static void DeleteRole(int id)
+        //{
+        //    using (var db = new QRMEntities())
+        //    {
+
+        //        db.RoleMasters.Remove(db.RoleMasters.FirstOrDefault(x => x.RoleId == id));
+        //        db.SaveChanges();
+
+        //    }
+
+        //}
+
+        public static void UpdateRole(int? id,string isActive,string roleName)
         {
+            using (var db = new QRMEntities())
+            {
 
-            db.RoleMasters.Remove(db.RoleMasters.FirstOrDefault(x => x.RoleId == id));
-            db.SaveChanges();
+                var row = db.RoleMasters.FirstOrDefault(x => x.RoleId == id);
+                if (row!=null)
+                {
+                    row.IsActive = isActive=="true" ? "Y" : "N";
+                    row.RoleName = roleName;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    int lastRoleId = db.RoleMasters.Count() == 0 ? 0 : db.RoleMasters.Max(x => x.RoleId);
+                    lastRoleId = lastRoleId + 1;
+                    RoleMaster role = new RoleMaster()
+                    {
+                        RoleId = lastRoleId,
+                        RoleName = roleName,
+                        IsActive = isActive == "true" ? "Y" : "N"
+                    };
 
+                    db.RoleMasters.Add(role);
+                    db.SaveChanges();
+                }
+            }
         }
 
     }
-}
 }

@@ -47,12 +47,30 @@ namespace QRMService.Controllers
         /// Saves the Roles list.
         /// </summary>
         /// <returns></returns>
+        //[HttpGet]
+        //public IHttpActionResult DeleteRole(int id)
+        //{
+        //    try
+        //    {
+        //        RoleRepository.DeleteRole(id);
+        //        return Ok();
+        //    }
+        //    catch (System.Exception e)
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
+
+        /// <summary>
+        /// Saves the Roles list.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult DeleteRole(int id)
+        public IHttpActionResult UpdateRole(int? id,string isActive,string roleName)
         {
             try
             {
-                RoleRepository.DeleteRole(id);
+                RoleRepository.UpdateRole(id,isActive, roleName);
                 return Ok();
             }
             catch (System.Exception e)

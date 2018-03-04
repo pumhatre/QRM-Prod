@@ -29,6 +29,12 @@ app.service('roleService', ['$http', function ($http) {
         });
     }
 
+    this.UpdateRole = function (index, isActive,roleName, config) {
+        var url = config.apiUrl + 'api/Role/UpdateRole/?id=' + index + '&isActive=' + isActive +
+                           '&roleName=' + roleName;
+        return $http.get(url);
+    }
+
     this.saveRoles = function (data, config) {
         var req = {
             method: 'POST',

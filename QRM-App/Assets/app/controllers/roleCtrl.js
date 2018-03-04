@@ -41,11 +41,6 @@
 
         $scope.saveRoles = function () {
             roleService.saveRoles($scope.gridOptions.data, config).then(function (response) {
-                //$scope.gridOptions.data = response;
-                //$scope.gridOptions.data.forEach(function (v) {
-                //    v.editrow = false;
-                //});
-                //alert("Success!");
                 $scope.getRoles();
             },
                 function (error) {
@@ -53,21 +48,16 @@
                 });
         };
 
-        $scope.deleteRole = function (index) {
-            roleService.deleteRole(index, config).then(function (response) {
-                //$scope.gridOptions.data = response;
-                //$scope.gridOptions.data.forEach(function (v) {
-                //    v.editrow = false;
-                //});
-                //alert("Success!");
-                $scope.gridOptions.data.forEach(function (v) {
-                    v.editrow = false;
-                });
-            },
-                function (error) {
-                    console.log(error);
-                });
-        };
+        //$scope.deleteRow = function (row) {
+        //    roleService.deleteRole(row.RoleId, config).then(function (response) {
+        //        $scope.gridOptions.data.forEach(function (v) {
+        //            v.editrow = false;
+        //        });
+        //    },
+        //        function (error) {
+        //            console.log(error);
+        //        });
+        //};
 
         $scope.getRoles();
 
@@ -102,10 +92,11 @@
                     //}]
                 },
                 {
-                    name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false,
-                    cellTemplate: '<div style="padding: 5px !important;"><button ng-show="!row.entity.editrow" class="btn btn-info btn-xs" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i>Edit</button>' +  //Edit Button
-                                   '<button ng-show="!row.entity.editrow" class="btn btn-danger btn-xs" ng-click="grid.appScope.delete(row.entity)"><i class="fa fa-times"></i>Delete</button>' + //Delete Button
-                                   '</div>'
+                    name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '30%',
+                    cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                    '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
+                    '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
+                    '</div>'
                 }
             ]
         }
@@ -117,13 +108,37 @@
             $scope.gridOptions.data[index].editrow = !$scope.gridOptions.data[index].editrow;
         };
 
-        $scope.delete = function (row) {
-            //Get the index of selected row from row object
+        //Function to save the data
+        //Here we pass the row object as parmater, we use this row object to identify  the edited row
+        $scope.updateRow = function (row) {
+            //get the index of selected row 
             var index = $scope.gridOptions.data.indexOf(row);
-            //Use that to set the editrow attrbute value for seleted rows
-            $scope.deleteRole($scope.gridOptions.data[index].RoleId);
-            $scope.gridOptions.data.splice(index);            
+            //Remove the edit mode when user click on Save button
+            $scope.gridOptions.data[index].editrow = false;
+
+            //Call the function to save the data to database
+            roleService.UpdateRole(row.RoleId, row.IsActive, row.RoleName, config).then(function (response) {
+                if (response.data.IsSuccess) {
+                    $scope.getRoles();
+                    $scope.alertType = "Success";
+                    $scope.alertMessage = response.data.ResponseMessage;
+                }
+
+            }, function (error) {
+                //Display Error message if any error occurs
+                $scope.alertType = "Failure";
+                $scope.alertMessage = error.data.ResponseMessage;
+            });
         };
+
+
+        //$scope.delete = function (row) {
+        //    //Get the index of selected row from row object
+        //    var index = $scope.gridOptions.data.indexOf(row);
+        //    //Use that to set the editrow attrbute value for seleted rows
+        //    $scope.deleteRole($scope.gridOptions.data[index].RoleId);
+        //    $scope.gridOptions.data.splice(index);            
+        //};
 
         $scope.add = function () {
             $scope.gridOptions.data.push({
