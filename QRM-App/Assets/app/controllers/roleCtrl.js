@@ -123,6 +123,7 @@
                 $scope.alertType = "Failure";
                 $scope.alertMessage = "Please provide the Role Name";
                 $scope.gridOptions.data[index].editrow = true;
+                $("#messageDiv").show();
             }
             else {
                 //Call the function to save the data to database
@@ -153,12 +154,17 @@
         //};
 
         $scope.add = function () {
-            $scope.mode = 'Save';
-            $scope.gridOptions.data.push({
-                editrow: true
-                
-            });
-            
+            if ($scope.mode!='Save') {
+                $scope.mode = 'Save';
+                $scope.gridOptions.data.push({
+                    editrow: true
+
+                });
+            }
+            else {
+                $scope.alertType = "Failure";
+                $scope.alertMessage = "Please add/update record current role!";
+            }
         }
         $scope.ClearAlert = function () {
             $scope.alertType = null;
@@ -172,6 +178,7 @@
             //Use that to set the editrow attrbute value to false
             $scope.gridOptions.data[index].editrow = false;
             $scope.getRoles();
+            $("#messageDiv").hide();
         };
 
         $scope.saveChanges = function () {
