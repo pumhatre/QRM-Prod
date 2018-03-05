@@ -106,15 +106,16 @@ namespace QRMService.Repositories
 
         //}
 
-        public static void UpdateRole(int? id,string isActive,string roleName)
+        public static void UpdateRole(int? id, string isActive, string roleName)
         {
+            var response = new RoleMaster();
             using (var db = new QRMEntities())
             {
 
                 var row = db.RoleMasters.FirstOrDefault(x => x.RoleId == id);
-                if (row!=null)
+                if (row != null)
                 {
-                    row.IsActive = isActive=="true" ? "Y" : "N";
+                    row.IsActive = isActive == "true" ? "Y" : "N";
                     row.RoleName = roleName;
                     db.SaveChanges();
                 }

@@ -6,6 +6,10 @@
             </div>
         </div>
         <div ng-app="role" ng-controller="roleCtrl">
+            <div ng-show="alertType" ng-class="{'alert-success': alertType=='Success','alert-danger': alertType=='Failure'}" class="alert alert-dismissable">
+                <span style="cursor:pointer;" class="close" aria-label="close" ng-click="ClearAlert()">&times;</span>
+                <strong>{{alertType}}!</strong> {{alertMessage}}
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="x_panel">

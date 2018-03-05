@@ -7,6 +7,8 @@
         $scope.serviceList = [];
         $scope.technologyList = [];
         $scope.industryList = [];
+        $scope.alertType = null;
+        $scope.alertMessage = null;
         referenceDataService.getReferenceTable("SERVICETABLE", config).then(function (response) {
             $scope.serviceList = response;
         }, function (error) {
@@ -102,6 +104,7 @@
         }
 
         $scope.edit = function (row) {
+            $scope.mode = 'Update';
             //Get the index of selected row from row object
             var index = $scope.gridOptions.data.indexOf(row);
             //Use that to set the editrow attrbute value for seleted rows
@@ -116,19 +119,28 @@
             //Remove the edit mode when user click on Save button
             $scope.gridOptions.data[index].editrow = false;
 
-            //Call the function to save the data to database
-            roleService.UpdateRole(row.RoleId, row.IsActive, row.RoleName, config).then(function (response) {
-                if (response.data.IsSuccess) {
-                    $scope.getRoles();
-                    $scope.alertType = "Success";
-                    $scope.alertMessage = response.data.ResponseMessage;
-                }
-
-            }, function (error) {
-                //Display Error message if any error occurs
+            if (row.RoleName == null || row.RoleName == "" || row.RoleName==undefined) {
                 $scope.alertType = "Failure";
-                $scope.alertMessage = error.data.ResponseMessage;
-            });
+                $scope.alertMessage = "Please provide the Role Name";
+                $scope.gridOptions.data[index].editrow = true;
+            }
+            else {
+                //Call the function to save the data to database
+                roleService.UpdateRole(row.RoleId, row.IsActive, row.RoleName, config).then(function (response) {
+                    if (response.data.IsSuccess) {
+                        $scope.getRoles();
+                        $scope.alertType = "Success";
+                        $scope.alertMessage = response.data.ResponseMessage;
+                    }
+
+                }, function (error) {
+                    //Display Error message if any error occurs
+                    $scope.alertType = "Failure";
+                    $scope.alertMessage = error.data.ResponseMessage;
+                });
+            }
+
+           
         };
 
 
@@ -141,9 +153,16 @@
         //};
 
         $scope.add = function () {
+            $scope.mode = 'Save';
             $scope.gridOptions.data.push({
                 editrow: true
+                
             });
+            
+        }
+        $scope.ClearAlert = function () {
+            $scope.alertType = null;
+           
         }
 
         //Method to cancel the edit mode in UIGrid
@@ -152,11 +171,7 @@
             var index = $scope.gridOptions.data.indexOf(row);
             //Use that to set the editrow attrbute value to false
             $scope.gridOptions.data[index].editrow = false;
-            //Display Successfull message after save
-            $scope.alerts.push({
-                msg: 'Row editing cancelled',
-                type: 'info'
-            });
+            $scope.getRoles();
         };
 
         $scope.saveChanges = function () {
