@@ -164,6 +164,7 @@
             else {
                 $scope.alertType = "Failure";
                 $scope.alertMessage = "Please add/update record current role!";
+                $("#messageDiv").show();
             }
         }
         $scope.ClearAlert = function () {
@@ -177,6 +178,7 @@
             var index = $scope.gridOptions.data.indexOf(row);
             //Use that to set the editrow attrbute value to false
             $scope.gridOptions.data[index].editrow = false;
+            $scope.mode = '';
             $scope.getRoles();
             $("#messageDiv").hide();
         };
