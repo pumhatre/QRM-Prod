@@ -34,7 +34,7 @@ function uploadFile(uploadService) {
                             '</div>'+
                             '<div class="alert alert-info fade in" style="display:none">' +
                                 '<span class="close">&times;</span>'+
-                                '<strong>Note!</strong> This may take several minutes. Please do not refersh.' +
+                                '<strong>Note!</strong> This may take several minutes. Please do not refresh.' +
                             '</div>'+
                     '</div>'+
                     '<div class="error-block">' +
