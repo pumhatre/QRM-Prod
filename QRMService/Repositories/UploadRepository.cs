@@ -246,7 +246,7 @@ namespace QRMService.Repositories
 
             if (sanitizedViewModel.testSanityValidationModel != null)
                 SaveTestingDetailData(sanitizedViewModel);
-            ExecuteDashboard(Guid.NewGuid());
+            ExecuteDashboard(Guid.NewGuid(), sanitizedViewModel.ProjectId, sanitizedViewModel.ProjectReleaseId, sanitizedViewModel.MonthId);
 
             return sanitizedViewModel;
         }
@@ -256,7 +256,7 @@ namespace QRMService.Repositories
         /// <param name="runId"></param>
         /// <param name="executionStep">1:belongs to execution from main table</param>
         /// <param name="createdby"></param>
-        private static void ExecuteDashboard(Guid runId, int executionStep=1, int createdby=1)
+        private static void ExecuteDashboard(Guid runId,int projectId, int releaseId, int monthId, int executionStep=1, int createdby=1)
         {
             try
             {
@@ -265,6 +265,9 @@ namespace QRMService.Repositories
                 parameters.Add(new KeyValuePair<string, object>("RunId", runId));
                 parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
                 parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+                parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
+                parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
+                parameters.Add(new KeyValuePair<string, object>("MonthId", monthId));
                 helper.RunProcedure(Constants.UspExecuteDashboard, "default", true, parameters.ToArray());
             }
             catch (Exception ex)
