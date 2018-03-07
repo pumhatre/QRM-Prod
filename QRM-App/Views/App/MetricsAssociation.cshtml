@@ -8,31 +8,29 @@
         height: 240px !important;
     }
 
+    .gridDivProjectRelease .msg {
+        opacity: 1;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        width: 60%;
+        height: 50%;
+        background-color: #eee;
+        border-radius: 4px;
+        border: 1px solid #555;
+        text-align: center;
+        font-size: 24px;
+        display: table;
+    }
 
-
-        .gridDivProjectRelease .msg {
-            opacity: 1;
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            width: 60%;
-            height: 50%;
-            background-color: #eee;
-            border-radius: 4px;
-            border: 1px solid #555;
-            text-align: center;
-            font-size: 24px;
-            display: table;
+        .gridDivProjectRelease .msg span {
+            display: table-cell;
+            vertical-align: middle;
         }
-
-            .gridDivProjectRelease .msg span {
-                display: table-cell;
-                vertical-align: middle;
-            }
 
     #metricAssociationGrid {
         width: 100% !important;
-         height: 400px !important;
+        height: 400px !important;
     }
 </style>
 <div class="x_panel" role="main">
@@ -97,7 +95,7 @@
                                                             </div>
                                                             <br>
                                                             <br>
-                                                            
+
                                                             <div class="row">
                                                                 <div class="col-md-3"></div>
                                                                 <div class="col-md-3"></div>
@@ -110,8 +108,10 @@
                                                         <div class="clearfix"></div>
                                                         <br>
                                                         <div>
-                                                            <div class="col-md-2"></div>
-                                                            <div class="col-md-8">
+                                                            <div class="col-md-1">
+
+                                                            </div>
+                                                            <div class="col-md-12">
                                                                 <div class="gridDivProjectRelease grid" ui-grid="projectReleaseGridOptions" ui-grid-pagination="">
                                                                     <div class="grid-msg-overlay" ng-show="loading">
                                                                         <div class="msg">
@@ -128,7 +128,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-1">
 
                                                             </div>
                                                         </div>
@@ -183,8 +183,8 @@
                                                         <div class="col-md-3">
                                                             <select class="form-control" name="monthList" ng-model="selectedMonth">
                                                                 <option ng-repeat="month in monthList" value="{{month.MonthId}}">{{month.MonthName}}</option>
-                                                                    @*ng-options="g.MonthName for g in monthList" required autofocus>
-                                                                <option value="">Select Month</option>*@
+                                                                @*ng-options="g.MonthName for g in monthList" required autofocus>
+                                                                    <option value="">Select Month</option>*@
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3"></div>
@@ -202,13 +202,13 @@
                                                     <div class="clearfix"></div>
                                                     <br>
                                                     <div>
-                                                       
+
                                                         <div class="col-md-12">
                                                             <!-- start project list -->
                                                             <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize></div>
                                                             <!-- end project list -->
                                                         </div>
-                                                       @* <div class="col-md-2"></div>*@
+                                                        @* <div class="col-md-2"></div>*@
                                                         <div class="clearfix"></div>
                                                         <div style="text-align:center;">
                                                             <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>

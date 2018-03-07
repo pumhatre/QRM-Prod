@@ -72,6 +72,7 @@
         LoadMetricsAssociationGrid();
 
         $scope.gridOptions = {
+            
             data: 'gridData',
             enableSorting: false,
             enableRowSelection: false,
@@ -273,7 +274,9 @@
         $scope.LoadProjectReleases = function () {
             $scope.loading = true;
             $scope.projectReleaseGridOptions = {
-                paginationPageSizes: [10, 50, 100, 200, 500],
+               // enablePaginationControls: true,
+               // paginationTemplate:"<div>Hello</div>",
+                paginationPageSizes: [5, 10, 25],
                 paginationPageSize: 5,
                 //Declaring column and its related properties
                 columnDefs: [

@@ -66,7 +66,7 @@ namespace QRMService.Repositories
             var response = new ProjectReleasesResponseModel();
             using (var db = new QRMEntities())
             {
-                var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectId && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim()).FirstOrDefault();
+                var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectId && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim() && a.IsActive==true).FirstOrDefault();
                 if (projectRelease == null)
                 {
                     var release = new ProjectReleaseMaster

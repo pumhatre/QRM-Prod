@@ -121,7 +121,7 @@
 
             if (row.RoleName == null || row.RoleName == "" || row.RoleName==undefined) {
                 $scope.alertType = "Failure";
-                $scope.alertMessage = "Please provide the Role Name";
+                $scope.alertMessage = "Please provide the role name";
                 $scope.gridOptions.data[index].editrow = true;
                 $("#messageDiv").show();
             }
