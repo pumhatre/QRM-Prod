@@ -139,12 +139,12 @@ namespace QRMService.Controllers
         /// Gets all project details
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public IHttpActionResult GetAllProjectEffort()
+        [HttpPost]
+        public IHttpActionResult GetAllProjectEffort(HealthReportRequestModel request)
         {
             try
             {
-                var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid());
+                var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid(), request.ProjectId,request.ReleaseId,request.MonthId);
                 for (int i = 0; i < projectEffort.Count; i++)
                 {
                     if (i%2==0)
@@ -166,12 +166,12 @@ namespace QRMService.Controllers
         /// Gets all project defetcs 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public IHttpActionResult GetAllProjectDefects()
+        [HttpPost]
+        public IHttpActionResult GetAllProjectDefects(HealthReportRequestModel request)
         {
             try
             {
-                var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid());
+                var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid(),request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -184,12 +184,12 @@ namespace QRMService.Controllers
         /// Gets all project defetcs 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public IHttpActionResult GetAllProjectTesting()
+        [HttpPost]
+        public IHttpActionResult GetAllProjectTesting(HealthReportRequestModel request)
         {
             try
             {
-                var projectTesting = ReportRepository.GetProjectTesting(Guid.NewGuid());
+                var projectTesting = ReportRepository.GetProjectTesting(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectTesting);
             }
             catch (Exception ex)
@@ -203,12 +203,12 @@ namespace QRMService.Controllers
         /// Gets project widget Dashboard
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public IHttpActionResult GetProjectWidgetDashboard()
+        [HttpPost]
+        public IHttpActionResult GetProjectWidgetDashboard(HealthReportRequestModel request)
         {
             try
             {
-                var projectWidget = ReportRepository.GetProjectWidget(Guid.NewGuid());
+                var projectWidget = ReportRepository.GetProjectWidget(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
                 for (int i = 0; i < projectWidget.Count; i++)
                 {
                     if (i==0)
@@ -228,25 +228,6 @@ namespace QRMService.Controllers
             }
         }
 
-        /// <summary>
-        /// Calling three SP with execution step as 1
-        /// </summary>
-        public void FinalizeMethod()
-        {
-            try
-            {
-                ReportRepository.GetProjectEffort(Guid.NewGuid(), 1);
-                ReportRepository.GetProjectWidget(Guid.NewGuid(), 1);
-                ReportRepository.GetProjectTesting(Guid.NewGuid(), 1);
-                ReportRepository.GetProjectDefects(Guid.NewGuid(), 1);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-
+        
     }
 }

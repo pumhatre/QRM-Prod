@@ -318,6 +318,7 @@
     <Compile Include="Models\EffortMasterDataViewModel.cs" />
     <Compile Include="Models\EffortSanityValidationModel.cs" />
     <Compile Include="Models\EffortTaskType.cs" />
+    <Compile Include="Models\HealthReportRequestModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
     <Compile Include="Models\MetricsAssociationMasterModel.cs" />

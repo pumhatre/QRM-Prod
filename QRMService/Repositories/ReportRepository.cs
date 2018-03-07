@@ -160,13 +160,16 @@ namespace QRMService.Repositories
         /// <param name="executionStep"></param>
         /// <param name="createdby"></param>
         /// <returns></returns>
-        public static List<ProjectEffort> GetProjectEffort(Guid runId, int executionStep = 0, int createdby = 1)
+        public static List<ProjectEffort> GetProjectEffort(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("RunId", runId));
             parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
             parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtEffort = helper.GetDataTableByProcedure(Constants.UspGetProjectEffortDashboard, "default", true, parameters.ToArray());
             List<ProjectEffort> projectEffortList = new List<ProjectEffort>();
             if (dtEffort != null && dtEffort.Rows.Count > 0)
@@ -195,13 +198,16 @@ namespace QRMService.Repositories
         /// <param name="executionStep"></param>
         /// <param name="createdby"></param>
         /// <returns></returns>
-        public static List<ProjectTesting> GetProjectTesting(Guid runId, int executionStep = 0, int createdby = 1)
+        public static List<ProjectTesting> GetProjectTesting(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("RunId", runId));
             parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
             parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtTesting = helper.GetDataTableByProcedure(Constants.UspGetProjectTestingDashboard, "default", true, parameters.ToArray());
             List<ProjectTesting> projectTestingList = new List<ProjectTesting>();
             if (dtTesting != null && dtTesting.Rows.Count > 0)
@@ -232,13 +238,16 @@ namespace QRMService.Repositories
         /// <param name="executionStep"></param>
         /// <param name="createdby"></param>
         /// <returns></returns>
-        public static List<ProjectDefects> GetProjectDefects(Guid runId, int executionStep = 0, int createdby = 1)
+        public static List<ProjectDefects> GetProjectDefects(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("RunId", runId));
             parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
             parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtDefects = helper.GetDataTableByProcedure(Constants.UspGetProjectDefectDashboard, "default", true, parameters.ToArray());
             List<ProjectDefects> projectDefectsList = new List<ProjectDefects>();
             if (dtDefects != null && dtDefects.Rows.Count > 0)
@@ -265,13 +274,16 @@ namespace QRMService.Repositories
         /// <param name="executionStep"></param>
         /// <param name="createdby"></param>
         /// <returns></returns>
-        public static List<ProjectWidget> GetProjectWidget(Guid runId, int executionStep = 0, int createdby = 1)
+        public static List<ProjectWidget> GetProjectWidget(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("RunId", runId));
             parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
             parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtWidget = helper.GetDataTableByProcedure(Constants.UspGetProjectWidgetDashboard, "default", true, parameters.ToArray());
             List<ProjectWidget> projectWidgetList = new List<ProjectWidget>();
             if (dtWidget != null && dtWidget.Rows.Count > 0)

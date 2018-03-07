@@ -391,6 +391,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     $scope.GetStagingData();
                     break;
                 case "step-3":
+                    $scope.LoadProjectEffort();
                     break;
             }
         }
@@ -427,7 +428,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
         $scope.LoadProjectEffort = function () {
-            healthReportService.GetAllProjectEffort(config)
+            healthReportService.GetAllProjectEffort(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                 .then(function (successResponse) {
                     $scope.projectEffortGrid.data = successResponse.data;
                 }, function (errorResponse) {
@@ -458,7 +459,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         $scope.LoadProjectTesting = function () {
-            healthReportService.GetAllProjectTesting(config)
+            healthReportService.GetAllProjectTesting(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                 .then(function (successResponse) {
                     $scope.projectTestingGrid.data = successResponse.data;
                 }, function (errorResponse) {
@@ -487,7 +488,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
         $scope.LoadProjectDefect = function () {
-            healthReportService.GetAllProjectDefects(config)
+            healthReportService.GetAllProjectDefects(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                   .then(function (successResponse) {
                       $scope.projectDefectGrid.data = successResponse.data;
                   }, function (errorResponse) {
@@ -496,7 +497,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         $scope.LoadProjectWidget = function () {
-            healthReportService.GetAllProjectWidget(config)
+            healthReportService.GetAllProjectWidget(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                   .then(function (successResponse) {
                       $scope.projectWidgetGrid.data = successResponse.data;
                   }, function (errorResponse) {
@@ -579,7 +580,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             }
         }
 
-        $scope.LoadProjectEffort();
+        //$scope.LoadProjectEffort();
         //End Report Region
 
     }]);
