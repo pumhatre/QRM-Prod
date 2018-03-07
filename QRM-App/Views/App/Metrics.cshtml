@@ -1,29 +1,36 @@
-﻿<div class="x_panel" role="main">
-    <div class="">
-        <div class="">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>Metrics</h3>
-                </div>
-            </div>
-            <div ng-app="metrics" ng-controller="metricsCtrl" ng-init="init()">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="x_panel">
+﻿<style type="text/css">
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
+    }
 
-                            <div class="x_content">
-                                <div>
-                                    <div class="col-md-12">
-                                        <div id="mGrid" ui-grid="metricsGrid" ui-grid-pagination="" class="grid" style="height: auto !important; width:100%"></div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div>
-                                    <button type="submit" class="btn btn-success" ng-click="addMetrics()">Add New Metrics</button>
-                                </div>
-                                @*<button id="saveBtn" class="btn btn-success" style="margin-top: 2%" ng-click="saveData()">Save</button>*@
-                            </div>
+    .ui-grid-pager-control-input {
+        display: none !important;
+    }
+
+    .ui-grid-pager-max-pages-number {
+        display: none;
+    }
+    /*End */
+</style>
+
+<div class="x_panel" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Metrics</h3>
+            </div>
+        </div>
+        <div ng-app="metrics" ng-controller="metricsCtrl" ng-init="init()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <div id="mGrid" ui-grid="metricsGrid" ui-grid-pagination="" class="grid" style="height: auto !important; width:100%"></div><br />
+                            <button type="submit" class="btn btn-success" ng-click="addMetrics()">Add New Metrics</button>
                         </div>
+                        @*<button id="saveBtn" class="btn btn-success" style="margin-top: 2%" ng-click="saveData()">Save</button>*@
                     </div>
                 </div>
             </div>

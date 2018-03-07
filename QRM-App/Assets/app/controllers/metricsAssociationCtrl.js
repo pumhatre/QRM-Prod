@@ -72,7 +72,8 @@
         LoadMetricsAssociationGrid();
 
         $scope.gridOptions = {
-            
+            paginationPageSizes: [10, 50, 100],
+            paginationPageSize: 10,
             data: 'gridData',
             enableSorting: false,
             enableRowSelection: false,
@@ -277,7 +278,7 @@
                // enablePaginationControls: true,
                // paginationTemplate:"<div>Hello</div>",
                 paginationPageSizes: [10, 50, 100],
-                paginationPageSize: 5,
+                paginationPageSize: 10,
                 //Declaring column and its related properties
                 columnDefs: [
                     {

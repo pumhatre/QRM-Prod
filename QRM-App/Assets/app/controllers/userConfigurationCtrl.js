@@ -169,6 +169,8 @@
             $scope.LoadProjects();
             var tmpl = '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="text"></div>';
             $scope.gridOptions1 = {
+                paginationPageSizes: [10, 50, 100],
+                paginationPageSize: 10,
                 enableSorting: false,
                 enableColumnMenus: false,
                 columnDefs: [
