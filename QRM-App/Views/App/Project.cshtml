@@ -46,6 +46,11 @@
     #addModal .modal-body {
         height: 55vh !important;
     }
+
+    #projectGrid {
+        width: 100% !important;
+        height: 400px !important;
+    }
 </style>
 <div class="x_panel" role="main">   
 
@@ -62,7 +67,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="x_content">
-                    <div class="gridDiv grid" ui-grid="gridOptions" ui-grid-pagination="">
+                    <div id="projectGrid" class="gridDiv grid" ui-grid="gridOptions" ui-grid-pagination="">
                         <div class="grid-msg-overlay" ng-show="loading">
                             <div class="msg">
                                 <span>

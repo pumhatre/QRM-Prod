@@ -11,16 +11,16 @@
     }
 
     /*this datalist  hide thead text box command unwanted message*/
-    .ui-grid-pager-row-count-label{
-        display:none;
+    .ui-grid-pager-row-count-label {
+        display: none;
     }
 
-    .ui-grid-pager-control-input{
-         display:none !important ;
+    .ui-grid-pager-control-input {
+        display: none !important;
     }
 
-    .ui-grid-pager-max-pages-number{
-        display:none;
+    .ui-grid-pager-max-pages-number {
+        display: none;
     }
     /*End */
 
@@ -51,70 +51,64 @@
 </style>
 
 <div class="x_panel" role="main">
-    <div class="">
-        <div class="page-title">
-            <div class="title_left">
-                <h3>Users</h3>
+
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Users</h3>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="ibox-content" ng-if="showSucessMessage">
+        <div class="row">
+            <div class="alert alert-success fade in" role="alert">
+                {{responseMessage}}
             </div>
         </div>
     </div>
-</div>
-<div class="clearfix"></div>
-<div class="ibox-content" ng-if="showSucessMessage">
-    <div class="row">
-        <div class="alert alert-success fade in" role="alert">
-            {{responseMessage}}
+    <div class="ibox-content" ng-if="showErrorMessage">
+        <div class="row">
+            <div class="alert alert-error fade in" role="alert">
+                {{responseMessage}}
+            </div>
         </div>
     </div>
-</div>
-<div class="ibox-content" ng-if="showErrorMessage">
-    <div class="row">
-        <div class="alert alert-error fade in" role="alert">
-            {{responseMessage}}
-        </div>
+    <div>
+        <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" dismiss-on-timeout="5000" ng-repeat="alert in alerts" close="alerts.splice($index, 1);"> {{alert.msg}} </div>
     </div>
-</div>
-<div>
-    <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" dismiss-on-timeout="5000" ng-repeat="alert in alerts" close="alerts.splice($index, 1);"> {{alert.msg}} </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12 col-sm-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_content fix">
-                <div class="form-group">
-                    <div class="col-md-3"></div>
-                    @*<label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>*@
-                    <div class="col-md-3">
-                        @*<select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="getProjectUsers(selectedProjectReleaseDropdown)">
-                                <option value="">Select a Project</option>
-                                <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
-                            </select>*@
-                    </div>
-                    <div class="col-md-3"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+
+            <div class="form-group">
+                <div class="col-md-3"></div>
+                @*<label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>*@
+                <div class="col-md-3">
+                    @*<select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="getProjectUsers(selectedProjectReleaseDropdown)">
+                            <option value="">Select a Project</option>
+                            <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
+                        </select>*@
                 </div>
-                <br />
-                <br />
-                <div>
-                    <div class="col-md-12">
-                        <div class="x_content">
-                            <div class="gridDiv grid" ui-grid="gridOptions1" ui-grid-pagination="">
-                                <div class="grid-msg-overlay" ng-show="loading">
-                                    <div class="msg">
-                                        <span>
-                                            Loading Data...gridOptions
-                                            <i class="fa fa-spinner fa-spin"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="grid-msg-overlay" ng-hide="loading || gridOptions1.data.length">
-                                    <div class="msg">
-                                        <span>No Data</span>
-                                    </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <div class="x_content">
+                        <div class="gridDiv grid" ui-grid="gridOptions1" ui-grid-pagination="">
+                            <div class="grid-msg-overlay" ng-show="loading">
+                                <div class="msg">
+                                    <span>
+                                        Loading Data...gridOptions
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </span>
                                 </div>
                             </div>
-                            <button id="Addbtn" ng-show="showAdd" ng-click="add()" class="btn btn-success" style="margin-top:2%">Add User</button>
+                            <div class="grid-msg-overlay" ng-hide="loading || gridOptions1.data.length">
+                                <div class="msg">
+                                    <span>No Data</span>
+                                </div>
+                            </div>
                         </div>
+                        <button id="Addbtn" ng-show="showAdd" ng-click="add()" class="btn btn-success" style="margin-top:2%">Add User</button>
                     </div>
                 </div>
             </div>
