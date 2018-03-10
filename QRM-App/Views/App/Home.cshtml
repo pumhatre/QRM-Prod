@@ -3,24 +3,53 @@
         z-index: -10;
     }
 
-    .ui-grid-row:last-child > div > div > div {
-        border-bottom: 0.5px solid black !important;
+    .wrap {
+        white-space: normal;
+    }
+
+
+    .ui-grid-row:last-child > div > div {
+        border-bottom: 0.5px solid #717171 !important;
     }
 
     /*.ui-grid-row > div > div > div:last-child {
         border-right: 1px solid black;
     }*/
-     /*this datalist  hide thead text box command unwanted message*/
-    .ui-grid-pager-row-count-label{
-        display:none;
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
     }
 
-    .ui-grid-pager-control-input{
-       display:none !important ;
+    .ui-grid-pager-control-input {
+        display: none !important;
     }
 
-    .ui-grid-pager-max-pages-number{
-        display:none;
+    .ui-grid-pager-max-pages-number {
+        display: none;
+    }
+
+    .ui-grid-cell {
+        height: 40px !important;
+    }
+
+    @@media screen and (min-width: 900px) {
+        .modal-dialog {
+            width: 900px; /* New width for default modal */
+        }
+
+        .modal-sm {
+            width: 400px; /* New width for small modal */
+        }
+    }
+
+    @@media screen and (min-width: 1000px) {
+        .modal-lg {
+            width: 1000px; /* New width for large modal */
+        }
+    }
+
+     #healthReportModal .modal-body {
+        height: 70vh !important;
     }
     /*End */
 </style>
@@ -99,6 +128,94 @@
                                                 <div class="x_content">
                                                     <div class="col-md-12">
                                                         My Saved Reports
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="healthReportModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Project Health Metrics</h4>
+                </div>
+                <div class="modal-body">
+                    <div role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#tab_projectEffort" ng-click="LoadProjectEffortByProject()" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_ProjectTesting" ng-click="LoadProjectTestingByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_ProjectDefects" ng-click="LoadProjectDefectByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_projectWidget" ng-click="LoadProjectWidgetByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
+                            </li>
+                        </ul>
+                        <div id="myTabcontent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab_projectEffort" aria-labelledby="home-tab">
+                                <div class="col-md-12 col-sm-4 col-xs-12">
+                                    <div class="x_panel tile fixed_height_420">
+                                        <div class="x_content">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <div id="mGrid1" ui-grid="projectEffortGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_ProjectTesting" aria-labelledby="Project-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="x_panel">
+                                            <div class="x_content">
+                                                <div class="col-md-12">
+                                                    <div id="mGrid2" ui-grid="projectTestingGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_ProjectDefects" aria-labelledby="Project-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="x_panel">
+                                            <div class="x_content">
+                                                <div class="col-md-12">
+                                                    <div id="mGrid3" ui-grid="projectDefectGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_projectWidget" aria-labelledby="Project-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="x_panel">
+                                            <div class="x_content">
+                                                <div class="col-md-12">
+                                                    <div id="mGrid4" ui-grid="projectWidgetGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                     </div>
                                                 </div>
                                             </div>

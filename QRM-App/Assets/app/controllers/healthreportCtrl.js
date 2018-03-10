@@ -19,6 +19,7 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
             });
     }
+   
 
     $scope.LoadProjectTesting = function () {
         healthReportService.GetAllProjectTesting(config)

@@ -22,6 +22,7 @@ namespace QRMService.Repositories
                                         where od.UserId == userId
                                         select new UserProjects
                                         {
+                                            ProjectId=pm.ProjectID,
                                             ProjectName = pm.ProjectName,
                                             ServiceLine = pm.ServiceLine,
                                             ClientName = pm.ClientName,

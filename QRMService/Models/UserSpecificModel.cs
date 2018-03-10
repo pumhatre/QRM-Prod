@@ -11,6 +11,7 @@ namespace QRMService.Models
 
     public class UserProjects
     {
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string ServiceLine { get; set; }
         public string ClientName { get; set; }

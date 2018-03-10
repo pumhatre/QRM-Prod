@@ -161,6 +161,32 @@ namespace QRMService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the project effort by project.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectEffortByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var projectEffort = ReportRepository.GetProjectEffort(request.ProjectId);
+                for (int i = 0; i < projectEffort.Count; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        projectEffort[i].spanEffort = 3;
+                    }
+                }
+                return Ok(projectEffort);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
 
         /// <summary>
         /// Gets all project defetcs 
@@ -172,6 +198,25 @@ namespace QRMService.Controllers
             try
             {
                 var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid(),request.ProjectId, request.ReleaseId, request.MonthId);
+                return Ok(projectDefect);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets project defetcs by project
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectDefectsByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var projectDefect = ReportRepository.GetProjectDefects(request.ProjectId);
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -198,6 +243,24 @@ namespace QRMService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets project defetcs by project
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectTestingByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var projectTesting = ReportRepository.GetProjectTesting(request.ProjectId);
+                return Ok(projectTesting);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
 
         /// <summary>
         /// Gets project widget Dashboard
@@ -228,6 +291,36 @@ namespace QRMService.Controllers
             }
         }
 
-        
+        /// <summary>
+        /// Gets the project widget dashboard by project.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectWidgetDashboardByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var projectWidget = ReportRepository.GetProjectWidget(request.ProjectId);
+                for (int i = 0; i < projectWidget.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        projectWidget[i].spanWidget = 3;
+                    }
+                    else
+                    {
+                        projectWidget[i].spanWidget = 0;
+                    }
+                }
+                return Ok(projectWidget);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
     }
 }

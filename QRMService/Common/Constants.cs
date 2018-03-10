@@ -24,6 +24,11 @@ namespace QRMService.Common
         public const string UspGetProjectTestingDashboard = "[Dbo].[uspGenerateProjectTestingDashboard]";
         public const string UspGetProjectDefectDashboard = "[Dbo].[uspGenerateProjectDefectsDashboard]";
         public const string UspGetProjectWidgetDashboard = "[Dbo].[uspGenerateProjectWidgetDashboard]";
+
+        public const string UspGetProjectEffortDashboardByProject = "[Dbo].[uspGetProjectEffortDashboardByProject]";
+        public const string UspGetProjectTestingDashboardByProject = "[Dbo].[uspGetProjectTestingDashboardByProject]";
+        public const string UspGetProjectDefectDashboardByProject = "[Dbo].[uspGetProjectDefectsDashboardByProject]";
+        public const string UspGetProjectWidgetDashboardByProject = "[Dbo].[uspGetProjectWidgetDashboardByProject]";
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
         public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
 
@@ -158,7 +163,7 @@ namespace QRMService.Common
         {
             DashBoardType,
             DashboardSubtype,
-            ComleteHours,
+            CompleteHours,
             WipHours,
             NotStartedHours,
             TotalHours

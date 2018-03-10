@@ -16,4 +16,20 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId };
         return $http.post(config.apiUrl + 'api/Report/GetProjectWidgetDashboard', data);
     }
+    this.GetProjectDefectsByProject = function (config, projectId) {
+        var data = { ProjectId: projectId};
+        return $http.post(config.apiUrl + 'api/Report/GetProjectDefectsByProject', data);
+    }
+    this.GetAllProjectTestingByProject = function (config, projectId) {
+        var data = { ProjectId: projectId};
+        return $http.post(config.apiUrl + 'api/Report/GetProjectTestingByProject', data);
+    }
+    this.GetAllProjectEffortByProject = function (config, projectId) {
+        var data = { ProjectId: projectId};
+        return $http.post(config.apiUrl + 'api/Report/GetProjectEffortByProject', data);
+    }
+    this.GetAllProjectWidgetByProject = function (config, projectId) {
+        var data = { ProjectId: projectId};
+        return $http.post(config.apiUrl + 'api/Report/GetProjectWidgetDashboardByProject', data);
+    }
 }]);
