@@ -107,7 +107,7 @@ namespace QRMService.Repositories
             {
                 var releaseDetails = (from m in db.ProjectMetricAssociations
                                       join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && month.Contains(m.MonthId)
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && month.Contains((int)m.MonthId)
                                       orderby m.ProjectId
                                       select new MetricsModel
                                       {
