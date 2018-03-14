@@ -30,6 +30,7 @@ namespace QRMService.Common
         public const string UspGetProjectTestingDashboardByProject = "[Dbo].[uspGetProjectTestingDashboardByProject]";
         public const string UspGetProjectDefectDashboardByProject = "[Dbo].[uspGetProjectDefectsDashboardByProject]";
         public const string UspGetProjectWidgetDashboardByProject = "[Dbo].[uspGetProjectWidgetDashboardByProject]";
+        public const string UspGetProjectVarianceDashboardByProject = "[Dbo].[uspGetProjectVarianceDashboardByProject]";
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
         public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
 

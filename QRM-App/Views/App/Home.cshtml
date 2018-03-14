@@ -32,24 +32,24 @@
         height: 40px !important;
     }
 
-    @@media screen and (min-width: 900px) {
+    @@media screen and (min-width: 1080px) {
         .modal-dialog {
-            width: 900px; /* New width for default modal */
+            width: 1080px; /* New width for default modal */
         }
 
         .modal-sm {
-            width: 400px; /* New width for small modal */
+            width: 700px; /* New width for small modal */
         }
     }
 
-    @@media screen and (min-width: 1000px) {
+    @@media screen and (min-width: 1080px) {
         .modal-lg {
-            width: 1000px; /* New width for large modal */
+            width: 1080px; /* New width for large modal */
         }
     }
 
      #healthReportModal .modal-body {
-        height: 80vh !important;
+        height: 70vh !important;
     }
     /*End */
 </style>
@@ -165,6 +165,9 @@
                             <li role="presentation" class="">
                                 <a href="#tab_projectWidget" ng-click="LoadProjectWidgetByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
                             </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_projectPerformance" ng-click="LoadProjectPerformanceByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Performance</a>
+                            </li>
                         </ul>
                         <div id="myTabcontent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_projectEffort" aria-labelledby="home-tab">
@@ -216,6 +219,20 @@
                                             <div class="x_content">
                                                 <div class="col-md-12">
                                                     <div id="mGrid4" ui-grid="projectWidgetGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_projectPerformance" aria-labelledby="Project-tab">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="x_panel">
+                                            <div class="x_content">
+                                                <div class="col-md-12">
+                                                    <div id="mGrid5" ui-grid="projectVarianceGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 180px !important; width:100%">
                                                     </div>
                                                 </div>
                                             </div>

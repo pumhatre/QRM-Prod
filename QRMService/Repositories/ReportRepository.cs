@@ -468,6 +468,38 @@ namespace QRMService.Repositories
             return projectWidgetList;
         }
 
+        /// <summary>
+        /// Gets the project variance.
+        /// </summary>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <returns></returns>
+        public static List<ProjectVariance> GetProjectVariance(int ProjectId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            DataTable dtWidget = helper.GetDataTableByProcedure(Constants.UspGetProjectVarianceDashboardByProject, "default", true, parameters.ToArray());
+            List<ProjectVariance> projectVariance = new List<ProjectVariance>();
+            if (dtWidget != null && dtWidget.Rows.Count > 0)
+            {
+                dtWidget.AsEnumerable().ToList().ForEach(row =>
+                {
+                    projectVariance.Add(new ProjectVariance
+                    {
+                        DashboardType = row.Field<string>(Constants.ProjectVarianceColumnName.DashBoardType.ToString()),
+                        EffortVariance = row.Field<int?>(Constants.ProjectVarianceColumnName.EffortVariance.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.EffortVariance.ToString()))),
+                        Rework = row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()))),
+                        UnitTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()))),
+                        SystemTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()))),
+                        SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()))),
+                        ComponentDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()))),
+                        E2EDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString())))
+                    });
+                });
+            }
+            return projectVariance;
+        }
+
 
         #endregion
     }

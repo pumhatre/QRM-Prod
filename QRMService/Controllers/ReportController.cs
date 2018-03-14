@@ -340,6 +340,25 @@ namespace QRMService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the project variance dashboard by project.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectVarianceDashboardByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var projectWidget = ReportRepository.GetProjectVariance(request.ProjectId);
+                return Ok(projectWidget);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
 
     }
 }

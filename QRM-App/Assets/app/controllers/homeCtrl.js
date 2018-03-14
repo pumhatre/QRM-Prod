@@ -66,6 +66,15 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
+    $scope.LoadProjectPerformanceByProject = function () {
+        healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId)
+              .then(function (successResponse) {
+                  $scope.projectVarianceGrid.data = successResponse.data;
+              }, function (errorResponse) {
+
+              });
+    }
+
     var cellTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
     $scope.projectGrid = {
         enableCellSelection: false,
@@ -166,6 +175,26 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         ],
         onRegisterApi: function (gridApi) {
             $scope.projectWidgetGridApi = gridApi;
+        }
+    }
+    var varianceTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
+    $scope.projectVarianceGrid = {
+        enableSorting: false,
+        enableColumnMenus: false,
+        enableRowHeaderSelection: false,
+        loading: true,
+        columnDefs: [
+            { field: 'DashboardType', name: '', cellTemplate: varianceTempl, width: '22%' },
+            { field: 'EffortVariance', name: 'Effort Variance (%)', cellTemplate: varianceTempl, width: '15%' },
+            { field: 'Rework', name: 'Rework (%)', width: '15%', cellTemplate: varianceTempl },
+            { field: 'UnitTestEffectiveness', name: 'Unit Test Effectiveness (%)', width: '15%', cellTemplate: varianceTempl },
+            { field: 'SystemTestEffectiveness', name: 'System Test Effectiveness (%)', cellTemplate: varianceTempl, width: '15%' },
+            { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '15%' },
+            { field: 'ComponentDefectRejectionRate', name: 'Component Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' },
+            { field: 'E2EDefectRejectionRate', name: 'E2E Defect Rejection Rate (%)', displayName: 'E2E Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' }
+        ],
+        onRegisterApi: function (gridApi) {
+            $scope.mGridApi = gridApi;
         }
     }
 }]);
