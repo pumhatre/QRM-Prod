@@ -17,7 +17,7 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserDetail()
         {
-            this.UserProjectRoleAssociations = new HashSet<UserProjectRoleAssociation>();
+            this.UserProjectAssociations = new HashSet<UserProjectAssociation>();
         }
     
         public int UserId { get; set; }
@@ -28,8 +28,10 @@ namespace QRMService.DataBase
         public string Phone { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public Nullable<int> RoleId { get; set; }
     
+        public virtual RoleMaster RoleMaster { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProjectRoleAssociation> UserProjectRoleAssociations { get; set; }
+        public virtual ICollection<UserProjectAssociation> UserProjectAssociations { get; set; }
     }
 }

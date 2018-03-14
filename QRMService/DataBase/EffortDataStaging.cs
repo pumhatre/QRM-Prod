@@ -36,8 +36,8 @@ namespace QRMService.DataBase
         public string Remarks { get; set; }
         public Nullable<int> ProjectReleaseId { get; set; }
         public Nullable<int> MonthId { get; set; }
-        public int ProjectMasterId { get; set; }
         public int EffortDataStagingId { get; set; }
+        public int ProjectMasterId { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }

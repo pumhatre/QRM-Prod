@@ -174,10 +174,10 @@
                 enableSorting: false,
                 enableColumnMenus: false,
                 columnDefs: [
-                     {
-                         name: 'ProjectName', displayName: "Project Name", field: "projectName", enableColumnMenu: false, width: '10%',
-                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="proj in grid.appScope.projects" value="{{proj.Value}}">{{proj.Text}}</option> </select></div>'
-                     },
+                     //{
+                     //    name: 'ProjectName', displayName: "Project Name", field: "projectName", enableColumnMenu: false, width: '10%',
+                     //    cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="proj in grid.appScope.projects" value="{{proj.Value}}">{{proj.Text}}</option> </select></div>'
+                     //},
                     { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
                     { field: 'userId', name: 'User Id', visible: false },
                     { field: 'userProjectRoleId', name: 'User Project Role Id', visible: false },

@@ -15,7 +15,7 @@ namespace QRMService.DataBase
     public partial class EffortDetail
     {
         public int EffortId { get; set; }
-        public Nullable<int> ComponentId { get; set; }
+        public string ComponentId { get; set; }
         public string ComponentTypeCode { get; set; }
         public string ComplexityCode { get; set; }
         public string TaskTypeCode { get; set; }
@@ -28,7 +28,7 @@ namespace QRMService.DataBase
         public Nullable<System.DateTime> ActualStartDate { get; set; }
         public Nullable<System.DateTime> ActualEndDate { get; set; }
         public string ProjectId { get; set; }
-        public Nullable<int> ReleaseId { get; set; }
+        public string ReleaseId { get; set; }
         public string ModuleName { get; set; }
         public string ComponentName { get; set; }
         public string ReviewTypeCode { get; set; }

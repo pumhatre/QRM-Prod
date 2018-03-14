@@ -12,15 +12,13 @@ namespace QRMService.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class UserProjectRoleAssociation
+    public partial class UserProjectAssociation
     {
-        public int UserProjectRoleId { get; set; }
+        public int UserProjectId { get; set; }
         public Nullable<int> UserId { get; set; }
-        public Nullable<int> RoleId { get; set; }
         public Nullable<int> ProjectId { get; set; }
     
         public virtual ProjectMaster ProjectMaster { get; set; }
-        public virtual RoleMaster RoleMaster { get; set; }
         public virtual UserDetail UserDetail { get; set; }
     }
 }

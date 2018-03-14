@@ -17,7 +17,7 @@ namespace QRMService.DataBase
         public int TestingDetailsID { get; set; }
         public string TestingPhaseCode { get; set; }
         public string TestingTypeCode { get; set; }
-        public Nullable<int> ReleaseId { get; set; }
+        public string ReleaseId { get; set; }
         public Nullable<int> PlannedNumberOfTestCasesDesigned { get; set; }
         public Nullable<int> ActualNumberOfTestCasesDesigned { get; set; }
         public Nullable<System.DateTime> PlannedStartDate { get; set; }
