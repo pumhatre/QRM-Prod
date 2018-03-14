@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using QRMService.Models;
 using QRMService.DataBase;
+using QRMService.Wrapper;
 
 namespace QRMService.Repositories
 {
@@ -60,12 +61,13 @@ namespace QRMService.Repositories
                     {
                         if (releaseId != 0)
                         {
-                            var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId && x.MonthId == modelData.MonthId[i]);
+                            var myInt = modelData.MonthId[i];
+                            var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId && x.MonthId == myInt);
                             db.ProjectMetricAssociations.RemoveRange(deleteItems);
                             db.SaveChanges();
                             foreach (int id in metricsMasterIdList)
                             {
-                                var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId == modelData.MonthId[i]).FirstOrDefault();
+                                var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId ==myInt).FirstOrDefault();
                                 if (metricsAssociation == null)
                                 {
                                     var projectMetricsAssociationData = new ProjectMetricAssociation
@@ -73,7 +75,7 @@ namespace QRMService.Repositories
                                         ProjectId = projectId,
                                         ReleaseId = releaseId,
                                         MetricMasterID = id,
-                                        MonthId = i
+                                        MonthId = myInt
                                     };
                                     db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
                                     db.SaveChanges();
@@ -114,7 +116,25 @@ namespace QRMService.Repositories
                                           MetricsMasterId = m.MetricMasterID,
                                           CategoryDescription = mt.MetricCategoryDescription,
                                           CategoryCode = mt.MetricCategoryCode
-                                      }).ToList();
+                                      }).Distinct().ToList();
+                return releaseDetails;
+            }
+        }
+
+        public static List<MonthDetailsWrapper> GetSelectedProjectMonth(int projectId,int releaseId)
+        {
+            using (var db = new QRMEntities())
+            {
+                var releaseDetails = (from m in db.ProjectMetricAssociations
+                                      join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
+                                      join mnth in db.MonthMasters on m.MonthId equals mnth.MonthId
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId
+                                      orderby m.ProjectId
+                                      select new MonthDetailsWrapper
+                                      {
+                                          MonthId = mnth.MonthId,
+                                          MonthName = mnth.MonthName
+                                      }).Distinct().ToList();
                 return releaseDetails;
             }
         }

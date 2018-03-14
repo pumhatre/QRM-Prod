@@ -4,7 +4,6 @@
         $scope.projectsReleases = [];
         $scope.monthList = [];
         $scope.metricsAssociationData = [];
-        $scope.gridData = [];
         $scope.metricsMasterIdList = [];
         $scope.selectedProjectReleaseDropdown = '';
         $scope.selectedProjectDropDown = '';
@@ -35,8 +34,6 @@
         }
 
         //Load Metrics Association grid on Page load
-
-
         //function to load metrics association grid
         function LoadMetricsAssociationGrid() {
             metricsAssociationService.getMetricsAssociationDetails(config)
@@ -58,14 +55,23 @@
         $scope.getProjectReleases = function (projectId) {
             metricsAssociationService.getReleaseList(config, projectId)
                 .then(function (successResponse) {
-                    //$scope.metricsAssociationData = successResponse.data;
                     $scope.releaseDropdown = successResponse.data;
-                   // $scope.gridApi.selection.clearSelectedRows();
                 }, function (errorResponse) {
 
                 });
         }
 
+        $scope.getSelectedProjectMonth = function (projectId, releaseId) {
+            if (projectId!=null && releaseId!=null) {
+                console.log(projectId, releaseId);
+                metricsAssociationService.getSelectedProjectMonth(config, projectId, releaseId)
+               .then(function (successResponse) {
+                   $scope.selectedMonth = successResponse.data;
+               }, function (errorResponse) {
+
+               });
+            }
+        }
 
         $scope.ClearAlert = function () {
             $scope.alertType = null;
@@ -77,21 +83,6 @@
         $scope.LoadMonthsDropDown();
         LoadMetricsAssociationGrid();
 
-        $scope.gridOptions = {
-            paginationPageSizes: [10, 50, 100],
-            paginationPageSize: 10,
-            data: 'gridData',
-            enableSorting: false,
-            enableRowSelection: false,
-            enableSelectAll: true,
-            columnDefs: [
-                { field: 'CategoryCode', name: 'CategoryCode', displayName: 'Metric Code', enableColumnMenu: false, width: '30%' },
-                { field: 'CategoryDescription', name: 'CategoryDescription', displayName: 'Metric Description', enableColumnMenu: false, width: '65%' }
-            ],
-            onRegisterApi: function (gridApi) {
-                $scope.gridApi = gridApi;
-            }
-        };
 
         $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricsMasterIdList = [];

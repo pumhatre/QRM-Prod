@@ -37,6 +37,12 @@ namespace QRMService.Controllers
                 Convert.ToInt32(searchModel.ReleaseId),(searchModel.MonthId));
             return Ok(data);
         }
+        [HttpPost]
+        public IHttpActionResult GetSelectedProjectMonth(int projectId,int releaseId)
+        {
+            var data = MetricsAssociationRepository.GetSelectedProjectMonth(projectId,releaseId);
+            return Ok(data);
+        }
 
         public class SearchModel
         {

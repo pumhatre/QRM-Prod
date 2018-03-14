@@ -31,4 +31,11 @@
         return $http.post(config.apiUrl + 'api/MetricsAssociation/GetSavedMetricsAssociation', data);
     }
 
+    this.getSelectedProjectMonth = function (config,projectId, releaseId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId};
+        return $http.post(config.apiUrl + 'api/MetricsAssociation/GetSelectedProjectMonth?projectId=' + projectId + '&releaseId=' + releaseId);
+        
+    }
+    
+
 }]);
