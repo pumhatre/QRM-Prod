@@ -24,6 +24,7 @@ namespace QRMService.Common
         public const string UspGetProjectTestingDashboard = "[Dbo].[uspGenerateProjectTestingDashboard]";
         public const string UspGetProjectDefectDashboard = "[Dbo].[uspGenerateProjectDefectsDashboard]";
         public const string UspGetProjectWidgetDashboard = "[Dbo].[uspGenerateProjectWidgetDashboard]";
+        public const string UspGetProjectPerformanceDashboard = "[Dbo].[uspGenerateProjectvarianceDashboard]";
 
         public const string UspGetProjectEffortDashboardByProject = "[Dbo].[uspGetProjectEffortDashboardByProject]";
         public const string UspGetProjectTestingDashboardByProject = "[Dbo].[uspGetProjectTestingDashboardByProject]";
@@ -182,6 +183,18 @@ namespace QRMService.Common
             projectName ,
             projectId,
             userProjectRoleId,
+        }
+
+        public enum ProjectVarianceColumnName
+        {
+            DashBoardType,
+            EffortVariance,
+            Rework,
+            UnitTestEffectiveness,
+            SystemTestEffectiveness,
+            SITDefectDetectionRate,
+            ComponentDefectRejectionRate,
+            E2EDefectRejectionRate
         }
         //public enum TestTablesColumnName
         //{

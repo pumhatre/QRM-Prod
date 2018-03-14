@@ -20,9 +20,9 @@ namespace QRMService.DataBase
             this.DefectDataDetails = new HashSet<DefectDataDetail>();
             this.DefectDataStagings = new HashSet<DefectDataStaging>();
             this.EffortDataStagings = new HashSet<EffortDataStaging>();
-            this.EffortDetails = new HashSet<EffortDetail>();
             this.ProjectMetricAssociations = new HashSet<ProjectMetricAssociation>();
             this.DevMetrics = new HashSet<DevMetric>();
+            this.EffortDetails = new HashSet<EffortDetail>();
             this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
         }
@@ -39,11 +39,11 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDataStaging> EffortDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EffortDetail> EffortDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DevMetric> DevMetrics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EffortDetail> EffortDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

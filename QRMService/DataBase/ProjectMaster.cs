@@ -25,7 +25,7 @@ namespace QRMService.DataBase
             this.ProjectWidgetDetails = new HashSet<ProjectWidgetDetail>();
             this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
-            this.UserProjectRoleAssociations = new HashSet<UserProjectRoleAssociation>();
+            this.UserProjectAssociations = new HashSet<UserProjectAssociation>();
         }
     
         public int ProjectID { get; set; }
@@ -53,9 +53,9 @@ namespace QRMService.DataBase
         public virtual ICollection<DefectDataStaging> DefectDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDataStaging> EffortDataStagings { get; set; }
+        public virtual DevMetric DevMetric { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDetail> EffortDetails { get; set; }
-        public virtual DevMetric DevMetric { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -65,6 +65,6 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDetail> TestingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProjectRoleAssociation> UserProjectRoleAssociations { get; set; }
+        public virtual ICollection<UserProjectAssociation> UserProjectAssociations { get; set; }
     }
 }

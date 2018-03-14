@@ -18,7 +18,7 @@ namespace QRMService.Repositories
                 using (var db = new QRMEntities())
                 {
                     var userProjects = (from pm in db.ProjectMasters
-                                        join od in db.UserProjectRoleAssociations on pm.ProjectID equals od.ProjectId
+                                        join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
                                         where od.UserId == userId
                                         select new UserProjects
                                         {

@@ -305,6 +305,47 @@ namespace QRMService.Repositories
         }
 
         /// <summary>
+        /// Gets the project variance.
+        /// </summary>
+        /// <param name="runId">The run identifier.</param>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <param name="executionStep">The execution step.</param>
+        /// <param name="createdby">The createdby.</param>
+        /// <returns></returns>
+        public static List<ProjectVariance> GetProjectVariance(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable dtWidget = helper.GetDataTableByProcedure(Constants.UspGetProjectPerformanceDashboard, "default", true, parameters.ToArray());
+            List<ProjectVariance> projectVariance = new List<ProjectVariance>();
+            if (dtWidget != null && dtWidget.Rows.Count > 0)
+            {
+                dtWidget.AsEnumerable().ToList().ForEach(row =>
+                {
+                    projectVariance.Add(new ProjectVariance
+                    {
+                        DashboardType = row.Field<string>(Constants.ProjectVarianceColumnName.DashBoardType.ToString()),
+                        EffortVariance = row.Field<int?>(Constants.ProjectVarianceColumnName.EffortVariance.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.EffortVariance.ToString()))),
+                        Rework = row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()))),
+                        UnitTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()))),
+                        SystemTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()))),
+                        SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()))),
+                        ComponentDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()))),
+                        E2EDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString())))
+                    });
+                });
+            }
+            return projectVariance;
+        }
+        /// <summary>
         /// Get Project Effort detail
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>

@@ -41,11 +41,11 @@ namespace QRMService.Repositories
                         lastName = row.Field<string>(Constants.ProjectColumnName.lastName.ToString()),
                         email = row.Field<string>(Constants.ProjectColumnName.email.ToString()),
                         phone = row.Field<string>(Constants.ProjectColumnName.phone.ToString()),
-                        roleId =Convert.ToString(row.Field<int?>(Constants.ProjectColumnName.roleId.ToString())),
-                        roleName = row.Field<string>(Constants.ProjectColumnName.roleName.ToString()),
-                        projectName =row.Field<string>(Constants.ProjectColumnName.projectName.ToString()),
-                        projectId = row.Field<int?>(Constants.ProjectColumnName.projectId.ToString()).ToString(),
-                        userProjectRoleId = row.Field<int>(Constants.ProjectColumnName.userProjectRoleId.ToString()),
+                       // roleId =Convert.ToString(row.Field<int?>(Constants.ProjectColumnName.roleId.ToString())),
+                        roleName = row.Field<string>(Constants.ProjectColumnName.roleName.ToString())
+                       // projectName =row.Field<string>(Constants.ProjectColumnName.projectName.ToString()),
+                       // projectId = row.Field<int?>(Constants.ProjectColumnName.projectId.ToString()).ToString(),
+                      //  userProjectRoleId = row.Field<int>(Constants.ProjectColumnName.userProjectRoleId.ToString()),
                     });
                 });
             }
@@ -72,23 +72,24 @@ namespace QRMService.Repositories
                             instance.LastName = user.lastName;
                             instance.Phone = user.phone;
                             instance.Email = user.email;
+                            instance.RoleId = user.roleId != null ? Convert.ToInt32(user.roleId) : 0;
                             context.UserDetails.Add(instance);
 
-                            var userrole = new UserProjectRoleAssociation();
-                            var userroleId = context.UserProjectRoleAssociations.OrderByDescending(p => p.UserProjectRoleId).FirstOrDefault().UserProjectRoleId;
-                            userrole.UserId = userId + 1;
-                            if (user.projectId != null && Convert.ToInt32(user.projectId) !=0)
-                            {
-                                userrole.ProjectId = Convert.ToInt32(user.projectId);
-                            }
-                            else
-                            {
-                                userrole.ProjectId = null;
-                            }
+                            //var userrole = new UserProjectRoleAssociation();
+                            //var userroleId = context.UserProjectRoleAssociations.OrderByDescending(p => p.UserProjectRoleId).FirstOrDefault().UserProjectRoleId;
+                            //userrole.UserId = userId + 1;
+                            //if (user.projectId != null && Convert.ToInt32(user.projectId) !=0)
+                            //{
+                            //    userrole.ProjectId = Convert.ToInt32(user.projectId);
+                            //}
+                            //else
+                            //{
+                            //    userrole.ProjectId = null;
+                            //}
 
-                            userrole.RoleId =Convert.ToInt32(user.roleId);
-                            userrole.UserProjectRoleId = userroleId + 1;
-                            context.UserProjectRoleAssociations.Add(userrole);
+                            //userrole.RoleId =Convert.ToInt32(user.roleId);
+                            //userrole.UserProjectRoleId = userroleId + 1;
+                            //context.UserProjectRoleAssociations.Add(userrole);
                             context.SaveChanges();
                             transaction.Commit();
                             response.IsSuccess = true;
@@ -107,12 +108,12 @@ namespace QRMService.Repositories
                             context.Entry(userDetail).State = System.Data.Entity.EntityState.Modified;
                             context.SaveChanges();
 
-                            var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == user.userId).UserProjectRoleId;
-                            UserProjectRoleAssociation roleAssociation = context.UserProjectRoleAssociations.Find(userRoleId);
-                            roleAssociation.RoleId = Convert.ToInt32(user.roleId);
-                            roleAssociation.ProjectId = Convert.ToInt32(user.projectId);
-                            context.Entry(roleAssociation).State = System.Data.Entity.EntityState.Modified;
-                            context.SaveChanges();
+                            //var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == user.userId).UserProjectRoleId;
+                            //UserProjectRoleAssociation roleAssociation = context.UserProjectRoleAssociations.Find(userRoleId);
+                            //roleAssociation.RoleId = Convert.ToInt32(user.roleId);
+                            //roleAssociation.ProjectId = Convert.ToInt32(user.projectId);
+                            //context.Entry(roleAssociation).State = System.Data.Entity.EntityState.Modified;
+                           // context.SaveChanges();
 
                             transaction.Commit();
 
@@ -148,10 +149,10 @@ namespace QRMService.Repositories
                         var userDetail = context.UserDetails.Find(UserId);
                         context.UserDetails.Remove(userDetail);
 
-                        var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == UserId).UserProjectRoleId;
-                        var userRoleObj = context.UserProjectRoleAssociations.Find(userRoleId);
+                        //var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == UserId).UserProjectRoleId;
+                        //var userRoleObj = context.UserProjectRoleAssociations.Find(userRoleId);
 
-                        context.UserProjectRoleAssociations.Remove(userRoleObj);
+                        //context.UserProjectRoleAssociations.Remove(userRoleObj);
 
                         context.SaveChanges();
 
@@ -187,7 +188,7 @@ namespace QRMService.Repositories
                         var roleCounter = -1;
                         foreach (var user in users)
                         {
-                            var role = context.UserProjectRoleAssociations.Where(s => s.UserId == user.userId && s.UserProjectRoleId == user.userProjectRoleId).FirstOrDefault();
+                           // var role = context.UserProjectAssociations.Where(s => s.UserId == user.userId && s.UserProjectRoleId == user.userProjectRoleId).FirstOrDefault();
                             var userData = context.UserDetails.Where(s => s.UserId == user.userId).FirstOrDefault();
                             if (!deletedUserIds.Contains(user.userId))
                             {
@@ -199,28 +200,31 @@ namespace QRMService.Repositories
                                     userData.MiddleName = user.middleName;
                                     userData.Phone = user.phone;
                                     userData.Email = user.email;
+                                    int userRole;
+                                    userData.RoleId = int.TryParse(user.roleId, out userRole) == false ? 0 : userRole;
+                                       
                                 }
 
-                                if (role != null)
-                                {
-                                    role.RoleId = Convert.ToInt32(user.roleId);
-                                }
-                                else
-                                {
+                                //if (role != null)
+                                //{
+                                //    role.RoleId = Convert.ToInt32(user.roleId);
+                                //}
+                                //else
+                                //{
 
-                                    UserProjectRoleAssociation userRoleAssoc = new UserProjectRoleAssociation();
-                                    userRoleAssoc.UserId = user.userId;
-                                    userRoleAssoc.UserProjectRoleId = roleCounter--;
-                                    userRoleAssoc.ProjectId = projectId;
-                                    userRoleAssoc.RoleId = Convert.ToInt32(user.roleId);
-                                }
+                                    //UserProjectAssociation userRoleAssoc = new UserProjectAssociation();
+                                    //userRoleAssoc.UserId = user.userId;
+                                    //userRoleAssoc.UserProjectRoleId = roleCounter--;
+                                    //userRoleAssoc.ProjectId = projectId;
+                                    //userRoleAssoc.RoleId = Convert.ToInt32(user.roleId);
+                                //}
                             }
                         }
                         if (deletedUserIds.Count > 0)
                         {
                             foreach (var userId in deletedUserIds)
                             {
-                                context.UserProjectRoleAssociations.Remove(context.UserProjectRoleAssociations.Where(s => s.UserId == userId).FirstOrDefault());
+                                context.UserProjectAssociations.Remove(context.UserProjectAssociations.Where(s => s.UserId == userId).FirstOrDefault());
                                 context.UserDetails.Remove(context.UserDetails.Where(s => s.UserId == userId).FirstOrDefault());
                             }
                         }

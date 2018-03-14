@@ -505,6 +505,15 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                   });
         }
 
+        $scope.LoadProjectPerformance = function () {
+            healthReportService.GetAllProjectVariance(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
+                  .then(function (successResponse) {
+                      $scope.projectVarianceGrid.data = successResponse.data;
+                  }, function (errorResponse) {
+
+                  });
+        }
+
         var tmpl1 = '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div>';
         $scope.projectEffortGrid = {
             enableSorting: false,
@@ -532,10 +541,10 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             columnDefs: [
                 //{ field: 'DashBoardType', name: 'Manual/Automation', width: '22%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
                 { field: 'DashboardSubtype', name: '', width: '25%', cellTemplate: '<div ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>' },
-                { field: 'PreSitComponent', name: 'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
-                { field: 'PreSitE2E', name: 'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
-                { field: 'SitComponent', name: 'SIT-Component', cellTemplate: tmp2, width: '20%' },
-                { field: 'SitE2E', name: 'SIT-E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'PreSitComponent', name: 'PRE-SIT Component',displayName:'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
+                { field: 'PreSitE2E', name: 'PRE-SIT E2E',displayName: 'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitComponent', name: 'SIT-Component', displayName: 'SIT-Component', cellTemplate: tmp2, width: '20%' },
+                { field: 'SitE2E', name: 'SIT-E2E', displayName: 'SIT-E2E', cellTemplate: tmp2, width: '20%' },
 
             ],
             onRegisterApi: function (gridApi) {
@@ -574,6 +583,27 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 { field: 'WipHours', name: 'Work in Progress', width: '18%', cellTemplate: tmpl2 },
                 { field: 'NotStartedHours', name: 'Not Started', width: '15%', cellTemplate: tmpl2 },
                 { field: 'TotalHours', name: 'Total', cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '15%' },
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+        var varianceTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
+        $scope.projectVarianceGrid = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'DashBoardType', name: '', cellTemplate: varianceTempl, width: '22%' },
+                { field: 'EffortVariance', name: 'Effort Variance (%)', cellTemplate: varianceTempl, width: '15%' },
+                { field: 'Rework', name: 'Rework (%)', width: '15%', cellTemplate: varianceTempl },
+                { field: 'UnitTestEffectiveness', name: 'Unit Test Effectiveness (%)', width: '15%', cellTemplate: varianceTempl },
+                { field: 'SystemTestEffectiveness', name: 'System Test Effectiveness (%)', cellTemplate: varianceTempl, width: '15%' },
+                { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '15%' },
+                { field: 'ComponentDefectRejectionRate', name: 'Component Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' },
+                { field: 'E2EDefectRejectionRate', name: 'E2E Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;

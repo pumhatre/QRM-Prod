@@ -57,4 +57,16 @@ namespace QRMService.Models
         public int spanWidget { get; set; }
     }
 
+    public class ProjectVariance
+    {
+        public string DashboardType { get; set; }
+        public string EffortVariance { get; set; }
+        public string Rework { get; set; }
+        public string UnitTestEffectiveness { get; set; }
+        public string SystemTestEffectiveness { get; set; }
+        public string SITDefectDetectionRate { get; set; }
+        public string ComponentDefectRejectionRate { get; set; }
+        public string E2EDefectRejectionRate { get; set; }
+    }
+
 }
