@@ -11,6 +11,6 @@ namespace QRMService.Models
         public int ProjectId { get; set; }
         public int ReleaseId { get; set; }
 
-        public int MonthId { get; set; }
+        public List<int> MonthId { get; set; }
     }
 }

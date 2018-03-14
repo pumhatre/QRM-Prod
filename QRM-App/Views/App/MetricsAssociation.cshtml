@@ -7,17 +7,17 @@
     .gridDivProjectRelease {
         height: 240px !important;
     }
-     /*this datalist  hide thead text box command unwanted message*/
-    .ui-grid-pager-row-count-label{
-        display:none;
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
     }
 
-    .ui-grid-pager-control-input{
-        display:none !important ;
+    .ui-grid-pager-control-input {
+        display: none !important;
     }
 
-    .ui-grid-pager-max-pages-number{
-        display:none;
+    .ui-grid-pager-max-pages-number {
+        display: none;
     }
     /*End */
     .gridDivProjectRelease .msg {
@@ -44,7 +44,52 @@
         width: 100% !important;
         height: 400px !important;
     }
+
+    #selectedlist option, #availabelist option {
+        padding: 8px 15px;
+        border-bottom: 1px solid #E6E9ED;
+    }
+
+        #selectedlist option:hover, #availabelist option:hover {
+            background-color: #d1eaf9;
+        }
+
+        #selectedlist option:last-child, #availabelist option:last-child {
+            border-bottom: none;
+        }
+
+    /* Put your css in here */
+
+    multiselect {
+        display: block;
+    }
+
+        multiselect .btn {
+            width: 100%;
+            background-color: #FFF;
+        }
+
+            multiselect .btn.error {
+                border: 1px solid #da4f49 !important;
+            }
+
+        multiselect .dropdown-menu {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        multiselect .dropdown-menu {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 2px;
+        }
+
+            multiselect .dropdown-menu > li > a {
+                padding: 3px 10px;
+                cursor: pointer;
+            }
 </style>
+<script src="~/Assets/app/directives/multiSelect.js"></script>
 <div class="x_panel" role="main">
     <div class="">
         <div class="page-title">
@@ -52,7 +97,6 @@
                 <h3>Associate Metrics</h3>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12 col-sm-6 col-xs-12">
                 <div class="x_panel">
@@ -153,6 +197,8 @@
                                     </div>
                                 </div>
 
+
+
                                 @*Metrics Tab Implementation*@
                                 <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab">
                                     <div class="x_panel">
@@ -193,13 +239,17 @@
                                                         <div class="col-md-3"></div>
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
                                                         <div class="col-md-3">
-                                                            <select class="form-control" name="monthList" ng-model="selectedMonth">
+                                                            @*<select class="form-control" name="monthList" ng-model="selectedMonth">
                                                                 <option ng-repeat="month in monthList" value="{{month.MonthId}}">{{month.MonthName}}</option>
                                                                 @*ng-options="g.MonthName for g in monthList" required autofocus>
-                                                                    <option value="">Select Month</option>*@
-                                                            </select>
+                                                                    <option value="">Select Month</option>
+                                                            </select>*@
+                                                            <multiselect class="input-xlarge" multiple="true"
+                                                                         ng-model="selectedMonth"
+                                                                         options="c.MonthName for c in monthList"
+                                                                         change="selected()"></multiselect>
+                                                            </div> 
                                                         </div>
-                                                        <div class="col-md-3"></div>
                                                     </div>
                                                     <br>
                                                     <br>
@@ -213,22 +263,34 @@
                                                     </div>
                                                     <div class="clearfix"></div>
                                                     <br>
-                                                    <div>
 
-                                                        <div class="col-md-12">
-                                                            <!-- start project list -->
-                                                            <div id="metricAssociationGrid" ui-grid="gridOptions" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize></div>
-                                                            <!-- end project list -->
+                                                    <div class="row form-group">
+                                                        <div class="col-md-5">
+                                                            <h2>Selected Metrics</h2>
+                                                            <select class="form-group" multiple id="selectedlist" size="10" style="width:275px" ng-model="SelectedSelectedListItems" ng-options="i as i.name for i in SelectedListItems[selectFaIndex] | orderBy:'name'"></select>
                                                         </div>
-                                                        @* <div class="col-md-2"></div>*@
-                                                        <div class="clearfix"></div>
-                                                        <div style="text-align:center;">
-                                                            <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
+                                                        <div class="col-md-2" style="margin-top:9%">
+                                                            <div class="list-arrows col-md-1 text-center">
+                                                                <button class="btn btn-default btn-sm move-left" ng-click="btnRight()">
+                                                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                                                </button>
+                                                                <button class="btn btn-default btn-sm move-right" ng-click="btnLeft()">
+                                                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <h2>Available Metrics</h2>
+                                                            <select multiple id="availabelist" size="10" style="width:275px" ng-change="OnAvailableChange()" ng-model="SelectedAvailItems" ng-options="i as i.name for i  in AvailableListItems[selectFaIndex] | orderBy:'name'"></select>
                                                         </div>
                                                     </div>
+                                                    <div class="clearfix"></div>
+                                                    <div style="text-align:center;">
+                                                        <button type="submit" ng-click="saveMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)" class="btn btn-success btnMetricsAssociation" id="btnSave">Save</button>
+                                                    </div>
                                                 </div>
-
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

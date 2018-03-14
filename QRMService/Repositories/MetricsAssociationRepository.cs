@@ -53,31 +53,47 @@ namespace QRMService.Repositories
                 var metricsMasterIdList = modelData.MetricsMasterIdList;
                 int projectId = modelData.ProjectId;
                 var releaseId = modelData.ReleaseId;
-                int monthid = modelData.MonthId;
 
-                var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId && x.MonthId == monthid);
-                db.ProjectMetricAssociations.RemoveRange(deleteItems);
-                db.SaveChanges();
-                foreach (int id in metricsMasterIdList)
+                for (int i = 0; i < modelData.MonthId.Count; i++)
                 {
-                    var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId == monthid).FirstOrDefault();
-                    if (metricsAssociation == null)
+                    if (projectId != 0)
                     {
-                        var projectMetricsAssociationData = new ProjectMetricAssociation
+                        if (releaseId != 0)
                         {
-                            ProjectId = projectId,
-                            ReleaseId = releaseId,
-                            MetricMasterID = id,
-                            MonthId = monthid
-                        };
-                        db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
-                        db.SaveChanges();
-                        response.IsSuccess = true;
-                        response.ResponseMessage = "Project Metrics Association added successfully";
+                            var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId && x.MonthId == modelData.MonthId[i]);
+                            db.ProjectMetricAssociations.RemoveRange(deleteItems);
+                            db.SaveChanges();
+                            foreach (int id in metricsMasterIdList)
+                            {
+                                var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId == modelData.MonthId[i]).FirstOrDefault();
+                                if (metricsAssociation == null)
+                                {
+                                    var projectMetricsAssociationData = new ProjectMetricAssociation
+                                    {
+                                        ProjectId = projectId,
+                                        ReleaseId = releaseId,
+                                        MetricMasterID = id,
+                                        MonthId = i
+                                    };
+                                    db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
+                                    db.SaveChanges();
+                                    response.IsSuccess = true;
+                                    response.ResponseMessage = "Project Metrics Association added successfully";
+                                }
+                                else
+                                {
+                                    response.ResponseMessage = "Release Metrics Association already exists.";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            response.ResponseMessage = "Please provide valid Project!";
+                        }
                     }
                     else
                     {
-                        response.ResponseMessage = "Release Metrics Association already exists.";
+                        response.ResponseMessage = "Please provide valid Project ,Release!";
                     }
                 }
 
@@ -85,14 +101,20 @@ namespace QRMService.Repositories
             }
         }
 
-        public static List<int> GetSavedMetricsAssociation(int projectId, int releaseId, int month)
+        public static List<MetricsModel> GetSavedMetricsAssociation(int projectId, int releaseId, List<int> month)
         {
             using (var db = new QRMEntities())
             {
                 var releaseDetails = (from m in db.ProjectMetricAssociations
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && m.MonthId == month
+                                      join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && month.Contains(m.MonthId)
                                       orderby m.ProjectId
-                                      select m.MetricMasterID).ToList();
+                                      select new MetricsModel
+                                      {
+                                          MetricsMasterId = m.MetricMasterID,
+                                          CategoryDescription = mt.MetricCategoryDescription,
+                                          CategoryCode = mt.MetricCategoryCode
+                                      }).ToList();
                 return releaseDetails;
             }
         }

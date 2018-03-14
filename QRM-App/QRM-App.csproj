@@ -208,6 +208,8 @@
     <Content Include="Assets\app\controllers\signInCtrl.js" />
     <Content Include="Assets\app\controllers\uploadCtrl.js" />
     <Content Include="Assets\app\controllers\viewPreferencesReportCtrl.js" />
+    <Content Include="Assets\app\directives\multiSelect.js" />
+    <Content Include="Assets\app\directives\multiselect.tmpl.html" />
     <Content Include="Assets\app\directives\stepTabsDirective.js" />
     <Content Include="Assets\app\directives\uploadFileDirective.js" />
     <Content Include="Assets\app\environment\environment.js" />
@@ -252,6 +254,7 @@
     <Content Include="Assets\ng\Ui-grid\ui-grid.min.js" />
     <Content Include="Assets\styles\styles.css" />
     <Content Include="Content\css\animate.min.css" />
+    <Content Include="Content\css\bootstrap-multiselect.css" />
     <Content Include="Content\css\bootstrap-progressbar-3.3.4.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom.css" />
