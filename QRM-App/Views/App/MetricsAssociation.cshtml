@@ -1031,24 +1031,31 @@
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
                                                         <div class="col-md-3">
                                                             @*<select class="form-control" name="monthList" ng-model="selectedMonth">
-                                                                <option ng-repeat="month in monthList" value="{{month.MonthId}}">{{month.MonthName}}</option>
-                                                                @*ng-options="g.MonthName for g in monthList" required autofocus>
-                                                                    <option value="">Select Month</option>
-                                                            </select>*@
+                            <option ng-repeat="month in monthList" value="{{month.MonthId}}">{{month.MonthName}}</option>
+                            @*ng-options="g.MonthName for g in monthList" required autofocus>
+                                <option value="">Select Month</option>
+                        </select>*@
                                                             <multiselect class="input-xlarge" multiple="true"
                                                                          ng-model="selectedMonth"
                                                                          options="c.MonthName for c in monthList"
                                                                          change="selected()"></multiselect>
-                                                            </div> 
                                                         </div>
                                                     </div>
-                                                    <br>
-                                                    <br>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <div class="form-group">
+                                                    <div class="col-md-3"></div>
+                                                    <div class="col-md-3">
+                                                       <button type="submit" class="btn btn-success" id="btnSave" ng-click="getMetricsList(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)"> Search</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                                     <div class="row">
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-3">
-                                                            &nbsp;&nbsp;      &nbsp;&nbsp;   &nbsp;&nbsp;  <button type="submit" class="btn btn-success" id="btnSave" ng-click="getMetricsList(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)"> Search</button>
+                                                         
                                                         </div>
                                                         <div class="col-md-3"></div>
                                                     </div>
