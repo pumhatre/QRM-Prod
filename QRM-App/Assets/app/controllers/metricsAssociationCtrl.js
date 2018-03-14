@@ -1,5 +1,5 @@
-﻿angular.module('metricsAssociation', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService','ReportService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService,ReportService) {
+﻿angular.module('metricsAssociation', ['ngAnimate','ui.multiselect', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
+    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', 'ReportService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService, ReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.monthList = [];
@@ -30,7 +30,7 @@
                 }
             },
              function (errorResponse) {
-                 
+
              });
         }
 
@@ -42,7 +42,13 @@
             metricsAssociationService.getMetricsAssociationDetails(config)
                 .then(function (successResponse) {
                     //$scope.metricsAssociationData = successResponse.data;
-                    $scope.gridData = successResponse.data;
+                    // $scope.gridData = successResponse.data;
+                    $scope.arr = [];
+                    $scope.arr = successResponse.data;
+                    var arr = [];
+                    for (key in $scope.arr) {
+                        $scope.AvailableListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
+                    }
                 }, function (errorResponse) {
 
                 });
@@ -54,7 +60,7 @@
                 .then(function (successResponse) {
                     //$scope.metricsAssociationData = successResponse.data;
                     $scope.releaseDropdown = successResponse.data;
-                    $scope.gridApi.selection.clearSelectedRows();
+                   // $scope.gridApi.selection.clearSelectedRows();
                 }, function (errorResponse) {
 
                 });
@@ -87,11 +93,12 @@
             }
         };
 
-        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown,selectedMonth) {
-            $scope.selectedRows = $scope.gridApi.selection.getSelectedRows();
+        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricsMasterIdList = [];
-            angular.forEach($scope.selectedRows, function (value, key) {               
-                $scope.metricsMasterIdList.push(value.MetricsMasterId);
+            angular.forEach($scope.SelectedListItems, function (value, key) {
+                for (var i = 0; i < value.length; i++) {
+                    $scope.metricsMasterIdList.push(value[i].id);
+                }
             });
             metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
                 .then(function (successResponse) {
@@ -100,7 +107,8 @@
                         $scope.alertTypeAssociation = "Success";
                         $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
                         $scope.GetProjectReleasesByProjectId();
-                        $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth,config);
+                        $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config);
+                        LoadMetricsAssociationGrid();
                     }
                     else {
                         // show failure alert
@@ -111,36 +119,22 @@
                 }, function (errorResponse) {
 
                 });
-            $scope.gridApi.selection.clearSelectedRows();
         }
 
-        $scope.newMetricData = [];
-        $scope.metricList = [];
+       
         $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
-            $scope.metricList = [];
-            $scope.newMetricData = [];
-            $scope.gridApi.selection.clearSelectedRows();
-            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth, config)
+            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
                 .then(function (successResponse) {
-                    $scope.metricsListWithProjects = successResponse.data;
-                    angular.forEach($scope.gridData, function (valueGrid, keyGrid) {
-                        angular.forEach($scope.metricsListWithProjects, function (value, key) {
-                            if (valueGrid.MetricsMasterId == value) {
-                                $scope.metricList.push($scope.gridData[keyGrid]);
-                                $scope.newMetricData.push($scope.gridData[keyGrid])
-                            }
-                        });
-                    });
-                    angular.forEach($scope.gridData, function (valueGrid, keyGrid) {
-                        if ($scope.metricsListWithProjects.indexOf(valueGrid.MetricsMasterId)===-1) {
-                            $scope.newMetricData.push($scope.gridData[keyGrid])
-                        }
-                    });
-                    $scope.gridData = [];
-                    $scope.gridData = $scope.newMetricData;
-                    angular.forEach($scope.metricList, function (value, key) {
-                        $scope.gridApi.selection.selectRow($scope.metricList[key]);
-                    });
+                    $scope.SelectedListItems[0] = [];
+                    $scope.arr = [];
+                    $scope.arr = successResponse.data;
+                    var arr = [];
+                    for (key in $scope.arr) {
+                        $scope.SelectedListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
+                    }
+                    for (key in $scope.arr) {
+                        $scope.AvailableListItems[0].pop({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
+                    }
                 }, function (errorResponse) {
 
                 });
@@ -275,8 +269,8 @@
         $scope.LoadProjectReleases = function () {
             $scope.loading = true;
             $scope.projectReleaseGridOptions = {
-               // enablePaginationControls: true,
-               // paginationTemplate:"<div>Hello</div>",
+                // enablePaginationControls: true,
+                // paginationTemplate:"<div>Hello</div>",
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
                 //Declaring column and its related properties
@@ -305,6 +299,63 @@
             //Function to load the data from database
             $scope.GetAllProjectReleases();
         };
+        $scope.name = 'World';
+        $scope.cars = [{ id: 1, name: 'Audi' }, { id: 2, name: 'BMW' }, { id: 1, name: 'Honda' }];
+        $scope.selectedCar = [];
 
         $scope.LoadProjectReleases();
+
+        $scope.selectFaIndex = 0;
+        $scope.SelectedAvailItems = [];
+        $scope.SelectedSelectedListItems = [];
+        $scope.SelectedListItems = [
+            [
+                {
+                    name: 'None Selected',
+                    id:-1
+                }
+            ]
+        ];
+        $scope.AvailableListItems = [
+          []
+        ];
+
+
+
+        $scope.btnRight = function () {
+            //move selected.
+            angular.forEach($scope.SelectedAvailItems, function (value, key) {
+                this.push(value);
+            }, $scope.SelectedListItems[$scope.selectFaIndex]);
+
+            //remove the ones that were moved.
+            angular.forEach($scope.SelectedAvailItems, function (value, key) {
+                for (var i = $scope.AvailableListItems[$scope.selectFaIndex].length - 1; i >= 0; i--) {
+                    if ($scope.AvailableListItems[$scope.selectFaIndex][i].name == value.name) {
+                        $scope.AvailableListItems[$scope.selectFaIndex].splice(i, 1);
+                    }
+                }
+            });
+            $scope.SelectedAvailItems = [];
+
+        };
+
+        $scope.btnLeft = function () {
+            //move selected.
+            angular.forEach($scope.SelectedSelectedListItems, function (value, key) {
+                this.push(value);
+            }, $scope.AvailableListItems[$scope.selectFaIndex]);
+
+            //remove the ones that were moved from the source container.
+            angular.forEach($scope.SelectedSelectedListItems, function (value, key) {
+                for (var i = $scope.SelectedListItems[$scope.selectFaIndex].length - 1; i >= 0; i--) {
+                    if ($scope.SelectedListItems[$scope.selectFaIndex][i].name == value.name) {
+                        $scope.SelectedListItems[$scope.selectFaIndex].splice(i, 1);
+                    }
+                }
+            });
+            $scope.SelectedSelectedListItems = [];
+        };
+
+
     }]);
