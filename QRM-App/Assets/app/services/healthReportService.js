@@ -16,6 +16,10 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId };
         return $http.post(config.apiUrl + 'api/Report/GetProjectWidgetDashboard', data);
     }
+    this.GetAllProjectVariance = function (config, projectId, releaseId, monthId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId };
+        return $http.post(config.apiUrl + 'api/Report/GetProjectVrianceDashboard', data);
+    }
     this.GetProjectDefectsByProject = function (config, projectId) {
         var data = { ProjectId: projectId};
         return $http.post(config.apiUrl + 'api/Report/GetProjectDefectsByProject', data);
