@@ -36,4 +36,8 @@
         var data = { ProjectId: projectId};
         return $http.post(config.apiUrl + 'api/Report/GetProjectWidgetDashboardByProject', data);
     }
+    this.GetAllProjectVarianceByProject = function (config, projectId) {
+        var data = { ProjectId: projectId };
+        return $http.post(config.apiUrl + 'api/Report/GetProjectVarianceDashboardByProject', data);
+    }
 }]);
