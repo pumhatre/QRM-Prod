@@ -22,7 +22,7 @@ namespace QRMService.Repositories
                 return db.UserDetails
                     .Select(x => new SelectListItem
                     {
-                        Text = x.UserName,
+                        Text = x.LastName +", " + x.FirstName,
                         Value = x.UserId.ToString()
 
                     }).OrderBy(y => y.Text).ToList();
@@ -30,19 +30,19 @@ namespace QRMService.Repositories
         }
 
 
-        public static List<ProjectUserAssociationModel> GetProjectUsersById(int ProjectId,int ProjectUserId)
+        public static List<ProjectUserAssociationModel> GetProjectUsersById(int ProjectId)
         {
             using (var db = new QRMEntities())
             {
                 var projectUsers = (from pr in db.UserProjectAssociations
                                        join p in db.ProjectMasters on pr.ProjectId equals p.ProjectID
                                        join ud in db.UserDetails on pr.UserId equals ud.UserId
-                                       where pr.ProjectId == ProjectId && pr.UserId == ProjectUserId &&  p.IsActive == true
+                                       where pr.ProjectId == ProjectId  &&  p.IsActive == true
                                        select new ProjectUserAssociationModel
                                        {
                                            ProjectUserId = pr.UserProjectId,
                                            ProjectID = p.ProjectID,
-                                           ProjectUserName = ud.UserName,
+                                           ProjectUserName = ud.LastName + ", " + ud.FirstName,
                                            ProjectName = p.ProjectName
                                        }).OrderBy(a => a.ProjectID).ToList();
                 return projectUsers;
@@ -68,7 +68,7 @@ namespace QRMService.Repositories
                                        {
                                            ProjectUserId = pr.UserProjectId,
                                            ProjectID = p.ProjectID,
-                                           ProjectUserName = ud.UserName,
+                                           ProjectUserName = ud.LastName + ", " + ud.FirstName,
                                            ProjectName = p.ProjectName
 
                                        }).OrderBy(a => a.ProjectName).ToList();

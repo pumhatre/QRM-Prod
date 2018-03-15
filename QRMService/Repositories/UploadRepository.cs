@@ -205,7 +205,7 @@ namespace QRMService.Repositories
                 var isValidCMMIRollup = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidCMMIRollup.ToString());
 
 
-                if (!isValidTaskType)
+                if (!isValidTaskType && row.Field<string>(Constants.EffortSanityValidationColumnName.TaskType.ToString())!="-Missing-")
                     sb.Append("Invalid Task type").Append("|");
                 if (!isValidStatus)
                     sb.Append("Invalid Status").Append("|");
@@ -356,7 +356,7 @@ namespace QRMService.Repositories
                     sb.Append("Invalid Type").Append("|");
                 if (!isValidDefectSeverity)
                     sb.Append("Invalid Severity").Append("|");
-                if (!isValidReviewType)
+                if (!isValidReviewType && row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString()) != "-Missing-")
                     sb.Append("Invalid Review Type").Append("|");
                 if (!isValidInjectedDetectedPhase)
                     sb.Append("Incorrect Expected Detection Phase Mapping").Append("|");

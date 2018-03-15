@@ -29,7 +29,7 @@ namespace QRMService.Controllers
         [HttpPost]
         public IHttpActionResult GetProjectUsersById(ProjectUserAssociationModel request)
         {
-            var response = ProjectUserRepository.GetProjectUsersById(request.ProjectID,request.ProjectUserId);
+            var response = ProjectUserRepository.GetProjectUsersById(request.ProjectID);
             return Ok(response);
         }
 

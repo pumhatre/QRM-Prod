@@ -383,8 +383,8 @@
 
         //get users by Project Id
         $scope.getUsersByProjectId = function () {
-            if ($scope.selectedProjectUserDropdown > 0 && $scope.selectedUserDropDown > 0) {
-                projectUserService.GetProjectUsersById($scope.selectedProjectUserDropdown, $scope.selectedUserDropDown, config)
+            if ($scope.selectedProjectUserDropdown > 0) {
+                projectUserService.GetProjectUsersById($scope.selectedProjectUserDropdown, config)
                     .then(function (successResponse) {
                         $scope.projectUserAssocGridOptions.data = successResponse.data;
                         $scope.loading = false;
@@ -395,6 +395,7 @@
                         $scope.loadAttempted = true;
                     });
             }
+
             else {
                 // load all project users
                 $scope.GetAllProjectUsers();
@@ -457,22 +458,19 @@
                 //Declaring column and its related properties
                 columnDefs: [
                     {
-                        name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '50%',
+                        name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '40%',
                         cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                      {
-                         name: 'ProjectUserName', displayName: "User Name", field: "ProjectUserName", enableColumnMenu: false, width: '50%',
+                         name: 'ProjectUserName', displayName: "User", field: "ProjectUserName", enableColumnMenu: false, width: '40%',
                          enableCellEdit: false
-                     }
+                     },
 
-                    //{
-                    //    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '30%',
-                    //    cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
-                    //    '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
-                    //    '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
-                    //    '<button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
-                    //    '</div>'
-                    //}
+                    {
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '20%',
+                        cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
+                        '</div>'
+                    }
                 ],
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;

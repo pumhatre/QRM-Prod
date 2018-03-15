@@ -123,7 +123,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             });
         }
 
-        var renderEffortError = function () {
+        var renderEffortError = function () {            
             return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
         }
         //get function to load grid data

@@ -1,8 +1,8 @@
 ﻿app.service('projectUserService', ['$http', function ($http) {
 
     
-    this.GetProjectUsersById = function (projectId,userId, config) {
-        var data = { ProjectID: projectId, ProjectUserId: userId };
+    this.GetProjectUsersById = function (projectId, config) {
+        var data = { ProjectID: projectId };
         return $http.post(config.apiUrl + 'api/ProjectUser/GetProjectUsersById', data);
     }
 
