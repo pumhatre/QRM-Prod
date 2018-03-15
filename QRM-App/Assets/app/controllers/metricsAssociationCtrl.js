@@ -1,5 +1,5 @@
 ﻿angular.module('metricsAssociation', ['ngAnimate','ui.multiselect', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', 'ReportService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService, ReportService) {
+    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', 'ReportService', 'projectUserService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService, ReportService, projectUserService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.monthList = [];
@@ -11,6 +11,13 @@
         $scope.alertTypeAssociation = null;
         $scope.alerts = [];
         $scope.projectReleaseGridOptions = {};
+
+        $scope.usersDropdown = [];
+        $scope.selectedProjectUserDropdown = '';
+        $scope.selectedUserDropDown = '';
+        $scope.alertTypeUserProjectAssociation = '';
+        $scope.projectUserAssocGridOptions = {};
+
 
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
@@ -31,6 +38,16 @@
              function (errorResponse) {
 
              });
+        }
+
+        $scope.LoadUsersDropDown = function () {
+            projectUserService.GetUsersList(config)
+                .then(function (response) {
+                    $scope.usersDropdown = response.data;
+            },
+            function (errorResponse) {
+
+            });
         }
 
         //Load Metrics Association grid on Page load
@@ -76,11 +93,14 @@
         $scope.ClearAlert = function () {
             $scope.alertType = null;
             $scope.alertTypeAssociation = null;
+            $scope.alertTypeUserProjectAssociation = null;
+
         }
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
         $scope.LoadMonthsDropDown();
+        $scope.LoadUsersDropDown();
         LoadMetricsAssociationGrid();
 
 
@@ -347,6 +367,125 @@
             });
             $scope.SelectedSelectedListItems = [];
         };
+
+
+        /////////////////////// project user association save functions and  ui grid logic //////////////////////////
+
+        //get users by Project Id
+        //$scope.getUsersByProjectId = function () {
+        //    if ($scope.selectedProjectUserDropdown > 0) {
+
+        //    } else {
+        //        //load all project users
+        //    }
+        //}
+
+
+        //get users by Project Id
+        $scope.getUsersByProjectId = function () {
+            if ($scope.selectedProjectUserDropdown > 0 && $scope.selectedUserDropDown > 0) {
+                projectUserService.GetProjectUsersById($scope.selectedProjectUserDropdown, $scope.selectedUserDropDown, config)
+                    .then(function (successResponse) {
+                        $scope.projectUserAssocGridOptions.data = successResponse.data;
+                        $scope.loading = false;
+                        $scope.loadAttempted = true;
+
+                    }, function (errorResponse) {
+                        $scope.loading = false;
+                        $scope.loadAttempted = true;
+                    });
+            }
+            else {
+                // load all project users
+                $scope.GetAllProjectUsers();
+            }
+        }
+
+
+
+
+        //insert  user for a project 
+        $scope.InsertProjectUserAssociation = function (IsFormValid) {
+            if (IsFormValid) {
+                projectUserService.InsertProjectUserAssociation($scope.selectedProjectUserDropdown, $scope.selectedUserDropDown, config)
+                .then(function(successResponse){
+                    if (successResponse.data.IsSuccess) {
+                        // show success alert
+                        $scope.alertTypeUserProjectAssociation = "Success";
+                        $scope.alertMessageUserProjectAssociation = successResponse.data.ResponseMessage;
+                       // $scope.GetUsersByProjectId();
+
+                    } else {
+                        //show failure alert
+                        $scope.alertTypeUserProjectAssociation = "Failure";
+                        $scope.alertMessageUserProjectAssociation = successResponse.data.ResponseMessage;
+                    }
+                },
+                function (errorResponse) {
+
+                });
+
+            }
+
+        }
+
+
+        $scope.GetAllProjectUsers = function () {
+            projectUserService.GetAllProjectUsers(config)
+                .then(function (successResponse) {
+                    $scope.projectUserAssocGridOptions.data = successResponse.data;
+                    $scope.loading = false;
+                    $scope.loadAttempted = true;
+                }, function (errorResponse) {
+                    $scope.loading = false;
+                    $scope.loadAttempted = true;
+                });
+        }
+
+
+
+        //get function to populate ui-grid
+        
+            
+            $scope.projectUserAssocGridOptions = {
+                // enablePaginationControls: true,
+                // paginationTemplate:"<div>Hello</div>",
+                
+                paginationPageSizes: [10, 50, 100],
+                paginationPageSize: 10,
+                loading: true,
+                //Declaring column and its related properties
+                columnDefs: [
+                    {
+                        name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '50%',
+                        cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                    },
+                     {
+                         name: 'ProjectUserName', displayName: "User Name", field: "ProjectUserName", enableColumnMenu: false, width: '50%',
+                         enableCellEdit: false
+                     }
+
+                    //{
+                    //    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '30%',
+                    //    cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
+                    //    '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
+                    //    '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
+                    //    '<button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
+                    //    '</div>'
+                    //}
+                ],
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                }
+            };
+            //Function to load the data from database
+           // $scope.GetAllProjectUsers();
+       
+
+
+      //  $scope.LoadProjectUserAssoc();
+
+
 
 
     }]);

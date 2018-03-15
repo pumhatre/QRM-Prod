@@ -224,6 +224,7 @@
     <Compile Include="Controllers\MetricsAssociationController.cs" />
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProjectUserController.cs" />
     <Compile Include="Controllers\ReferenceDataController.cs" />
     <Compile Include="Controllers\ProjectReleaseController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -332,6 +333,8 @@
     <Compile Include="Models\ProjectReleaseModel.cs" />
     <Compile Include="Models\ProjectReleaseRequestModel.cs" />
     <Compile Include="Models\ProjectReleasesResponseModel.cs" />
+    <Compile Include="Models\ProjectUserModel.cs" />
+    <Compile Include="Models\ProjectUserResponseModel.cs" />
     <Compile Include="Models\ReferenceTableRequestModel.cs" />
     <Compile Include="Models\ReferenceTableResponseModel.cs" />
     <Compile Include="Models\SanitizedDataViewModel.cs" />
@@ -352,6 +355,7 @@
     <Compile Include="Repositories\MetricsAssociationRepository.cs" />
     <Compile Include="Repositories\MetricsRepository.cs" />
     <Compile Include="Repositories\ProjectReleaseRepository.cs" />
+    <Compile Include="Repositories\ProjectUserRepository.cs" />
     <Compile Include="Repositories\ReferenceRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Repositories\ReportRepository.cs" />

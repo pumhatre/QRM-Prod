@@ -222,6 +222,7 @@
     <Content Include="Assets\app\services\metricsService.js" />
     <Content Include="Assets\app\services\projectReleaseService.js" />
     <Content Include="Assets\app\services\projectService.js" />
+    <Content Include="Assets\app\services\projectUserService.js" />
     <Content Include="Assets\app\services\referenceDataService.js" />
     <Content Include="Assets\app\controllers\userConfigurationCtrl.js" />
     <Content Include="Assets\app\services\uploadService.js" />
