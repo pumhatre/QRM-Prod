@@ -321,10 +321,6 @@
         $scope.SelectedSelectedListItems = [];
         $scope.SelectedListItems = [
             [
-                {
-                    name: 'None Selected',
-                    id:-1
-                }
             ]
         ];
         $scope.AvailableListItems = [
