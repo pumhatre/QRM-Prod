@@ -172,22 +172,28 @@
                                             <br>
 
                                             <div class="row form-group">
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                 </div>
                                                 <div class="col-md-3">
                                                     <h2>Available Metrics</h2>
                                                     <select multiple id="availabelist" size="8" style="width:275px" ng-change="OnAvailableChange()" ng-model="SelectedAvailItems" ng-options="i as i.name for i  in AvailableListItems[selectFaIndex] | orderBy:'name'"></select>
                                                 </div>
-                                                <div class="col-md-1" style="margin-top:12%">
-                                                    <div class="list-arrows col-md-1 text-center">
-                                                        <button class="btn btn-default btn-sm move-right" ng-click="btnRight()">
-                                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                                        </button>
-                                                        <button class="btn btn-default btn-sm move-left" ng-click="btnLeft()">
-                                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                                        </button>
-
+                                                <div class="col-md-2" style="margin-top:12%">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <button class="btn btn-default btn-sm" ng-click="btnRight()">
+                                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                            </button>
+                                                        </div>
+                                                       <br />
+                                                        <br />
+                                                        <div class="col-md-12 text-center">
+                                                            <button class="btn btn-default btn-sm" ng-click="btnLeft()">
+                                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                            </button>
+                                                        </div>
                                                     </div>
+                                                  
                                                 </div>
                                                 <div class="col-md-2">
                                                     <h2>Selected Metrics</h2>
