@@ -9,6 +9,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     $scope.projectDefectGrid = {};
     $scope.projectTestingGrid = {};
     $scope.projectWidgetGrid = {};
+    $scope.projectVarianceGrid = {};
     $scope.selectedProjectId = 0;
 
     var userId = $cookies.get('_UserId');//Get User Id 
@@ -23,55 +24,71 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     }
 
     $scope.OpenMetricsPopUp = function (projectId) {
+        $scope.projectEffortGrid.data = [];
+        $scope.projectDefectGrid.data = [];
+        $scope.projectTestingGrid.data = [];
+        $scope.projectWidgetGrid.data = [];
+        $scope.projectVarianceGrid.data = [];
         $scope.selectedProjectId = projectId;
         $('#healthReportModal').modal('show');
         $scope.LoadProjectEffortByProject();
+        $('.nav-tabs a[href="#tab_projectEffort"]').tab('show');
     }
 
     $scope.LoadProjectEffortByProject = function () {
+        $scope.projectEffortGridLoading = true;
         healthReportService.GetAllProjectEffortByProject(config, $scope.selectedProjectId)
             .then(function (successResponse) {
+                $scope.projectEffortGridLoading = false;
                 $scope.projectEffortGrid.data = successResponse.data;
             }, function (errorResponse) {
-
+                $scope.projectEffortGridLoading = false;
             });
     }
 
     $scope.LoadProjectTestingByProject = function () {
+        $scope.projectTestingGridLoading = true;
         healthReportService.GetAllProjectTestingByProject(config, $scope.selectedProjectId)
             .then(function (successResponse) {
+                $scope.projectTestingGridLoading = false;
                 $scope.projectTestingGrid.data = successResponse.data;
             }, function (errorResponse) {
-
+                $scope.projectTestingGridLoading = false;
             }).finally(function () {
             });
     }
 
 
     $scope.LoadProjectDefectByProject = function () {
+        $scope.projectDefectGridLoading = true;
         healthReportService.GetProjectDefectsByProject(config, $scope.selectedProjectId)
               .then(function (successResponse) {
+                  $scope.projectDefectGridLoading = false;
                   $scope.projectDefectGrid.data = successResponse.data;
               }, function (errorResponse) {
-
+                  $scope.projectDefectGridLoading = false;
               });
     }
 
     $scope.LoadProjectWidgetByProject = function () {
+        $scope.projectWidgetGridLoading = true;
         healthReportService.GetAllProjectWidgetByProject(config, $scope.selectedProjectId)
               .then(function (successResponse) {
+                  $scope.projectWidgetGridLoading = false;
                   $scope.projectWidgetGrid.data = successResponse.data;
               }, function (errorResponse) {
-
+                  $scope.projectWidgetGridLoading = false;
               });
     }
 
     $scope.LoadProjectPerformanceByProject = function () {
+        $scope.projectPerformanceGridLoading = true;
         healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId)
               .then(function (successResponse) {
+                  $scope.projectPerformanceGridLoading = false;
                   $scope.projectVarianceGrid.data = successResponse.data;
               }, function (errorResponse) {
-
+                  $scope.projectPerformanceGridLoading = false;
               });
     }
 
@@ -167,7 +184,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         loading: true,
         columnDefs: [
             { field: 'DashBoardType', name: '', cellTemplate: cellTempl, width: '20%' },
-            { field: 'DashboardSubtype', name: 'Plan', cellTemplate: cellTempl, width: '22%' },
+            { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: cellTempl, width: '22%' },
             { field: 'CompletedHours', name: 'Complete', cellTemplate: cellTempl, width: '15%' },
             { field: 'WipHours', name: 'WIP',displayName:'WIP', width: '15%', cellTemplate: cellTempl },
             { field: 'NotStartedHours', name: 'Not Started', width: '15%', cellTemplate: cellTempl },
