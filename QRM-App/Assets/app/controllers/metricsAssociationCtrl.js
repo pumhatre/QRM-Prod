@@ -1,4 +1,4 @@
-﻿angular.module('metricsAssociation', ['ngAnimate','ui.multiselect', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
+﻿angular.module('metricsAssociation', ['ngAnimate', 'ui.multiselect', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
     .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', 'ReportService', 'projectUserService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService, ReportService, projectUserService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
@@ -44,7 +44,7 @@
             projectUserService.GetUsersList(config)
                 .then(function (response) {
                     $scope.usersDropdown = response.data;
-            },
+                },
             function (errorResponse) {
 
             });
@@ -79,7 +79,7 @@
         }
 
         $scope.getSelectedProjectMonth = function (projectId, releaseId) {
-            if (projectId!=null && releaseId!=null) {
+            if (projectId != null && releaseId != null) {
                 console.log(projectId, releaseId);
                 metricsAssociationService.getSelectedProjectMonth(config, projectId, releaseId)
                .then(function (successResponse) {
@@ -117,9 +117,8 @@
                         // show success alert
                         $scope.alertTypeAssociation = "Success";
                         $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
-                        $scope.GetProjectReleasesByProjectId();
                         $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config);
-                        LoadMetricsAssociationGrid();
+                       // LoadMetricsAssociationGrid();
                     }
                     else {
                         // show failure alert
@@ -132,7 +131,7 @@
                 });
         }
 
-       
+
         $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
                 .then(function (successResponse) {
@@ -143,9 +142,7 @@
                     for (key in $scope.arr) {
                         $scope.SelectedListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
                     }
-                    for (key in $scope.arr) {
-                        $scope.AvailableListItems[0].pop({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
-                    }
+                   
                 }, function (errorResponse) {
 
                 });
@@ -405,12 +402,12 @@
         $scope.InsertProjectUserAssociation = function (IsFormValid) {
             if (IsFormValid) {
                 projectUserService.InsertProjectUserAssociation($scope.selectedProjectUserDropdown, $scope.selectedUserDropDown, config)
-                .then(function(successResponse){
+                .then(function (successResponse) {
                     if (successResponse.data.IsSuccess) {
                         // show success alert
                         $scope.alertTypeUserProjectAssociation = "Success";
                         $scope.alertMessageUserProjectAssociation = successResponse.data.ResponseMessage;
-                       // $scope.GetUsersByProjectId();
+                        // $scope.GetUsersByProjectId();
 
                     } else {
                         //show failure alert
@@ -442,42 +439,42 @@
 
 
         //get function to populate ui-grid
-        
-            
-            $scope.projectUserAssocGridOptions = {
-                // enablePaginationControls: true,
-                // paginationTemplate:"<div>Hello</div>",
-                
-                paginationPageSizes: [10, 50, 100],
-                paginationPageSize: 10,
-                loading: true,
-                //Declaring column and its related properties
-                columnDefs: [
-                    {
-                        name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '40%',
-                        cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
-                    },
-                     {
-                         name: 'ProjectUserName', displayName: "User", field: "ProjectUserName", enableColumnMenu: false, width: '40%',
-                         enableCellEdit: false
-                     },
 
-                    {
-                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '20%',
-                        cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
-                        '</div>'
-                    }
-                ],
-                onRegisterApi: function (gridApi) {
-                    $scope.gridApi = gridApi;
+
+        $scope.projectUserAssocGridOptions = {
+            // enablePaginationControls: true,
+            // paginationTemplate:"<div>Hello</div>",
+
+            paginationPageSizes: [10, 50, 100],
+            paginationPageSize: 10,
+            loading: true,
+            //Declaring column and its related properties
+            columnDefs: [
+                {
+                    name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '40%',
+                    cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                },
+                 {
+                     name: 'ProjectUserName', displayName: "User", field: "ProjectUserName", enableColumnMenu: false, width: '40%',
+                     enableCellEdit: false
+                 },
+
+                {
+                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '20%',
+                    cellTemplate: '<div style="padding: 5px; text-align:center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.deleteRow(row.entity)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>Delete</button>' + //Delete Button
+                    '</div>'
                 }
-            };
-            //Function to load the data from database
-           // $scope.GetAllProjectUsers();
-       
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+            }
+        };
+        //Function to load the data from database
+        // $scope.GetAllProjectUsers();
 
 
-      //  $scope.LoadProjectUserAssoc();
+
+        //  $scope.LoadProjectUserAssoc();
 
 
 
