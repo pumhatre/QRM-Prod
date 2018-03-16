@@ -75,7 +75,8 @@ namespace QRMService.Repositories
                                         ProjectId = projectId,
                                         ReleaseId = releaseId,
                                         MetricMasterID = id,
-                                        MonthId = myInt
+                                        MonthId = myInt,
+                                        IsActive = true
                                     };
                                     db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
                                     db.SaveChanges();
@@ -109,7 +110,7 @@ namespace QRMService.Repositories
             {
                 var releaseDetails = (from m in db.ProjectMetricAssociations
                                       join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && month.Contains((int)m.MonthId) && mt.IsActive==true
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && month.Contains((int)m.MonthId) && mt.IsActive==true && m.IsActive==true
                                       orderby m.ProjectId
                                       select new MetricsModel
                                       {
@@ -128,7 +129,7 @@ namespace QRMService.Repositories
                 var releaseDetails = (from m in db.ProjectMetricAssociations
                                       join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
                                       join mnth in db.MonthMasters on m.MonthId equals mnth.MonthId
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && mt.IsActive==true
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && mt.IsActive==true && m.IsActive==true
                                       orderby m.ProjectId
                                       select new MonthDetailsWrapper
                                       {
