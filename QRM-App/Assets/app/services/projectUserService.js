@@ -20,6 +20,11 @@
         return $http.post(config.apiUrl+ 'api/ProjectUser/InsertProjectUser', data)
     }
 
+    this.DeleteProjectUser = function (projectUserId, config) {
+        var data = { ProjectUserId: projectUserId };
+        return $http.post(config.apiUrl + 'api/ProjectUser/DeleteProjectUser', data);
+    }
+
 
 
 }]);

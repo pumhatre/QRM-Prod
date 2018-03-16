@@ -2,6 +2,7 @@
 using QRMService.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -108,6 +109,29 @@ namespace QRMService.Repositories
                 else
                 {
                     response.ResponseMessage = "Project User Association already exists.";
+                }
+                return response;
+            }
+        }
+
+
+        public static ProjectUserResponseModel DeleteProjectUser(int userProjectId)
+        {
+            var response = new ProjectUserResponseModel();
+            using (var db = new QRMEntities())
+            {
+                var projectUser = db.UserProjectAssociations.Where(a => a.UserProjectId == userProjectId).FirstOrDefault();
+                if (projectUser != null)
+                {   
+                    db.Entry(projectUser).State = EntityState.Deleted;
+                    db.SaveChanges();
+
+                    response.IsSuccess = true;
+                    response.ResponseMessage = "Project User deleted successfully.";
+                }
+                else
+                {
+                    response.ResponseMessage = "Project User does not exist.";
                 }
                 return response;
             }

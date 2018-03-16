@@ -105,21 +105,32 @@
 
             $scope.User.projectName = row.projectName;
 
-
-            userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
-                if (response.data.IsSuccess) {
-                    $scope.GetUsers();
+            if ($scope.User.email == undefined) {
+                
+               // $scope.GetUsers();
+                $scope.alerts.push({
+                    msg: 'Email Id is required',
+                    type: 'danger'
+                });
+                
+               
+            }
+            else {
+                userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
+                    if (response.data.IsSuccess) {
+                        $scope.GetUsers();
+                        $scope.alerts.push({
+                            msg: 'Project Updated Successfully',
+                            type: 'Success'
+                        });
+                    }
+                }, function (error) {
                     $scope.alerts.push({
-                        msg: 'Project Updated Successfully',
+                        msg: error.data.ResponseMessage,
                         type: 'Success'
                     });
-                }
-            }, function (error) {
-                $scope.alerts.push({
-                    msg: error.data.ResponseMessage,
-                    type: 'Success'
                 });
-            });
+            }
             //}
 
         }
@@ -185,7 +196,7 @@
                     { field: 'lastName', name: 'Last Name', cellTemplate: tmpl },
                     {
                         field: 'email', name: 'Email', width: '15%', cellTemplate:
-                        '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="email"></div>'
+                        '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="email" required></div>'
                     },
                     {
                         field: 'phone', name: 'Phone', cellTemplate:

@@ -66,5 +66,13 @@ namespace QRMService.Controllers
             return Ok(response);
         }
 
+
+        [HttpPost]
+        public IHttpActionResult DeleteProjectUser(ProjectUserAssociationModel request)
+        {
+            var response = ProjectUserRepository.DeleteProjectUser(request.ProjectUserId);
+            return Ok(response);
+        }
+
     }
 }

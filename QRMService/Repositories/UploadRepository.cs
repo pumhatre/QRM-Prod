@@ -228,7 +228,8 @@ namespace QRMService.Repositories
                     WidgetType = row.Field<string>(Constants.EffortSanityValidationColumnName.WidgetType.ToString()),
                     Complexity = row.Field<string>(Constants.EffortSanityValidationColumnName.Complexity.ToString()),
                     CMMIRollUp = row.Field<string>(Constants.EffortSanityValidationColumnName.CMMIRollUp.ToString()),
-                    ErrorArray = sb.ToString().TrimEnd('|').Split('|')
+                    ErrorArray = (sb.ToString().TrimEnd('|').Split('|')  != null && sb.ToString().TrimEnd('|').Split('|').Count() == 1 && sb.ToString().TrimEnd('|').Split('|')[0] == "")
+                    ? null : sb.ToString().TrimEnd('|').Split('|')
                 });
             });
 
@@ -379,7 +380,8 @@ namespace QRMService.Repositories
                     ValidInjectedDetectedPhase = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidInjectedDetectedPhase.ToString()),
                     ValidDefectTypeCause = row.Field<string>(Constants.DefectSanityValidationColumnName.ValidDefectTypeCause.ToString()),
                     ErrorDescription = sb.ToString().TrimEnd('|'),
-                    ErrorArray = sb.ToString().TrimEnd('|').Split('|')
+                    ErrorArray = (sb.ToString().TrimEnd('|').Split('|') != null && sb.ToString().TrimEnd('|').Split('|').Count() == 1 && sb.ToString().TrimEnd('|').Split('|')[0] == "")
+                    ? null : sb.ToString().TrimEnd('|').Split('|')
 
                 });
             });
