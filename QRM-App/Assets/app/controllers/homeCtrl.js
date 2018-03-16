@@ -122,7 +122,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         enableColumnMenus: false,
         enableRowHeaderSelection: false,
         columnDefs: [
-            { field: 'DashBoardType', name: 'M/A', width: '15%', cellTemplate: cellTempl },
+            { field: 'DashBoardType', name: 'Manual/Automation', width: '15%', cellTemplate: cellTempl },
              { field: 'DashboardSubtype', name: '', width: '20%', cellTemplate: cellTempl },
             { field: 'PreSitComponent', name: 'PRE-SIT Component',displayName:'PRE-SIT Component', width: '20%', cellTemplate: cellTempl },
             { field: 'PreSitE2E', name: 'PRE-SIT E2E', displayName: 'PRE-SIT E2E', cellTemplate: cellTempl, width: '15%' },
