@@ -182,7 +182,7 @@
             $scope.gridOptions1 = {
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
-                enableSorting: false,
+                enableSorting: true,
                 enableColumnMenus: false,
                 columnDefs: [
                      //{

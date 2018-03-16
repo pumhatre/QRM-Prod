@@ -59,6 +59,7 @@
                     // $scope.gridData = successResponse.data;
                     $scope.arr = [];
                     $scope.arr = successResponse.data;
+                    $scope.AvailableListItems = [[]];
                     var arr = [];
                     for (key in $scope.arr) {
                         $scope.AvailableListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
@@ -103,6 +104,15 @@
         $scope.LoadUsersDropDown();
         LoadMetricsAssociationGrid();
 
+        // After Save Reset the control
+        function ResetControl() {
+            $scope.selectedMonth = {};
+            $scope.releaseDropdown = {};
+            $scope.LoadProjectsDropDown();
+            $scope.SelectedListItems = [[]];
+            LoadMetricsAssociationGrid();
+        }
+
 
         $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
             $scope.metricsMasterIdList = [];
@@ -117,9 +127,9 @@
                         // show success alert
                         $scope.alertTypeAssociation = "Success";
                         $scope.alertAssociationMessage = successResponse.data.ResponseMessage;
-                        $scope.GetProjectReleasesByProjectId();
-                        $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config);
-                        LoadMetricsAssociationGrid();
+                        // $scope.getMetricsList(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config);
+                        // LoadMetricsAssociationGrid();
+                        ResetControl();
                     }
                     else {
                         // show failure alert
@@ -143,9 +153,7 @@
                     for (key in $scope.arr) {
                         $scope.SelectedListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
                     }
-                    for (key in $scope.arr) {
-                        $scope.AvailableListItems[0].pop({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
-                    }
+
                 }, function (errorResponse) {
 
                 });

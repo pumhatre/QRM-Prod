@@ -188,7 +188,7 @@
                                                                 <span class="glyphicon glyphicon-chevron-right"></span>
                                                             </button>
                                                         </div>
-                                                       <br />
+                                                        <br />
                                                         <br />
                                                         <div class="col-md-12 text-center">
                                                             <button class="btn btn-default btn-sm" ng-click="btnLeft()">
@@ -196,11 +196,11 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                  
+
                                                 </div>
                                                 <div class="col-md-2">
                                                     <h2>Selected Metrics</h2>
-                                                    <select class="form-group" multiple id="selectedlist" size="8" style="width:275px" ng-model="SelectedSelectedListItems" ng-options="i as i.name for i in SelectedListItems[selectFaIndex] | orderBy:'name'"></select>
+                                                    <select class="form-group" multiple id="selectedlist" size="8" style="width:275px; min-height:260px;" ng-model="SelectedSelectedListItems" ng-options="i as i.name for i in SelectedListItems[selectFaIndex] | orderBy:'name'"></select>
                                                 </div>
                                                 <div class="col-md-3">
                                                 </div>
@@ -220,9 +220,9 @@
                                         <div class="x_content" style="align-content:center;">
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div ng-show="alertTypeUserProjectAssociation" ng-class="{'alert-success': alertTypeUserProjectAssociation=='Success','alert-danger': alertTypeUserProjectAssociation=='Failure'}" class="alert alert-dismissable">
-                                                        <span style="cursor:pointer;" class="close" aria-label="close" ng-click="ClearAlert()">&times;</span>
-                                                        <strong>{{alertTypeUserProjectAssociation}}!</strong> {{alertMessageUserProjectAssociation}}
-                                                    </div>
+                                                    <span style="cursor:pointer;" class="close" aria-label="close" ng-click="ClearAlert()">&times;</span>
+                                                    <strong>{{alertTypeUserProjectAssociation}}!</strong> {{alertMessageUserProjectAssociation}}
+                                                </div>
                                                 <div class="x_content">
                                                     <form name="formProjectUser" ng-submit="InsertProjectUserAssociation(formProjectUser.$valid)" novalidate>
                                                         <div class="form-group">
@@ -238,7 +238,6 @@
                                                         </div>
                                                         <br>
                                                         <br>
-                                                        <br>
                                                         <div class="form-group">
                                                             <div class="col-md-3"></div>
                                                             <label class="control-label col-md-3 col-sm-3 col-xs-2">User Name</label>
@@ -251,8 +250,6 @@
                                                             <div class="col-md-3"></div>
                                                         </div>
 
-                                                        <br>
-                                                        <br>
                                                         <br>
                                                         <br>
                                                         <div class="row">
@@ -272,7 +269,7 @@
 
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <div class="gridDivProjectRelease grid" ui-grid="projectUserAssocGridOptions" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning  ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%" ui-grid-pagination="">
+                                                            <div class="gridDivProjectRelease grid" ui-grid="projectUserAssocGridOptions" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%" ui-grid-pagination="">
                                                                 <div class="grid-msg-overlay" ng-show="loading">
                                                                     <div class="msg">
                                                                         <span>
@@ -288,7 +285,7 @@
                                                                 </div>
                                                             </div>
                                                             @*<div id="mGrid3" ui-grid="projectUserAssocGridOptions" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
-                                                            </div>*@
+                                                                </div>*@
 
                                                         </div>
                                                         <div class="col-md-1">
