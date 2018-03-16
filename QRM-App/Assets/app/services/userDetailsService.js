@@ -11,10 +11,21 @@
     this.GetProjectList = function (config) {      
         return $http.get(config.apiUrl + 'api/User/GetProjects');
     }
-    this.InsertUpdateUser = function (userDetail, config) {      
+    //this.InsertUpdateUser = function (userDetail, config) {      
         
-        return $http.post(config.apiUrl + 'api/User/InsertUpdateUser', userDetail);
-    }
+    //    return $http.post(config.apiUrl + 'api/User/InsertUpdateUser', userDetail);
+    //}
+
+    this.InsertUpdateUser = function (userDetail,config) {
+        var req = {
+            method: 'POST',
+            data: userDetail,
+            url: config.apiUrl + 'api/User/InsertUpdateUser'
+        };
+        return $http(req).then(function (response) {
+            return response;
+        });
+    };
 
     this.DeleteUser = function (userId, config) {
         //var data = {

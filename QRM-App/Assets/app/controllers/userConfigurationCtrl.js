@@ -120,8 +120,13 @@
                     if (response.data.IsSuccess) {
                         $scope.GetUsers();
                         $scope.alerts.push({
-                            msg: 'Project Updated Successfully',
+                            msg: 'User Updated Successfully',
                             type: 'Success'
+                        });
+                    } else {
+                        $scope.alerts.push({
+                            msg: response.data.ResponseMessage,
+                            type: 'danger'
                         });
                     }
                 }, function (error) {
@@ -147,7 +152,7 @@
                                 $scope.GetUsers();
                                 //Display Successfull message after save
                                 $scope.alerts.push({
-                                    msg: 'Project deleted successfully',
+                                    msg: 'User deleted successfully',
                                     type: 'success'
                                 });
                             }

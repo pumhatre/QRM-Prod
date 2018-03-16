@@ -66,60 +66,63 @@ namespace QRMService.Repositories
                         {
                             var instance = new UserDetail();
                             var userId = context.UserDetails.OrderByDescending(p => p.UserId).FirstOrDefault().UserId;
-                            instance.UserId = userId + 1;
-                            instance.FirstName = user.firstName;
-                            instance.MiddleName = user.middleName;
-                            instance.LastName = user.lastName;
-                            instance.Phone = user.phone;
-                            instance.Email = user.email;
-                            instance.RoleId = user.roleId != null ? Convert.ToInt32(user.roleId) : 0;
-                            context.UserDetails.Add(instance);
+                            //get emaildids of existing users
+                            List<string> emailIds = context.UserDetails.Select(x => x.Email).ToList();
 
-                            //var userrole = new UserProjectRoleAssociation();
-                            //var userroleId = context.UserProjectRoleAssociations.OrderByDescending(p => p.UserProjectRoleId).FirstOrDefault().UserProjectRoleId;
-                            //userrole.UserId = userId + 1;
-                            //if (user.projectId != null && Convert.ToInt32(user.projectId) !=0)
-                            //{
-                            //    userrole.ProjectId = Convert.ToInt32(user.projectId);
-                            //}
-                            //else
-                            //{
-                            //    userrole.ProjectId = null;
-                            //}
+                            if (emailIds.Any(x => x == user.email))
+                            {
 
-                            //userrole.RoleId =Convert.ToInt32(user.roleId);
-                            //userrole.UserProjectRoleId = userroleId + 1;
-                            //context.UserProjectRoleAssociations.Add(userrole);
-                            context.SaveChanges();
-                            transaction.Commit();
-                            response.IsSuccess = true;
-                            response.ResponseMessage = "User Added Successfully";
+                                transaction.Commit();
+                                response.IsSuccess = false;
+                                response.ResponseMessage = "Email Id already exists";
+                            }
+                            else
+                            {
+                                instance.UserId = userId + 1;
+                                instance.FirstName = user.firstName;
+                                instance.MiddleName = user.middleName;
+                                instance.LastName = user.lastName;
+                                instance.Phone = user.phone;
+                                instance.Email = user.email;
+                                instance.RoleId = user.roleId != null ? Convert.ToInt32(user.roleId) : 0;
+                                context.UserDetails.Add(instance);
+                                context.SaveChanges();
+
+
+                                transaction.Commit();
+                                response.IsSuccess = true;
+                                response.ResponseMessage = "User Added Successfully";
+                            }
 
                         }
                         else
                         {
                             UserDetail userDetail = context.UserDetails.Find(user.userId);
 
-                            userDetail.FirstName = user.firstName;
-                            userDetail.LastName = user.lastName;
-                            userDetail.MiddleName = user.middleName;
-                            userDetail.Phone = user.phone;
-                            userDetail.Email = user.email;
-                            context.Entry(userDetail).State = System.Data.Entity.EntityState.Modified;
-                            context.SaveChanges();
+                            //get emaildids of existing users
+                            List<string> emailIds = context.UserDetails.Select(x => x.Email).ToList();
 
-                            //var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == user.userId).UserProjectRoleId;
-                            //UserProjectRoleAssociation roleAssociation = context.UserProjectRoleAssociations.Find(userRoleId);
-                            //roleAssociation.RoleId = Convert.ToInt32(user.roleId);
-                            //roleAssociation.ProjectId = Convert.ToInt32(user.projectId);
-                            //context.Entry(roleAssociation).State = System.Data.Entity.EntityState.Modified;
-                           // context.SaveChanges();
+                            if (emailIds.Any(x => x == user.email))
+                            {
 
-                            transaction.Commit();
+                                transaction.Commit();
+                                response.IsSuccess = false;
+                                response.ResponseMessage = "Email Id already exists";
+                            }
+                            else
+                            {
+                                userDetail.FirstName = user.firstName;
+                                userDetail.LastName = user.lastName;
+                                userDetail.MiddleName = user.middleName;
+                                userDetail.Phone = user.phone;
+                                userDetail.Email = user.email;
+                                context.Entry(userDetail).State = System.Data.Entity.EntityState.Modified;
+                                context.SaveChanges();
+                                transaction.Commit();
 
-                            response.IsSuccess = true;
-
-                            response.ResponseMessage = "User Updated Successfully";
+                                response.IsSuccess = true;
+                                response.ResponseMessage = "User Updated Successfully";
+                            }
 
                         }
                     }
