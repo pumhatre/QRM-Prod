@@ -251,8 +251,15 @@
     <Content Include="Assets\ng\angular-touch.min.js" />
     <Content Include="Assets\ng\angular.min.js" />
     <Content Include="Assets\ng\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="Assets\ng\Ui-grid\cbvxc.js" />
+    <Content Include="Assets\ng\Ui-grid\csv.js" />
+    <Content Include="Assets\ng\Ui-grid\excel-builder.dist.js" />
+    <Content Include="Assets\ng\Ui-grid\jszip.min.js" />
+    <Content Include="Assets\ng\Ui-grid\lodash.min.js" />
+    <Content Include="Assets\ng\Ui-grid\pdfmake.js" />
     <Content Include="Assets\ng\Ui-grid\ui-grid.min.css" />
     <Content Include="Assets\ng\Ui-grid\ui-grid.min.js" />
+    <Content Include="Assets\ng\Ui-grid\vfs_fonts.js" />
     <Content Include="Assets\styles\styles.css" />
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap-combined.min.css" />
