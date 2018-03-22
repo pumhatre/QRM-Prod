@@ -216,13 +216,13 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            exporterExcelFilename: 'myFile.xlsx',
+            exporterExcelFilename: 'Effort.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            exporterCsvFilename: 'myFile.csv',
+            exporterCsvFilename: 'Effort.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
-            exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+            exporterPdfHeader: { text: "Effort errors list", style: 'headerStyle' },
             exporterPdfFooter: function (currentPage, pageCount) {
                 return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
             },
@@ -231,7 +231,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
                 return docDefinition;
             },
-            exporterPdfOrientation: 'portrait',
+            exporterPdfOrientation: 'Landscape',
             exporterPdfPageSize: 'LETTER',
             exporterPdfMaxGridWidth: 500,
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
@@ -384,11 +384,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            exporterCsvFilename: 'myFile.csv',
+            exporterCsvFilename: 'Defect.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
-            exporterPdfHeader: { text: "My Header", style: 'headerStyle' },
+            exporterPdfHeader: { text: "Defect errors list", style: 'headerStyle' },
             exporterPdfFooter: function (currentPage, pageCount) {
                 return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
             },
@@ -397,11 +397,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
                 return docDefinition;
             },
-            exporterPdfOrientation: 'portrait',
+            exporterPdfOrientation: 'Landscape',
             exporterPdfPageSize: 'LETTER',
             exporterPdfMaxGridWidth: 500,
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
-            exporterExcelFilename: 'myFile.xlsx',
+            exporterExcelFilename: 'Defect.xlsx',
             exporterExcelSheetName: 'Sheet1',
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
