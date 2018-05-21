@@ -87,14 +87,14 @@ angular.module('metrics', []).controller('metricsCtrl', ['$scope', '$http', 'uiG
             columnDefs: [
                 { field: 'id', name: '#', width: '3%', cellTemplate: '<span>{{grid.appScope.populateRowId(row.entity)}}</span>', visible: false },
                 { field: 'MetricsMasterId', name: 'Metric Master#', visible:false},
-                { field: 'CategoryCode', name: 'Category Code', cellTemplate: tmpl, width:'30%' },
+                { field: 'CategoryCode', name: 'Category Code', cellTemplate: tmpl, width:'28%' },
                 { field: 'CategoryDescription', name: 'Category Description', cellTemplate: tmpl, width: '56%' }, 
                 {
                     field: 'FormulaDescription', name: ' ', enableSorting: false,
                     cellTemplate: '<div style="padding: 5px !important; text-align: center;"><span data-toggle="tooltip" title="{{row.entity.FormulaDescription}}" class="glyphicon glyphicon-info-sign"></span></div>', width: '4%'
                 }, 
                 {
-                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '10%',
+                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '12%',
                     cellTemplate: '<div style="text-align: center; padding-top: 5px; padding-bottom: 5px;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                     '<button ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>Update</button>' +//Save Button
                     '<button ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button

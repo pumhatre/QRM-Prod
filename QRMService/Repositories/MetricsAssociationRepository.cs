@@ -55,62 +55,58 @@ namespace QRMService.Repositories
                 int projectId = modelData.ProjectId;
                 var releaseId = modelData.ReleaseId;
 
-                for (int i = 0; i < modelData.MonthId.Count; i++)
+                if (projectId != 0)
                 {
-                    if (projectId != 0)
+                    if (releaseId != 0)
                     {
-                        if (releaseId != 0)
+                        var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId);
+                        db.ProjectMetricAssociations.RemoveRange(deleteItems);
+                        db.SaveChanges();
+                        foreach (int id in metricsMasterIdList)
                         {
-                            var myInt = modelData.MonthId[i];
-                            var deleteItems = db.ProjectMetricAssociations.Where(x => x.ProjectId == projectId && x.ReleaseId == releaseId && x.MonthId == myInt);
-                            db.ProjectMetricAssociations.RemoveRange(deleteItems);
-                            db.SaveChanges();
-                            foreach (int id in metricsMasterIdList)
+                            var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId).FirstOrDefault();
+                            if (metricsAssociation == null)
                             {
-                                var metricsAssociation = db.ProjectMetricAssociations.Where(a => a.MetricMasterID == id && a.ProjectId == projectId && a.ReleaseId == releaseId && a.MonthId ==myInt).FirstOrDefault();
-                                if (metricsAssociation == null)
+                                var projectMetricsAssociationData = new ProjectMetricAssociation
                                 {
-                                    var projectMetricsAssociationData = new ProjectMetricAssociation
-                                    {
-                                        ProjectId = projectId,
-                                        ReleaseId = releaseId,
-                                        MetricMasterID = id,
-                                        MonthId = myInt,
-                                        IsActive = true
-                                    };
-                                    db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
-                                    db.SaveChanges();
-                                    response.IsSuccess = true;
-                                    response.ResponseMessage = "Project Metrics Association added successfully";
-                                }
-                                else
-                                {
-                                    response.ResponseMessage = "Release Metrics Association already exists.";
-                                }
+                                    ProjectId = projectId,
+                                    ReleaseId = releaseId,
+                                    MetricMasterID = id,
+                                    IsActive = true
+                                };
+                                db.ProjectMetricAssociations.Add(projectMetricsAssociationData);
+                                db.SaveChanges();
+                                response.IsSuccess = true;
+                                response.ResponseMessage = "Project Metrics Association added successfully";
                             }
-                        }
-                        else
-                        {
-                            response.ResponseMessage = "Please provide valid Project!";
+                            else
+                            {
+                                response.ResponseMessage = "Release Metrics Association already exists.";
+                            }
                         }
                     }
                     else
                     {
-                        response.ResponseMessage = "Please provide valid Project ,Release!";
+                        response.ResponseMessage = "Please provide valid Project!";
                     }
                 }
+                else
+                {
+                    response.ResponseMessage = "Please provide valid Project ,Release!";
+                }
+
 
                 return response;
             }
         }
 
-        public static List<MetricsModel> GetSavedMetricsAssociation(int projectId, int releaseId, List<int> month)
+        public static List<MetricsModel> GetSavedMetricsAssociation(int projectId, int releaseId)
         {
             using (var db = new QRMEntities())
             {
                 var releaseDetails = (from m in db.ProjectMetricAssociations
                                       join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && month.Contains((int)m.MonthId) && mt.IsActive==true && m.IsActive==true
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && mt.IsActive == true && m.IsActive == true
                                       orderby m.ProjectId
                                       select new MetricsModel
                                       {
@@ -122,14 +118,14 @@ namespace QRMService.Repositories
             }
         }
 
-        public static List<MonthDetailsWrapper> GetSelectedProjectMonth(int projectId,int releaseId)
+        public static List<MonthDetailsWrapper> GetSelectedProjectMonth(int projectId, int releaseId)
         {
             using (var db = new QRMEntities())
             {
                 var releaseDetails = (from m in db.ProjectMetricAssociations
                                       join mt in db.MetricMasters on m.MetricMasterID equals mt.MetricMasterID
                                       join mnth in db.MonthMasters on m.MonthId equals mnth.MonthId
-                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && mt.IsActive==true && m.IsActive==true
+                                      where m.ProjectId == projectId && m.ReleaseId == releaseId && mt.IsActive == true && m.IsActive == true
                                       orderby m.ProjectId
                                       select new MonthDetailsWrapper
                                       {
