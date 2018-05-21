@@ -21,9 +21,9 @@ namespace QRMService.DataBase
         public int ProjectId { get; set; }
         public int ReleaseId { get; set; }
     
-        public virtual MetricMaster MetricMaster { get; set; }
         public virtual MonthMaster MonthMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
         public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
+        public virtual MetricMaster MetricMaster { get; set; }
     }
 }

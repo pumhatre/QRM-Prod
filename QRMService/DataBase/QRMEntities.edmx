@@ -197,6 +197,7 @@ warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a prima
           <Property Name="MetricTypeDescription" Type="nvarchar" MaxLength="10" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="MetricsDescription" Type="varchar(max)" />
+          <Property Name="FormulaDescription" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="MonthMaster">
           <Key>
@@ -1030,7 +1031,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySet Name="DefectDataDetails" EntityType="QRMPortalModel.DefectDataDetail" />
           <EntitySet Name="DefectDataStagings" EntityType="QRMPortalModel.DefectDataStaging" />
           <EntitySet Name="EffortDataStagings" EntityType="QRMPortalModel.EffortDataStaging" />
-          <EntitySet Name="MetricMasters" EntityType="QRMPortalModel.MetricMaster" />
           <EntitySet Name="MonthMasters" EntityType="QRMPortalModel.MonthMaster" />
           <EntitySet Name="PreferredReportMetricsAssociations" EntityType="QRMPortalModel.PreferredReportMetricsAssociation" />
           <EntitySet Name="ProjectMasters" EntityType="QRMPortalModel.ProjectMaster" />
@@ -1082,10 +1082,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <AssociationSet Name="FK_EffortDataStaging_ReleaseId" Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId">
             <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="EffortDataStaging" EntitySet="EffortDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster">
-            <End Role="MetricMaster" EntitySet="MetricMasters" />
-            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
           </AssociationSet>
           <AssociationSet Name="FK_EffortDetails_MonthId" Association="QRMPortalModel.FK_EffortDetails_MonthId">
             <End Role="MonthMaster" EntitySet="MonthMasters" />
@@ -1158,6 +1154,11 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <AssociationSet Name="FK_UserProjectRoleAssociation_UserDetails" Association="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails">
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="UserProjectAssociation" EntitySet="UserProjectAssociations" />
+          </AssociationSet>
+          <EntitySet Name="MetricMasters" EntityType="QRMPortalModel.MetricMaster" />
+          <AssociationSet Name="FK_ProjectMetricAssociation_MetricMaster" Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster">
+            <End Role="MetricMaster" EntitySet="MetricMasters" />
+            <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DefectDataDetail">
@@ -1245,21 +1246,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="EffortDataStaging" ToRole="ProjectMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_EffortDataStaging_ReleaseId" FromRole="EffortDataStaging" ToRole="ProjectReleaseMaster" />
         </EntityType>
-        <EntityType Name="MetricMaster">
-          <Key>
-            <PropertyRef Name="MetricMasterID" />
-          </Key>
-          <Property Name="MetricMasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MetricCategoryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MetricCategoryDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MetricSubCategoryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MetricSubCategoryDescription" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MetricTypeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MetricTypeDescription" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="MetricsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="MetricMaster" ToRole="ProjectMetricAssociation" />
-        </EntityType>
         <EntityType Name="MonthMaster">
           <Key>
             <PropertyRef Name="MonthId" />
@@ -1331,10 +1317,10 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="MonthId" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
           <Property Name="ReleaseId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MetricMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="ProjectMetricAssociation" ToRole="MetricMaster" />
           <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" FromRole="ProjectMetricAssociation" ToRole="MonthMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMetricAssociation" ToRole="ProjectMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId" FromRole="ProjectMetricAssociation" ToRole="ProjectReleaseMaster" />
+          <NavigationProperty Name="MetricMaster" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="ProjectMetricAssociation" ToRole="MetricMaster" />
         </EntityType>
         <EntityType Name="ProjectReleaseMaster">
           <Key>
@@ -1754,18 +1740,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProjectMetricAssociation_MetricMaster">
-          <End Type="QRMPortalModel.MetricMaster" Role="MetricMaster" Multiplicity="1" />
-          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MetricMaster">
-              <PropertyRef Name="MetricMasterID" />
-            </Principal>
-            <Dependent Role="ProjectMetricAssociation">
-              <PropertyRef Name="MetricMasterID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EffortDetails_MonthId">
           <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
           <End Type="QRMPortalModel.EffortDetail" Role="EffortDetail" Multiplicity="*" />
@@ -1982,6 +1956,34 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MetricMaster">
+          <Key>
+            <PropertyRef Name="MetricMasterID" />
+          </Key>
+          <Property Name="MetricMasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetricCategoryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MetricCategoryDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MetricSubCategoryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MetricSubCategoryDescription" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MetricTypeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MetricTypeDescription" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MetricsDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FormulaDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" FromRole="MetricMaster" ToRole="ProjectMetricAssociation" />
+        </EntityType>
+        <Association Name="FK_ProjectMetricAssociation_MetricMaster">
+          <End Type="QRMPortalModel.MetricMaster" Role="MetricMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MetricMaster">
+              <PropertyRef Name="MetricMasterID" />
+            </Principal>
+            <Dependent Role="ProjectMetricAssociation">
+              <PropertyRef Name="MetricMasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2064,21 +2066,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="WidgetType" ColumnName="WidgetType" />
                 <ScalarProperty Name="ComponentType" ColumnName="ComponentType" />
                 <ScalarProperty Name="ObjectComponentID" ColumnName="ObjectComponentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MetricMasters">
-            <EntityTypeMapping TypeName="QRMPortalModel.MetricMaster">
-              <MappingFragment StoreEntitySet="MetricMaster">
-                <ScalarProperty Name="MetricsDescription" ColumnName="MetricsDescription" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MetricTypeDescription" ColumnName="MetricTypeDescription" />
-                <ScalarProperty Name="MetricTypeCode" ColumnName="MetricTypeCode" />
-                <ScalarProperty Name="MetricSubCategoryDescription" ColumnName="MetricSubCategoryDescription" />
-                <ScalarProperty Name="MetricSubCategoryCode" ColumnName="MetricSubCategoryCode" />
-                <ScalarProperty Name="MetricCategoryDescription" ColumnName="MetricCategoryDescription" />
-                <ScalarProperty Name="MetricCategoryCode" ColumnName="MetricCategoryCode" />
-                <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2429,6 +2416,22 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="WidgetName" ColumnName="WidgetName" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ProjectWidgetDetailID" ColumnName="ProjectWidgetDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetricMasters">
+            <EntityTypeMapping TypeName="QRMPortalModel.MetricMaster">
+              <MappingFragment StoreEntitySet="MetricMaster">
+                <ScalarProperty Name="FormulaDescription" ColumnName="FormulaDescription" />
+                <ScalarProperty Name="MetricsDescription" ColumnName="MetricsDescription" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MetricTypeDescription" ColumnName="MetricTypeDescription" />
+                <ScalarProperty Name="MetricTypeCode" ColumnName="MetricTypeCode" />
+                <ScalarProperty Name="MetricSubCategoryDescription" ColumnName="MetricSubCategoryDescription" />
+                <ScalarProperty Name="MetricSubCategoryCode" ColumnName="MetricSubCategoryCode" />
+                <ScalarProperty Name="MetricCategoryDescription" ColumnName="MetricCategoryDescription" />
+                <ScalarProperty Name="MetricCategoryCode" ColumnName="MetricCategoryCode" />
+                <ScalarProperty Name="MetricMasterID" ColumnName="MetricMasterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

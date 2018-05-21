@@ -41,6 +41,10 @@
         table, th {
             font: bold;
         }
+
+        .tooltip {
+            position: fixed;
+        }
     </style>
 
 </head>
@@ -78,9 +82,9 @@
                                     <a href="#!/home"><i class="fa fa-home"></i> Home </a>
 
                                 </li>
-                                <li ng-if="IsSuperUser=='true'">                                   
+                                <li ng-if="IsSuperUser=='true'">
                                     <a><i class="fa fa-wrench"></i> Configuration  <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">   
+                                    <ul class="nav child_menu">
                                         <li>
                                             <i class="fa fa-chevron-down"></i> <a href="#!/Projects">Project</a>
                                             <ul class="nav">
@@ -88,11 +92,11 @@
                                                     <a href="#!/MetricsAssociation">Association</a>
                                                 </li>
                                             </ul>
-                                        </li>                                       
-                                        <li><a href="#!/Metrics" >Metrics</a></li>
+                                        </li>
+                                        <li><a href="#!/Metrics">Metrics</a></li>
                                         <li><a href=#!/UserConfiguration>User</a></li>
                                         <li><a href="#!/Role">Role</a></li>
-                                       
+
                                     </ul>
                                 </li>
                                 <li>
@@ -224,6 +228,10 @@
     @Scripts.Render("~/bootstrap")
     @Scripts.Render("~/jsxlsx")
     @Scripts.Render("~/custom")
-
+    <script>
+        $('body').tooltip({
+            selector: '[data-toggle= "tooltip"]'
+        });
+    </script>
 </body>
 </html>

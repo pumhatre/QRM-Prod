@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="QRMPortalModel.DefectDataDetail" Width="1.5" PointX="9" PointY="37.5" />
         <EntityTypeShape EntityType="QRMPortalModel.DefectDataStaging" Width="1.5" PointX="6" PointY="37.375" />
         <EntityTypeShape EntityType="QRMPortalModel.EffortDataStaging" Width="1.5" PointX="3" PointY="43.875" />
-        <EntityTypeShape EntityType="QRMPortalModel.MetricMaster" Width="1.5" PointX="0.75" PointY="32.5" />
         <EntityTypeShape EntityType="QRMPortalModel.MonthMaster" Width="1.5" PointX="3.75" PointY="27.125" />
         <EntityTypeShape EntityType="QRMPortalModel.PreferredReportMetricsAssociation" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="QRMPortalModel.ProjectMaster" Width="1.5" PointX="0.75" PointY="36.75" />
@@ -34,7 +33,6 @@
         <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_MonthId" />
         <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ReleaseId" />
-        <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_EffortDetails_MonthId" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MonthId" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_MonthId" />
@@ -53,6 +51,8 @@
         <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ReleaseId" />
         <AssociationConnector Association="QRMPortalModel.FK_UserDetails_RoleMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails" />
+        <EntityTypeShape EntityType="QRMPortalModel.MetricMaster" Width="1.5" PointX="5.375" PointY="1" />
+        <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

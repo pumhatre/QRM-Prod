@@ -29,6 +29,7 @@ namespace QRMService.DataBase
         public string MetricTypeDescription { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string MetricsDescription { get; set; }
+        public string FormulaDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
