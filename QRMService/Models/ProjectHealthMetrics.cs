@@ -19,6 +19,8 @@ namespace QRMService.Models
         public string DashBoardType { get; set; }
         public string DashboardSubtype { get; set; }
         public int spanEffort { get; set; }
+        public int ReleaseId { get; set; }
+        public int MonthId { get; set; }
     }
 
     //Dev

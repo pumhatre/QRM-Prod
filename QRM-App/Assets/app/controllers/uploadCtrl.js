@@ -88,10 +88,25 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             uploadService.getDefectStagingData(requestData).then(function (response) {
                 if (response.status == 200) {
                     $scope.dataSanityResult = response.data;
-
                     //assign effort and defect data to respective grids
                     $scope.effortGridData.data = $scope.dataSanityResult.effortSanityValidatonModel;
+
+                    //Total Count
+                    $scope.EffortTotalCount = 100;
+                    //Success Count
+                    $scope.EffortSuccessCount = 80;
+                    //Failure Count
+                    $scope.EffortFailureCount = 20;
+
                     $scope.defectGridData.data = $scope.dataSanityResult.defectSanityValidationModel;
+
+                    //Total Count
+                    $scope.GridTotalCount = 100;
+                    //Success Count
+                    $scope.GridSuccessCount = 80;
+                    //Failure Count
+                    $scope.GridFailureCount = 20;
+
                     $scope.loading = false;
                     $scope.loadAttempted = true;
 
@@ -123,7 +138,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             });
         }
 
-        var renderEffortError = function () {            
+        var renderEffortError = function () {
             return '<ul><li ng-repeat="m in row.entity.ErrorArray">{{m}}</li></ul>';
         }
         //get function to load grid data
@@ -135,72 +150,72 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             //Declaring column and its related properties
             columnDefs: [
                 {
-                    name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", cellClass: 'effortCellClass', enableColumnMenu: false, width: '15%',
+                    name: 'ObjectComponentID', displayName: "Object/ Component ID", field: "ObjectComponentID", cellClass: 'effortCellClass', enableColumnMenu: false, width: '50%',
                     enableCellEdit: false
                 },
-                 {
-                     name: 'TaskType', displayName: "Task Type", field: "TaskType",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'red';
-                         } else {
-                             return 'effortCellClass';
-                         }
-                     },
-                     enableColumnMenu: false, width: '15%',
-                     enableCellEdit: false
-                 },
-                 {
-                     name: 'Status', displayName: "Status", field: "Status",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'red';
-                         } else {
-                             return 'effortCellClass';
-                         }
-                     },
-                     enableColumnMenu: false, width: '15%',
-                     enableCellEdit: false
-                 },
-                 {
-                     name: 'ComponentType', displayName: "Component Type", field: "ComponentType",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'red';
-                         } else {
-                             return 'effortCellClass';
-                         }
-                     },
-                     enableColumnMenu: false, width: '15%',
-                     enableCellEdit: false
-                 },
-                 {
-                     name: 'WidgetType', displayName: "Widget Type", field: "WidgetType",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'red';
-                         } else {
-                             return 'effortCellClass';
-                         }
-                     },
-                     enableColumnMenu: false, width: '15%',
-                     enableCellEdit: false
-                 },
-                {
-                    name: 'Complexity', displayName: "Complexity", field: "Complexity",
-                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                        if (grid.getCellValue(row, col) === '-Missing-') {
-                            return 'red';
-                        } else {
-                            return 'effortCellClass';
-                        }
-                    },
-                    enableColumnMenu: false, width: '15%',
-                    enableCellEdit: false
-                },
+               //  {
+                     //name: 'TaskType', displayName: "Task Type", field: "TaskType",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'red';
+                     //    } else {
+                     //        return 'effortCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false, width: '15%',
+                     //enableCellEdit: false
+               //  },
+               //  {
+                     //name: 'Status', displayName: "Status", field: "Status",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'red';
+                     //    } else {
+                     //        return 'effortCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false, width: '15%',
+                     //enableCellEdit: false
+                // },
+               //  {
+                     //name: 'ComponentType', displayName: "Component Type", field: "ComponentType",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'red';
+                     //    } else {
+                     //        return 'effortCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false, width: '15%',
+                     //enableCellEdit: false
+               //  },
+               //  {
+                     //name: 'WidgetType', displayName: "Widget Type", field: "WidgetType",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'red';
+                     //    } else {
+                     //        return 'effortCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false, width: '15%',
+                     //enableCellEdit: false
+                // },
+              //  {
+                    //name: 'Complexity', displayName: "Complexity", field: "Complexity",
+                    //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                    //    if (grid.getCellValue(row, col) === '-Missing-') {
+                    //        return 'red';
+                    //    } else {
+                    //        return 'effortCellClass';
+                    //    }
+                    //},
+                    //enableColumnMenu: false, width: '15%',
+                    //enableCellEdit: false
+               // },
 
                 {
-                    name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription", cellClass: 'red', enableColumnMenu: false, width: '30%',
+                    name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription", cellClass: 'red', enableColumnMenu: false, width: '50%',
                     enableCellEdit: false, cellTemplate: renderEffortError()
                 }
 
@@ -262,117 +277,117 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                         }
                     },
                     enableColumnMenu: false,
-                    width: '10%',
+                    width: '50%',
                     enableCellEdit: false
                 },
-                 {
-                     name: 'DetectedStage', displayName: "Detected Stage", field: "DetectedStage",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'redDefectCellClass';
-                         } else {
-                             return 'defectCellClass';
-                         }
-                     },
-                     enableColumnMenu: false,
-                     width: '10%',
-                     enableCellEdit: false
-                 },
-                 {
-                     name: 'Status', displayName: "Status", field: "Status",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'redDefectCellClass';
-                         } else {
-                             return 'defectCellClass';
-                         }
-                     },
-                     enableColumnMenu: false,
-                     width: '10%',
-                     enableCellEdit: false
-                 },
-                 {
-                     name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'redDefectCellClass';
-                         } else {
-                             return 'defectCellClass';
-                         }
-                     },
-                     enableColumnMenu: false,
-                     width: '10%',
-                     enableCellEdit: false
-                 },
-                 {
-                     name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'redDefectCellClass';
-                         } else {
-                             return 'defectCellClass';
-                         }
-                     },
-                     enableColumnMenu: false,
-                     width: '10%',
-                     enableCellEdit: false
-                 },
-                {
-                    name: 'DefectType', displayName: "Defect Type", field: "DefectType",
-                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                        if (grid.getCellValue(row, col) === '-Missing-') {
-                            return 'redDefectCellClass';
-                        } else {
-                            return 'defectCellClass';
-                        }
-                    },
-                    enableColumnMenu: false,
-                    width: '10%',
-                    senableCellEdit: false
-                },
+               //  {
+                     //name: 'DetectedStage', displayName: "Detected Stage", field: "DetectedStage",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'redDefectCellClass';
+                     //    } else {
+                     //        return 'defectCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false,
+                     //width: '10%',
+                     //enableCellEdit: false
+               //  },
+               //  {
+                     //name: 'Status', displayName: "Status", field: "Status",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'redDefectCellClass';
+                     //    } else {
+                     //        return 'defectCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false,
+                     //width: '10%',
+                     //enableCellEdit: false
+               //  },
+              //   {
+                     //name: 'DefectInfectedStage', displayName: "Defect Injected Stage", field: "DefectInfectedStage",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'redDefectCellClass';
+                     //    } else {
+                     //        return 'defectCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false,
+                     //width: '10%',
+                     //enableCellEdit: false
+              //   },
+              //   {
+                     //name: 'ExpectedDetectionPhase', displayName: "Expected Detection Phase", field: "ExpectedDetectionPhase",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'redDefectCellClass';
+                     //    } else {
+                     //        return 'defectCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false,
+                     //width: '10%',
+                     //enableCellEdit: false
+              //   },
+              //  {
+                    //name: 'DefectType', displayName: "Defect Type", field: "DefectType",
+                    //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                    //    if (grid.getCellValue(row, col) === '-Missing-') {
+                    //        return 'redDefectCellClass';
+                    //    } else {
+                    //        return 'defectCellClass';
+                    //    }
+                    //},
+                    //enableColumnMenu: false,
+                    //width: '10%',
+                    //senableCellEdit: false
+               // },
 
-                 {
-                     name: 'Cause', displayName: "Cause", field: "Cause",
-                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                         if (grid.getCellValue(row, col) === '-Missing-') {
-                             return 'redDefectCellClass';
-                         } else {
-                             return 'defectCellClass';
-                         }
-                     },
-                     enableColumnMenu: false,
-                     width: '10%',
-                     enableCellEdit: false
-                 },
-                {
-                    name: 'DefectSeverity', displayName: "DefectSeverity", field: "defectCellClass",
-                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                        if (grid.getCellValue(row, col) === '-Missing-') {
-                            return 'redDefectCellClass';
-                        } else {
-                            return 'defectCellClass';
-                        }
-                    },
-                    enableColumnMenu: false, width: '10%',
-                    enableCellEdit: false
-                },
-                {
-                    name: 'ReviewType', displayName: "ReviewType", field: "ReviewType",
-                    cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-                        if (grid.getCellValue(row, col) === '-Missing-') {
-                            return 'redDefectCellClass';
-                        } else {
-                            return 'defectCellClass';
-                        }
-                    },
-                    enableColumnMenu: false, width: '10%',
-                    enableCellEdit: false
-                },
+                // {
+                     //name: 'Cause', displayName: "Cause", field: "Cause",
+                     //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                     //    if (grid.getCellValue(row, col) === '-Missing-') {
+                     //        return 'redDefectCellClass';
+                     //    } else {
+                     //        return 'defectCellClass';
+                     //    }
+                     //},
+                     //enableColumnMenu: false,
+                     //width: '10%',
+                     //enableCellEdit: false
+                // },
+               // {
+                    //name: 'DefectSeverity', displayName: "DefectSeverity", field: "defectCellClass",
+                    //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                    //    if (grid.getCellValue(row, col) === '-Missing-') {
+                    //        return 'redDefectCellClass';
+                    //    } else {
+                    //        return 'defectCellClass';
+                    //    }
+                    //},
+                    //enableColumnMenu: false, width: '10%',
+                    //enableCellEdit: false
+               // },
+               // {
+                    //name: 'ReviewType', displayName: "ReviewType", field: "ReviewType",
+                    //cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
+                    //    if (grid.getCellValue(row, col) === '-Missing-') {
+                    //        return 'redDefectCellClass';
+                    //    } else {
+                    //        return 'defectCellClass';
+                    //    }
+                    //},
+                    //enableColumnMenu: false, width: '10%',
+                    //enableCellEdit: false
+                //},
 
                  {
                      name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription",
                      cellClass: 'errorCellClass',
-                     enableColumnMenu: false, width: '30%',
+                     enableColumnMenu: false, width: '50%',
                      enableCellEdit: false,
                      cellTemplate: render()
                  }
@@ -582,8 +597,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             columnDefs: [
                 { field: 'DashboardSubtype', name: '', width: '25%', cellTemplate: '<div style="padding: 5px;"><b>{{COL_FIELD}}</b></div>' },
-                { field: 'PreSitComponent', name: 'PRE-SIT Component',displayName:'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
-                { field: 'PreSitE2E', name: 'PRE-SIT E2E',displayName: 'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
+                { field: 'PreSitComponent', name: 'PRE-SIT Component', displayName: 'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
+                { field: 'PreSitE2E', name: 'PRE-SIT E2E', displayName: 'PRE-SIT E2E', cellTemplate: tmp2, width: '20%' },
                 { field: 'SitComponent', name: 'SIT-Component', displayName: 'SIT-Component', cellTemplate: tmp2, width: '20%' },
                 { field: 'SitE2E', name: 'SIT-E2E', displayName: 'SIT-E2E', cellTemplate: tmp2, width: '20%' }
 

@@ -368,8 +368,9 @@ namespace QRMService.Repositories
                         CompleteHours = row.Field<int>(Constants.ProjectEffortColumnName.Complete.ToString()),
                         WIPHours = row.Field<int>(Constants.ProjectEffortColumnName.WorkinProgress.ToString()),//Not taking from enum because sp is returning the value in spaces.
                         NotStartedHours = row.Field<int>(Constants.ProjectEffortColumnName.NotStarted.ToString()),//Not taking from enum because sp is returning the value in spaces.
-                        TotalHours = row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString())
-
+                        TotalHours = row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()),
+                        ReleaseId = row.Field<int>(Constants.ProjectEffortColumnName.ReleaseId.ToString()),
+                        MonthId = row.Field<int>(Constants.ProjectEffortColumnName.MonthId.ToString())
                     });
                 });
             }
