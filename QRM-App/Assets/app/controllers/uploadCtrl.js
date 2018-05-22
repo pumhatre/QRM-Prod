@@ -652,14 +652,13 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             columnDefs: [
-                { field: 'DashboardType', name: '', cellTemplate: varianceTempl, width: '22%' },
-                { field: 'EffortVariance', name: 'Effort Variance (%)', cellTemplate: varianceTempl, width: '15%' },
+                { field: 'DashboardType', name: '', cellTemplate: varianceTempl, width: '20%' },
+                { field: 'EffortVariance', name: 'Effort Variance (%)', cellTemplate: varianceTempl, width: '12%' },
                 { field: 'Rework', name: 'Rework (%)', width: '15%', cellTemplate: varianceTempl },
                 { field: 'UnitTestEffectiveness', name: 'Unit Test Effectiveness (%)', width: '15%', cellTemplate: varianceTempl },
                 { field: 'SystemTestEffectiveness', name: 'System Test Effectiveness (%)', cellTemplate: varianceTempl, width: '15%' },
-                { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '15%' },
-                { field: 'ComponentDefectRejectionRate', name: 'Component Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' },
-                { field: 'E2EDefectRejectionRate', name: 'E2E Defect Rejection Rate (%)', displayName: 'E2E Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' }
+                { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '20%' },
+                { field: 'RejectionRate', name: 'Rejection Rate (%)', cellTemplate: varianceTempl, width: '20%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;

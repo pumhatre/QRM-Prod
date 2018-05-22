@@ -339,7 +339,7 @@ namespace QRMService.Repositories
                         SystemTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()))),
                         SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()))),
                         ComponentDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()))),
-                        E2EDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString())))
+                        E2EDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()))),
                     });
                 });
             }
