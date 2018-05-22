@@ -27,5 +27,8 @@ namespace QRMService.Models
         public bool IsValidComplexity { get; set; }
         public bool IsValidCMMIRollup { get; set; }
         public bool IsValidReviewType { get; set; }
+
+
+        
     }
 }

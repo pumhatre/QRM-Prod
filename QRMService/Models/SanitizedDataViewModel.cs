@@ -18,5 +18,8 @@ namespace QRMService.Models
         public int ProjectReleaseId { get; set; }
         public int MonthId { get; set; }
 
+        public int EffortTotalCount { get; set; }
+        public int DefectTotalCount { get; set; }
+
     }
 }

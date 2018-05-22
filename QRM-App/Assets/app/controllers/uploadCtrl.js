@@ -92,20 +92,20 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     $scope.effortGridData.data = $scope.dataSanityResult.effortSanityValidatonModel;
 
                     //Total Count
-                    $scope.EffortTotalCount = 100;
+                    $scope.EffortTotalCount = $scope.dataSanityResult.EffortTotalCount;
                     //Success Count
-                    $scope.EffortSuccessCount = 80;
+                    $scope.EffortSuccessCount = $scope.dataSanityResult.EffortTotalCount - $scope.effortGridData.data.length;
                     //Failure Count
-                    $scope.EffortFailureCount = 20;
+                    $scope.EffortFailureCount = $scope.effortGridData.data.length;
 
                     $scope.defectGridData.data = $scope.dataSanityResult.defectSanityValidationModel;
 
                     //Total Count
-                    $scope.GridTotalCount = 100;
+                    $scope.GridTotalCount = $scope.dataSanityResult.DefectTotalCount;
                     //Success Count
-                    $scope.GridSuccessCount = 80;
+                    $scope.GridSuccessCount = $scope.dataSanityResult.DefectTotalCount - $scope.defectGridData.data.length;
                     //Failure Count
-                    $scope.GridFailureCount = 20;
+                    $scope.GridFailureCount = $scope.defectGridData.data.length;
 
                     $scope.loading = false;
                     $scope.loadAttempted = true;

@@ -173,26 +173,28 @@ namespace QRMService.Repositories
         public static SanitizedDataViewModel DataSanityCheck(UploadViewModel upload)
         {
             //get the datasanity results from SP
-            var dataSanityResult = ValidateDataSanity(upload);
-
+            int effortCount = 0;
+            var dataSanityResult = ValidateDataSanity(upload,ref effortCount);
+         
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
             vm.effortSanityValidatonModel = dataSanityResult;
+            vm.EffortTotalCount = effortCount;
             return vm;
 
         }
 
-        private static List<EffortSanityValidationModel> ValidateDataSanity(UploadViewModel upload)
+        private static List<EffortSanityValidationModel> ValidateDataSanity(UploadViewModel upload, ref int value)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
             parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
             parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
-            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspGetEffortDataSanityResults, "default", true, parameters.ToArray());
+            DataSet dsSanityValidation = helper.GetDataSetByProcedure(Constants.UspGetEffortDataSanityResults, "default", true, parameters.ToArray());
 
             List<EffortSanityValidationModel> effortSanityValidationList = new List<EffortSanityValidationModel>();
-            
-            dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
+
+            dsSanityValidation.Tables[1].AsEnumerable().ToList().ForEach(row =>
             {
                 StringBuilder sb = new StringBuilder();
 
@@ -205,7 +207,7 @@ namespace QRMService.Repositories
                 var isValidCMMIRollup = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidCMMIRollup.ToString());
 
 
-                if (!isValidTaskType && row.Field<string>(Constants.EffortSanityValidationColumnName.TaskType.ToString())!="-Missing-")
+                if (!isValidTaskType && row.Field<string>(Constants.EffortSanityValidationColumnName.TaskType.ToString()) != "-Missing-")
                     sb.Append("Invalid Task type").Append("|");
                 if (!isValidStatus)
                     sb.Append("Invalid Status").Append("|");
@@ -228,10 +230,11 @@ namespace QRMService.Repositories
                     WidgetType = row.Field<string>(Constants.EffortSanityValidationColumnName.WidgetType.ToString()),
                     Complexity = row.Field<string>(Constants.EffortSanityValidationColumnName.Complexity.ToString()),
                     CMMIRollUp = row.Field<string>(Constants.EffortSanityValidationColumnName.CMMIRollUp.ToString()),
-                    ErrorArray = (sb.ToString().TrimEnd('|').Split('|')  != null && sb.ToString().TrimEnd('|').Split('|').Count() == 1 && sb.ToString().TrimEnd('|').Split('|')[0] == "")
+                    ErrorArray = (sb.ToString().TrimEnd('|').Split('|') != null && sb.ToString().TrimEnd('|').Split('|').Count() == 1 && sb.ToString().TrimEnd('|').Split('|')[0] == "")
                     ? null : sb.ToString().TrimEnd('|').Split('|')
                 });
             });
+            value=Convert.ToInt32(dsSanityValidation.Tables[0].Rows[0]["TotalCount"]);
 
             return effortSanityValidationList;
 
@@ -257,7 +260,7 @@ namespace QRMService.Repositories
         /// <param name="runId"></param>
         /// <param name="executionStep">1:belongs to execution from main table</param>
         /// <param name="createdby"></param>
-        private static void ExecuteDashboard(Guid runId,int projectId, int releaseId, int monthId, int executionStep=1, int createdby=1)
+        private static void ExecuteDashboard(Guid runId, int projectId, int releaseId, int monthId, int executionStep = 1, int createdby = 1)
         {
             try
             {
@@ -276,7 +279,7 @@ namespace QRMService.Repositories
 
                 throw ex;
             }
-           
+
 
         }
 
@@ -311,25 +314,27 @@ namespace QRMService.Repositories
         public static SanitizedDataViewModel DataSanityCheckDefectData(UploadViewModel upload)
         {
             //get the datasanity results from SP
-            var dataSanityResult = ValidateDataSanityDefectData(upload);
+            int defectCount = 0;
+            var dataSanityResult = ValidateDataSanityDefectData(upload,ref defectCount);
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
             vm.defectSanityValidationModel = dataSanityResult;
+            vm.DefectTotalCount = defectCount;
             return vm;
 
         }
 
-        private static List<DefectSanityValidationModel> ValidateDataSanityDefectData(UploadViewModel upload)
+        private static List<DefectSanityValidationModel> ValidateDataSanityDefectData(UploadViewModel upload, ref int value)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
             parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
             parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
-            DataTable dtSanityValidation = helper.GetDataTableByProcedure(Constants.UspGetDefectDataSanityResults, "default", true, parameters.ToArray());
+            DataSet dsSanityValidation = helper.GetDataSetByProcedure(Constants.UspGetDefectDataSanityResults, "default", true, parameters.ToArray());
 
             List<DefectSanityValidationModel> defectSanityValidationList = new List<DefectSanityValidationModel>();
 
-            dtSanityValidation.AsEnumerable().ToList().ForEach(row =>
+            dsSanityValidation.Tables[1].AsEnumerable().ToList().ForEach(row =>
             {
                 StringBuilder sb = new StringBuilder();
                 var defectSanityModel = new DefectSanityValidationModel();
@@ -385,7 +390,7 @@ namespace QRMService.Repositories
 
                 });
             });
-
+            value = Convert.ToInt32(dsSanityValidation.Tables[0].Rows[0]["TotalCount"]);
             return defectSanityValidationList;
 
         }
