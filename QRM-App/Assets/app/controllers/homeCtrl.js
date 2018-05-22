@@ -4,7 +4,7 @@
 */
 "use strict";
 angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-.controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService,healthReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
+.controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService, healthReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
     $scope.projectEffortGrid = {};
     $scope.projectDefectGrid = {};
     $scope.projectTestingGrid = {};
@@ -13,7 +13,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     $scope.selectedProjectId = 0;
 
     var userId = $cookies.get('_UserId');//Get User Id 
-   // alert(userId);
+    // alert(userId);
     $scope.LoadMyProject = function () {
         homeService.GetMyProjects(config, userId)
               .then(function (successResponse) {
@@ -112,7 +112,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         ],
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
-        }       
+        }
     }
 
     $scope.projectTestingGrid = {
@@ -124,7 +124,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         columnDefs: [
             { field: 'DashBoardType', name: 'Manual/Automation', width: '15%', cellTemplate: cellTempl },
              { field: 'DashboardSubtype', name: '', width: '20%', cellTemplate: cellTempl },
-            { field: 'PreSitComponent', name: 'PRE-SIT Component',displayName:'PRE-SIT Component', width: '20%', cellTemplate: cellTempl },
+            { field: 'PreSitComponent', name: 'PRE-SIT Component', displayName: 'PRE-SIT Component', width: '20%', cellTemplate: cellTempl },
             { field: 'PreSitE2E', name: 'PRE-SIT E2E', displayName: 'PRE-SIT E2E', cellTemplate: cellTempl, width: '15%' },
             { field: 'SitComponent', name: 'SIT-Component', displayName: 'SIT-Component', cellTemplate: cellTempl, width: '15%' },
             { field: 'SitE2E', name: 'SIT-E2E', displayName: 'SIT-E2E', cellTemplate: cellTempl, width: '18%' },
@@ -146,7 +146,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'DashBoardType', name: '', cellTemplate: cellTempl, width: '21%' },
             { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: cellTempl, width: '22%' },
             { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: cellTempl },
-            { field: 'WIPHours', name: 'WIP',displayName:'WIP', width: '15%', cellTemplate: cellTempl },
+            { field: 'WIPHours', name: 'WIP', displayName: 'WIP', width: '15%', cellTemplate: cellTempl },
             { field: 'NotStartedHours', name: 'Not Started', cellTemplate: cellTempl, width: '15%' },
             { field: 'TotalHours', name: 'Total', cellTemplate: cellTempl, width: '15%' },
         ],
@@ -186,7 +186,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'DashBoardType', name: '', cellTemplate: cellTempl, width: '20%' },
             { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: cellTempl, width: '22%' },
             { field: 'CompletedHours', name: 'Complete', cellTemplate: cellTempl, width: '15%' },
-            { field: 'WipHours', name: 'WIP',displayName:'WIP', width: '15%', cellTemplate: cellTempl },
+            { field: 'WipHours', name: 'WIP', displayName: 'WIP', width: '15%', cellTemplate: cellTempl },
             { field: 'NotStartedHours', name: 'Not Started', width: '15%', cellTemplate: cellTempl },
             { field: 'TotalHours', name: 'Total', cellTemplate: cellTempl, width: '15%' },
         ],
@@ -207,8 +207,8 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'UnitTestEffectiveness', name: 'Unit Test Effectiveness (%)', width: '15%', cellTemplate: varianceTempl },
             { field: 'SystemTestEffectiveness', name: 'System Test Effectiveness (%)', cellTemplate: varianceTempl, width: '15%' },
             { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '15%' },
-            { field: 'ComponentDefectRejectionRate', name: 'Component Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' },
-            { field: 'E2EDefectRejectionRate', name: 'E2E Defect Rejection Rate (%)', displayName: 'E2E Defect Rejection Rate (%)', cellTemplate: varianceTempl, width: '15%' }
+             { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '20%' },
+                { field: 'RejectionRate', name: 'Rejection Rate (%)', cellTemplate: varianceTempl, width: '20%' }
         ],
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;

@@ -67,6 +67,13 @@ namespace QRMService.Models
         public string SITDefectDetectionRate { get; set; }
         public string ComponentDefectRejectionRate { get; set; }
         public string E2EDefectRejectionRate { get; set; }
+        public string RejectionRate
+        {
+            get
+            {
+                return string.Format("{0}%", Convert.ToString(ComponentDefectRejectionRate == "NR" ? 0 : Convert.ToInt32(ComponentDefectRejectionRate.Replace("%","")) + E2EDefectRejectionRate == "NR" ? 0 : Convert.ToInt32(E2EDefectRejectionRate.Replace("%",""))));
+            }
+        }
     }
 
 }
