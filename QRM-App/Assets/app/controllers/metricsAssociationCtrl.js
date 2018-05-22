@@ -81,7 +81,6 @@
 
         $scope.getSelectedProjectMonth = function (projectId, releaseId) {
             if (projectId != null && releaseId != null) {
-                console.log(projectId, releaseId);
                 metricsAssociationService.getSelectedProjectMonth(config, projectId, releaseId)
                .then(function (successResponse) {
                    $scope.selectedMonth = successResponse.data;
@@ -100,7 +99,7 @@
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
-        $scope.LoadMonthsDropDown();
+        //$scope.LoadMonthsDropDown();
         $scope.LoadUsersDropDown();
         LoadMetricsAssociationGrid();
 
@@ -114,14 +113,14 @@
         }
 
 
-        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
+        $scope.saveMetricsAssociation = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
             $scope.metricsMasterIdList = [];
             angular.forEach($scope.SelectedListItems, function (value, key) {
                 for (var i = 0; i < value.length; i++) {
                     $scope.metricsMasterIdList.push(value[i].id);
                 }
             });
-            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
+            metricsAssociationService.saveMetricsAssociation($scope.metricsMasterIdList, selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
                 .then(function (successResponse) {
                     if (successResponse.data.IsSuccess) {
                         // show success alert
@@ -143,16 +142,23 @@
         }
 
 
-        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth) {
-            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, selectedMonth, config)
+        $scope.getMetricsList = function (selectedProjectReleaseDropdown, selectedReleaseDropdown) {
+            metricsAssociationService.getSavedMetricsAssociation(selectedProjectReleaseDropdown, selectedReleaseDropdown, config)
                 .then(function (successResponse) {
                     $scope.SelectedListItems[0] = [];
                     $scope.arr = [];
                     $scope.arr = successResponse.data;
                     var arr = [];
                     for (key in $scope.arr) {
-                        $scope.SelectedListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })
+                        $scope.SelectedListItems[0].push({ 'id': $scope.arr[key].MetricsMasterId, 'name': $scope.arr[key].CategoryDescription })                      
                     }
+                    angular.forEach($scope.SelectedListItems[0], function (value, key) {
+                        for (var i = $scope.AvailableListItems[$scope.selectFaIndex].length - 1; i >= 0; i--) {
+                            if ($scope.AvailableListItems[$scope.selectFaIndex][i].name == value.name) {
+                                $scope.AvailableListItems[$scope.selectFaIndex].splice(i, 1);
+                            }
+                        }
+                    });
 
                 }, function (errorResponse) {
 

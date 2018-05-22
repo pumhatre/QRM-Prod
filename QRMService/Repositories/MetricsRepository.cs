@@ -26,6 +26,7 @@ namespace QRMService.Repositories
                                            SubCategoryDescription =m.MetricSubCategoryDescription,
                                            TypeCode = m.MetricTypeCode,
                                            TypeDescription = m.MetricTypeDescription,
+                                           FormulaDescription = m.FormulaDescription
                                        }).ToList();
                 return metricsDetails;
             }

@@ -15,5 +15,6 @@ namespace QRMService.Models
         public string TypeCode { get; set; }
         public string TypeDescription { get; set; }
         public string MetricDescription { get; set; }
+        public string FormulaDescription { get; set; }
     }
 }

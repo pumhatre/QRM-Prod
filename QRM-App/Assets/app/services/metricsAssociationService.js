@@ -11,22 +11,15 @@
         return $http.get(config.apiUrl + 'api/MetricsAssociation/GetProjectReleaseList?projectId=' + projectId);
     }
 
-    this.saveMetricsAssociation = function (metricsMasterIdList, projectIdPost, releaseIdPost,monthId, config) {
+    this.saveMetricsAssociation = function (metricsMasterIdList, projectIdPost, releaseIdPost, config) {
         var metricIdList = metricsMasterIdList;
-        var monthData = [];
-        for (var i = 0; i < monthId.length; i++) {
-            monthData.push(monthId[i].MonthId);
-        }
-        var data = { MetricsMasterIdList: metricsMasterIdList, ProjectId: projectIdPost, ReleaseId: releaseIdPost, MonthId: monthData };
+        var data = { MetricsMasterIdList: metricsMasterIdList, ProjectId: projectIdPost, ReleaseId: releaseIdPost};
         return $http.post(config.apiUrl + 'api/MetricsAssociation/SaveMetricsAssociation', data);
     }
 
-    this.getSavedMetricsAssociation = function (projectId, releaseId, monthId, config) {
-        var monthData = [];
-        for (var i = 0; i < monthId.length; i++) {
-            monthData.push(monthId[i].MonthId);
-        }
-        var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthData };
+    this.getSavedMetricsAssociation = function (projectId, releaseId, config) {
+       
+        var data = { ProjectId: projectId, ReleaseId: releaseId};
        
         return $http.post(config.apiUrl + 'api/MetricsAssociation/GetSavedMetricsAssociation', data);
     }

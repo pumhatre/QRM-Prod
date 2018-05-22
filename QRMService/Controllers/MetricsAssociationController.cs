@@ -34,7 +34,7 @@ namespace QRMService.Controllers
         public IHttpActionResult GetSavedMetricsAssociation(SearchModel searchModel)
         {
             var data = MetricsAssociationRepository.GetSavedMetricsAssociation(Convert.ToInt32(searchModel.ProjectId),
-                Convert.ToInt32(searchModel.ReleaseId),(searchModel.MonthId));
+                Convert.ToInt32(searchModel.ReleaseId));
             return Ok(data);
         }
         [HttpPost]
