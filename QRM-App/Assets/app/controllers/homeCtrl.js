@@ -24,6 +24,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     }
 
     $scope.OpenMetricsPopUp = function (projectId) {
+        $scope.Release_Month = "R01_05_2018";
         $scope.projectEffortGrid.data = [];
         $scope.projectDefectGrid.data = [];
         $scope.projectTestingGrid.data = [];
@@ -34,13 +35,30 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.LoadProjectEffortByProject();
         $('.nav-tabs a[href="#tab_projectEffort"]').tab('show');
     }
+    var months = [
+    'January', 'February', 'March', 'April', 'May',
+    'June', 'July', 'August', 'September',
+    'October', 'November', 'December'
+    ];
 
+    function monthNumToName(monthnum) {
+        return months[monthnum - 1] || '';
+    }
     $scope.LoadProjectEffortByProject = function () {
         $scope.projectEffortGridLoading = true;
         healthReportService.GetAllProjectEffortByProject(config, $scope.selectedProjectId)
             .then(function (successResponse) {
                 $scope.projectEffortGridLoading = false;
                 $scope.projectEffortGrid.data = successResponse.data;
+                if ($scope.projectEffortGrid.data.length > 0) {
+                    $scope.Month = monthNumToName($scope.projectEffortGrid.data[0].MonthId);
+                    $scope.Release = $scope.projectEffortGrid.data[0].ReleaseId;
+                    $scope.MonthAndRelease = '  :Release: R_' + $scope.Release +'   '+'Month: ' + $scope.Month
+                } else {
+                    $scope.Month = "";
+                    $scope.Release = "";
+                    $scope.MonthAndRelease = "";
+                }
             }, function (errorResponse) {
                 $scope.projectEffortGridLoading = false;
             });
@@ -110,6 +128,27 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'LifeCycle', name: 'Life Cycle', cellTemplate: cellTempl, width: '15%' },
             { field: 'ProjectManager', name: 'Project Manager', cellTemplate: cellTempl, width: '15%' },
         ],
+        enableGridMenu: true,
+        enableSelectAll: true,
+        exporterExcelFilename: 'Project.xlsx',
+        exporterExcelSheetName: 'Sheet1',
+        exporterCsvFilename: 'Project.csv',
+        exporterPdfDefaultStyle: { fontSize: 9 },
+        exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+        exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+        exporterPdfHeader: { text: "Project List", style: 'headerStyle' },
+        exporterPdfFooter: function (currentPage, pageCount) {
+            return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        },
+        exporterPdfCustomFormatter: function (docDefinition) {
+            docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+            docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+            return docDefinition;
+        },
+        exporterPdfOrientation: 'Landscape',
+        exporterPdfPageSize: 'LETTER',
+        exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
         }
@@ -130,6 +169,27 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'SitE2E', name: 'SIT-E2E', displayName: 'SIT-E2E', cellTemplate: cellTempl, width: '18%' },
 
         ],
+        enableGridMenu: true,
+        enableSelectAll: true,
+        exporterExcelFilename: 'ProjectEffort.xlsx',
+        exporterExcelSheetName: 'Sheet1',
+        exporterCsvFilename: 'ProjectEffort.csv',
+        exporterPdfDefaultStyle: { fontSize: 9 },
+        exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+        exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+        exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+        exporterPdfFooter: function (currentPage, pageCount) {
+            return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        },
+        exporterPdfCustomFormatter: function (docDefinition) {
+            docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+            docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+            return docDefinition;
+        },
+        exporterPdfOrientation: 'Landscape',
+        exporterPdfPageSize: 'LETTER',
+        exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
             $scope.projectTestingGridApi = gridApi;
         }
@@ -150,6 +210,27 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'NotStartedHours', name: 'Not Started', cellTemplate: cellTempl, width: '15%' },
             { field: 'TotalHours', name: 'Total', cellTemplate: cellTempl, width: '15%' },
         ],
+        enableGridMenu: true,
+        enableSelectAll: true,
+        exporterExcelFilename: 'ProjectEffort.xlsx',
+        exporterExcelSheetName: 'Sheet1',
+        exporterCsvFilename: 'ProjectEffort.csv',
+        exporterPdfDefaultStyle: { fontSize: 9 },
+        exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+        exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+        exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+        exporterPdfFooter: function (currentPage, pageCount) {
+            return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        },
+        exporterPdfCustomFormatter: function (docDefinition) {
+            docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+            docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+            return docDefinition;
+        },
+        exporterPdfOrientation: 'Landscape',
+        exporterPdfPageSize: 'LETTER',
+        exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
             $scope.projectEffortGridApi = gridApi;
         }
@@ -170,6 +251,27 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'Closed', name: 'Closed', width: '20%', cellTemplate: cellTempl },
             { field: 'Open', name: 'Open', cellTemplate: cellTempl, width: '20%' },
         ],
+        enableGridMenu: true,
+        enableSelectAll: true,
+        exporterExcelFilename: 'ProjectEffort.xlsx',
+        exporterExcelSheetName: 'Sheet1',
+        exporterCsvFilename: 'ProjectEffort.csv',
+        exporterPdfDefaultStyle: { fontSize: 9 },
+        exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+        exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+        exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+        exporterPdfFooter: function (currentPage, pageCount) {
+            return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        },
+        exporterPdfCustomFormatter: function (docDefinition) {
+            docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+            docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+            return docDefinition;
+        },
+        exporterPdfOrientation: 'Landscape',
+        exporterPdfPageSize: 'LETTER',
+        exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
             $scope.projectDefectGridApi = gridApi;
         }
@@ -190,6 +292,27 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             { field: 'NotStartedHours', name: 'Not Started', width: '15%', cellTemplate: cellTempl },
             { field: 'TotalHours', name: 'Total', cellTemplate: cellTempl, width: '15%' },
         ],
+        enableGridMenu: true,
+        enableSelectAll: true,
+        exporterExcelFilename: 'ProjectEffort.xlsx',
+        exporterExcelSheetName: 'Sheet1',
+        exporterCsvFilename: 'ProjectEffort.csv',
+        exporterPdfDefaultStyle: { fontSize: 9 },
+        exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+        exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+        exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+        exporterPdfFooter: function (currentPage, pageCount) {
+            return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        },
+        exporterPdfCustomFormatter: function (docDefinition) {
+            docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+            docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+            return docDefinition;
+        },
+        exporterPdfOrientation: 'Landscape',
+        exporterPdfPageSize: 'LETTER',
+        exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
             $scope.projectWidgetGridApi = gridApi;
         }
@@ -210,6 +333,27 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
              { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '20%' },
                 { field: 'RejectionRate', name: 'Rejection Rate (%)', cellTemplate: varianceTempl, width: '20%' }
         ],
+        enableGridMenu: true,
+        enableSelectAll: true,
+        exporterExcelFilename: 'ProjectEffort.xlsx',
+        exporterExcelSheetName: 'Sheet1',
+        exporterCsvFilename: 'ProjectEffort.csv',
+        exporterPdfDefaultStyle: { fontSize: 9 },
+        exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+        exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+        exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+        exporterPdfFooter: function (currentPage, pageCount) {
+            return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+        },
+        exporterPdfCustomFormatter: function (docDefinition) {
+            docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+            docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+            return docDefinition;
+        },
+        exporterPdfOrientation: 'Landscape',
+        exporterPdfPageSize: 'LETTER',
+        exporterPdfMaxGridWidth: 500,
+        exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
         }

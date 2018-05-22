@@ -12,17 +12,17 @@
         height: 35px !important;
         vertical-align: middle !important;
     }
-     /*this datalist  hide thead text box command unwanted message*/
-    .ui-grid-pager-row-count-label{
-        display:none;
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
     }
 
-    .ui-grid-pager-control-input{
-        display:none !important ;
+    .ui-grid-pager-control-input {
+        display: none !important;
     }
 
-    .ui-grid-pager-max-pages-number{
-        display:none;
+    .ui-grid-pager-max-pages-number {
+        display: none;
     }
     /*End */
 
@@ -31,26 +31,29 @@
     }
 
     .errorCellClass {
-        height:75px !important;
+        height: 75px !important;
         color: #D8000C;
     }
+
     .missingCellClass {
         color: #D8000C;
     }
 
-     .defectCellClass {
-        height:75px !important;
+    .defectCellClass {
+        height: 75px !important;
     }
-     .redDefectCellClass {
-        height:75px !important;
-        color: #D8000C;
-     }
 
-     .effortCellClass {
-        height:50px !important;
+    .redDefectCellClass {
+        height: 75px !important;
+        color: #D8000C;
     }
-     .red {
-        height:50px !important;
+
+    .effortCellClass {
+        height: 50px !important;
+    }
+
+    .red {
+        height: 50px !important;
         color: #D8000C;
     }
 
@@ -197,25 +200,25 @@
                                                 </div>
 
                                                 @*<div class="alert alert-success" ng-hide="InvalidEffortData">
-                                                    <button type="button" class="close">×</button> <strong>Effort Data is Valid</strong>
-                                                </div>
-                                                <div class="alert alert-danger" ng-show="InvalidEffortData">
-                                                    <button type="button" class="close">×</button> <strong>Invalid Effort Data.Please correct the below rows</strong>
-                                                </div>
-                                                <div class="alert alert-success" ng-hide="InvalidDefectData">
-                                                    <button type="button" class="close">×</button> <strong>Defect Data is Valid</strong>
-                                                </div>
-                                                <div class="alert alert-danger" ng-show="InvalidDefectData">
-                                                    <button type="button" class="close">×</button> <strong>Invalid Defect Data.Please correct the below rows</strong>
-                                                </div>*@
+                                                        <button type="button" class="close">×</button> <strong>Effort Data is Valid</strong>
+                                                    </div>
+                                                    <div class="alert alert-danger" ng-show="InvalidEffortData">
+                                                        <button type="button" class="close">×</button> <strong>Invalid Effort Data.Please correct the below rows</strong>
+                                                    </div>
+                                                    <div class="alert alert-success" ng-hide="InvalidDefectData">
+                                                        <button type="button" class="close">×</button> <strong>Defect Data is Valid</strong>
+                                                    </div>
+                                                    <div class="alert alert-danger" ng-show="InvalidDefectData">
+                                                        <button type="button" class="close">×</button> <strong>Invalid Defect Data.Please correct the below rows</strong>
+                                                    </div>*@
 
                                                 <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                                         <li role="presentation" class="active">
-                                                            <a href="#tab_content1" target="_self"  id="effort-tab" role="tab" data-toggle="tab" aria-expanded="true">Effort Data</a>
+                                                            <a href="#tab_content1" target="_self" id="effort-tab" role="tab" data-toggle="tab" aria-expanded="true">Effort Data</a>
                                                         </li>
                                                         <li role="presentation" class="">
-                                                            <a href="#tab_content2" role="tab"  target="_self" id="defect-tab" data-toggle="tab" aria-expanded="false">Defect Data</a>
+                                                            <a href="#tab_content2" role="tab" target="_self" id="defect-tab" data-toggle="tab" aria-expanded="false">Defect Data</a>
                                                         </li>
                                                     </ul>
                                                     <div id="myTabcontent" class="tab-content">
@@ -229,7 +232,9 @@
                                                                             <br>
                                                                             <div>
                                                                                 <div class="col-md-12">
-                                                                                    
+                                                                                    Total:{{EffortTotalCount}}
+                                                                                    Success:{{EffortSuccessCount}}
+                                                                                    Failure: {{EffortFailureCount}}
                                                                                     <div id="mGrid1" ng-show="InvalidEffortData" ui-grid="effortGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                         <div class="grid-msg-overlay" ng-show="loading">
                                                                                             <div class="msg">
@@ -267,7 +272,9 @@
                                                                             <br>
                                                                             <div>
                                                                                 <div class="col-md-12">
-                                                                                    
+                                                                                    Total:{{GridTotalCount}}
+                                                                                    Success:{{GridSuccessCount}}
+                                                                                    Failure: {{GridFailureCount}}
                                                                                     <br />
                                                                                     <div id="mGrid2" ng-show="InvalidDefectData" ui-grid="defectGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                         <div class="grid-msg-overlay" ng-show="loading">

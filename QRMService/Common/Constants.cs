@@ -141,7 +141,10 @@ namespace QRMService.Common
             Complete,
             Total,
             WorkinProgress,
-            NotStarted
+            NotStarted,
+            ReleaseId,
+            MonthId
+
         }
         public enum ProjectTestingColumnName
         {
