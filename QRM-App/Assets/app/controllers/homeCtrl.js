@@ -50,8 +50,15 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             .then(function (successResponse) {
                 $scope.projectEffortGridLoading = false;
                 $scope.projectEffortGrid.data = successResponse.data;
-                $scope.Month = monthNumToName($scope.projectEffortGrid.data[0].MonthId);
-                $scope.Release = $scope.projectEffortGrid.data[0].ReleaseId;
+                if ($scope.projectEffortGrid.data.length > 0) {
+                    $scope.Month = monthNumToName($scope.projectEffortGrid.data[0].MonthId);
+                    $scope.Release = $scope.projectEffortGrid.data[0].ReleaseId;
+                    $scope.MonthAndRelease = '  :Release: R_' + $scope.Release +'   '+'Month: ' + $scope.Month
+                } else {
+                    $scope.Month = "";
+                    $scope.Release = "";
+                    $scope.MonthAndRelease = "";
+                }
             }, function (errorResponse) {
                 $scope.projectEffortGridLoading = false;
             });
