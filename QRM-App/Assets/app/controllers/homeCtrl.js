@@ -3,7 +3,7 @@
 * Description:This controller will be used for user specfic information Home
 */
 "use strict";
-angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
+angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
 .controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService, healthReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
     $scope.projectEffortGrid = {};
     $scope.projectDefectGrid = {};
@@ -22,6 +22,26 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
               });
     }
+
+    $scope.labels = ['Technical Design','Development','Code Review','Unit Test','SIT Design','SIT Execution','PM/QM'];
+    $scope.series = ['Planned Effort', 'Actual Effort'];
+
+        $scope.data = [
+          [3.43,47.01,11.41,37.64,0.09,0.02,0.40],
+          [3.43,47.00,11.41,37.62,0.12,0.03,0.40]
+        ];
+
+             
+    $scope.labels1 = ["Code Review", "SIT Component", "Unit Test Cases","Integration Testing","Performance Testing","UAT"];
+    $scope.data1 = [300, 500, 100, 12, 23, 23, 6];
+
+    $scope.labels2 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    $scope.series2 = ['Series A', 'Series B'];
+
+    $scope.data2 = [
+      [65, 59, 80, 81, 56, 55, 40],
+      [28, 48, 40, 19, 86, 27, 90]
+    ];
 
     $scope.OpenMetricsPopUp = function (projectId) {
         $scope.Release_Month = "R01_05_2018";
