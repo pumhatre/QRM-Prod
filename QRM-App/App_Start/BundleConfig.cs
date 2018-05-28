@@ -51,7 +51,6 @@ namespace QRM_App
                       "~/Content/js/moment.min.js",
                       "~/Content/js/daterangepicker.js",
                       "~/Content/js/qrm.js",
-                       "~/Content/js/Chart.min.js",
                       "~/Content/js/custom.min.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
