@@ -32,20 +32,8 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         ];
 
              
-    $scope.labels1 = ["Requirement Review","Architecture Review","Code Review", "SIT Component", "Unit Test Cases","Integration Testing","Performance Testing","UAT"];
-    $scope.data1 = [6, 45, 30, 50, 10, 12, 23, 23, 6];
-    $scope.options = {
-        legend: {
-            display: true,
-            position: "top"
-        },
-        tooltipEvents: [],
-        showTooltips: true,
-        tooltipCaretSize: 0,
-        onAnimationComplete: function () {
-            this.showTooltip(this.segments, true);
-        },
-    };
+    $scope.labels1 = ["Code Review", "SIT Component", "Unit Test Cases","Integration Testing","Performance Testing","UAT"];
+    $scope.data1 = [300, 500, 100, 12, 23, 23, 6];
 
     $scope.labels2 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
     $scope.series2 = ['Series A', 'Series B'];
@@ -53,18 +41,6 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     $scope.data2 = [
       [65, 59, 80, 81, 56, 55, 40],
       [28, 48, 40, 19, 86, 27, 90]
-    ];
-
-    $scope.labels11 = ["Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.labels12 = ["Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.data12 = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-    ];
-
-    $scope.data11= [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
     ];
 
     $scope.OpenMetricsPopUp = function (projectId) {

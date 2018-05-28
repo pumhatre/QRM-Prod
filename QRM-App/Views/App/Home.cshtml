@@ -71,28 +71,6 @@
             display: table-cell;
             vertical-align: middle;
         }
-
-    #w {
-        position: relative;
-        height: 400px;
-        width: 400px;
-    }
-
-    #d1, #d2 {
-        position: absolute;
-    }
-
-    #d1 {
-        top: 0px;
-        left: 0px;
-    }
-
-    #d2 {
-        border-radius: 150px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
 </style>
 
 <div class="x_panel" role="main" ng-app="home" ng-controller="homeCtrl">
@@ -127,31 +105,18 @@
                                         <div class="x_panel tile fixed_height_420">
                                             <div class="x_content">
                                                 <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            Effort Distribution
-                                                            <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            Test Case Distribution
-                                                            <canvas id="doughnutTestCase" class="chart chart-doughnut"
-                                                                    chart-data="data11" chart-labels="labels11"></canvas>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            Test case complexity distribution
-                                                            <canvas id="doughnutTestCaseComplexity" class="chart chart-doughnut"
-                                                                    chart-data="data12" chart-labels="labels12"></canvas>
-                                                        </div>
-                                                       
+                                                    <div class="col-md-4">
+                                                        Chart-series
+                                                       <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"> chart-series="series"</canvas>
+                                                    <div class="col-md-4">
+                                                       Doughnut
+                                                        <canvas id="doughnut" class="chart chart-doughnut"
+                                                                chart-data="data1" chart-labels="labels1"></canvas> 
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            Defect Detected Phase Distribution
-                                                            <canvas id="doughnut" class="chart chart-doughnut"
-                                                                    chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                    <div class="col-md-4">
+                                                        <canvas id="base" class="chart-horizontal-bar"
+                                                                chart-data="data2" chart-labels="labels2"></canvas>
+                                                    </div></div>
                                             </div>
                                         </div>
                                     </div>
