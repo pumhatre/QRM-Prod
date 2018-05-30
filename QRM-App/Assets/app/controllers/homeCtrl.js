@@ -23,17 +23,18 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    $scope.labels = ['Technical Design','Development','Code Review','Unit Test','SIT Design','SIT Execution','PM/QM'];
+    $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
     $scope.series = ['Planned Effort', 'Actual Effort'];
 
-        $scope.data = [
-          [3.43,47.01,11.41,37.64,0.09,0.02,0.40],
-          [3.43,47.00,11.41,37.62,0.12,0.03,0.40]
-        ];
+    $scope.data = [
+      [3.43, 47.01, 11.41, 37.64, 0.09, 0.02, 0.40],
+      [3.43, 47.00, 11.41, 37.62, 0.12, 0.03, 0.40]
+    ];
 
-             
-    $scope.labels1 = ["Code Review", "SIT Component", "Unit Test Cases","Integration Testing","Performance Testing","UAT"];
-    $scope.data1 = [300, 500, 100, 12, 23, 23, 6];
+
+    $scope.labels1 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
+    $scope.data1 = [6, 45, 30, 50, 10, 12, 23, 23];
+    
 
     $scope.labels2 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
     $scope.series2 = ['Series A', 'Series B'];
@@ -42,6 +43,109 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
       [65, 59, 80, 81, 56, 55, 40],
       [28, 48, 40, 19, 86, 27, 90]
     ];
+
+    $scope.labels11 = ["Functional", "Regression", "Smoke", "Security"];
+    $scope.labels12 = ["Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
+    $scope.data12 = [
+    [65, 59, 80, 81, 56, 55],
+    [28, 48, 40, 19, 86, 27]
+    ];
+    $scope.series11 = ['Component', 'E2E'];
+    $scope.series12 = ['Simple', 'Medium', 'Complex', 'Very Complex'];
+    $scope.options12 = {
+        legend: {
+            display: true,
+            position: "bottom"
+        },
+        tooltipEvents: [],
+        showTooltips: true,
+        tooltipCaretSize: 0,
+        onAnimationComplete: function () {
+            this.showTooltip(this.segments, true);
+        },
+    };
+    $scope.options11 = {
+        legend: {
+            display: true,
+            position: "bottom"
+        },
+        tooltipEvents: [],
+        showTooltips: true,
+        tooltipCaretSize: 0,
+        onAnimationComplete: function () {
+            this.showTooltip(this.segments, true);
+        },
+    };
+    $scope.datasetOverride = [{
+        fill: true,
+        backgroundColor: [
+          "#66ff33",
+          "#36A2EB",
+          "#FFCE56"
+        ]
+    }, {
+        fill: true,
+        backgroundColor: [
+          "#ffff00",
+          "#46BFBD",
+          "#FDB45C"
+        ]
+    }];
+
+    $scope.datasetOverride1 = [{
+        fill: true,
+        backgroundColor: [
+          "#66ff33",
+          "#36A2EB",
+          "#FFCE56"
+        ]
+    }, {
+        fill: true,
+        backgroundColor: [
+          "#ffff00",
+          "#46BFBD",
+          "#FDB45C"
+        ]
+    }];
+
+    $scope.data11 = [
+    [65, 59, 80, 81, 56, 55],
+    [28, 48, 40, 19, 86, 27]
+    ];
+
+
+
+    $scope.labels34 = ["Internet bill", "School fee", "House budget"];
+    $scope.data34 = [100, 300, 700];
+    $scope.Color34 = ['#90EE90', '#FF6600', '#8080FF'];
+    //PieDataSetOverride is used to draw lines to display the labels
+
+    $scope.DataSetOverride34 = [{ yAxisID: 'y-axis-1' }]; //y-axis-1 is the ID defined in scales under options.
+
+    $scope.options34 = {
+        legend: { display: true },
+        responsive: true,  // set to false to remove responsiveness. Default responsive value is true.
+        scales: {
+            yAxes: [
+                {
+                    id: 'y-axis-1',
+                    type: 'linear',
+                    display: true,
+                    position: 'bottom'
+                }]
+        }
+    }
+
+    $scope.clickme34 = function ($event) {
+        alert("You've clicked upon " + $event[0]._view.label);
+    }
+
+    $scope.hoverme34 = function ($event) {
+        alert("You hovered over " + $event[0]._view.label);
+    }
+
+
+
 
     $scope.OpenMetricsPopUp = function (projectId) {
         $scope.Release_Month = "R01_05_2018";
@@ -61,6 +165,9 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     'October', 'November', 'December'
     ];
 
+
+
+
     function monthNumToName(monthnum) {
         return months[monthnum - 1] || '';
     }
@@ -73,7 +180,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                 if ($scope.projectEffortGrid.data.length > 0) {
                     $scope.Month = monthNumToName($scope.projectEffortGrid.data[0].MonthId);
                     $scope.Release = $scope.projectEffortGrid.data[0].ReleaseId;
-                    $scope.MonthAndRelease = '  :Release: R_' + $scope.Release +'   '+'Month: ' + $scope.Month
+                    $scope.MonthAndRelease = '  :Release: R_' + $scope.Release + '   ' + 'Month: ' + $scope.Month
                 } else {
                     $scope.Month = "";
                     $scope.Release = "";
