@@ -26,16 +26,16 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
     $scope.series = ['Planned Effort', 'Actual Effort'];
  
-    $scope.options = { legend: { display: true } };
+   // $scope.options = { legend: { display: true } };
     $scope.data = [
       [3.43, 47.01, 11.41, 37.64, 0.09, 0.02, 0.40],
       [3.43, 47.00, 11.41, 37.62, 0.12, 0.03, 0.40]
     ];
 
-
+    $scope.data1 = [6, 45, 30, 50, 10, 12, 23, 23];
     $scope.labels1 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
     $scope.series1 = ['Planned Effort', 'Actual Effort'];
-    $scope.data1 = [6, 45, 30, 50, 10, 12, 23, 23];
+  
       
 
     //$scope.labels = ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
