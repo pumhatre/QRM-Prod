@@ -34,6 +34,15 @@ namespace QRMService.Common
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
         public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
 
+
+        #region Charts
+        public const string UspGetEffortDistribution = "[Dbo].[uspGetEffortDistribution]";
+        public const string UspGetTestCaseEffortDistribution = "[Dbo].[uspGetTestCaseEffortDistribution]";
+        public const string UspGetTestCaseComplexityDistribution = "[Dbo].[uspGetTestCaseComplexityDistribution]";
+        public const string UspGetDefectDetectedPhaseDistribution = "[Dbo].[uspGetDefectDetectedPhaseDistribution]";
+        #endregion
+
+
         public enum EffortTablesColumnName
         {
             EffortDataStagingId,
@@ -200,6 +209,14 @@ namespace QRMService.Common
             ComponentDefectRejectionRate,
             E2EDefectRejectionRate
         }
+
+        public enum ProjectEffortDistributionColumnName
+        {
+            EffortType,
+            PlannedEffortPercentage,
+            ActualEffortPercentage
+        }
+
         //public enum TestTablesColumnName
         //{
         //    TestingDataStagingId,
