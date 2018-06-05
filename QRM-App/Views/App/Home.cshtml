@@ -87,7 +87,7 @@
                         <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#tab_content1" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
+                                    <a href="#tab_content1" target="_self" id="home-tab" ng-click="LoadEffortDistribution()" role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
                                 </li>
                                 <li role="presentation" class="">
                                     <a href="#tab_content2" ng-click="LoadMyProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Projects</a>
@@ -107,20 +107,17 @@
                                                 <div class="form-group">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            Effort Distribution
-                                                            <canvas id="bar" class="chart chart-bar" chart-legend="true" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
-                                                        </div>
-                                                            <div class="col-md-6">
-                                                                Defect Detected Phase Distribution
-                                                                <canvas id="defectDetectedPhase" class="chart chart-doughnut"
-                                                                        chart-data="data1" chart-legend="true" chart-labels="labels1" chart-series="series1"></canvas>
-                                                            </div>
+                                                            <canvas id="bar" class="chart chart-bar"
+                                                                    chart-data="data" chart-labels="labels">
+                                                                chart-series="series"
+                                                            </canvas>
                                                         </div>
                                                        
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                 <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab">
                                     <div class="row">
@@ -163,6 +160,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -340,6 +338,7 @@
         </div>
     </div>
 </div>
+    
 
 
 

@@ -16,8 +16,8 @@ namespace QRMService.Repositories
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
-            parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
-            parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
+            parameters.Add(new KeyValuePair<string, object>("projectId", projectId));
+            parameters.Add(new KeyValuePair<string, object>("projectReleaseId", releaseId));
             DataTable dtEffortDistributionList = helper.GetDataTableByProcedure(Constants.UspGetEffortDistribution, "default", true, parameters.ToArray());
             List<EffortDistribution> effortDistributionList = new List<EffortDistribution>();
             if (dtEffortDistributionList != null && dtEffortDistributionList.Rows.Count > 0)

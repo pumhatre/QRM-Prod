@@ -4,7 +4,7 @@
 */
 "use strict";
 angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
-.controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService, healthReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
+.controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
     $scope.projectEffortGrid = {};
     $scope.projectDefectGrid = {};
     $scope.projectTestingGrid = {};
@@ -23,30 +23,30 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
-    $scope.series = ['Planned Effort', 'Actual Effort'];
- 
-   // $scope.options = { legend: { display: true } };
-    $scope.data = [
-      [3.43, 47.01, 11.41, 37.64, 0.09, 0.02, 0.40],
-      [3.43, 47.00, 11.41, 37.62, 0.12, 0.03, 0.40]
-    ];
+    $scope.LoadEffortDistribution = function () {
+        debugger;
+        var projectId = 2;
+        var releaseId = 12;
+        chartService.GetEffortDistribution(config, projectId, releaseId)
+              .then(function (successResponse) {
+                  debugger;
+                  //$scope.projectGrid.data = successResponse.data;
+                  $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+                  $scope.series = ['Series A', 'Series B'];
+                  $scope.data = [
+                    [65, 59, 80, 81, 56, 55, 40],
+                    [28, 48, 40, 19, 86, 27, 90]
+                  ];
+              }, function (errorResponse) {
 
-    $scope.data1 = [6, 45, 30, 50, 10, 12, 23, 23];
-    $scope.labels1 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.series1 = ['Planned Effort', 'Actual Effort'];
-  
-      
-
-    //$scope.labels = ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
-    //$scope.options = { legend: { display: true } };
-    //$scope.series = ["Series A", "Series B", "Series C", "Series D"];
+              });
+    }
+    //$scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    //$scope.series = ['Series A', 'Series B'];
 
     //$scope.data = [
-    //  [65, 59, 90, 81, 56, 55, 40],
-    //  [28, 48, 40, 19, 96, 27, 100],
-    //  [65, 96, 37, 28, 56, 30, 27],
-    //  [48, 28, 30, 59, 26, 37, 60]
+    //  [65, 59, 80, 81, 56, 55, 40],
+    //  [28, 48, 40, 19, 86, 27, 90]
     //];
 
 

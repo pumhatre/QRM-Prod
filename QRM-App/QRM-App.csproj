@@ -214,6 +214,7 @@
     <Content Include="Assets\app\directives\uploadFileDirective.js" />
     <Content Include="Assets\app\environment\environment.js" />
     <Content Include="Assets\app\fliter\split.js" />
+    <Content Include="Assets\app\services\chartService.js" />
     <Content Include="Assets\app\services\defectDataService.js" />
     <Content Include="Assets\app\services\generateReportService.js" />
     <Content Include="Assets\app\services\healthReportService.js" />
