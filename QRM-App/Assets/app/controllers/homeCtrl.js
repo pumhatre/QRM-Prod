@@ -23,23 +23,94 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    $scope.LoadEffortDistribution = function () {
+    $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    $scope.series = ['Series A', 'Series B'];
+
+    $scope.data= [
+      [65, 59, 80, 81, 56, 55, 40],
+      [28, 48, 40, 19, 86, 27, 90]
+    ];
+
+    $scope.labels1 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    $scope.series1 = ['Series A', 'Series B'];
+
+    $scope.data1 = [
+      [65, 59, 80, 81, 56, 55, 40]
+    ];
+
+    $scope.labels12 = ["Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
+    $scope.data12 = [
+    [65, 59, 80, 81, 56, 55],
+    [28, 48, 40, 19, 86, 27]
+    ];
+    $scope.series12 = ['Simple', 'Medium', 'Complex', 'Very Complex'];
+
+
+    $scope.labels11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
+    $scope.series11 = ['Planned Effort', 'Actual Effort'];
+    $scope.data11 = [6, 45, 30, 50, 10, 12, 23, 23];
+   
+    $scope.LoadAllCharts = function () {
         debugger;
         var projectId = 2;
         var releaseId = 12;
-        chartService.GetEffortDistribution(config, projectId, releaseId)
-              .then(function (successResponse) {
-                  debugger;
-                  //$scope.projectGrid.data = successResponse.data;
-                  $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-                  $scope.series = ['Series A', 'Series B'];
-                  $scope.data = [
-                    [65, 59, 80, 81, 56, 55, 40],
-                    [28, 48, 40, 19, 86, 27, 90]
-                  ];
-              }, function (errorResponse) {
+        //chartService.GetEffortDistribution(config, projectId, releaseId)
+        //      .then(function (successResponse) {
+        //          debugger;
+        //          //$scope.projectGrid.data = successResponse.data;
+        //          $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        //          $scope.series = ['Series A', 'Series B'];
+        //          $scope.data = [
+        //            [65, 59, 80, 81, 56, 55, 40],
+        //            [28, 48, 40, 19, 86, 27, 90]
+        //          ];
+        //      }, function (errorResponse) {
 
-              });
+        //      });
+
+
+        //chartService.GetTestCaseDistribution(config, projectId, releaseId)
+        //            .then(function (successResponse) {
+        //                debugger;
+        //                //$scope.projectGrid.data = successResponse.data;
+        //                $scope.labels1 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        //                $scope.series1= ['Series A', 'Series B'];
+        //                $scope.data1 = [
+        //                  [65, 59, 80, 81, 56, 55, 40],
+        //                  [28, 48, 40, 19, 86, 27, 90]
+        //                ];
+        //            }, function (errorResponse) {
+
+        //            });
+
+        //chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
+        //                   .then(function (successResponse) {
+        //                       debugger;
+        //                       //$scope.projectGrid.data = successResponse.data;
+        //                       $scope.labels2 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        //                       $scope.series2 = ['Series A', 'Series B'];
+        //                       $scope.data2 = [
+        //                         [65, 59, 80, 81, 56, 55, 40],
+        //                         [28, 48, 40, 19, 86, 27, 90]
+        //                       ];
+        //                   }, function (errorResponse) {
+
+        //                   });
+
+        //chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
+        //                   .then(function (successResponse) {
+        //                       debugger;
+        //                       //$scope.projectGrid.data = successResponse.data;
+        //                       $scope.labels3 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        //                       $scope.series3 = ['Series A', 'Series B'];
+        //                       $scope.data3 = [
+        //                         [65, 59, 80, 81, 56, 55, 40],
+        //                         [28, 48, 40, 19, 86, 27, 90]
+        //                       ];
+        //                   }, function (errorResponse) {
+
+        //                   });
+
     }
     //$scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
     //$scope.series = ['Series A', 'Series B'];
