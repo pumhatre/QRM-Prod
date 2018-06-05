@@ -23,16 +23,16 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    $scope.series = ['Series A', 'Series B'];
+    $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
+    $scope.series = ['Planned Effort', 'Actual Effort'];
 
     $scope.data= [
       [65, 59, 80, 81, 56, 55, 40],
       [28, 48, 40, 19, 86, 27, 90]
     ];
 
-    $scope.labels1 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    $scope.series1 = ['Series A', 'Series B'];
+    $scope.labels1 = ['Security', 'Smoke', 'Regression', 'Functional'];
+    $scope.series1 = ['Component', 'E2E'];
 
     $scope.data1 = [
       [65, 59, 80, 81, 56, 55, 40]
@@ -47,7 +47,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
 
     $scope.labels11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.series11 = ['Planned Effort', 'Actual Effort'];
+    $scope.series11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
     $scope.data11 = [6, 45, 30, 50, 10, 12, 23, 23];
    
     $scope.LoadAllCharts = function () {
