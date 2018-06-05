@@ -312,6 +312,7 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ChartDataModel.cs" />
     <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\DataSanityModel.cs" />
     <Compile Include="Models\DefectDataModel.cs" />
