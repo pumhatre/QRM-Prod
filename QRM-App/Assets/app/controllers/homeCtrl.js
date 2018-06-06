@@ -26,7 +26,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
     $scope.series = ['Planned Effort', 'Actual Effort'];
 
-    $scope.data= [
+    $scope.data = [
       [65, 59, 80, 81, 56, 55, 40],
       [28, 48, 40, 19, 86, 27, 90]
     ];
@@ -49,11 +49,11 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     $scope.labels11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
     $scope.series11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
     $scope.data11 = [6, 45, 30, 50, 10, 12, 23, 23];
-   
+
     $scope.LoadAllCharts = function () {
         debugger;
         var projectId = 2;
-        var releaseId = 12;
+        var releaseId = 10;
         //chartService.GetEffortDistribution(config, projectId, releaseId)
         //      .then(function (successResponse) {
         //          debugger;
@@ -110,6 +110,37 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         //                   }, function (errorResponse) {
 
         //                   });
+
+        chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+                           .then(function (successResponse) {
+                               debugger;
+                               $scope.ProjectWidgetDashboardLabels = successResponse.labels;
+                               $scope.ProjectWidgetDashboardData = [];
+                               $scope.ProjectWidgetDashboardData[0] = successResponse.datasets[0].data;
+                               $scope.ProjectWidgetDashboardData[1] = successResponse.datasets[1].data;
+                               $scope.ProjectWidgetDashboardColors = [
+                                                             { // grey
+                                                                 backgroundColor: 'rgba(148,159,177,0.2)',
+                                                                 pointBackgroundColor: 'rgba(148,159,177,1)',
+                                                                 pointHoverBackgroundColor: 'rgba(148,159,177,1)',
+                                                                 borderColor: 'rgba(148,159,177,1)',
+                                                                 pointBorderColor: '#fff',
+                                                                 pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+                                                             },
+                                                             { // dark grey
+                                                                 backgroundColor: 'rgba(77,83,96,0.2)',
+                                                                 pointBackgroundColor: 'rgba(77,83,96,1)',
+                                                                 pointHoverBackgroundColor: 'rgba(77,83,96,1)',
+                                                                 borderColor: 'rgba(77,83,96,1)',
+                                                                 pointBorderColor: '#fff',
+                                                                 pointHoverBorderColor: 'rgba(77,83,96,0.8)'
+                                                             }
+                               ];
+                               $scope.ProjectWidgetDashboardOptions = { legend: { display: false } };
+
+                           }, function (errorResponse) {
+
+                           });
 
     }
     //$scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
@@ -457,5 +488,42 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         onRegisterApi: function (gridApi) {
             $scope.mGridApi = gridApi;
         }
+    }
+
+    $scope.loadProjectWidgetDashboard = function () {
+        debugger;
+        var projectId = 2;
+        var releaseId = 10;
+        chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+                          .then(function (successResponse) {
+                              debugger;
+                              $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
+                              $scope.ProjectWidgetDashboardData = [];
+                              $scope.ProjectWidgetDashboardData[0] = successResponse.data.datasets[0].data;
+                              $scope.ProjectWidgetDashboardData[1] = successResponse.data.datasets[1].data;
+                              $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
+                              $scope.ProjectWidgetDashboardColors = [
+                                                            {
+                                                                borderColor: '#FFA500',
+                                                                fillColor:'#000000'
+                                                            },
+                                                            {
+                                                                borderColor: '#86BC25',
+                                                                fillColor: '#000000'
+                                                            }
+                              ];
+                              $scope.ProjectWidgetDashboardOverride = [{
+                                  label: 'Planned Cumulative'
+                              }, {
+                                  label: 'Completed Cumulative'
+                              }];
+                              $scope.ProjectWidgetDashboardOptions = {
+                                 
+                              };
+
+
+                          }, function (errorResponse) {
+
+                          });
     }
 }]);

@@ -20,4 +20,9 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId };
         return $http.post(config.apiUrl + 'api/Chart/GetDefectDetectedPhaseDistribution', data);
     }
+
+    this.GetProjectWidgetDashboard = function (config, projectId, releaseId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId };
+        return $http.post(config.apiUrl + 'api/Chart/GetProjectWidgetDashboard', data);
+    }
 }]);

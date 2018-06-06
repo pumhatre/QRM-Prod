@@ -87,7 +87,7 @@
                         <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#tab_content1" target="_self" id="home-tab"  role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
+                                    <a href="#tab_content1" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
                                 </li>
                                 <li role="presentation" class="">
                                     <a href="#tab_content2" ng-click="LoadMyProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Projects</a>
@@ -112,28 +112,34 @@
                                                                 chart-series="series"
                                                             </canvas>
                                                         </div>
-                                                            <div class="col-md-6">
-                                                                <canvas id="base" class="chart-horizontal-bar"
-                                                                        chart-data="data1" chart-labels="labels1"></canvas> 
-                                                            </div>
-                                                        
-                                                       
+                                                        <div class="col-md-6">
+                                                            <canvas id="base" class="chart-horizontal-bar"
+                                                                    chart-data="data1" chart-labels="labels1"></canvas>
+                                                        </div>
+
+
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <canvas id="doughnutTestCaseComplexity" class="chart chart-doughnut"
-                                                                    chart-data="data12" chart-series="series12"  chart-labels="labels12"></canvas>
+                                                                    chart-data="data12" chart-series="series12" chart-labels="labels12"></canvas>
                                                         </div>
-                                                            <div class="col-md-6">
-                                                                <canvas id="defectDetectedPhase" class="chart chart-doughnut"
-                                                                        chart-data="data11" chart-legend="true" chart-labels="labels11" chart-series="series11"></canvas>
-                                                            </div>
+                                                        <div class="col-md-6">
+                                                            <canvas id="defectDetectedPhase" class="chart chart-doughnut"
+                                                                    chart-data="data11" chart-legend="true" chart-labels="labels11" chart-series="series11"></canvas>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6" ng-init="loadProjectWidgetDashboard();">
+                                                            <canvas id="lineProjectWidgetDashBoard" class="chart chart-line" chart-data="ProjectWidgetDashboardData" chart-options="ProjectWidgetDashboardOptions"
+                                                                    chart-labels="ProjectWidgetDashboardLabels" chart-colors="ProjectWidgetDashboardColors" chart-series="ProjectWidgetDashboardSeries" chart-dataset-override="ProjectWidgetDashboardOverride" legend="true"></canvas>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
+                                </div>
                                 <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="Project-tab">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -175,7 +181,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -353,7 +359,7 @@
         </div>
     </div>
 </div>
-    
+
 
 
 

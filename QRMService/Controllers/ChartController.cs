@@ -92,5 +92,25 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets the project widget dashboard.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectWidgetDashboard(HealthReportRequestModel request)
+        {
+            try
+            {
+                var chartDataModel = ChartRepository.GetDevelopementWidgetDashboard(request.ProjectId, request.ReleaseId);
+                return Ok(chartDataModel);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

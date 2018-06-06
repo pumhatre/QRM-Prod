@@ -8,10 +8,11 @@ namespace QRMService.Models
     public class ChartDataModel
     {
         public List<string> labels { get; set; }
-        public List<Dataset> datasets { get; set; }
+        public List<string> series { get; set; }
+        public List<ChartDataset> datasets { get; set; }
     }
 
-    public class Dataset
+    public class ChartDataset
     {
         public List<int> data { get; set; }
         public string label { get; set; }

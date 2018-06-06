@@ -40,6 +40,7 @@ namespace QRMService.Common
         public const string UspGetTestCaseEffortDistribution = "[Dbo].[uspGetTestCaseEffortDistribution]";
         public const string UspGetTestCaseComplexityDistribution = "[Dbo].[uspGetTestCaseComplexityDistribution]";
         public const string UspGetDefectDetectedPhaseDistribution = "[Dbo].[uspGetDefectDetectedPhaseDistribution]";
+        public const string UspGetDevelopementWidgetDashboard = "[Dbo].[uspGetDevelopementWidgetDashboard]";
         #endregion
 
 
@@ -226,6 +227,14 @@ namespace QRMService.Common
         //    Release,
 
         //}
+
+        public enum ProjectWidgetDashboardColumns
+        {
+            Weekend,
+            PlannedCount,
+            CompletedCount
+        }
+        
 
     }
 
