@@ -111,6 +111,7 @@ namespace QRMService.Repositories
             {
                 //set series for chart data
                 chartDataModel.series = new List<string> { "Planned Cumulative", "Completed Cumulative" };
+                chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -133,7 +134,7 @@ namespace QRMService.Repositories
                 var completedCount = new ChartDataset { fill = false };
                 completedCount.data = new List<int>();
                 completedCount.label = "Completed Cumulative";
-                completedCount.borderColor = "#FFFF00";
+                completedCount.borderColor = "#F7464A";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     completedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.CompletedCount.ToString()));

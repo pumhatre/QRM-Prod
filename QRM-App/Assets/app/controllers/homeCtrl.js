@@ -491,34 +491,26 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     }
 
     $scope.loadProjectWidgetDashboard = function () {
-        debugger;
         var projectId = 2;
         var releaseId = 10;
         chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
                           .then(function (successResponse) {
-                              debugger;
                               $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
                               $scope.ProjectWidgetDashboardData = [];
-                              $scope.ProjectWidgetDashboardData[0] = successResponse.data.datasets[0].data;
-                              $scope.ProjectWidgetDashboardData[1] = successResponse.data.datasets[1].data;
+                              for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                                  $scope.ProjectWidgetDashboardData.push(successResponse.data.datasets[i].data)
+                              }
                               $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
-                              $scope.ProjectWidgetDashboardColors = [
-                                                            {
-                                                                borderColor: '#FFA500',
-                                                                fillColor:'#000000'
-                                                            },
-                                                            {
-                                                                borderColor: '#86BC25',
-                                                                fillColor: '#000000'
-                                                            }
-                              ];
-                              $scope.ProjectWidgetDashboardOverride = [{
-                                  label: 'Planned Cumulative'
-                              }, {
-                                  label: 'Completed Cumulative'
-                              }];
+                              $scope.ProjectWidgetDashboardColors = [];
+                              for (var i = 0; i < successResponse.data.colors.length; i++) {
+                                  $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
+                              }
+                              $scope.ProjectWidgetDashboardOverride = [];
+                              for (var i = 0; i < successResponse.data.series.length; i++) {
+                                  $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
+                              }
                               $scope.ProjectWidgetDashboardOptions = {
-                                 
+
                               };
 
 

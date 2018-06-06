@@ -9,6 +9,7 @@ namespace QRMService.Models
     {
         public List<string> labels { get; set; }
         public List<string> series { get; set; }
+        public List<string> colors { get; set; }
         public List<ChartDataset> datasets { get; set; }
     }
 
