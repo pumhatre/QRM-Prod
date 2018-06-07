@@ -24,7 +24,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     }
 
 
- 
+
     $scope.LoadAllCharts = function () {
         debugger;
         var projectId = 2;
@@ -74,7 +74,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                        $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
                                    }
                                }
-                              
+
                                $scope.TestCaseComplexityDistributionSeries = successResponse.data[0].series;
                                $scope.TestCaseComplexityDistributionColors = [];
                                for (var i = 0; i < successResponse.data[0].colors.length; i++) {
@@ -127,7 +127,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
                            });
     }
-   
+
 
 
     $scope.OpenMetricsPopUp = function (projectId) {
@@ -468,91 +468,6 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         }
     }
 
-    //$scope.loadProjectWidgetDashboard = function () {
-    //    var projectId = 2;
-    //    var releaseId = 10;
-    //    chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
-    //                      .then(function (successResponse) {
-    //                          $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
-    //                          $scope.ProjectWidgetDashboardData = [];
-    //                          for (var i = 0; i < successResponse.data.datasets.length; i++) {
-    //                              $scope.ProjectWidgetDashboardData.push(successResponse.data.datasets[i].data)
-    //                          }
-    //                          $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
-    //                          $scope.ProjectWidgetDashboardColors = [];
-    //                          for (var i = 0; i < successResponse.data.colors.length; i++) {
-    //                              $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
-    //                          }
-    //                          $scope.ProjectWidgetDashboardOverride = [];
-    //                          for (var i = 0; i < successResponse.data.series.length; i++) {
-    //                              $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
-    //                          }
-    //                          $scope.ProjectWidgetDashboardOptions = {
-
-    //                          };
-
-
-    //                      }, function (errorResponse) {
-
-                          });
-    }
-
-    $scope.loadSITDefectSeverity = function () {
-        var projectId = 2;
-        var releaseId = 10;
-        chartService.GetSITDefectSeverity(config, projectId, releaseId)
-                          .then(function (successResponse) {
-                              $scope.SITDefectSeverityLabels = successResponse.data.labels;
-                              $scope.SITDefectSeverityData = [];
-                              for (var i = 0; i < successResponse.data.values.length; i++) {
-                                  $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
-                              }
-                              $scope.SITDefectSeverityOptions = {
-                                  responsive: true,
-                                  legend: { position: 'bottom' }
-                              }
-
-
-                          }, function (errorResponse) {
-
-                          });
-    }
-
-    $scope.loadDefectTypeDistribution = function () {
-        var projectId = 2;
-        var releaseId = 10;
-        chartService.GetDefectTypeDistribution(config, projectId, releaseId)
-                          .then(function (successResponse) {
-                              $scope.DefectTypeDistributionLabels = successResponse.data.labels;
-                              $scope.DefectTypeDistributionData = [];
-                              for (var i = 0; i < successResponse.data.values.length; i++) {
-                                  $scope.DefectTypeDistributionData.push(successResponse.data.values[i]);
-                              }
-                              $scope.DefectTypeDistributionOptions = {
-                                  legend: { position: 'right' },
-                                  responsive: true,  // set to false to remove responsiveness. Default responsive value is true.
-                                  tooltips: {
-                                      callbacks: {
-                                          label: function (tooltipItem, data) {
-                                              debugger;
-                                              var dataset = data.datasets[tooltipItem.datasetIndex];
-                                              var label = data.labels[tooltipItem.datasetIndex];
-                                              var currentValue = dataset.data[tooltipItem.index];
-                                              //var precentage = Math.floor(((currentValue / total) * 100) + 0.5);
-                                              return label + ": " + currentValue + "%";
-                                          }
-                                      }
-                                  }
-                              }
-                              $scope.DefectTypeDistributionDatasetOverride = [];
-                              for (var i = 0; i < $scope.DefectTypeDistributionLabels.length; i++) {
-                                  $scope.DefectTypeDistributionDatasetOverride.push({
-                                      label: $scope.DefectTypeDistributionLabels[i]
-                                  });
-                              }
-                          }, function (errorResponse) {
-
-                          });
-    }
+   
 
 }]);

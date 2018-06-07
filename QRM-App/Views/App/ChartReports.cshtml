@@ -6,7 +6,7 @@
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="tab_content2" aria-labelledby="Project-tab">
-            
+
             <div class="x_panel">
                 <div class="x_content" style="align-content:center;">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -15,7 +15,7 @@
                                 <div class="col-md-3"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="getProjectReleases(selectedProjectReleaseDropdown)">
+                                    <select class="form-control" ng-model="selectedProjectDropdown" ng-change="getProjectReleases(selectedProjectDropdown)">
                                         <option value="">Select a Project</option>
                                         <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
                                     </select>
@@ -28,8 +28,8 @@
                                 <div class="col-md-3"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectReleaseDropdown,selectedReleaseDropdown)">
-                                        @*<option value="">Select a Release</option>*@
+                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectDropdown,selectedReleaseDropdown)">
+                                     
                                         <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
                                     </select>
                                 </div>
@@ -37,6 +37,54 @@
                             </div>
                             <br>
                             <br>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Chart Type</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="selectedChartType" ng-change="DisplayChart(selectedProjectDropdown,selectedReleaseDropdown)">
+                                        <option value="">Select Chart Type</option>
+                                        <optgroup label="Ongoing charts">
+                                            <option value="DWD">Development Widget Dashboard</option>
+                                            <option value="SEG">SIT Execution Graph</option>
+                                            <option value="SDG">SIT Defect Graph</option>
+                                            <option value="SDSD">SIT Defect Severity Distribution</option>
+                                            <option value="DTD">Defect Type Distribution</option>
+                                        </optgroup>
+                                        <optgroup label="Release-end charts">
+                                            <option value="ED">Effort Distribution</option>
+                                            <option value="TCD">Test Case Distribution</option>
+                                            <option value="TCCD">Test case complexity distribution</option>
+                                            <option value="DDPD">Defect Detected Phase Distribution</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" ng-switch="selectedChartType">
+                                    <canvas ng-switch-when="DWD" id="lineProjectWidgetDashBoard" class="chart chart-line"
+                                            chart-data="ProjectWidgetDashboardData"
+                                            chart-options="ProjectWidgetDashboardOptions"
+                                            chart-labels="ProjectWidgetDashboardLabels"
+                                            chart-colors="ProjectWidgetDashboardColors"
+                                            chart-series="ProjectWidgetDashboardSeries"
+                                            chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
+                                    <canvas ng-switch-when="SDSD" id="SITDefectSeverityDistribution" class="chart chart-doughnut"
+                                            chart-data="SITDefectSeverityData"
+                                            chart-labels="SITDefectSeverityLabels"
+                                            chart-options="SITDefectSeverityOptions"></canvas>
+                                    <canvas ng-switch-when="DTD" id="SITDefectSeverityDistribution" class="chart chart-doughnut"
+                                            chart-data="DefectTypeDistributionData"
+                                            chart-labels="DefectTypeDistributionLabels"
+                                            chart-options="DefectTypeDistributionOptions"
+                                            chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
+                                    <p ng-switch-default></p>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
