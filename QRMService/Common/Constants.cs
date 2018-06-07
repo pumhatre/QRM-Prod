@@ -39,7 +39,7 @@ namespace QRMService.Common
         public const string UspGetEffortDistribution = "[Dbo].[uspGetEffortDistribution]";
         public const string UspGetTestCaseEffortDistribution = "[Dbo].[uspGetTestCaseEffortDistribution]";
         public const string UspGetTestCaseComplexityDistribution = "[Dbo].[uspGetTestCaseComplexityDistribution]";
-        public const string UspGetDefectDetectedPhaseDistribution = "[Dbo].[uspGetDefectDetectedPhaseDistribution]";
+        public const string UspGetDefectDetectedPhaseDistribution = "[Dbo].[uspGetDefectDetectionPhase]";
         public const string UspGetDevelopementWidgetDashboard = "[Dbo].[uspGetDevelopementWidgetDashboard]";
         #endregion
 
@@ -216,6 +216,25 @@ namespace QRMService.Common
             EffortType,
             PlannedEffortPercentage,
             ActualEffortPercentage
+        }
+
+        public enum ProjectTestCaseDistributionColumnName
+        {
+            TestingType,
+            ComponentPercentage,
+            E2EPercentage
+        }
+
+        public enum ProjectDefectDetectionPhaseColumnName
+        {
+            DetectedStage,
+            DefectPhasePercentage
+        }
+
+        public enum ProjectTestCaseComplexityDistributionColumnName
+        {
+            TestingType,
+            TestCasePercentage
         }
 
         //public enum TestTablesColumnName

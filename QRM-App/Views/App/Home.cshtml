@@ -87,7 +87,7 @@
                         <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#tab_content1" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
+                                    <a href="#tab_content1" target="_self" ng-click="LoadAllCharts()" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
                                 </li>
                                 <li role="presentation" class="">
                                     <a href="#tab_content2" ng-click="LoadMyProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Projects</a>
@@ -107,26 +107,25 @@
                                                 <div class="form-group">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <canvas id="bar" class="chart chart-bar"
-                                                                    chart-data="data" chart-labels="labels">
+                                                            <canvas id="bar" class="chart chart-bar" chart-colors="ProjectEffortDataColors"
+                                                                    chart-data="ProjectEffortData" chart-labels="labels"  chart-series="ProjectEffortDataSeries">
                                                                 chart-series="series"
                                                             </canvas>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <canvas id="base" class="chart-horizontal-bar"
-                                                                    chart-data="data1" chart-labels="labels1"></canvas>
+                                                            <canvas id="base" class="chart-horizontal-bar" chart-colors="TestCaseDistributionColors"
+                                                                    chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries"></canvas>
                                                         </div>
-
 
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <canvas id="doughnutTestCaseComplexity" class="chart chart-doughnut"
-                                                                    chart-data="data12" chart-series="series12" chart-labels="labels12"></canvas>
+                                                            <canvas id="doughnutTestCaseComplexity" class="chart chart-doughnut" chart-colors="TestCaseComplexityDistributionColors"
+                                                                    chart-data="TestCaseComplexityDistribution" chart-series="TestCaseComplexityDistributionSeries" chart-labels="labels4"></canvas>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <canvas id="defectDetectedPhase" class="chart chart-doughnut"
-                                                                    chart-data="data11" chart-legend="true" chart-labels="labels11" chart-series="series11"></canvas>
+                                                            <canvas id="defectDetectedPhase" class="chart chart-doughnut" chart-colors="DefectDetectedPhaseColors"
+                                                                    chart-data="DefectDetectedPhase"  chart-labels="labels3" chart-series="DefectDetectedPhaseSeries"></canvas>
                                                         </div>
                                                     </div>
                                                     <div class="row">

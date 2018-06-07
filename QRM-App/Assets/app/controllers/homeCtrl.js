@@ -23,133 +23,111 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
-    $scope.series = ['Planned Effort', 'Actual Effort'];
 
-    $scope.data = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ];
-
-    $scope.labels1 = ['Security', 'Smoke', 'Regression', 'Functional'];
-    $scope.series1 = ['Component', 'E2E'];
-
-    $scope.data1 = [
-      [65, 59, 80, 81, 56, 55, 40]
-    ];
-
-    $scope.labels12 = ["Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.data12 = [
-    [65, 59, 80, 81, 56, 55],
-    [28, 48, 40, 19, 86, 27]
-    ];
-    $scope.series12 = ['Simple', 'Medium', 'Complex', 'Very Complex'];
-
-
-    $scope.labels11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.series11 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.data11 = [6, 45, 30, 50, 10, 12, 23, 23];
-
+ 
     $scope.LoadAllCharts = function () {
         debugger;
         var projectId = 2;
         var releaseId = 10;
-        //chartService.GetEffortDistribution(config, projectId, releaseId)
-        //      .then(function (successResponse) {
-        //          debugger;
-        //          //$scope.projectGrid.data = successResponse.data;
-        //          $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        //          $scope.series = ['Series A', 'Series B'];
-        //          $scope.data = [
-        //            [65, 59, 80, 81, 56, 55, 40],
-        //            [28, 48, 40, 19, 86, 27, 90]
-        //          ];
-        //      }, function (errorResponse) {
+        chartService.GetEffortDistribution(config, projectId, releaseId)
+              .then(function (successResponse) {
+                  debugger;
+                  $scope.labels = successResponse.data.labels;
+                  $scope.ProjectEffortData = [];
+                  for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                      $scope.ProjectEffortData.push(successResponse.data.datasets[i].data)
+                  }
+                  $scope.ProjectEffortDataSeries = successResponse.data.series;
+                  $scope.ProjectEffortDataColors = [];
+                  for (var i = 0; i < successResponse.data.colors.length; i++) {
+                      $scope.ProjectEffortDataColors.push({ borderColor: successResponse.data.colors[i] });
+                  }
+              }, function (errorResponse) {
 
-        //      });
+              });
 
 
-        //chartService.GetTestCaseDistribution(config, projectId, releaseId)
-        //            .then(function (successResponse) {
-        //                debugger;
-        //                //$scope.projectGrid.data = successResponse.data;
-        //                $scope.labels1 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        //                $scope.series1= ['Series A', 'Series B'];
-        //                $scope.data1 = [
-        //                  [65, 59, 80, 81, 56, 55, 40],
-        //                  [28, 48, 40, 19, 86, 27, 90]
-        //                ];
-        //            }, function (errorResponse) {
+        chartService.GetTestCaseDistribution(config, projectId, releaseId)
+                    .then(function (successResponse) {
+                        debugger;
+                        $scope.labels1 = successResponse.data.labels;
+                        $scope.TestCaseDistribution = [];
+                        for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                            $scope.TestCaseDistribution.push(successResponse.data.datasets[i].data)
+                        }
+                        $scope.TestCaseDistributionSeries = successResponse.data.series;
+                        $scope.TestCaseDistributionColors = [];
+                        for (var i = 0; i < successResponse.data.colors.length; i++) {
+                            $scope.TestCaseDistributionColors.push({ borderColor: successResponse.data.colors[i] });
+                        }
+                    }, function (errorResponse) {
 
-        //            });
+                    });
 
-        //chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
-        //                   .then(function (successResponse) {
-        //                       debugger;
-        //                       //$scope.projectGrid.data = successResponse.data;
-        //                       $scope.labels2 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        //                       $scope.series2 = ['Series A', 'Series B'];
-        //                       $scope.data2 = [
-        //                         [65, 59, 80, 81, 56, 55, 40],
-        //                         [28, 48, 40, 19, 86, 27, 90]
-        //                       ];
-        //                   }, function (errorResponse) {
-
-        //                   });
-
-        //chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
-        //                   .then(function (successResponse) {
-        //                       debugger;
-        //                       //$scope.projectGrid.data = successResponse.data;
-        //                       $scope.labels3 = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        //                       $scope.series3 = ['Series A', 'Series B'];
-        //                       $scope.data3 = [
-        //                         [65, 59, 80, 81, 56, 55, 40],
-        //                         [28, 48, 40, 19, 86, 27, 90]
-        //                       ];
-        //                   }, function (errorResponse) {
-
-        //                   });
-
-        chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+        chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
                            .then(function (successResponse) {
                                debugger;
-                               $scope.ProjectWidgetDashboardLabels = successResponse.labels;
-                               $scope.ProjectWidgetDashboardData = [];
-                               $scope.ProjectWidgetDashboardData[0] = successResponse.datasets[0].data;
-                               $scope.ProjectWidgetDashboardData[1] = successResponse.datasets[1].data;
-                               $scope.ProjectWidgetDashboardColors = [
-                                                             { // grey
-                                                                 backgroundColor: 'rgba(148,159,177,0.2)',
-                                                                 pointBackgroundColor: 'rgba(148,159,177,1)',
-                                                                 pointHoverBackgroundColor: 'rgba(148,159,177,1)',
-                                                                 borderColor: 'rgba(148,159,177,1)',
-                                                                 pointBorderColor: '#fff',
-                                                                 pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-                                                             },
-                                                             { // dark grey
-                                                                 backgroundColor: 'rgba(77,83,96,0.2)',
-                                                                 pointBackgroundColor: 'rgba(77,83,96,1)',
-                                                                 pointHoverBackgroundColor: 'rgba(77,83,96,1)',
-                                                                 borderColor: 'rgba(77,83,96,1)',
-                                                                 pointBorderColor: '#fff',
-                                                                 pointHoverBorderColor: 'rgba(77,83,96,0.8)'
-                                                             }
-                               ];
-                               $scope.ProjectWidgetDashboardOptions = { legend: { display: false } };
-
+                               $scope.labels4 = successResponse.data[0].labels;
+                               $scope.TestCaseComplexityDistribution = [successResponse.data.length];
+                               for (var j = 0; j < successResponse.data.length; j++) {
+                                   for (var i = 0; i < successResponse.data[j].datasets.length; i++) {
+                                       $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
+                                   }
+                               }
+                              
+                               $scope.TestCaseComplexityDistributionSeries = successResponse.data[0].series;
+                               $scope.TestCaseComplexityDistributionColors = [];
+                               for (var i = 0; i < successResponse.data[0].colors.length; i++) {
+                                   $scope.TestCaseComplexityDistribution.push({ borderColor: successResponse.data.colors[i] });
+                               }
                            }, function (errorResponse) {
 
                            });
 
-    }
-    //$scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    //$scope.series = ['Series A', 'Series B'];
+        chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
+                           .then(function (successResponse) {
+                               debugger;
+                               $scope.labels3 = successResponse.data.labels;
+                               $scope.DefectDetectedPhase = [];
+                               $scope.DefectDetectedPhase = [];
+                               for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                                   $scope.DefectDetectedPhase.push(successResponse.data.datasets[i].data)
+                               }
+                               $scope.DefectDetectedPhaseSeries = successResponse.data.series;
+                               $scope.DefectDetectedPhaseColors = [];
+                               for (var i = 0; i < successResponse.data.colors.length; i++) {
+                                   $scope.DefectDetectedPhaseColors.push({ borderColor: successResponse.data.colors[i] });
+                               }
+                           }, function (errorResponse) {
 
-    //$scope.data = [
-    //  [65, 59, 80, 81, 56, 55, 40],
-    //  [28, 48, 40, 19, 86, 27, 90]
-    //];
+                           });
+
+        chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+                           .then(function (successResponse) {
+                               $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
+                               $scope.ProjectWidgetDashboardData = [];
+                               for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                                   $scope.ProjectWidgetDashboardData.push(successResponse.data.datasets[i].data)
+                               }
+                               $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
+                               $scope.ProjectWidgetDashboardColors = [];
+                               for (var i = 0; i < successResponse.data.colors.length; i++) {
+                                   $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
+                               }
+                               $scope.ProjectWidgetDashboardOverride = [];
+                               for (var i = 0; i < successResponse.data.series.length; i++) {
+                                   $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
+                               }
+                               $scope.ProjectWidgetDashboardOptions = {
+
+                               };
+
+
+                           }, function (errorResponse) {
+
+                           });
+    }
+   
 
 
     $scope.OpenMetricsPopUp = function (projectId) {
@@ -490,32 +468,32 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         }
     }
 
-    $scope.loadProjectWidgetDashboard = function () {
-        var projectId = 2;
-        var releaseId = 10;
-        chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
-                          .then(function (successResponse) {
-                              $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
-                              $scope.ProjectWidgetDashboardData = [];
-                              for (var i = 0; i < successResponse.data.datasets.length; i++) {
-                                  $scope.ProjectWidgetDashboardData.push(successResponse.data.datasets[i].data)
-                              }
-                              $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
-                              $scope.ProjectWidgetDashboardColors = [];
-                              for (var i = 0; i < successResponse.data.colors.length; i++) {
-                                  $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
-                              }
-                              $scope.ProjectWidgetDashboardOverride = [];
-                              for (var i = 0; i < successResponse.data.series.length; i++) {
-                                  $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
-                              }
-                              $scope.ProjectWidgetDashboardOptions = {
+    //$scope.loadProjectWidgetDashboard = function () {
+    //    var projectId = 2;
+    //    var releaseId = 10;
+    //    chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+    //                      .then(function (successResponse) {
+    //                          $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
+    //                          $scope.ProjectWidgetDashboardData = [];
+    //                          for (var i = 0; i < successResponse.data.datasets.length; i++) {
+    //                              $scope.ProjectWidgetDashboardData.push(successResponse.data.datasets[i].data)
+    //                          }
+    //                          $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
+    //                          $scope.ProjectWidgetDashboardColors = [];
+    //                          for (var i = 0; i < successResponse.data.colors.length; i++) {
+    //                              $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
+    //                          }
+    //                          $scope.ProjectWidgetDashboardOverride = [];
+    //                          for (var i = 0; i < successResponse.data.series.length; i++) {
+    //                              $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
+    //                          }
+    //                          $scope.ProjectWidgetDashboardOptions = {
 
-                              };
+    //                          };
 
 
-                          }, function (errorResponse) {
+    //                      }, function (errorResponse) {
 
-                          });
-    }
+    //                      });
+    //}
 }]);

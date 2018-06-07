@@ -22,11 +22,6 @@ namespace QRMService.Controllers
             try
             {
                 var effortDistribution = ChartRepository.GetEffortDistribution(request.ProjectId, request.ReleaseId);
-                SingleChartList obj = new SingleChartList();
-                foreach (var item in effortDistribution)
-                {
-                    obj.Label.Add(item.EffortType);
-                }
                 return Ok(effortDistribution);
 
             }
