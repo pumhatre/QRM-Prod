@@ -29,7 +29,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
                                 <div class="col-md-3">
                                     <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectDropdown,selectedReleaseDropdown)">
-                                     
+
                                         <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
                                     </select>
                                 </div>
@@ -65,22 +65,35 @@
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8" ng-switch="selectedChartType">
-                                    <canvas ng-switch-when="DWD" id="lineProjectWidgetDashBoard" class="chart chart-line"
-                                            chart-data="ProjectWidgetDashboardData"
-                                            chart-options="ProjectWidgetDashboardOptions"
-                                            chart-labels="ProjectWidgetDashboardLabels"
-                                            chart-colors="ProjectWidgetDashboardColors"
-                                            chart-series="ProjectWidgetDashboardSeries"
-                                            chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
-                                    <canvas ng-switch-when="SDSD" id="SITDefectSeverityDistribution" class="chart chart-doughnut"
-                                            chart-data="SITDefectSeverityData"
-                                            chart-labels="SITDefectSeverityLabels"
-                                            chart-options="SITDefectSeverityOptions"></canvas>
-                                    <canvas ng-switch-when="DTD" id="SITDefectSeverityDistribution" class="chart chart-doughnut"
-                                            chart-data="DefectTypeDistributionData"
-                                            chart-labels="DefectTypeDistributionLabels"
-                                            chart-options="DefectTypeDistributionOptions"
-                                            chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
+                                    <div ng-switch-when="DWD">
+                                        <br />
+                                        <h4 style="text-align:center;">Developement Widget Dashboard</h4>
+                                        <canvas id="lineProjectWidgetDashBoard" class="chart chart-line"
+                                                chart-data="ProjectWidgetDashboardData"
+                                                chart-options="ProjectWidgetDashboardOptions"
+                                                chart-labels="ProjectWidgetDashboardLabels"
+                                                chart-colors="ProjectWidgetDashboardColors"
+                                                chart-series="ProjectWidgetDashboardSeries"
+                                                chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
+                                    </div>
+                                    <div ng-switch-when="SDSD">
+                                        <br />
+                                        <h4 style="text-align:center;">SIT Defect Severity Distribution</h4>
+                                        <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
+                                                chart-data="SITDefectSeverityData"
+                                                chart-labels="SITDefectSeverityLabels"
+                                                chart-options="SITDefectSeverityOptions"></canvas>
+                                    </div>
+                                    <div ng-switch-when="DTD">
+                                        <br />
+                                        <h4 style="text-align:center;">Defect Type Distribution</h4>
+                                        <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
+                                                chart-data="DefectTypeDistributionData"
+                                                chart-labels="DefectTypeDistributionLabels"
+                                                chart-options="DefectTypeDistributionOptions"
+                                                chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
+                                    </div>
+
                                     <p ng-switch-default></p>
                                 </div>
                                 <div class="col-md-2"></div>

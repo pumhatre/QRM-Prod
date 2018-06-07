@@ -87,6 +87,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         $scope.loadDefectTypeDistribution = function (projectId, releaseId) {
+            debugger;
             chartService.GetDefectTypeDistribution(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.DefectTypeDistributionLabels = successResponse.data.labels;
@@ -102,7 +103,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                               label: function (tooltipItem, data) {
                                                   debugger;
                                                   var dataset = data.datasets[tooltipItem.datasetIndex];
-                                                  var label = data.labels[tooltipItem.datasetIndex];
+                                                  var label = data.labels[tooltipItem.index];
                                                   var currentValue = dataset.data[tooltipItem.index];
                                                   return label + ": " + currentValue + "%";
                                               }
