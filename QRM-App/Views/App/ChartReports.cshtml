@@ -1,0 +1,46 @@
+﻿<div class="x_panel" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Chart Reports</h3>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab_content2" aria-labelledby="Project-tab">
+            
+            <div class="x_panel">
+                <div class="x_content" style="align-content:center;">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_content">
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="selectedProjectReleaseDropdown" ng-change="getProjectReleases(selectedProjectReleaseDropdown)">
+                                        <option value="">Select a Project</option>
+                                        <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectReleaseDropdown,selectedReleaseDropdown)">
+                                        @*<option value="">Select a Release</option>*@
+                                        <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
