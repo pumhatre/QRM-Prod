@@ -220,5 +220,57 @@ namespace QRMService.Repositories
             }
             return chartDataModel;
         }
+
+        public static ChartDataModel GetSITDefectSeverity(int projectId, int releaseId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
+            var chartData = helper.GetDataTableByProcedure(Constants.UspGetSITDefectSeverityDistribution, "default", true, parameters.ToArray());
+            var chartDataModel = new ChartDataModel();
+            if (chartData != null && chartData.Rows.Count > 0)
+            {
+                chartDataModel.labels = new List<string>();
+                // set dataset for line chart
+                chartDataModel.datasets = new List<ChartDataset>();
+                // set defect Severity data
+                chartDataModel.values = new List<int>();
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    // set labels
+                    chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(DefectDistributionColumns.DefectSeverity.ToString()), row.Field<int>(DefectDistributionColumns.CountPercentage.ToString())));
+                    // set data
+                    chartDataModel.values.Add(row.Field<int>(DefectDistributionColumns.DefectCount.ToString()));
+                });
+            }
+            return chartDataModel;
+        }
+
+        public static ChartDataModel GetDefectTypeDistribution(int projectId, int releaseId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
+            var chartData = helper.GetDataTableByProcedure(Constants.UspGetDefectTypeDistribution, "default", true, parameters.ToArray());
+            var chartDataModel = new ChartDataModel();
+            if (chartData != null && chartData.Rows.Count > 0)
+            {
+                chartDataModel.labels = new List<string>();
+                // set dataset for line chart
+                chartDataModel.datasets = new List<ChartDataset>();
+                // set defect Severity data
+                chartDataModel.values = new List<int>();
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    // set labels
+                    chartDataModel.labels.Add(row.Field<string>(DefectDistributionColumns.DefectType.ToString()));
+                    // set data
+                    chartDataModel.values.Add(row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()));
+                });
+            }
+            return chartDataModel;
+        }
     }
 }

@@ -32,7 +32,9 @@
     'upload',
     'stepTabs',
     'uploadFile',
-    'splitFilter'
+    'splitFilter',
+    'charts',
+    'metricReport'
 ]);
 
 app.constant('config', {
@@ -120,6 +122,14 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/Upload', {
         templateUrl: '/App/UploadWizard',
         controller: 'uploadCtrl'
+    });
+    $routeProvider.when('/Chart', {
+        templateUrl: '/App/ChartReports',
+        controller: 'chartsCtrl'
+    });
+    $routeProvider.when('/Metric', {
+        templateUrl: '/App/MetricReports',
+        controller: 'metricReportCtrl'
     });
 
     $routeProvider.otherwise({

@@ -107,5 +107,45 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets the sit defect severity.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetSITDefectSeverity(HealthReportRequestModel request)
+        {
+            try
+            {
+                var chartDataModel = ChartRepository.GetSITDefectSeverity(request.ProjectId, request.ReleaseId);
+                return Ok(chartDataModel);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the defect type distribution.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetDefectTypeDistribution(HealthReportRequestModel request)
+        {
+            try
+            {
+                var chartDataModel = ChartRepository.GetDefectTypeDistribution(request.ProjectId, request.ReleaseId);
+                return Ok(chartDataModel);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

@@ -133,6 +133,19 @@
                                                             <canvas id="lineProjectWidgetDashBoard" class="chart chart-line" chart-data="ProjectWidgetDashboardData" chart-options="ProjectWidgetDashboardOptions"
                                                                     chart-labels="ProjectWidgetDashboardLabels" chart-colors="ProjectWidgetDashboardColors" chart-series="ProjectWidgetDashboardSeries" chart-dataset-override="ProjectWidgetDashboardOverride" legend="true"></canvas>
                                                         </div>
+                                                        <div class="col-md-6" ng-init="loadSITDefectSeverity();">
+                                                            <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
+                                                                    chart-data="SITDefectSeverityData" chart-labels="SITDefectSeverityLabels" chart-options="SITDefectSeverityOptions"></canvas>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6" ng-init="loadDefectTypeDistribution();">
+                                                            <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
+                                                                    chart-data="DefectTypeDistributionData" 
+                                                                    chart-labels="DefectTypeDistributionLabels" 
+                                                                    chart-options="DefectTypeDistributionOptions"
+                                                                    chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
+                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -25,4 +25,14 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId };
         return $http.post(config.apiUrl + 'api/Chart/GetProjectWidgetDashboard', data);
     }
+
+    this.GetSITDefectSeverity = function (config, projectId, releaseId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId };
+        return $http.post(config.apiUrl + 'api/Chart/GetSITDefectSeverity', data);
+    }
+
+    this.GetDefectTypeDistribution = function (config, projectId, releaseId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId };
+        return $http.post(config.apiUrl + 'api/Chart/GetDefectTypeDistribution', data);
+    }
 }]);
