@@ -41,6 +41,8 @@ namespace QRMService.Common
         public const string UspGetTestCaseComplexityDistribution = "[Dbo].[uspGetTestCaseComplexityDistribution]";
         public const string UspGetDefectDetectedPhaseDistribution = "[Dbo].[uspGetDefectDetectedPhaseDistribution]";
         public const string UspGetDevelopementWidgetDashboard = "[Dbo].[uspGetDevelopementWidgetDashboard]";
+        public const string UspGetSITDefectSeverityDistribution = "[Dbo].[uspGetSITDefectSeverityDistribution]";
+        public const string UspGetDefectTypeDistribution = "[Dbo].[uspGetDefectTypeDistribution]";
         #endregion
 
 
@@ -234,8 +236,14 @@ namespace QRMService.Common
             PlannedCount,
             CompletedCount
         }
-        
 
+        public enum DefectDistributionColumns
+        {
+            DefectSeverity,
+            DefectType,
+            DefectCount,
+            CountPercentage
+        }
     }
 
 
