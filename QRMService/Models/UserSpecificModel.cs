@@ -21,5 +21,6 @@ namespace QRMService.Models
         public string Director { get; set; }
         public string SeniorManager { get; set; }
         public string ProjectManager { get; set; }
+        public string QualityController { get; set; }
     }
 }

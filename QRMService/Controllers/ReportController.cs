@@ -359,6 +359,35 @@ namespace QRMService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets productivity Dashboard
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProductivityDashboard()
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivity();
+                for (int j = 0; j < productivity.Count; j++)
+                {
+                    for (int i = 0; i < productivity[j].productivities.Count; i++)
+                    {
+                        if (i % 4 == 0)
+                        {
+                            productivity[j].productivities[i].spanEffort = 7;
+                        }
+                    }
+                }
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
 
     }
 }

@@ -52,6 +52,7 @@ namespace QRMService.Repositories
                     Solution = a.Solution,
                     Director = a.Director,
                     SeniorManager = a.SeniorManager,
+                    QualityController= a.QualityController,
                 }).ToList();
 
                 var refData = db.ReferenceTables.Where(a => a.ReferenceTableName == Constants.ServiceLineTableName ||
@@ -112,7 +113,8 @@ namespace QRMService.Repositories
                         Solution = projectMaster.Solution,
                         Director = projectMaster.Director,
                         SeniorManager = projectMaster.SeniorManager,
-                        IsActive = true
+                        QualityController = projectMaster.QualityController,
+                    IsActive = true
                     };
 
                     db.ProjectMasters.Add(project);
@@ -136,7 +138,7 @@ namespace QRMService.Repositories
                     project.Solution = projectMaster.Solution;
                     project.Director = projectMaster.Director;
                     project.SeniorManager = projectMaster.SeniorManager;
-
+                    project.QualityController = projectMaster.QualityController;
                     db.Entry(project).State = EntityState.Modified;
                     db.SaveChanges();
                     response.IsSuccess = true;
