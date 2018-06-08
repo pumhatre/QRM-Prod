@@ -26,7 +26,7 @@ namespace QRMService.Repositories
             {
                 //set series for chart data
                 chartDataModel.series = new List<string> { "Planned", "Actual" };
-                chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
+                chartDataModel.colors = new List<string> { "#FFA500", "#1E90FF" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -49,7 +49,7 @@ namespace QRMService.Repositories
                 var plannedCount = new ChartDatasetDecimal { fill = false };
                 plannedCount.data = new List<decimal>();
                 plannedCount.label = "Planned";
-                plannedCount.borderColor = "#F7464A";
+                plannedCount.borderColor = "#1E90FF";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     plannedCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.PlannedEffortPercentage.ToString()));
@@ -72,7 +72,7 @@ namespace QRMService.Repositories
             {
                 //set series for chart data
                 chartDataModel.series = new List<string> { "Component", "E2E" };
-                chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
+                chartDataModel.colors = new List<string> { "#FFA500", "#1E90FF" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -95,7 +95,7 @@ namespace QRMService.Repositories
                 var e2ePercentangeCount = new ChartDatasetDecimal { fill = false };
                 e2ePercentangeCount.data = new List<decimal>();
                 e2ePercentangeCount.label = "Planned";
-                e2ePercentangeCount.borderColor = "#F7464A";
+                e2ePercentangeCount.borderColor = "#1E90FF";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     e2ePercentangeCount.data.Add(row.Field<decimal>(ProjectTestCaseDistributionColumnName.E2EPercentage.ToString()));
@@ -153,7 +153,8 @@ namespace QRMService.Repositories
                 chartDataModel.series = new List<string> { "Requirements Review", "Architecture Review","Functional Design Review","Technical Design Review" ,"Unit Test Case Review","Code Review",
                     "Unit Testing","System Test Case Review","SIT Component","SIT E2E","Integration Testing", "Performance Testing","Smoke Testing","Regression Testing" ,
                     "Security Testing","Data Conversion Testing","UAT","Deploy","Post Delivery" };
-                chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
+                chartDataModel.colors = new List<string> { "#FFA500", "#F7464A","#1E90FF", "#32CD32", "#FFFF00", "#FA8072", "#FFFFFF", "#0000FF", "#FF0000",
+                "#800000","#808000","#008000","#FF00FF","#800080"};
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>

@@ -87,7 +87,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         $scope.loadDefectTypeDistribution = function (projectId, releaseId) {
-            debugger;
             chartService.GetDefectTypeDistribution(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.DefectTypeDistributionLabels = successResponse.data.labels;
@@ -141,7 +140,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.loadTestCaseDistribution = function (projectId, releaseId) {
             chartService.GetTestCaseDistribution(config, projectId, releaseId)
                   .then(function (successResponse) {
-                      debugger;
                       $scope.labels1 = successResponse.data.labels;
                       $scope.TestCaseDistribution = [];
                       for (var i = 0; i < successResponse.data.datasets.length; i++) {
@@ -180,7 +178,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.loadDefectDetectedPhaseDistribution = function (projectId, releaseId) {
             chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
                         .then(function (successResponse) {
-                            debugger;
                             $scope.labels3 = successResponse.data.labels;
                             $scope.DefectDetectedPhase = [];
                             $scope.DefectDetectedPhase = [];
