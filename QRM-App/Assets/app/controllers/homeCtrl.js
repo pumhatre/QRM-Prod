@@ -260,7 +260,10 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         exporterPdfMaxGridWidth: 500,
         exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
         onRegisterApi: function (gridApi) {
-            $scope.mGridApi = gridApi;
+            $scope.mGridApi = gridApi;            
+            if ($cookies.get('_IsSuperUser')== "false") {
+                $scope.projectGrid.columnDefs[6].visible = false
+            }
         }
     }
 

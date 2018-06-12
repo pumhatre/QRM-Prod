@@ -764,8 +764,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
                 { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                { field: 'USL', name: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', name: 'LSL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' },
                 { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
             ],
             onRegisterApi: function (gridApi) {
@@ -784,8 +784,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
                 { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                { field: 'USL', name: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', name: 'LSL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' },
                 { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
             ],
             onRegisterApi: function (gridApi) {
