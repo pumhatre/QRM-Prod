@@ -40,8 +40,4 @@
         var data = { ProjectId: projectId };
         return $http.post(config.apiUrl + 'api/Report/GetProjectVarianceDashboardByProject', data);
     }
-
-    this.GetProductivityDashboard = function (config) {
-        return $http.post(config.apiUrl + 'api/Report/GetProductivityDashboard');
-    }
 }]);

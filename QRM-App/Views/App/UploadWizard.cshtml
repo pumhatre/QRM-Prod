@@ -325,129 +325,92 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-xs-12">
+                                                <div class="col-md-12 col-sm-6 col-xs-12">
                                                     <div class="x_panel">
                                                         <div class="x_content fix">
                                                             <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                                                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                                                     <li role="presentation" class="active">
-                                                                        <a href="#tab_content11" ng-click="LoadProjectEffort()" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Effort Data</a>
+                                                                        <a href="#tab_content11" ng-click="LoadProjectEffort()" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Project Effort Dashboard</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content12" ng-click="LoadProjectTesting()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing data</a>
+                                                                        <a href="#tab_content12" ng-click="LoadProjectTesting()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Testing Dashboard</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content3" ng-click="LoadProjectDefect()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defects data</a>
+                                                                        <a href="#tab_content3" ng-click="LoadProjectDefect()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Defects Dashboard</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content4" ng-click="LoadProjectWidget()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Widget Count</a>
+                                                                        <a href="#tab_content4" ng-click="LoadProjectWidget()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Widget Dashboard</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content5" ng-click="LoadProjectPerformance()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Metrics</a>
-                                                                    </li>
-                                                                    <li role="presentation" class="">
-                                                                        <a href="#tab_content6" ng-click="LoadProductivityDashboard()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Productivity</a>
-                                                                    </li>
-                                                                    <li role="presentation" class="">
-                                                                        <a href="#tab_content7" ng-click="" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
-                                                                    </li>
-                                                                    <li role="presentation" class="">
-                                                                        <a href="#tab_content8" ng-click="" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
+                                                                        <a href="#tab_content5" ng-click="LoadProjectPerformance()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Metrics Dashboard</a>
                                                                     </li>
                                                                 </ul>
-                                                            </div>
-                                                            <div id="myTabcontent" class="tab-content">
-                                                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
-                                                                    <div class="col-md-12 col-sm-4 col-xs-12">
-                                                                        <div class="x_panel tile fixed_height_420">
-                                                                            <div class="x_content">
-                                                                                <div class="form-group">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="projectEffortmGrid" ui-grid="projectEffortGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                <div id="myTabcontent" class="tab-content">
+                                                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
+                                                                        <div class="col-md-12 col-sm-4 col-xs-12">
+                                                                            <div class="x_panel tile fixed_height_420">
+                                                                                <div class="x_content">
+                                                                                    <div class="form-group">
+                                                                                        <div class="col-md-12">
+                                                                                            <div id="projectEffortmGrid" ui-grid="projectEffortGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div role="tabpanel" class="tab-pane fade" id="tab_content12" aria-labelledby="Project-tab">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="projectTestingmGrid" ui-grid="projectTestingGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content12" aria-labelledby="Project-tab">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="x_panel">
+                                                                                    <div class="x_content">
+                                                                                        <div class="col-md-12">
+                                                                                            <div id="projectTestingmGrid" ui-grid="projectTestingGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="Project-tab">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="mGrid3" ui-grid="projectDefectGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="Project-tab">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="x_panel">
+                                                                                    <div class="x_content">
+                                                                                        <div class="col-md-12">
+                                                                                            <div id="mGrid3" ui-grid="projectDefectGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="Project-tab">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="mGrid4" ui-grid="projectWidgetGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="Project-tab">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="x_panel">
+                                                                                    <div class="x_content">
+                                                                                        <div class="col-md-12">
+                                                                                            <div id="mGrid4" ui-grid="projectWidgetGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="Project-tab">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="mGrid5" ui-grid="projectVarianceGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="Project-tab">
-                                                                    Ground Up
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="mGrid5" ui-grid="productivityGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    Ground Up2
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="mGrid5" ui-grid="productivityGrid2" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="Project-tab">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="x_panel">
+                                                                                    <div class="x_content">
+                                                                                        <div class="col-md-12">
+                                                                                            <div id="mGrid5" ui-grid="projectVarianceGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -456,7 +419,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                           
                                                         </div>
                                                     </div>
                                                 </div>

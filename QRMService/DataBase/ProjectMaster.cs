@@ -46,7 +46,6 @@ namespace QRMService.DataBase
         public Nullable<System.DateTime> ProjectStartDate { get; set; }
         public Nullable<System.DateTime> ProjectEndDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public string QualityController { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DefectDataDetail> DefectDataDetails { get; set; }

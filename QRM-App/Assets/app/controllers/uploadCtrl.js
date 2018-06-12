@@ -484,7 +484,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.projectEffortGrid = {};
 
 
-        $scope.LoadProjectEffort = function () {           
+        $scope.LoadProjectEffort = function () {
             healthReportService.GetAllProjectEffort(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                 .then(function (successResponse) {
                     $scope.projectEffortGrid.data = successResponse.data;
@@ -528,14 +528,14 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
         function addEmptyRowTesting(gridData) {
             gridData.splice(0, 0, {
-                "DashboardSubtype": 'Manual Testing',
+                "DashboardSubtype": 'Manual',
                 "PreSitComponent": '',
                 "PreSitE2E": '',
                 "SitComponent": '',
                 "SitE2E": ''
             });
             gridData.splice(5, 0, {
-                "DashboardSubtype": 'Automation Testing',
+                "DashboardSubtype": 'Automation',
                 "PreSitComponent": '',
                 "PreSitE2E": '',
                 "SitComponent": '',
@@ -569,24 +569,6 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                   }, function (errorResponse) {
 
                   });
-        }
-
-        $scope.LoadProductivityDashboard = function () {
-            healthReportService.GetProductivityDashboard(config)            
-                .then(function (successResponse) {                    
-                    $scope.productivityGrid.data = successResponse.data[0].productivities;
-                    $scope.productivityGrid2.data = successResponse.data[1].productivities;
-                }, function (errorResponse) {
-
-                }).finally(function () {
-                    // add  empty row for better UI
-                    extraProductivity = addEmptyRowProductivity($scope.productivityGrid.data);
-                });
-        }
-
-        function addEmptyRowProductivity(gridData) {
-           
-           
         }
 
         var tmpl1 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
@@ -682,47 +664,6 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.mGridApi = gridApi;
             }
         }
-
-        var tmpl2 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
-        $scope.productivityGrid = {
-            enableSorting: false,
-            enableColumnMenus: false,
-            enableRowHeaderSelection: false,
-            loading: true,
-            columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding: 5px;" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
-                
-                
-                { field: 'SubType', name: '.', cellTemplate: tmpl2, width: '20%' },
-                { field: 'USL', name: 'Upper Specification Limit(USL)', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', name: 'Lower Specification Limit(LSL)', cellTemplate: tmpl2, width: '20%' },
-                { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
-                ],
-            onRegisterApi: function (gridApi) {
-                $scope.mGridApi = gridApi;
-            }
-        }
-
-        var tmpl2 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
-        $scope.productivityGrid2 = {
-            enableSorting: false,
-            enableColumnMenus: false,
-            enableRowHeaderSelection: false,
-            loading: true,
-            columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding: 5px;" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
-
-
-                { field: 'SubType', name: '.', cellTemplate: tmpl2, width: '20%' },
-                { field: 'USL', name: 'Upper Specification Limit(USL)', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', name: 'Lower Specification Limit(LSL)', cellTemplate: tmpl2, width: '20%' },
-                { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
-            ],
-            onRegisterApi: function (gridApi) {
-                $scope.mGridApi = gridApi;
-            }
-        }
-
 
         //$scope.LoadProjectEffort();
         //End Report Region

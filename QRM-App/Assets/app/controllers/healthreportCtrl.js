@@ -12,7 +12,6 @@ angular.module('healthReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
     $templateCache.put('ui-grid/uiGridViewport', rowTemplate);
 
     $scope.LoadProjectEffort = function () {
-        debugger;
         healthReportService.GetAllProjectEffort(config)
             .then(function (successResponse) {
                 $scope.projectEffortGrid.data = successResponse.data;
