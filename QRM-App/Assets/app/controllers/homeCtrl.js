@@ -4,7 +4,7 @@
 */
 "use strict";
 angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
-.controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService, healthReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
+.controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache) {
     $scope.projectEffortGrid = {};
     $scope.projectDefectGrid = {};
     $scope.projectTestingGrid = {};
@@ -23,31 +23,111 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               });
     }
 
-    $scope.labels = ['Technical Design', 'Development', 'Code Review', 'Unit Test', 'SIT Design', 'SIT Execution', 'PM/QM'];
-    $scope.series = ['Planned Effort', 'Actual Effort'];
- 
-   // $scope.options = { legend: { display: true } };
-    $scope.data = [
-      [3.43, 47.01, 11.41, 37.64, 0.09, 0.02, 0.40],
-      [3.43, 47.00, 11.41, 37.62, 0.12, 0.03, 0.40]
-    ];
 
-    $scope.data1 = [6, 45, 30, 50, 10, 12, 23, 23];
-    $scope.labels1 = ["Requirement Review", "Architecture Review", "Code Review", "SIT Component", "Unit Test Cases", "Integration Testing", "Performance Testing", "UAT"];
-    $scope.series1 = ['Planned Effort', 'Actual Effort'];
-  
-      
 
-    //$scope.labels = ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
-    //$scope.options = { legend: { display: true } };
-    //$scope.series = ["Series A", "Series B", "Series C", "Series D"];
+    //$scope.LoadAllCharts = function () {
+    //    debugger;
+    //    var projectId = 2;
+    //    var releaseId = 10;
+    //    chartService.GetEffortDistribution(config, projectId, releaseId)
+    //          .then(function (successResponse) {
+    //              debugger;
+    //              $scope.labels = successResponse.data.labels;
+    //              $scope.ProjectEffortData = [];
+    //              for (var i = 0; i < successResponse.data.datasets.length; i++) {
+    //                  $scope.ProjectEffortData.push(successResponse.data.datasets[i].data)
+    //              }
+    //              $scope.ProjectEffortDataSeries = successResponse.data.series;
+    //              $scope.ProjectEffortDataColors = [];
+    //              for (var i = 0; i < successResponse.data.colors.length; i++) {
+    //                  $scope.ProjectEffortDataColors.push({ borderColor: successResponse.data.colors[i] });
+    //              }
+    //          }, function (errorResponse) {
 
-    //$scope.data = [
-    //  [65, 59, 90, 81, 56, 55, 40],
-    //  [28, 48, 40, 19, 96, 27, 100],
-    //  [65, 96, 37, 28, 56, 30, 27],
-    //  [48, 28, 30, 59, 26, 37, 60]
-    //];
+    //          });
+
+
+        //chartService.GetTestCaseDistribution(config, projectId, releaseId)
+        //            .then(function (successResponse) {
+        //                debugger;
+        //                $scope.labels1 = successResponse.data.labels;
+        //                $scope.TestCaseDistribution = [];
+        //                for (var i = 0; i < successResponse.data.datasets.length; i++) {
+        //                    $scope.TestCaseDistribution.push(successResponse.data.datasets[i].data)
+        //                }
+        //                $scope.TestCaseDistributionSeries = successResponse.data.series;
+        //                $scope.TestCaseDistributionColors = [];
+        //                for (var i = 0; i < successResponse.data.colors.length; i++) {
+        //                    $scope.TestCaseDistributionColors.push({ borderColor: successResponse.data.colors[i] });
+        //                }
+        //            }, function (errorResponse) {
+
+        //            });
+
+        //chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
+        //                   .then(function (successResponse) {
+        //                       debugger;
+        //                       $scope.labels4 = successResponse.data[0].labels;
+        //                       $scope.TestCaseComplexityDistribution = [successResponse.data.length];
+        //                       for (var j = 0; j < successResponse.data.length; j++) {
+        //                           for (var i = 0; i < successResponse.data[j].datasets.length; i++) {
+        //                               $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
+        //                           }
+        //                       }
+
+        //                       $scope.TestCaseComplexityDistributionSeries = successResponse.data[0].series;
+        //                       $scope.TestCaseComplexityDistributionColors = [];
+        //                       for (var i = 0; i < successResponse.data[0].colors.length; i++) {
+        //                           $scope.TestCaseComplexityDistribution.push({ borderColor: successResponse.data.colors[i] });
+        //                       }
+        //                   }, function (errorResponse) {
+
+        //                   });
+
+        //chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
+        //                   .then(function (successResponse) {
+        //                       debugger;
+        //                       $scope.labels3 = successResponse.data.labels;
+        //                       $scope.DefectDetectedPhase = [];
+        //                       $scope.DefectDetectedPhase = [];
+        //                       for (var i = 0; i < successResponse.data.datasets.length; i++) {
+        //                           $scope.DefectDetectedPhase.push(successResponse.data.datasets[i].data)
+        //                       }
+        //                       $scope.DefectDetectedPhaseSeries = successResponse.data.series;
+        //                       $scope.DefectDetectedPhaseColors = [];
+        //                       for (var i = 0; i < successResponse.data.colors.length; i++) {
+        //                           $scope.DefectDetectedPhaseColors.push({ borderColor: successResponse.data.colors[i] });
+        //                       }
+        //                   }, function (errorResponse) {
+
+        //                   });
+
+    //    chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+    //                       .then(function (successResponse) {
+    //                           $scope.ProjectWidgetDashboardLabels = successResponse.data.labels;
+    //                           $scope.ProjectWidgetDashboardData = [];
+    //                           for (var i = 0; i < successResponse.data.datasets.length; i++) {
+    //                               $scope.ProjectWidgetDashboardData.push(successResponse.data.datasets[i].data)
+    //                           }
+    //                           $scope.ProjectWidgetDashboardSeries = successResponse.data.series;
+    //                           $scope.ProjectWidgetDashboardColors = [];
+    //                           for (var i = 0; i < successResponse.data.colors.length; i++) {
+    //                               $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
+    //                           }
+    //                           $scope.ProjectWidgetDashboardOverride = [];
+    //                           for (var i = 0; i < successResponse.data.series.length; i++) {
+    //                               $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
+    //                           }
+    //                           $scope.ProjectWidgetDashboardOptions = {
+
+    //                           };
+
+
+    //                       }, function (errorResponse) {
+
+    //                       });
+    //}
+
 
 
     $scope.OpenMetricsPopUp = function (projectId) {
@@ -387,4 +467,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             $scope.mGridApi = gridApi;
         }
     }
+
+   
+
 }]);

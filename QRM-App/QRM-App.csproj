@@ -197,9 +197,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\app\app.js" />
+    <Content Include="Assets\app\controllers\chartsCtrl.js" />
     <Content Include="Assets\app\controllers\generatereportCtrl.js" />
     <Content Include="Assets\app\controllers\healthreportCtrl.js" />
     <Content Include="Assets\app\controllers\homeCtrl.js" />
+    <Content Include="Assets\app\controllers\metricReportCtrl.js" />
     <Content Include="Assets\app\controllers\metricsAssociationCtrl.js" />
     <Content Include="Assets\app\controllers\metricsCtrl.js" />
     <Content Include="Assets\app\controllers\projectCtrl.js" />
@@ -214,6 +216,7 @@
     <Content Include="Assets\app\directives\uploadFileDirective.js" />
     <Content Include="Assets\app\environment\environment.js" />
     <Content Include="Assets\app\fliter\split.js" />
+    <Content Include="Assets\app\services\chartService.js" />
     <Content Include="Assets\app\services\defectDataService.js" />
     <Content Include="Assets\app\services\generateReportService.js" />
     <Content Include="Assets\app\services\healthReportService.js" />
@@ -423,6 +426,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ng\angular-chart.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\ChartReports.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\MetricReports.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

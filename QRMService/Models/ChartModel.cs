@@ -27,4 +27,10 @@ namespace QRMService.Models
     public class DefectDetectedPhaseDistribution
     {
     }
+
+    public class SingleChartList {
+        public List<string> Label { get; set; }
+        public List<string> Series { get; set; }
+        public List<string> Data { get; set; }
+    }
 }
