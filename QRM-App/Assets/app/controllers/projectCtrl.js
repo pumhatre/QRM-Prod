@@ -122,6 +122,7 @@
             $scope.Project.LifeCycle = row.LifeCycle;
             $scope.Project.Director = row.Director;
             $scope.Project.SeniorManager = row.SeniorManager;
+            $scope.Project.QualityController = row.QualityController;
 
             //Call the function to save the data to database
             projectService.InsertUpdateProjectMaster($scope.Project, config).then(function (response) {
@@ -185,7 +186,7 @@
                         cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: 'ServiceLine', displayName: "Service Line", field: "ServiceLine", enableColumnMenu: false, width: '10%',
+                        name: 'ServiceLine', displayName: "Offerings", field: "ServiceLine", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLineCode"><option value="">Select Service Line</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceValue}}</option> </select></div>'
                     },
                     {
@@ -214,6 +215,10 @@
                     },
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                    },
+                    {
+                        name: 'QualityController', displayName: "QC", field: "QualityController", enableColumnMenu: false, width: '7%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
 

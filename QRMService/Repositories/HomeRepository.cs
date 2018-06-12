@@ -32,6 +32,7 @@ namespace QRMService.Repositories
                                             Director = pm.Director,
                                             SeniorManager = pm.SeniorManager,
                                             ProjectManager = pm.ProjectManager,
+                                            QualityController=pm.QualityController
                                         }).ToList();
                     if (userProjects.Count>0 && userProjects!=null)
                     {

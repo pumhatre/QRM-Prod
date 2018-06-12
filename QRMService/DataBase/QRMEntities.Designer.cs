@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\rbamne\source\repos\QRM-Prod\QRMService\DataBase\QRMEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\annpriya\Documents\QRMPortal\Code\QRMService\DataBase\QRMEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

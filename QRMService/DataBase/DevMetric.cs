@@ -80,7 +80,7 @@ namespace QRMService.DataBase
         public Nullable<System.DateTime> ActualEndDate { get; set; }
         public Nullable<int> ProjectReleaseId { get; set; }
     
-        public virtual ProjectMaster ProjectMaster { get; set; }
         public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
+        public virtual ProjectMaster ProjectMaster { get; set; }
     }
 }

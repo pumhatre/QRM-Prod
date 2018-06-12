@@ -30,7 +30,6 @@ namespace QRMService.DataBase
         public virtual DbSet<EffortDataStaging> EffortDataStagings { get; set; }
         public virtual DbSet<MonthMaster> MonthMasters { get; set; }
         public virtual DbSet<PreferredReportMetricsAssociation> PreferredReportMetricsAssociations { get; set; }
-        public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
         public virtual DbSet<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
         public virtual DbSet<ProjectReleaseMaster> ProjectReleaseMasters { get; set; }
         public virtual DbSet<ReferenceTable> ReferenceTables { get; set; }
@@ -45,5 +44,6 @@ namespace QRMService.DataBase
         public virtual DbSet<Period> Periods { get; set; }
         public virtual DbSet<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
         public virtual DbSet<MetricMaster> MetricMasters { get; set; }
+        public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace QRMService.DataBase
         public Nullable<int> NormalizedTestCasesDesign { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
-        public virtual ProjectMaster ProjectMaster { get; set; }
         public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
+        public virtual ProjectMaster ProjectMaster { get; set; }
     }
 }
