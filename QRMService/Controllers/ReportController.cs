@@ -359,6 +359,60 @@ namespace QRMService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets productivity GroundUp Dashboard
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProductivityGroundUpDashboard()
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivityGroundUp();
+
+                for (int i = 0; i < productivity.Count; i++)
+                {
+                    if (i % 5 == 0)
+                    {
+                        productivity[i].spanEffort = 9;
+                    }
+                }
+
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+        /// <summary>
+        /// Gets productivity GroundUp Dashboard
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProductivityEnhancedDashboard()
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivityEnhanced();
+
+                for (int i = 0; i < productivity.Count; i++)
+                {
+                    if (i % 5 == 0)
+                    {
+                        productivity[i].spanEffort = 9;
+                    }
+                }
+
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+
 
     }
 }

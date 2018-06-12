@@ -78,4 +78,15 @@ namespace QRMService.Models
         }
     }
 
+
+    public class Productivity
+    {
+        public string Type { get; set; }
+        public string SubType { get; set; }
+        public int spanEffort { get; set; }
+        public int? USL { get; set; }
+        public int? LSL { get; set; }
+        public int? ProjectPerformance { get; set; }
+    }
+
 }

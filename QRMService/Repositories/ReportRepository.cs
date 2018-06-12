@@ -503,6 +503,833 @@ namespace QRMService.Repositories
 
 
         #endregion
+
+
+
+        #region Productivity
+
+        public static List<Productivity> GetProductivityGroundUp()
+        {
+            List<Productivity> ProductivitytListGroundUp = new List<Productivity>();
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Overall",
+                LSL = 25,
+                USL = 35,
+                ProjectPerformance = 5
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Unit Testing",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Overall",
+                LSL = 35,
+                USL = 45,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Unit Testing",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Overall",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Coding",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Unit Testing",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Overall",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Functional Design",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Technical Design",
+                LSL = 252,
+                USL = 223,
+                ProjectPerformance = 502
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Coding",
+                LSL = 252,
+                USL = 232,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Unit Testing",
+                LSL = 52,
+                USL = 52,
+                ProjectPerformance = 52
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Overall",
+                LSL = 51,
+                USL = 15,
+                ProjectPerformance = 15
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Functional Design",
+                LSL = 51,
+                USL = 15,
+                ProjectPerformance = 15
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Technical Design",
+                LSL = 215,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Unit Testing",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Overall",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Unit Testing",
+                LSL = 52,
+                USL = 53,
+                ProjectPerformance = 51
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Overall",
+                LSL = 51,
+                USL = 51,
+                ProjectPerformance = 51
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Functional Design",
+                LSL = 51,
+                USL = 51,
+                ProjectPerformance = 51
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Technical Design",
+                LSL = 255,
+                USL = 235,
+                ProjectPerformance = 506
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Coding",
+                LSL = 425,
+                USL = 234,
+                ProjectPerformance = 504
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Unit Testing",
+                LSL = 15,
+                USL = 15,
+                ProjectPerformance = 35
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Overall",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Functional Design",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Technical Design",
+                LSL = 252,
+                USL = 223,
+                ProjectPerformance = 502
+
+            });
+
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Coding",
+                LSL = 252,
+                USL = 232,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListGroundUp.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Unit Testing",
+                LSL = 52,
+                USL = 52,
+                ProjectPerformance = 52
+
+            });
+
+
+            return ProductivitytListGroundUp;
+        }
+
+        public static List<Productivity> GetProductivityEnhanced()
+        {
+            List<Productivity> ProductivitytListEnhanced = new List<Productivity>();
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Overall",
+                LSL = 235,
+                USL = 335,
+                ProjectPerformance = 5
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "UI Components",
+                SubType = "Unit Testing",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Overall",
+                LSL = 35,
+                USL = 45,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Rulesets",
+                SubType = "Unit Testing",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Overall",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Coding",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Batch Jobs & Interfaces",
+                SubType = "Unit Testing",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Overall",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Functional Design",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Technical Design",
+                LSL = 252,
+                USL = 223,
+                ProjectPerformance = 502
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Coding",
+                LSL = 252,
+                USL = 232,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Subsystems",
+                SubType = "Unit Testing",
+                LSL = 52,
+                USL = 52,
+                ProjectPerformance = 52
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Overall",
+                LSL = 51,
+                USL = 15,
+                ProjectPerformance = 15
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Functional Design",
+                LSL = 51,
+                USL = 15,
+                ProjectPerformance = 15
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Technical Design",
+                LSL = 215,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Data Conversion",
+                SubType = "Unit Testing",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Overall",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Functional Design",
+                LSL = 5,
+                USL = 5,
+                ProjectPerformance = 5
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Technical Design",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Coding",
+                LSL = 25,
+                USL = 23,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Reports",
+                SubType = "Unit Testing",
+                LSL = 52,
+                USL = 53,
+                ProjectPerformance = 51
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Overall",
+                LSL = 51,
+                USL = 51,
+                ProjectPerformance = 51
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Functional Design",
+                LSL = 51,
+                USL = 51,
+                ProjectPerformance = 51
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Technical Design",
+                LSL = 255,
+                USL = 235,
+                ProjectPerformance = 506
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Coding",
+                LSL = 425,
+                USL = 234,
+                ProjectPerformance = 504
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Forms",
+                SubType = "Unit Testing",
+                LSL = 15,
+                USL = 15,
+                ProjectPerformance = 35
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Overall",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Functional Design",
+                LSL = 25,
+                USL = 25,
+                ProjectPerformance = 25
+
+            });
+
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Technical Design",
+                LSL = 252,
+                USL = 223,
+                ProjectPerformance = 502
+
+            });
+
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Coding",
+                LSL = 252,
+                USL = 232,
+                ProjectPerformance = 50
+
+            });
+            ProductivitytListEnhanced.Add(new Productivity
+            {
+                Type = "Usecase/CR/Enhancement",
+                SubType = "Unit Testing",
+                LSL = 52,
+                USL = 52,
+                ProjectPerformance = 52
+
+            });
+
+
+            return ProductivitytListEnhanced;
+        }
+
+
+
+
+        #endregion
     }
 
 }

@@ -528,14 +528,14 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
         function addEmptyRowTesting(gridData) {
             gridData.splice(0, 0, {
-                "DashboardSubtype": 'Manual',
+                "DashboardSubtype": 'Manual Testing',
                 "PreSitComponent": '',
                 "PreSitE2E": '',
                 "SitComponent": '',
                 "SitE2E": ''
             });
             gridData.splice(5, 0, {
-                "DashboardSubtype": 'Automation',
+                "DashboardSubtype": 'Automation Testing',
                 "PreSitComponent": '',
                 "PreSitE2E": '',
                 "SitComponent": '',
@@ -569,6 +569,93 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                   }, function (errorResponse) {
 
                   });
+        }
+
+
+        
+        $scope.LoadProductivityDashboard_GroundUp = function () {
+            healthReportService.GetProductivityDashboard_GroundUp(config)
+                .then(function (successResponse) {
+                    $scope.productivityGrid.data = successResponse.data;                   
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    extraProductivity = addEmptyRowProductivity($scope.productivityGrid.data);
+                });
+        }
+
+
+        $scope.LoadProductivityDashboard_Enhanced = function () {
+            healthReportService.GetProductivityDashboard_Enhanced(config)
+                .then(function (successResponse) {
+                    $scope.productivityGrid2.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    extraProductivity = addEmptyRowProductivity($scope.productivityGrid2.data);
+                });
+        }
+
+        function addEmptyRowProductivity(gridData) {
+
+            gridData.splice(5, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(11, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(17, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(23, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(29, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(35, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(41, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(47, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
         }
 
         var tmpl1 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
@@ -664,6 +751,50 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.mGridApi = gridApi;
             }
         }
+
+
+        var tmpl2 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
+        $scope.productivityGrid = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                { field: 'USL', name: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', name: 'LSL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+        var tmpl2 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
+        $scope.productivityGrid2 = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                { field: 'USL', name: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', name: 'LSL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+
+
 
         //$scope.LoadProjectEffort();
         //End Report Region
