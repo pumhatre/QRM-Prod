@@ -38,6 +38,7 @@ namespace QRMService.Controllers
             //var testResult = UploadRepository.GetTestStaging(upload);
             var dataSanityVMTestResult = UploadRepository.DataSanityCheckTestData(upload);
             dataSanityVM.testSanityValidationModel = dataSanityVMTestResult.testSanityValidationModel;
+            dataSanityVM.TestTotalCount = dataSanityVMTestResult.TestTotalCount;
             
 
             dataSanityVM.ProjectId = upload.ProjectId;

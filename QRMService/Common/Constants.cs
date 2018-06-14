@@ -19,6 +19,7 @@ namespace QRMService.Common
         public const string UspSaveDefectDetailData = "[Dbo].[UspSaveDefectDetailData]";
         public const string UspGetTestStagingData = "[Dbo].[UspGetTestStagingData]";
         public const string UspSaveTestingDetailData = "[Dbo].[UspSaveTestDetailData]";
+        public const string UspGetTestDataSanity = "[dbo].[UspGetTestDataSanityResults]";
 
         public const string UspGetProjectEffortDashboard = "[Dbo].[uspGenerateProjectEffortDashboard]";
         public const string UspGetProjectTestingDashboard = "[Dbo].[uspGenerateProjectTestingDashboard]";
@@ -143,6 +144,7 @@ namespace QRMService.Common
             IsValidInjectedDetectedPhase,
             IsValidDefectTypeCause
 
+
         }
 
 
@@ -188,15 +190,15 @@ namespace QRMService.Common
 
         public enum ProjectColumnName
         {
-            userId ,
-            firstName ,
+            userId,
+            firstName,
             middleName,
             lastName,
             email,
             phone,
-            roleId ,
-            roleName ,
-            projectName ,
+            roleId,
+            roleName,
+            projectName,
             projectId,
             userProjectRoleId,
         }
@@ -262,6 +264,22 @@ namespace QRMService.Common
             DefectType,
             DefectCount,
             CountPercentage
+        }
+
+        public enum TestSanityValidationColumnName
+        {
+            IsValidTestingType,
+            IsValidTestingPhase,
+            IsValidTestingSubPhase,
+            IsValidTestExecutionType,
+            TestingDataStagingId,
+            Release,
+            Iteration,
+            TestingType,
+            TestingPhase,
+            TestingSubPhase,
+            TestExecutionType,
+            RowNumber
         }
     }
 

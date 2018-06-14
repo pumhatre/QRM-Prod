@@ -220,6 +220,10 @@
                                                         <li role="presentation" class="">
                                                             <a href="#tab_content2" role="tab" target="_self" id="defect-tab" data-toggle="tab" aria-expanded="false">Defect Data</a>
                                                         </li>
+                                                        <li role="presentation" class="">
+                                                            <a href="#tab_content3" role="tab" target="_self" id="defect-tab" data-toggle="tab" aria-expanded="false">Testing Data</a>
+                                                        </li>
+
                                                     </ul>
                                                     <div id="myTabcontent" class="tab-content">
                                                         @*effort data tab implementation*@
@@ -276,9 +280,9 @@
                                                                             <div>
                                                                                 <div class="col-md-12 ">
                                                                                     <h4>
-                                                                                        Total:{{EffortTotalCount}}
-                                                                                        Success:{{EffortSuccessCount}}
-                                                                                        Failure:{{EffortFailureCount}}
+                                                                                        Total:{{GridTotalCount}}
+                                                                                        Success:{{GridSuccessCount}}
+                                                                                        Failure:{{GridFailureCount}}
                                                                                     </h4>
                                                                                     <br /><br />
                                                                                     <div id="mGrid2" ng-show="InvalidDefectData" ui-grid="defectGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
@@ -291,6 +295,50 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="grid-msg-overlay" ng-hide="loading || defectGridData.data.length">
+                                                                                            <div class="msg">
+                                                                                                <span>No Data</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <br /><br /><br />
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        @*test data Tab Implementation*@
+
+                                                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="defect-tab">
+                                                            <div class="x_panel">
+                                                                <div class="x_content" style="align-content:center;">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                                                        <div class="x_content">
+                                                                            <div class="clearfix"></div>
+                                                                            <br>
+                                                                            <div>
+                                                                                <div class="col-md-12 ">
+                                                                                    <h4>
+                                                                                        Total:{{TestTotalCount}}
+                                                                                        Success:{{TestSuccessCount}}
+                                                                                        Failure:{{TestFailureCount}}
+                                                                                    </h4>
+                                                                                    <br /><br />
+                                                                                    <div id="mGrid2" ng-show="InvalidTestData" ui-grid="testGridData" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                        <div class="grid-msg-overlay" ng-show="loading">
+                                                                                            <div class="msg">
+                                                                                                <span>
+                                                                                                    Loading Data...
+                                                                                                    <i class="fa fa-spinner fa-spin"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="grid-msg-overlay" ng-hide="loading || testGridData.data.length">
                                                                                             <div class="msg">
                                                                                                 <span>No Data</span>
                                                                                             </div>

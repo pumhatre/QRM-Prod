@@ -12,9 +12,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.HideFinalize = false;
         $scope.InvalidEffortData = true;
         $scope.InvalidDefectData = true;
+        $scope.InvalidTestData = true;
 
         $scope.effortGridData = {};
         $scope.defectGridData = {};
+        $scope.testGridData = {};
 
 
         $scope.init = function () {
@@ -107,6 +109,16 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     //Failure Count
                     $scope.GridFailureCount = $scope.defectGridData.data.length;
 
+                    
+                    //Test tab
+                    $scope.testGridData.data = $scope.dataSanityResult.testSanityValidationModel;
+                    //Total Count
+                    $scope.TestTotalCount = $scope.dataSanityResult.TestTotalCount;
+                    //Success count
+                    $scope.TestSuccessCount = $scope.dataSanityResult.TestTotalCount - $scope.testGridData.data.length;
+                    //Failure Count
+                    $scope.TestFailureCount = $scope.testGridData.data.length;
+
                     $scope.loading = false;
                     $scope.loadAttempted = true;
 
@@ -122,7 +134,13 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                         $scope.InvalidDefectData = false;
                     }
 
-                    if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0) {
+                    if ($scope.testGridData.data.length > 0) {
+                        $scope.InvalidTestData= true;
+                    } else {
+                        $scope.InvalidTestData = false;
+                    }
+
+                    if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0 || $scope.dataSanityResult.testSanityValidationModel.length>0) {
                         $scope.InvalidData = true;
                     } else {
                         $scope.InvalidData = false;
@@ -424,6 +442,71 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         };
 
 
+        $scope.testGridData = {
+            paginationPageSizes: [10, 50, 100, 200, 500],
+            enableRowHeaderSelection: false,
+            paginationPageSize: 10,
+            loading: true,
+            //Declaring column and its related properties
+            columnDefs: [
+
+                {
+                    name: 'RowNumber', displayName: "Row Number", field: "RowNumber",  
+                    cellClass: 'defectCellClass' ,
+                    enableColumnMenu: false, width: '15%',
+                    enableCellEdit: false
+                    
+                },
+                {
+                    name: 'Release', displayName: "Release", field: "Release",
+                    cellClass: 'defectCellClass',
+                    enableColumnMenu: false,
+                    width: '15%',
+                    enableCellEdit: false
+                },
+
+                {
+                    name: 'Iteration', displayName: "Iteration", field: "Iteration",
+                    cellClass: 'defectCellClass',
+                    enableColumnMenu: false,
+                    width: '20%',
+                    enableCellEdit: false
+                },
+
+                {
+                    name: 'ErrorDescription', displayName: "Error Description", field: "ErrorDescription",
+                    cellClass: 'errorCellClass',
+                    enableColumnMenu: false, width: '50%',
+                    enableCellEdit: false,
+                    cellTemplate: render()
+                }
+
+            ],
+            enableGridMenu: true,
+            enableSelectAll: true,
+            exporterCsvFilename: 'Defect.csv',
+            exporterPdfDefaultStyle: { fontSize: 9 },
+            exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+            exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+            exporterPdfHeader: { text: "Defect errors list", style: 'headerStyle' },
+            exporterPdfFooter: function (currentPage, pageCount) {
+                return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            },
+            exporterPdfCustomFormatter: function (docDefinition) {
+                docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+                docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+                return docDefinition;
+            },
+            exporterPdfOrientation: 'Landscape',
+            exporterPdfPageSize: 'LETTER',
+            exporterPdfMaxGridWidth: 500,
+            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+            exporterExcelFilename: 'Defect.xlsx',
+            exporterExcelSheetName: 'Sheet1',
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+            }
+        };
 
         //save effort detail data
         $scope.SaveDetailData = function () {
