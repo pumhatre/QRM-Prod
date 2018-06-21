@@ -229,6 +229,7 @@
     <Compile Include="Controllers\ReferenceDataController.cs" />
     <Compile Include="Controllers\ProjectReleaseController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SaveReportsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -328,6 +329,7 @@
     <Compile Include="Models\MetricsAssociationMasterModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\MonthDetailsModel.cs" />
+    <Compile Include="Models\MySavedReportsRequestModel.cs" />
     <Compile Include="Models\MySavedReportsResponseModel.cs" />
     <Compile Include="Models\ProjectDetailsModel.cs" />
     <Compile Include="Models\ProjectHealthMetrics.cs" />
