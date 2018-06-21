@@ -273,5 +273,70 @@ namespace QRMService.Repositories
             }
             return chartDataModel;
         }
+
+        public static ChartDataModel GetSitExecutionGrapgh(int projectId, int releaseId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
+            var chartData = helper.GetDataTableByProcedure(Constants.UspGetSITExecutionGraph, "default", true, parameters.ToArray());
+            var chartDataModel = new ChartDataModel();
+            if (chartData != null && chartData.Rows.Count > 0)
+            {
+                //set series for chart data
+                chartDataModel.series = new List<string> { "Planned Test Cases", "Actual Test Cases","Test Execution %","Pass %" };
+                chartDataModel.colors = new List<string> { "#000000", "#92D050", "#EF8C49", "#6D91D1" };
+                chartDataModel.labels = new List<string>();
+                // set labels for line chart
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    chartDataModel.labels.Add(row.Field<string>(SITExecutionGraphColumns.Track.ToString()));
+                });
+                // set dataset for line chart
+                chartDataModel.datasets = new List<ChartDataset>();
+                // set plannedTestCases count
+                var plannedTestCases = new ChartDataset { fill = false };
+                plannedTestCases.data = new List<int>();
+                plannedTestCases.label = "Planned Test Cases";
+                plannedTestCases.borderColor = "#000000";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    plannedTestCases.data.Add(row.Field<int>(SITExecutionGraphColumns.PlannedTestCases.ToString()));
+                });
+                chartDataModel.datasets.Add(plannedTestCases);
+                // set ActualTestcases count
+                var actualTestcases = new ChartDataset { fill = false };
+                actualTestcases.data = new List<int>();
+                actualTestcases.label = "Actual Test Cases";
+                actualTestcases.borderColor = "#92D050";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    actualTestcases.data.Add(row.Field<int>(SITExecutionGraphColumns.ActualTestcases.ToString()));
+                });
+                chartDataModel.datasets.Add(actualTestcases);
+                // set TestExecutionPerccentage count
+                var testExecutionPerccentage = new ChartDataset { fill = false };
+                testExecutionPerccentage.data = new List<int>();
+                testExecutionPerccentage.label = "Test Execution %";
+                testExecutionPerccentage.borderColor = "#EF8C49";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    testExecutionPerccentage.data.Add(row.Field<int>(SITExecutionGraphColumns.TestExecutionPerccentage.ToString()));
+                });
+                chartDataModel.datasets.Add(testExecutionPerccentage);
+                // set passPerccentage count
+                var passPerccentage = new ChartDataset { fill = false };
+                passPerccentage.data = new List<int>();
+                passPerccentage.label = "Pass %";
+                passPerccentage.borderColor = "#6D91D1";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    passPerccentage.data.Add(row.Field<int>(SITExecutionGraphColumns.PassPerccentage.ToString()));
+                });
+                chartDataModel.datasets.Add(passPerccentage);
+            }
+            return chartDataModel;
+        }
     }
 }

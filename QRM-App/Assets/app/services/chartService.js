@@ -35,4 +35,9 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId };
         return $http.post(config.apiUrl + 'api/Chart/GetDefectTypeDistribution', data);
     }
+
+    this.GetSitExecutionGraph = function (config, projectId, releaseId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId };
+        return $http.post(config.apiUrl + 'api/Chart/GetSitExecutionGraph', data);
+    }
 }]);

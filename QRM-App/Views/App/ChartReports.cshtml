@@ -28,8 +28,7 @@
                                 <div class="col-md-3"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectDropdown,selectedReleaseDropdown)">
-
+                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectDropdown,selectedReleaseDropdown); DisplayChart(selectedProjectDropdown,selectedReleaseDropdown)">
                                         <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
                                     </select>
                                 </div>
@@ -75,6 +74,17 @@
                                                 chart-colors="ProjectWidgetDashboardColors"
                                                 chart-series="ProjectWidgetDashboardSeries"
                                                 chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
+                                    </div>
+                                    <div ng-switch-when="SEG">
+                                        <br />
+                                        <h4 style="text-align:center;">SIT Execution Graph</h4>
+                                        <canvas id="SITExecutionGraph" class="chart chart-bar"
+                                                chart-data="SitExecutionGraphData"                                                
+                                                chart-labels="SitExecutionGraphLabels"                                                
+                                                chart-series="SitExecutionGraphSeries"
+                                                chart-options="SitExecutionGraphOptions"
+                                                chart-colors="SitExecutionGraphColors"
+                                                chart-dataset-override="SitExecutionGraphOverride"></canvas>
                                     </div>
                                     <div ng-switch-when="SDSD">
                                         <br />

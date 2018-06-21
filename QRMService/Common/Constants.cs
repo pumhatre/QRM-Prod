@@ -44,6 +44,7 @@ namespace QRMService.Common
         public const string UspGetDevelopementWidgetDashboard = "[Dbo].[uspGetDevelopementWidgetDashboard]";
         public const string UspGetSITDefectSeverityDistribution = "[Dbo].[uspGetSITDefectSeverityDistribution]";
         public const string UspGetDefectTypeDistribution = "[Dbo].[uspGetDefectTypeDistribution]";
+        public const string UspGetSITExecutionGraph = "[Dbo].[uspGetSITExecutionGraph]";
         #endregion
 
 
@@ -280,6 +281,15 @@ namespace QRMService.Common
             TestingSubPhase,
             TestExecutionType,
             RowNumber
+        }
+
+        public enum SITExecutionGraphColumns
+        {
+            Track,
+            PlannedTestCases,
+            ActualTestcases,
+            TestExecutionPerccentage,
+            PassPerccentage
         }
     }
 

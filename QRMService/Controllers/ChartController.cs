@@ -147,5 +147,25 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets the sit execution graph.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetSitExecutionGraph(HealthReportRequestModel request)
+        {
+            try
+            {
+                var chartDataModel = ChartRepository.GetSitExecutionGrapgh(request.ProjectId, request.ReleaseId);
+                return Ok(chartDataModel);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }
