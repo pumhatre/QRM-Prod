@@ -277,7 +277,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                           .then(function (successResponse) {
                               debugger;
                               $scope.labels4 = successResponse.data[0].labels;
-                              $scope.TestCaseComplexityDistribution = [successResponse.data.length];
+                              $scope.TestCaseComplexityDistribution = [];
                               for (var j = 0; j < successResponse.data.length; j++) {
                                   for (var i = 0; i < successResponse.data[j].datasets.length; i++) {
                                       $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
