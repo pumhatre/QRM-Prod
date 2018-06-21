@@ -8,7 +8,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.selectedProjectDropdown = '';
-
+        $scope.alerts = [];
 
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
@@ -294,6 +294,35 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     break;
             }
         }
+
+        $scope.OpenSavePopup = function () {
+
+        }
+
+        $scope.saveThisReport = function (formIsVallid) {
+
+            if (formIsVallid) {
+                //Call the function to save the data to database
+                projectService.InsertUpdateProjectMaster($scope.NewProject, config).then(function (response) {
+                    //Display Successfull message after save
+                    if (response.data.IsSuccess) {
+                        $scope.loadProjects();
+                        $('#addModal').modal('hide');
+                        $scope.alerts.push({
+                            msg: 'Project added successfully',
+                            type: 'success'
+                        });
+
+                    }
+                }, function (error) {
+                    //Display Error message if any error occurs
+                    $scope.alerts.push({
+                        msg: error.data.ResponseMessage,
+                        type: 'danger'
+                    });
+                });
+            }
+        };
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
