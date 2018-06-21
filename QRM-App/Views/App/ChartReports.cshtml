@@ -1,9 +1,17 @@
-﻿<div class="x_panel" role="main">
+﻿<style>
+     #saveModal .modal-body {
+        height: 15vh !important;
+    }
+</style>
+<div class="x_panel" role="main">
     <div class="">
         <div class="page-title">
             <div class="title_left">
                 <h3>Chart Reports</h3>
             </div>
+        </div>
+        <div>
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" dismiss-on-timeout="5000" ng-repeat="alert in alerts" close="alerts.splice($index, 1);"> {{alert.msg}} </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="tab_content2" aria-labelledby="Project-tab">
 
@@ -64,7 +72,7 @@
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8" ng-switch="selectedChartType">
-                                    <div ng-switch-when="DWD">
+                                    <div ng-switch-when="DWD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">Developement Widget Dashboard</h4>
                                         <canvas id="lineProjectWidgetDashBoard" class="chart chart-line"
@@ -74,27 +82,46 @@
                                                 chart-colors="ProjectWidgetDashboardColors"
                                                 chart-series="ProjectWidgetDashboardSeries"
                                                 chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="SEG">
+                                    <div ng-switch-when="SEG" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">SIT Execution Graph</h4>
                                         <canvas id="SITExecutionGraph" class="chart chart-bar"
-                                                chart-data="SitExecutionGraphData"                                                
-                                                chart-labels="SitExecutionGraphLabels"                                                
+                                                chart-data="SitExecutionGraphData"
+                                                chart-labels="SitExecutionGraphLabels"
                                                 chart-series="SitExecutionGraphSeries"
                                                 chart-options="SitExecutionGraphOptions"
                                                 chart-colors="SitExecutionGraphColors"
                                                 chart-dataset-override="SitExecutionGraphOverride"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="SDSD">
+                                    <div ng-switch-when="SDG" class="text-center">
+                                        <br />
+                                        <h4 style="text-align:center;">SIT Defect Graph</h4>
+                                        <canvas id="SITDefectGraph" class="chart chart-line"
+                                                chart-data="SitDefectGraphData"
+                                                chart-labels="SitDefectGraphLabels"
+                                                chart-series="SitDefectGraphSeries"
+                                                chart-options="SitDefectGraphOptions"
+                                                chart-colors="SitDefectGraphColors"
+                                                chart-dataset-override="SitDefectGraphOverride"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                    </div>
+                                    <div ng-switch-when="SDSD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">SIT Defect Severity Distribution</h4>
                                         <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
                                                 chart-data="SITDefectSeverityData"
                                                 chart-labels="SITDefectSeverityLabels"
                                                 chart-options="SITDefectSeverityOptions"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="DTD">
+                                    <div ng-switch-when="DTD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">Defect Type Distribution</h4>
                                         <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
@@ -102,34 +129,46 @@
                                                 chart-labels="DefectTypeDistributionLabels"
                                                 chart-options="DefectTypeDistributionOptions"
                                                 chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
 
-                                    <div ng-switch-when="ED">
+                                    <div ng-switch-when="ED" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">Effort Distribution</h4>
                                         <canvas id="bar" class="chart chart-bar" chart-colors="ProjectEffortDataColors"
                                                 chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries">
                                             chart-series="series"
                                         </canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="TCD">
+                                    <div ng-switch-when="TCD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">Test Case Distribution</h4>
                                         <canvas id="base" class="chart-horizontal-bar" chart-colors="TestCaseDistributionColors"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="TCCD">
+                                    <div ng-switch-when="TCCD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">Test case complexity distribution</h4>
                                         <canvas id="doughnutTestCaseComplexity" class="chart chart-doughnut" chart-colors="TestCaseComplexityDistributionColors"
                                                 chart-data="TestCaseComplexityDistribution" chart-series="TestCaseComplexityDistributionSeries" chart-labels="labels4"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="DDPD">
+                                    <div ng-switch-when="DDPD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">Defect Detected Phase Distribution</h4>
                                         <canvas id="defectDetectedPhase" class="chart chart-doughnut" chart-colors="DefectDetectedPhaseColors"
                                                 chart-data="DefectDetectedPhase" chart-labels="labels3" chart-series="DefectDetectedPhaseSeries"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
+
+
 
                                     <p ng-switch-default></p>
                                 </div>
@@ -140,5 +179,33 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="saveModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form name="formSaveReport" ng-submit="saveThisReport(formSaveReport.$valid)" class="form-inline">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Save this report</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group col-lg-12">
+                        <label class="control-label col-lg-4" for="ProjectName">Report Name:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" ng-model="ReportName" style="width:85%;" id="ReportName" placeholder="Enter Report Name" maxlength="200" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>

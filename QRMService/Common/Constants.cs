@@ -45,6 +45,7 @@ namespace QRMService.Common
         public const string UspGetSITDefectSeverityDistribution = "[Dbo].[uspGetSITDefectSeverityDistribution]";
         public const string UspGetDefectTypeDistribution = "[Dbo].[uspGetDefectTypeDistribution]";
         public const string UspGetSITExecutionGraph = "[Dbo].[uspGetSITExecutionGraph]";
+        public const string UspGetSITDefectGraph = "[Dbo].[uspGetSITDefectGraph]";
         #endregion
 
 
@@ -290,6 +291,15 @@ namespace QRMService.Common
             ActualTestcases,
             TestExecutionPerccentage,
             PassPerccentage
+        }
+
+        public enum SITDefectGraphColumns
+        {
+            Weekend,
+            OpenDefectCount,
+            NewDefectCount,
+            CalcelledDefectCount,
+            TotalClosedDefectCount
         }
     }
 
