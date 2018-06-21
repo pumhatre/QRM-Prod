@@ -4,7 +4,7 @@
 */
 "use strict";
 angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
-    .controller('chartsCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', 'projectReleaseService', 'metricsAssociationService', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, projectReleaseService, metricsAssociationService) {
+    .controller('chartsCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.selectedProjectDropdown = '';
@@ -296,23 +296,24 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
         $scope.OpenSavePopup = function () {
-
+            $('#saveModal').modal('show');
         }
 
         $scope.saveThisReport = function (formIsVallid) {
 
             if (formIsVallid) {
                 //Call the function to save the data to database
-                projectService.InsertUpdateProjectMaster($scope.NewProject, config).then(function (response) {
+                var userId = $cookies.get('_UserId');
+                mySavedReportService.SaveReports(config, userId, $scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $scope.selectedChartType, $scope.ReportName).then(function (response) {
                     //Display Successfull message after save
-                    if (response.data.IsSuccess) {
-                        $scope.loadProjects();
-                        $('#addModal').modal('hide');
+                    if (response.data.Success) {
+                        $scope.ReportName = "";
+                        $('#saveModal').modal('hide');
                         $scope.alerts.push({
-                            msg: 'Project added successfully',
+                            msg: 'Repprt saved successfully',
                             type: 'success'
                         });
-
+                        $('html, body').animate({ scrollTop: 0 }, 'slow');
                     }
                 }, function (error) {
                     //Display Error message if any error occurs
