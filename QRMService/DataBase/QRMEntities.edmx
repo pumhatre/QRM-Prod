@@ -447,6 +447,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="MonthID" Type="int" />
           <Property Name="ProjectId" Type="int" />
           <Property Name="ReportType" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <Association Name="FK_DefectDataDetails_MonthId">
           <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
@@ -1476,6 +1477,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="MonthID" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" />
           <Property Name="ReportType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="DevMetric">
           <Key>
@@ -2275,6 +2277,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="UserReportAssociations">
             <EntityTypeMapping TypeName="QRMPortalModel.UserReportAssociation">
               <MappingFragment StoreEntitySet="UserReportAssociation">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ReportType" ColumnName="ReportType" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="MonthID" ColumnName="MonthID" />

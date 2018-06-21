@@ -328,6 +328,7 @@
     <Compile Include="Models\MetricsAssociationMasterModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\MonthDetailsModel.cs" />
+    <Compile Include="Models\MySavedReportsResponseModel.cs" />
     <Compile Include="Models\ProjectDetailsModel.cs" />
     <Compile Include="Models\ProjectHealthMetrics.cs" />
     <Compile Include="Models\ProjectMasterModel.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Repositories\LoginRepository.cs" />
     <Compile Include="Repositories\MetricsAssociationRepository.cs" />
     <Compile Include="Repositories\MetricsRepository.cs" />
+    <Compile Include="Repositories\MySavedReportRepository.cs" />
     <Compile Include="Repositories\ProjectReleaseRepository.cs" />
     <Compile Include="Repositories\ProjectUserRepository.cs" />
     <Compile Include="Repositories\ReferenceRepository.cs" />

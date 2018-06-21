@@ -76,7 +76,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.loadSITExecutionGraph = function (projectId, releaseId) {
             chartService.GetSitExecutionGraph(config, projectId, releaseId)
                               .then(function (successResponse) {
-                                  debugger;
                                   $scope.SitExecutionGraphLabels = [];
                                   $scope.SitExecutionGraphSeries = [];
                                   $scope.SitExecutionGraphColors = [];
