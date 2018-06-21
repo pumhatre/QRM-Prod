@@ -412,6 +412,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ActualEndDateExecution" Type="datetime" />
           <Property Name="ManualOrAutomatedExecution" Type="varchar" MaxLength="50" />
           <Property Name="NormalizedTestCasesDesign" Type="int" />
+          <Property Name="Module" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserDetails">
           <Key>
@@ -444,6 +445,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ReportName" Type="varchar" MaxLength="200" />
           <Property Name="ProjectReleaseID" Type="int" />
           <Property Name="MonthID" Type="int" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="ReportType" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_DefectDataDetails_MonthId">
           <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
@@ -1434,6 +1437,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDetails_MonthId" FromRole="TestingDetail" ToRole="MonthMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
@@ -1470,6 +1474,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ReportName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ProjectReleaseID" Type="Int32" />
           <Property Name="MonthID" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="ReportType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DevMetric">
           <Key>
@@ -2191,6 +2197,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="TestingDetails">
             <EntityTypeMapping TypeName="QRMPortalModel.TestingDetail">
               <MappingFragment StoreEntitySet="TestingDetails">
+                <ScalarProperty Name="Module" ColumnName="Module" />
                 <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
                 <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
                 <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
@@ -2268,6 +2275,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="UserReportAssociations">
             <EntityTypeMapping TypeName="QRMPortalModel.UserReportAssociation">
               <MappingFragment StoreEntitySet="UserReportAssociation">
+                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="MonthID" ColumnName="MonthID" />
                 <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
                 <ScalarProperty Name="ReportName" ColumnName="ReportName" />

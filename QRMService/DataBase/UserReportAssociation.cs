@@ -19,5 +19,7 @@ namespace QRMService.DataBase
         public string ReportName { get; set; }
         public Nullable<int> ProjectReleaseID { get; set; }
         public Nullable<int> MonthID { get; set; }
+        public Nullable<int> ProjectId { get; set; }
+        public string ReportType { get; set; }
     }
 }
