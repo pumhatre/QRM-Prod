@@ -20,6 +20,7 @@ namespace QRMService.Models
 
         public int EffortTotalCount { get; set; }
         public int DefectTotalCount { get; set; }
+        public int TestTotalCount { get; set; }
 
     }
 }

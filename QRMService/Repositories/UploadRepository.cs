@@ -434,16 +434,87 @@ namespace QRMService.Repositories
         public static SanitizedDataViewModel DataSanityCheckTestData(UploadViewModel upload)
         {
             //get the datasanity results from SP
-            var dataSanityResult = ValidateDataSanityTestData(upload);
+            int defectCount = 0;
+            var dataSanityResult = ValidateDataSanityTestData(upload, ref defectCount);
             SanitizedDataViewModel vm = new SanitizedDataViewModel();
             vm.testSanityValidationModel = dataSanityResult;
+            vm.TestTotalCount = defectCount;
             return vm;
 
         }
-        private static List<TestingSanityValidationModel> ValidateDataSanityTestData(UploadViewModel upload)
+        private static List<TestingSanityValidationModel> ValidateDataSanityTestData(UploadViewModel upload, ref int value)
         {
-            List<TestingSanityValidationModel> defectSanityValidationList = new List<TestingSanityValidationModel>();
-            return defectSanityValidationList;
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("Project", upload.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("Month", upload.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("Release", upload.ProjectReleaseId));
+            DataSet dsSanityValidation = helper.GetDataSetByProcedure(Constants.UspGetTestDataSanity, "default", true, parameters.ToArray());
+
+            List<TestingSanityValidationModel> testSanityValidationList = new List<TestingSanityValidationModel>();
+
+            dsSanityValidation.Tables[1].AsEnumerable().ToList().ForEach(row =>
+            {
+                StringBuilder sb = new StringBuilder();
+                var defectSanityModel = new DefectSanityValidationModel();
+                //Review Type
+                var IsValidTestingType = row.Field<bool>(Constants.TestSanityValidationColumnName.IsValidTestingType.ToString());
+                var IsValidTestingPhase = row.Field<bool>(Constants.TestSanityValidationColumnName.IsValidTestingPhase.ToString());
+                var IsValidTestingSubPhase = row.Field<bool>(Constants.TestSanityValidationColumnName.IsValidTestingSubPhase.ToString());
+                var IsValidTestingExecutionType = row.Field<bool>(Constants.TestSanityValidationColumnName.IsValidTestExecutionType.ToString());
+
+
+                if (!IsValidTestingType)
+                {
+                    if (row.Field<string>(Constants.TestSanityValidationColumnName.TestingType.ToString()) == "-Missing-")
+                        sb.Append("Missing Testing Type").Append("|");
+                    else
+                        sb.Append("Invalid Testing Type").Append("|");
+                }
+                if (!IsValidTestingPhase)
+                {
+                    if (row.Field<string>(Constants.TestSanityValidationColumnName.TestingPhase.ToString()) == "-Missing-")
+                        sb.Append("Missing Testing Phase").Append("|");
+                    else
+                    sb.Append("Invalid Testing Phase").Append("|");
+                }
+                if (!IsValidTestingSubPhase)
+                {
+                    if (row.Field<string>(Constants.TestSanityValidationColumnName.TestingSubPhase.ToString()) == "-Missing-")
+                        sb.Append("Missing Testing SubPhase").Append("|");
+                    else
+                    sb.Append("Invalid Testing SubPhase").Append("|");
+                }
+                if (!IsValidTestingExecutionType)
+                {
+                    if (row.Field<string>(Constants.TestSanityValidationColumnName.TestExecutionType.ToString()) == "-Missing-")
+                        sb.Append("Missing Test Execution Type").Append("|");
+                    else
+                    sb.Append("Invalid Test Execution Type").Append("|");
+                }
+                
+
+
+                testSanityValidationList.Add(new TestingSanityValidationModel
+                {
+                    TestingDataStagingId = row.Field<int>(Constants.TestSanityValidationColumnName.TestingDataStagingId.ToString()),
+                    RowNumber= row.Field<Int64>(Constants.TestSanityValidationColumnName.RowNumber.ToString()),
+                    Release = row.Field<string>(Constants.TestSanityValidationColumnName.Release.ToString()),
+                    Iteration = row.Field<string>(Constants.TestSanityValidationColumnName.Iteration.ToString()),
+                    TestingType = row.Field<string>(Constants.TestSanityValidationColumnName.TestingType.ToString()),
+                    TestingPhase = row.Field<string>(Constants.TestSanityValidationColumnName.TestingPhase.ToString()),
+                    TestingSubPhase = row.Field<string>(Constants.TestSanityValidationColumnName.TestingSubPhase.ToString()),
+                    TestingExecutionType = row.Field<string>(Constants.TestSanityValidationColumnName.TestExecutionType.ToString()),
+                    
+                    ErrorDescription = sb.ToString().TrimEnd('|'),
+                    ErrorArray = (sb.ToString().TrimEnd('|').Split('|') != null && sb.ToString().TrimEnd('|').Split('|').Count() == 1 && sb.ToString().TrimEnd('|').Split('|')[0] == "")
+                    ? null : sb.ToString().TrimEnd('|').Split('|')
+
+                });
+            });
+            value = Convert.ToInt32(dsSanityValidation.Tables[0].Rows[0]["TotalCount"]);
+            return testSanityValidationList;
+           
         }
 
         private static void SaveTestingDetailData(SanitizedDataViewModel SanityModel)
