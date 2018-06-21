@@ -22,7 +22,7 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                var data = new UserReportAssociation { UserId = userId, ProjectId = projectId, ProjectReleaseID = releaseId, ReportType = reportType, ReportName = reportName };
+                var data = new UserReportAssociation { UserId = userId, ProjectId = projectId, ProjectReleaseID = releaseId, ReportType = reportType, ReportName = reportName, IsActive=true };
                 db.UserReportAssociations.Add(data);
                 db.SaveChanges();
                 return true;

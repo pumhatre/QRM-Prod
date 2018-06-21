@@ -189,7 +189,7 @@ namespace QRMService.Repositories
             {
                 //set series for chart data
                 chartDataModel.series = new List<string> { "Planned Cumulative", "Completed Cumulative" };
-                chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
+                chartDataModel.colors = new List<string> { "#F7464A", "#FFA500" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -202,7 +202,7 @@ namespace QRMService.Repositories
                 var plannedCount = new ChartDataset { fill = false };
                 plannedCount.data = new List<int>();
                 plannedCount.label = "Planned Cumulative";
-                plannedCount.borderColor = "#FFA500";
+                plannedCount.borderColor = "#F7464A";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     plannedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.PlannedCount.ToString()));
@@ -212,7 +212,7 @@ namespace QRMService.Repositories
                 var completedCount = new ChartDataset { fill = false };
                 completedCount.data = new List<int>();
                 completedCount.label = "Completed Cumulative";
-                completedCount.borderColor = "#F7464A";
+                completedCount.borderColor = "#FFA500";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     completedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.CompletedCount.ToString()));
@@ -335,6 +335,71 @@ namespace QRMService.Repositories
                     passPerccentage.data.Add(row.Field<int>(SITExecutionGraphColumns.PassPerccentage.ToString()));
                 });
                 chartDataModel.datasets.Add(passPerccentage);
+            }
+            return chartDataModel;
+        }
+
+        public static ChartDataModel GetSitDefectGraph(int projectId, int releaseId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
+            var chartData = helper.GetDataTableByProcedure(Constants.UspGetSITDefectGraph, "default", true, parameters.ToArray());
+            var chartDataModel = new ChartDataModel();
+            if (chartData != null && chartData.Rows.Count > 0)
+            {
+                //set series for chart data
+                chartDataModel.series = new List<string> { "Total Closed", "New", "Cancelled/Inavlid", "Open" };
+                chartDataModel.colors = new List<string> { "#5B9BD5", "#ED7D31", "#A5A5A5", "#FFC000" };
+                chartDataModel.labels = new List<string>();
+                // set labels for line chart
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    chartDataModel.labels.Add(row.Field<string>(SITDefectGraphColumns.Weekend.ToString()));
+                });
+                // set dataset for line chart
+                chartDataModel.datasets = new List<ChartDataset>();
+                // set TotalClosedDefectCount count
+                var totalClosedDefectCount = new ChartDataset { fill = false };
+                totalClosedDefectCount.data = new List<int>();
+                totalClosedDefectCount.label = "Total Closed";
+                totalClosedDefectCount.borderColor = "#5B9BD5";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    totalClosedDefectCount.data.Add(row.Field<int>(SITDefectGraphColumns.TotalClosedDefectCount.ToString()));
+                });
+                chartDataModel.datasets.Add(totalClosedDefectCount);
+                // set NewDefectCount count
+                var newDefectCount = new ChartDataset { fill = false };
+                newDefectCount.data = new List<int>();
+                newDefectCount.label = "New";
+                newDefectCount.borderColor = "#ED7D31";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    newDefectCount.data.Add(row.Field<int>(SITDefectGraphColumns.NewDefectCount.ToString()));
+                });
+                chartDataModel.datasets.Add(newDefectCount);
+                // set CalcelledDefectCount count
+                var calcelledDefectCount = new ChartDataset { fill = false };
+                calcelledDefectCount.data = new List<int>();
+                calcelledDefectCount.label = "Cancelled/Inavlid";
+                calcelledDefectCount.borderColor = "#A5A5A5";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    calcelledDefectCount.data.Add(row.Field<int>(SITDefectGraphColumns.CalcelledDefectCount.ToString()));
+                });
+                chartDataModel.datasets.Add(calcelledDefectCount);
+                // set openDefectCount count
+                var openDefectCount = new ChartDataset { fill = false };
+                openDefectCount.data = new List<int>();
+                openDefectCount.label = "Open";
+                openDefectCount.borderColor = "#FFC000";
+                chartData.AsEnumerable().ToList().ForEach(row =>
+                {
+                    openDefectCount.data.Add(row.Field<int>(SITDefectGraphColumns.OpenDefectCount.ToString()));
+                });
+                chartDataModel.datasets.Add(openDefectCount);
             }
             return chartDataModel;
         }

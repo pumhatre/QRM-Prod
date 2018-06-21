@@ -167,5 +167,25 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets the sit defect graph.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetSitDefectGraph(HealthReportRequestModel request)
+        {
+            try
+            {
+                var chartDataModel = ChartRepository.GetSitDefectGraph(request.ProjectId, request.ReleaseId);
+                return Ok(chartDataModel);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

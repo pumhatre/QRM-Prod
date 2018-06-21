@@ -58,10 +58,17 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                       for (var i = 0; i < successResponse.data.colors.length; i++) {
                                           $scope.ProjectWidgetDashboardColors.push({ borderColor: successResponse.data.colors[i] });
                                       }
-
+                                      $scope.ProjectWidgetDashboardOverride = [
+                                         { type: 'line', fill: false },
+                                         { type: 'line', fill: false },
+                                         { type: 'line', fill: false },
+                                         { type: 'line', fill: false }
+                                      ];
                                       for (var i = 0; i < successResponse.data.series.length; i++) {
-                                          $scope.ProjectWidgetDashboardOverride.push({ label: successResponse.data.series[i] });
+                                          $scope.ProjectWidgetDashboardOverride[i].label = successResponse.data.series[i];
+                                          $scope.ProjectWidgetDashboardOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
+                                      debugger;
                                       $scope.ProjectWidgetDashboardOptions = {
 
                                       };
@@ -122,6 +129,47 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                       for (var i = 0; i < successResponse.data.series.length; i++) {
                                           $scope.SitExecutionGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitExecutionGraphOverride[i].backgroundColor = successResponse.data.colors[i];
+                                      }
+                                  }
+
+
+                              }, function (errorResponse) {
+
+                              });
+        }
+
+        $scope.loadSitDefectGraph = function (projectId, releaseId) {
+            chartService.GetSitDefectGraph(config, projectId, releaseId)
+                              .then(function (successResponse) {
+                                  $scope.SitDefectGraphLabels = [];
+                                  $scope.SitDefectGraphSeries = [];
+                                  $scope.SitDefectGraphColors = [];
+                                  $scope.SitDefectGraphData = [];
+                                  $scope.SitDefectGraphOverride = [];
+                                  if (successResponse.data.datasets) {
+                                      $scope.SitDefectGraphOptions = {
+                                          legend: { display: false }
+                                      };
+                                      $scope.SitDefectGraphLabels = successResponse.data.labels;
+                                      $scope.SitDefectGraphSeries = successResponse.data.series;
+
+                                      for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                                          $scope.SitDefectGraphData.push(successResponse.data.datasets[i].data)
+                                      }
+
+
+                                      for (var i = 0; i < successResponse.data.colors.length; i++) {
+                                          $scope.SitDefectGraphColors.push({ borderColor: successResponse.data.colors[i] });
+                                      }
+                                      $scope.SitDefectGraphOverride = [
+                                          { type: 'line', fill: false },
+                                          { type: 'line', fill: false },
+                                          { type: 'line', fill: false },
+                                          { type: 'line', fill: false }
+                                      ];
+                                      for (var i = 0; i < successResponse.data.series.length; i++) {
+                                          $scope.SitDefectGraphOverride[i].label = successResponse.data.series[i];
+                                          $scope.SitDefectGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
                                   }
 
@@ -289,6 +337,9 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     break;
                 case 'SEG':
                     $scope.loadSITExecutionGraph(selectedProjectDropdown, selectedReleaseDropdown);
+                    break;
+                case 'SDG':
+                    $scope.loadSitDefectGraph(selectedProjectDropdown, selectedReleaseDropdown);
                     break;
                 default:
                     break;

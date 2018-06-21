@@ -98,6 +98,19 @@
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
+                                    <div ng-switch-when="SDG" class="text-center">
+                                        <br />
+                                        <h4 style="text-align:center;">SIT Defect Graph</h4>
+                                        <canvas id="SITDefectGraph" class="chart chart-line"
+                                                chart-data="SitDefectGraphData"
+                                                chart-labels="SitDefectGraphLabels"
+                                                chart-series="SitDefectGraphSeries"
+                                                chart-options="SitDefectGraphOptions"
+                                                chart-colors="SitDefectGraphColors"
+                                                chart-dataset-override="SitDefectGraphOverride"></canvas>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                    </div>
                                     <div ng-switch-when="SDSD" class="text-center">
                                         <br />
                                         <h4 style="text-align:center;">SIT Defect Severity Distribution</h4>
