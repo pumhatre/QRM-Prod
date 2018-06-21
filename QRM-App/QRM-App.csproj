@@ -207,6 +207,7 @@
     <Content Include="Assets\app\controllers\projectCtrl.js" />
     <Content Include="Assets\app\controllers\registerCtrl.js" />
     <Content Include="Assets\app\controllers\roleCtrl.js" />
+    <Content Include="Assets\app\controllers\savedReportCtrl.js" />
     <Content Include="Assets\app\controllers\signInCtrl.js" />
     <Content Include="Assets\app\controllers\uploadCtrl.js" />
     <Content Include="Assets\app\controllers\viewPreferencesReportCtrl.js" />
@@ -432,6 +433,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\App\MetricReports.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\App\SavedReports.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

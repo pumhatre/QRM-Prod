@@ -34,7 +34,8 @@
     'uploadFile',
     'splitFilter',
     'charts',
-    'metricReport'
+    'metricReport',
+    'savedReport'
 ]);
 
 app.constant('config', {
@@ -130,6 +131,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/Metric', {
         templateUrl: '/App/MetricReports',
         controller: 'metricReportCtrl'
+    });
+    $routeProvider.when('/Saved', {
+        templateUrl: '/App/SavedReports',
+        controller: 'savedReportCtrl'
     });
 
     $routeProvider.otherwise({
