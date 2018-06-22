@@ -150,11 +150,13 @@ namespace QRMService.Repositories
             if (chartData != null && chartData.Rows.Count > 0)
             {
                 //set series for chart data
-                chartDataModel.series = new List<string> { "Requirements Review", "Architecture Review","Functional Design Review","Technical Design Review" ,"Unit Test Case Review","Code Review",
-                    "Unit Testing","System Test Case Review","SIT Component","SIT E2E","Integration Testing", "Performance Testing","Smoke Testing","Regression Testing" ,
+                chartDataModel.series = new List<string> { "Requirements Review", "Architecture Review","Functional Design Review",
+                    "Technical Design Review" ,"Unit Test Case Review","Code Review",
+                    "Unit Testing","System Test Case Review","SIT Component","SIT E2E","Integration Testing",
+                    "Performance Testing","Smoke Testing","Regression Testing" ,
                     "Security Testing","Data Conversion Testing","UAT","Deploy","Post Delivery" };
                 chartDataModel.colors = new List<string> { "#FFA500", "#F7464A","#1E90FF", "#32CD32", "#FFFF00", "#FA8072", "#FFFFFF", "#0000FF", "#FF0000",
-                "#800000","#808000","#008000","#FF00FF","#800080"};
+                "#800000","#808000","#008000","#FF00FF","#800080","#FFA500","#32CD32","#FFFFFF","#FA8072","#800000"};
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -168,6 +170,9 @@ namespace QRMService.Repositories
                 componentCount.data = new List<decimal>();
                 componentCount.label = "Actual";
                 componentCount.borderColor = "#FFA500";
+                componentCount.backgroundColor = new List<string>(){ "#FFA500", "#F7464A","#1E90FF", "#32CD32", "#FFFF00", "#FA8072", "#FFFFFF", "#0000FF", "#FF0000",
+                "#800000","#808000","#008000","#FF00FF","#800080","#FFA500","#32CD32","#FFFFFF","#FA8072","#800000"};
+
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     componentCount.data.Add(row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString()));
