@@ -501,7 +501,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                         $scope.ReportName = "";
                         $('#saveModal').modal('hide');
                         $scope.alerts.push({
-                            msg: 'Repprt saved successfully',
+                            msg: 'Report saved successfully',
                             type: 'success'
                         });
                         $('html, body').animate({ scrollTop: 0 }, 'slow');

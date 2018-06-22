@@ -12,9 +12,9 @@ angular.module('savedReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveS
                 { field: 'UserReportAssociationID', name: 'UserReportAssociationID', visible: false },
                 { field: 'ProjectReleaseID', name: 'ProjectReleaseID', visible: false },
                 { field: 'ReportType', name: 'ReportType', visible: false },
-                { field: 'Project', name: 'Project ', cellTemplate: tmpl, width: '20%' },
-                { field: 'Release ', name: 'Release', cellTemplate: tmpl, width: '20%' },
-                { field: 'ReportName  ', name: 'ReportName ', cellTemplate: tmpl, width: '45%' },
+                { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '20%' },
+                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '20%' },
+                { field: 'ReportName', name: 'ReportName', cellTemplate: tmpl, width: '45%' },
                 {
                     name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '12%',
                     cellTemplate: '<div style="text-align: center; padding-top: 5px; padding-bottom: 5px;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.editRow(row.entity)" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-th-list"></i>View</button>' +  //View Button
