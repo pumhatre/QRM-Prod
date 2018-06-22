@@ -51,7 +51,7 @@ namespace QRM_App
                       "~/Content/js/moment.min.js",
                       "~/Content/js/daterangepicker.js",
                       "~/Content/js/qrm.js",
-                      "~/Content/js/custom.min.js"));
+                      "~/Content/js/custom.js"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

@@ -3,7 +3,16 @@
 * Description:This controller will be used for user specfic information Home
 */
 "use strict";
-angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
+angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
+     .config(['ChartJsProvider', function (ChartJsProvider) {
+         // Configure all charts
+         ChartJsProvider.setOptions({
+             responsive: true,
+             beginAtZero: true
+
+         });
+     }])
+
     .controller('chartsCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
@@ -68,9 +77,17 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.ProjectWidgetDashboardOverride[i].label = successResponse.data.series[i];
                                           $scope.ProjectWidgetDashboardOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
-                                      debugger;
                                       $scope.ProjectWidgetDashboardOptions = {
-
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                       };
                                   }
 
@@ -130,6 +147,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.SitExecutionGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitExecutionGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
+                                      $scope.SitExecutionGraphOptions = {
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
+                                      };
                                   }
 
 
@@ -171,6 +200,19 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.SitDefectGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitDefectGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
+                                      $scope.SitDefectGraphOptions = {
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
+                                      };
+
                                   }
 
 
@@ -190,8 +232,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
                                       }
                                       $scope.SITDefectSeverityOptions = {
-                                          responsive: true,
-                                          legend: { display: false, position: 'bottom' }
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                       }
                                   }
 
@@ -232,6 +282,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                               label: $scope.DefectTypeDistributionLabels[i]
                                           });
                                       }
+                                      $scope.DefectTypeDistributionOptions = {
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
+                                      }
                                   }
                               }, function (errorResponse) {
 
@@ -240,15 +302,41 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.loadEffortDistribution = function (projectId, releaseId) {
             chartService.GetEffortDistribution(config, projectId, releaseId)
                 .then(function (successResponse) {
-                    $scope.labels = successResponse.data.labels;
-                    $scope.ProjectEffortData = [];
-                    for (var i = 0; i < successResponse.data.datasets.length; i++) {
-                        $scope.ProjectEffortData.push(successResponse.data.datasets[i].data)
-                    }
-                    $scope.ProjectEffortDataSeries = successResponse.data.series;
-                    $scope.ProjectEffortDataColors = [];
-                    for (var i = 0; i < successResponse.data.colors.length; i++) {
-                        $scope.ProjectEffortDataColors.push({ borderColor: successResponse.data.colors[i] });
+                    if (successResponse.data.datasets.length > 0) {
+                        $scope.labels = successResponse.data.labels;
+                        $scope.ProjectEffortData = [];
+                        $scope.ProjectEffortDashboardOverride = [];
+                        for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                            $scope.ProjectEffortData.push(successResponse.data.datasets[i].data)
+                        }
+                        $scope.ProjectEffortDataSeries = successResponse.data.series;
+                        $scope.ProjectEffortDataColors = [];
+                        for (var i = 0; i < successResponse.data.colors.length; i++) {
+                            $scope.ProjectEffortDataColors.push({ borderColor: successResponse.data.colors[i] });
+                        }
+
+                        $scope.ProjectEffortDashboardOverride = [
+                                            { type: 'bar', fill: false },
+                                            { type: 'bar', fill: false },
+                                            { type: 'bar', fill: false },
+                                            { type: 'bar', fill: false }
+                        ];
+                        for (var i = 0; i < successResponse.data.series.length; i++) {
+                            $scope.ProjectEffortDashboardOverride[i].label = successResponse.data.series[i];
+                            $scope.ProjectEffortDashboardOverride[i].backgroundColor = successResponse.data.colors[i];
+                        }
+                        $scope.ProjectEffortDataoptions = {
+                            legend: {
+                                display: true,
+                                position: "bottom"
+                            },
+                            tooltipEvents: [],
+                            showTooltips: true,
+                            tooltipCaretSize: 0,
+                            onAnimationComplete: function () {
+                                this.showTooltip(this.segments, true);
+                            },
+                        };
                     }
                 }, function (errorResponse) {
 
@@ -258,15 +346,40 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.loadTestCaseDistribution = function (projectId, releaseId) {
             chartService.GetTestCaseDistribution(config, projectId, releaseId)
                   .then(function (successResponse) {
-                      $scope.labels1 = successResponse.data.labels;
-                      $scope.TestCaseDistribution = [];
-                      for (var i = 0; i < successResponse.data.datasets.length; i++) {
-                          $scope.TestCaseDistribution.push(successResponse.data.datasets[i].data)
-                      }
-                      $scope.TestCaseDistributionSeries = successResponse.data.series;
-                      $scope.TestCaseDistributionColors = [];
-                      for (var i = 0; i < successResponse.data.colors.length; i++) {
-                          $scope.TestCaseDistributionColors.push({ borderColor: successResponse.data.colors[i] });
+                      if (successResponse.data.datasets.length > 0) {
+                          $scope.labels1 = successResponse.data.labels;
+                          $scope.TestCaseDistribution = [];
+                          $scope.TestCaseDistributionOverride = [];
+                          for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                              $scope.TestCaseDistribution.push(successResponse.data.datasets[i].data)
+                          }
+                          $scope.TestCaseDistributionSeries = successResponse.data.series;
+                          $scope.TestCaseDistributionColors = [];
+                          for (var i = 0; i < successResponse.data.colors.length; i++) {
+                              $scope.TestCaseDistributionColors.push({ borderColor: successResponse.data.colors[i] });
+                          }
+                          $scope.TestCaseDistributionOverride = [
+                                           { type: 'bar', fill: false },
+                                           { type: 'bar', fill: false },
+                                           { type: 'bar', fill: false },
+                                           { type: 'bar', fill: false }
+                          ];
+                          for (var i = 0; i < successResponse.data.series.length; i++) {
+                              $scope.TestCaseDistributionOverride[i].label = successResponse.data.series[i];
+                              $scope.TestCaseDistributionOverride[i].backgroundColor = successResponse.data.colors[i];
+                          }
+                          $scope.TestCaseDistributionoptions = {
+                              legend: {
+                                  display: true,
+                                  position: "bottom"
+                              },
+                              tooltipEvents: [],
+                              showTooltips: true,
+                              tooltipCaretSize: 0,
+                              onAnimationComplete: function () {
+                                  this.showTooltip(this.segments, true);
+                              },
+                          };
                       }
                   }, function (errorResponse) {
 
@@ -275,37 +388,103 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.loadTestCaseComplexityDistribution = function (projectId, releaseId) {
             chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
                           .then(function (successResponse) {
-                              debugger;
-                              $scope.labels4 = successResponse.data[0].labels;
-                              $scope.TestCaseComplexityDistribution = [];
-                              for (var j = 0; j < successResponse.data.length; j++) {
-                                  for (var i = 0; i < successResponse.data[j].datasets.length; i++) {
-                                      $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
+                              if (successResponse.data.length > 0) {
+                                  $scope.labels4 = successResponse.data[0].labels;
+                                  $scope.TestCaseComplexityDistribution = [];
+                                  for (var j = 0; j < successResponse.data.length; j++) {
+                                      for (var i = 0; i < successResponse.data[j].datasets.length; i++) {
+                                          $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
+                                      }
                                   }
-                              }
 
-                              $scope.TestCaseComplexityDistributionSeries = successResponse.data[0].series;
-                              $scope.TestCaseComplexityDistributionColors = [];
-                              for (var i = 0; i < successResponse.data[0].colors.length; i++) {
-                                  $scope.TestCaseComplexityDistribution.push({ borderColor: successResponse.data.colors[i] });
+                                  $scope.TestCaseComplexityDistributionSeries = successResponse.data[0].series;
+                                  $scope.TestCaseComplexityDistributionColors = [];
+                                  for (var i = 0; i < successResponse.data[0].colors.length; i++) {
+                                      $scope.TestCaseComplexityDistribution.push({ borderColor: successResponse.data[0].colors[i] });
+                                  }
+
+                                  $scope.TestCaseComplexityDistributionOverride = [
+                                          { type: 'doughnut', fill: false },
+                                          { type: 'doughnut', fill: false },
+                                          { type: 'doughnut', fill: false },
+                                          { type: 'doughnut', fill: false }
+                                  ];
+                                  for (var i = 0; i < successResponse.data[0].series.length; i++) {
+                                      $scope.TestCaseComplexityDistributionOverride[i].label = successResponse.data[0].series[i];
+                                      $scope.TestCaseComplexityDistributionOverride[i].backgroundColor = successResponse.data[0].colors[i];
+                                  }
+                                  $scope.TestCaseComplexityDistributionoptions = {
+                                      legend: {
+                                          display: true,
+                                          position: "right"
+                                      },
+                                      tooltipEvents: [],
+                                      showTooltips: true,
+                                      tooltipCaretSize: 0,
+                                      onAnimationComplete: function () {
+                                          this.showTooltip(this.segments, true);
+                                      },
+                                  };
                               }
                           }, function (errorResponse) {
 
                           });
         }
+
         $scope.loadDefectDetectedPhaseDistribution = function (projectId, releaseId) {
             chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
                         .then(function (successResponse) {
-                            $scope.labels3 = successResponse.data.labels;
-                            $scope.DefectDetectedPhase = [];
-                            $scope.DefectDetectedPhase = [];
-                            for (var i = 0; i < successResponse.data.datasets.length; i++) {
-                                $scope.DefectDetectedPhase.push(successResponse.data.datasets[i].data)
-                            }
-                            $scope.DefectDetectedPhaseSeries = successResponse.data.series;
-                            $scope.DefectDetectedPhaseColors = [];
-                            for (var i = 0; i < successResponse.data.colors.length; i++) {
-                                $scope.DefectDetectedPhaseColors.push({ borderColor: successResponse.data.colors[i] });
+                            if (successResponse.data.datasets.length > 0) {
+                                $scope.labels3 = successResponse.data.labels;
+                                $scope.DefectDetectedPhase = [];
+                                $scope.ProjectDefectDetectedOverride = [];
+                                for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                                    $scope.DefectDetectedPhase.push(successResponse.data.datasets[i].data)
+                                }
+                                $scope.DefectDetectedPhaseSeries = successResponse.data.series;
+                                $scope.DefectDetectedPhaseColors = [];
+                                for (var i = 0; i < successResponse.data.colors.length; i++) {
+                                    $scope.DefectDetectedPhaseColors.push({ borderColor: successResponse.data.colors[i] });
+                                }
+                                //$scope.ProjectDefectDetectedOverride = [
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true },
+                                //           { type: 'doughnut', fill: true }
+
+                                //];
+                                for (var i = 0; i < successResponse.data.series.length; i++) {
+                                  //  $scope.ProjectDefectDetectedOverride[i].label = successResponse.data.series[i];
+                                  //  $scope.ProjectDefectDetectedOverride[i].backgroundColor = successResponse.data.colors[i];
+                                }
+                                $scope.DefectDetectedPhaseOptions = {
+                                    legend: {
+                                        display: true,
+                                        position: "right"
+                                    },
+                                    tooltipEvents: [],
+                                    showTooltips: true,
+                                    tooltipCaretSize: 0,
+                                    showLabels: true,
+                                    onAnimationComplete: function () {
+                                        this.showTooltip(this.segments, true);
+                                    },
+                                };
                             }
                         }, function (errorResponse) {
 
