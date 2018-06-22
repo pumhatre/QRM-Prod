@@ -1989,7 +1989,7 @@ if (typeof NProgress != 'undefined') {
 			
 				
 				Chart.defaults.global.legend = {
-					enabled: false
+					enabled: true
 				};
 				
 				
@@ -5068,10 +5068,10 @@ if (typeof NProgress != 'undefined') {
 		init_daterangepicker_single_call();
 		init_daterangepicker_reservation();
 		init_SmartWizard();
-		init_EasyPieChart();
-		init_charts();
-		init_echarts();
-		init_morris_charts();
+		//init_EasyPieChart();
+		//init_charts();
+		//init_echarts();
+		//init_morris_charts();
 		init_skycons();
 		init_select2();
 		init_validator();

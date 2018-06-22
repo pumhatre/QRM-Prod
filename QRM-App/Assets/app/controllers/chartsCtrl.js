@@ -3,8 +3,8 @@
 * Description:This controller will be used for user specfic information Home
 */
 "use strict";
-angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
-    .controller('chartsCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService) {
+angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
+    .controller('chartsCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.selectedProjectDropdown = '';
@@ -68,9 +68,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.ProjectWidgetDashboardOverride[i].label = successResponse.data.series[i];
                                           $scope.ProjectWidgetDashboardOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
-                                      debugger;
                                       $scope.ProjectWidgetDashboardOptions = {
-
+                                          legend: {
+                                              position:'top',
+                                              display: true
+                                          }
                                       };
                                   }
 
