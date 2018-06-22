@@ -3,12 +3,10 @@
 * Description:This controller will be used for user specfic information Home
 */
 "use strict";
-angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
+angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
      .config(['ChartJsProvider', function (ChartJsProvider) {
          // Configure all charts
          ChartJsProvider.setOptions({
-             //chartColors: ['#80b6ff', '#c980ff', "#FFA500", "#F7464A", "#FFA500", "#F7464A", "#1E90FF", "#32CD32", "#FFFF00", "#FA8072", "#FFFFFF", "#0000FF", "#FF0000",
-             //   "#800000", "#808000", "#008000", "#FF00FF", "#800080"],
              responsive: true,
              beginAtZero: true
 
@@ -81,9 +79,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                       }
                                       $scope.ProjectWidgetDashboardOptions = {
                                           legend: {
-                                              position:'top',
-                                              display: true
-                                          }
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                       };
                                   }
 
@@ -143,6 +147,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.SitExecutionGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitExecutionGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
+                                      $scope.SitExecutionGraphOptions = {
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
+                                      };
                                   }
 
 
@@ -184,6 +200,19 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.SitDefectGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitDefectGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
+                                      $scope.SitDefectGraphOptions = {
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
+                                      };
+
                                   }
 
 
@@ -203,8 +232,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
                                       }
                                       $scope.SITDefectSeverityOptions = {
-                                          responsive: true,
-                                          legend: { display: false, position: 'bottom' }
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                       }
                                   }
 
@@ -244,6 +281,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.DefectTypeDistributionDatasetOverride.push({
                                               label: $scope.DefectTypeDistributionLabels[i]
                                           });
+                                      }
+                                      $scope.DefectTypeDistributionOptions = {
+                                          legend: {
+                                              display: true,
+                                              position: "bottom"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                       }
                                   }
                               }, function (errorResponse) {
@@ -353,10 +402,21 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                   for (var i = 0; i < successResponse.data[0].colors.length; i++) {
                                       $scope.TestCaseComplexityDistribution.push({ borderColor: successResponse.data[0].colors[i] });
                                   }
+
+                                  $scope.TestCaseComplexityDistributionOverride = [
+                                          { type: 'doughnut', fill: false },
+                                          { type: 'doughnut', fill: false },
+                                          { type: 'doughnut', fill: false },
+                                          { type: 'doughnut', fill: false }
+                                  ];
+                                  for (var i = 0; i < successResponse.data[0].series.length; i++) {
+                                      $scope.TestCaseComplexityDistributionOverride[i].label = successResponse.data[0].series[i];
+                                      $scope.TestCaseComplexityDistributionOverride[i].backgroundColor = successResponse.data[0].colors[i];
+                                  }
                                   $scope.TestCaseComplexityDistributionoptions = {
                                       legend: {
                                           display: true,
-                                          position: "top"
+                                          position: "right"
                                       },
                                       tooltipEvents: [],
                                       showTooltips: true,
@@ -415,7 +475,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                 $scope.DefectDetectedPhaseOptions = {
                                     legend: {
                                         display: true,
-                                        position: "top"
+                                        position: "right"
                                     },
                                     tooltipEvents: [],
                                     showTooltips: true,
