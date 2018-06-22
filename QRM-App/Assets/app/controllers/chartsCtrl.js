@@ -79,9 +79,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                                           $scope.ProjectWidgetDashboardOverride[i].label = successResponse.data.series[i];
                                           $scope.ProjectWidgetDashboardOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
-                                      debugger;
                                       $scope.ProjectWidgetDashboardOptions = {
-
+                                          legend: {
+                                              position:'top',
+                                              display: true
+                                          }
                                       };
                                   }
 
