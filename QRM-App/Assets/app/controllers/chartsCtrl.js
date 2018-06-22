@@ -80,7 +80,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                       $scope.ProjectWidgetDashboardOptions = {
                                           legend: {
                                               display: true,
-                                              position: "bottom"
+                                              position: "top"
                                           },
                                           tooltipEvents: [],
                                           showTooltips: true,
@@ -107,7 +107,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                   $scope.SitExecutionGraphOverride = [];
                                   if (successResponse.data.datasets) {
                                       $scope.SitExecutionGraphOptions = {
-                                          legend: { display: false },
+                                          legend: {
+                                              display: true,
+                                              position: "top"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                           scales: {
                                               yAxes: [
                                                 {
@@ -147,18 +156,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                           $scope.SitExecutionGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitExecutionGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
-                                      $scope.SitExecutionGraphOptions = {
-                                          legend: {
-                                              display: true,
-                                              position: "bottom"
-                                          },
-                                          tooltipEvents: [],
-                                          showTooltips: true,
-                                          tooltipCaretSize: 0,
-                                          onAnimationComplete: function () {
-                                              this.showTooltip(this.segments, true);
-                                          },
-                                      };
+                                     
                                   }
 
 
@@ -176,9 +174,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                   $scope.SitDefectGraphData = [];
                                   $scope.SitDefectGraphOverride = [];
                                   if (successResponse.data.datasets) {
-                                      $scope.SitDefectGraphOptions = {
-                                          legend: { display: false }
-                                      };
                                       $scope.SitDefectGraphLabels = successResponse.data.labels;
                                       $scope.SitDefectGraphSeries = successResponse.data.series;
 
@@ -203,7 +198,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                       $scope.SitDefectGraphOptions = {
                                           legend: {
                                               display: true,
-                                              position: "bottom"
+                                              position: "top"
                                           },
                                           tooltipEvents: [],
                                           showTooltips: true,
@@ -234,7 +229,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                       $scope.SITDefectSeverityOptions = {
                                           legend: {
                                               display: true,
-                                              position: "bottom"
+                                              position: "top"
                                           },
                                           tooltipEvents: [],
                                           showTooltips: true,
@@ -261,9 +256,23 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.DefectTypeDistributionData.push(successResponse.data.values[i]);
                                       }
+
+                                      for (var i = 0; i < $scope.DefectTypeDistributionLabels.length; i++) {
+                                          $scope.DefectTypeDistributionDatasetOverride.push({
+                                              label: $scope.DefectTypeDistributionLabels[i]
+                                          });
+                                      }
                                       $scope.DefectTypeDistributionOptions = {
-                                          legend: { display: false, position: 'right' },
-                                          responsive: true,  // set to false to remove responsiveness. Default responsive value is true.
+                                          legend: {
+                                              display: true,
+                                              position: "top"
+                                          },
+                                          tooltipEvents: [],
+                                          showTooltips: true,
+                                          tooltipCaretSize: 0,
+                                          onAnimationComplete: function () {
+                                              this.showTooltip(this.segments, true);
+                                          },
                                           tooltips: {
                                               callbacks: {
                                                   label: function (tooltipItem, data) {
@@ -275,24 +284,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                                   }
                                               }
                                           }
-                                      }
-
-                                      for (var i = 0; i < $scope.DefectTypeDistributionLabels.length; i++) {
-                                          $scope.DefectTypeDistributionDatasetOverride.push({
-                                              label: $scope.DefectTypeDistributionLabels[i]
-                                          });
-                                      }
-                                      $scope.DefectTypeDistributionOptions = {
-                                          legend: {
-                                              display: true,
-                                              position: "bottom"
-                                          },
-                                          tooltipEvents: [],
-                                          showTooltips: true,
-                                          tooltipCaretSize: 0,
-                                          onAnimationComplete: function () {
-                                              this.showTooltip(this.segments, true);
-                                          },
                                       }
                                   }
                               }, function (errorResponse) {
@@ -434,48 +425,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
         $scope.loadDefectDetectedPhaseDistribution = function (projectId, releaseId) {
             chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
                         .then(function (successResponse) {
-                            if (successResponse.data.datasets.length > 0) {
-                                $scope.labels3 = successResponse.data.labels;
-                                $scope.DefectDetectedPhase = [];
+                            if (successResponse.data.values) {
+                                debugger;
+                                $scope.DefectDetectedPhaseLabels = successResponse.data.labels;
+                                $scope.DefectDetectedPhaseData = [];
                                 $scope.ProjectDefectDetectedOverride = [];
-                                for (var i = 0; i < successResponse.data.datasets.length; i++) {
-                                    $scope.DefectDetectedPhase.push(successResponse.data.datasets[i].data)
-                                }
-                                $scope.DefectDetectedPhaseSeries = successResponse.data.series;
-                                $scope.DefectDetectedPhaseColors = [];
-                                for (var i = 0; i < successResponse.data.colors.length; i++) {
-                                    $scope.DefectDetectedPhaseColors.push({ borderColor: successResponse.data.colors[i] });
-                                }
-                                //$scope.ProjectDefectDetectedOverride = [
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true },
-                                //           { type: 'doughnut', fill: true }
-
-                                //];
-                                for (var i = 0; i < successResponse.data.series.length; i++) {
-                                  //  $scope.ProjectDefectDetectedOverride[i].label = successResponse.data.series[i];
-                                  //  $scope.ProjectDefectDetectedOverride[i].backgroundColor = successResponse.data.colors[i];
+                                for (var i = 0; i < successResponse.data.values.length; i++) {
+                                    $scope.DefectDetectedPhaseData.push(successResponse.data.values[i])
                                 }
                                 $scope.DefectDetectedPhaseOptions = {
                                     legend: {
                                         display: true,
-                                        position: "right"
+                                        position: "top"
                                     },
                                     tooltipEvents: [],
                                     showTooltips: true,
