@@ -67,10 +67,29 @@
         display: table;
     }
 
-        .grid .msg span {
+    .grid .msg span {
             display: table-cell;
             vertical-align: middle;
         }
+
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
+    }
+
+    .ui-grid-pager-control-input {
+        display: none !important;
+    }
+
+    .ui-grid-pager-max-pages-number {
+        display: none;
+    }
+    /*End */
+
+    #mGrid {
+        width: 100% !important;
+        height: 320px !important;
+    }
 </style>
 
 <div class="x_panel" role="main" ng-app="home" ng-controller="homeCtrl">
@@ -96,7 +115,7 @@
                                     <a href="#tab_content3" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Upcoming Reviews</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content4" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
+                                    <a href="#tab_content4" ng-click="getSavedReports()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
                                 </li>
                             </ul>
                             <div id="myTabcontent" class="tab-content">
@@ -168,8 +187,10 @@
                                                 <div class="x_content">
                                                     <div class="col-md-12">
                                                         My Saved Reports
+                                                        <div id="mGrid" ui-grid="savedReportsGrid" ui-grid-pagination="" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
+                                                        </div>
+
                                                     </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
