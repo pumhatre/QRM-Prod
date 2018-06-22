@@ -111,17 +111,17 @@
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="SDSD" class="text-center">
+                                    <div ng-switch-when="SDSD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">SIT Defect Severity Distribution</h4>
                                         <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
                                                 chart-data="SITDefectSeverityData"
                                                 chart-labels="SITDefectSeverityLabels"
-                                                chart-options="SITDefectSeverityOptions"></canvas>
+                                                chart-options="SITDefectSeverityOptions" width="300" height="300"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="DTD" class="text-center">
+                                    <div ng-switch-when="DTD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Defect Type Distribution</h4>
                                         <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
@@ -151,7 +151,7 @@
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="TCCD" class="text-center">
+                                    <div ng-switch-when="TCCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Test case complexity distribution</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-colors="TestCaseComplexityDistributionColors" chart-options="TestCaseComplexityDistributionoptions"
@@ -159,12 +159,13 @@
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="DDPD">
+                                    <div ng-switch-when="DDPD" class="text-center" style="width:80%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Defect Detected Phase Distribution</h4>
                                         <canvas id="donught" class="chart chart-doughnut" 
-                                          chart-data="DefectDetectedPhase" chart-labels="labels3"  chart-series="DefectDetectedPhaseSeries" chart-legend="true"
-                                       chart-options="DefectDetectedPhaseOptions" chart-dataset-override="ProjectDefectDetectedOverride"></canvas>
+                                                chart-data="DefectDetectedPhaseData" 
+                                                chart-labels="DefectDetectedPhaseLabels"  
+                                                chart-options="DefectDetectedPhaseOptions"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
