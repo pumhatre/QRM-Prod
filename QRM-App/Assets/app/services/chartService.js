@@ -1,7 +1,7 @@
 ﻿app.service('chartService', ['$http', function ($http) {
 
     this.GetEffortDistribution = function (config, projectId, releaseId) {
-        debugger;
+        
         var data = { ProjectId: projectId, ReleaseId: releaseId };
         return $http.post(config.apiUrl + 'api/Chart/GetEffortDistribution', data);
     }

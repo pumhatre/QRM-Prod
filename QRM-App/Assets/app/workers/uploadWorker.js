@@ -151,7 +151,7 @@ var readTable = function (sheet, sheetName, range, columns, firstRow, stop) {
         }, {});
 
         if (stop && stop(row)) {
-            debugger;
+            
             break;
         }
         if (row[mandatoryField] != null) {

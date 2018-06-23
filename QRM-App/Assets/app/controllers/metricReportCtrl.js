@@ -40,7 +40,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
         }
 
         $scope.getHealthReport = function (projectId, releaseId, monthId) {
-            debugger;
+            
             if (projectId != null && releaseId != null && monthId != null) {
                 $scope.HideShow = true;
                 $scope.projectEffortGrid.data = [];

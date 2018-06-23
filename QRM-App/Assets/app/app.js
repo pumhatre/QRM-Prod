@@ -128,6 +128,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: '/App/ChartReports',
         controller: 'chartsCtrl'
     });
+    $routeProvider.when('/Chart/:id', {
+        templateUrl: '/App/ChartReports',
+        controller: 'chartsCtrl'
+    });
     $routeProvider.when('/Metric', {
         templateUrl: '/App/MetricReports',
         controller: 'metricReportCtrl'

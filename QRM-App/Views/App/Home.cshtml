@@ -160,6 +160,19 @@
                                                 <div class="x_content">
                                                     <div class="col-md-12">
                                                         <div id="mprojectGrid" ui-grid="projectGrid" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
+                                                            <div class="grid-msg-overlay" ng-show="loading">
+                                                                <div class="msg">
+                                                                    <span>
+                                                                        Loading Data...
+                                                                        <i class="fa fa-spinner fa-spin"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="grid-msg-overlay" ng-hide="loading || projectGrid.data.length">
+                                                                <div class="msg">
+                                                                    <span>No Data</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,6 +201,19 @@
                                                     <div class="col-md-12">
                                                         My Saved Reports
                                                         <div id="mGrid" ui-grid="savedReportsGrid" ui-grid-pagination="" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
+                                                            <div class="grid-msg-overlay" ng-show="loading">
+                                                                <div class="msg">
+                                                                    <span>
+                                                                        Loading Data...
+                                                                        <i class="fa fa-spinner fa-spin"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="grid-msg-overlay" ng-hide="loading || savedReportsGrid.data.length">
+                                                                <div class="msg">
+                                                                    <span>No Data</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                     </div>

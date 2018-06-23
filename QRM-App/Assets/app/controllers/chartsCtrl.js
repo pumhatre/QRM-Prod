@@ -3,7 +3,7 @@
 * Description:This controller will be used for user specfic information Home
 */
 "use strict";
-angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
+angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
      .config(['ChartJsProvider', function (ChartJsProvider) {
          // Configure all charts
          ChartJsProvider.setOptions({
@@ -13,10 +13,10 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
          });
      }])
 
-    .controller('chartsCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', function ($scope, homeService, healthReportService, chartService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService) {
+    .controller('chartsCtrl', ['$scope', 'chartService', '$cookies', '$cookieStore', 'config', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', '$location', '$rootScope', function ($scope,  chartService, $cookies, $cookieStore, config, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService, $location, $rootScope) {
+
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
-        $scope.selectedProjectDropdown = '';
         $scope.alerts = [];
 
         // function to load projects dropdown
@@ -156,7 +156,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                           $scope.SitExecutionGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitExecutionGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
-                                     
+
                                   }
 
 
@@ -276,7 +276,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
                                           tooltips: {
                                               callbacks: {
                                                   label: function (tooltipItem, data) {
-                                                      debugger;
+                                                      
                                                       var dataset = data.datasets[tooltipItem.datasetIndex];
                                                       var label = data.labels[tooltipItem.index];
                                                       var currentValue = dataset.data[tooltipItem.index];
@@ -426,7 +426,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
             chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
                         .then(function (successResponse) {
                             if (successResponse.data.values) {
-                                debugger;
+                                
                                 $scope.DefectDetectedPhaseLabels = successResponse.data.labels;
                                 $scope.DefectDetectedPhaseData = [];
                                 $scope.ProjectDefectDetectedOverride = [];
@@ -518,4 +518,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch','ui.bootstrap', 'chart.js'])
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
+
+        
+        // check if this route is referred from home 
+        if ($location.search().ref && $location.search().ref == 'v') {
+            
+            $scope.selectedProjectDropdown = $rootScope.chartProjectId.toString();
+            $scope.getProjectReleases($scope.selectedProjectDropdown);
+            $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
+            $scope.selectedChartType = $rootScope.chartreportType;
+            $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown);
+        }
     }]);
