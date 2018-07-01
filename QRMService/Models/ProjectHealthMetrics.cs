@@ -84,9 +84,9 @@ namespace QRMService.Models
         public string Type { get; set; }
         public string SubType { get; set; }
         public int spanEffort { get; set; }
-        public int? USL { get; set; }
-        public int? LSL { get; set; }
-        public int? ProjectPerformance { get; set; }
+        public decimal? USL { get; set; }
+        public decimal? LSL { get; set; }
+        public decimal? ProjectPerformance { get; set; }
     }
 
 }

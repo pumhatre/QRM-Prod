@@ -350,11 +350,13 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>
         /// <returns></returns>
-        public static List<ProjectEffort> GetProjectEffort(int ProjectId)
+        public static List<ProjectEffort> GetProjectEffort(int ProjectId, int ReleaseId, int MonthId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtEffort = helper.GetDataTableByProcedure(Constants.UspGetProjectEffortDashboardByProject, "default", true, parameters.ToArray());
             List<ProjectEffort> projectEffortList = new List<ProjectEffort>();
             if (dtEffort != null && dtEffort.Rows.Count > 0)
@@ -382,11 +384,13 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>
         /// <returns></returns>
-        public static List<ProjectTesting> GetProjectTesting(int ProjectId)
+        public static List<ProjectTesting> GetProjectTesting(int ProjectId, int ReleaseId, int MonthId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtTesting = helper.GetDataTableByProcedure(Constants.UspGetProjectTestingDashboardByProject, "default", true, parameters.ToArray());
             List<ProjectTesting> projectTestingList = new List<ProjectTesting>();
             if (dtTesting != null && dtTesting.Rows.Count > 0)
@@ -415,11 +419,13 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>
         /// <returns></returns>
-        public static List<ProjectDefects> GetProjectDefects(int ProjectId)
+        public static List<ProjectDefects> GetProjectDefects(int ProjectId, int ReleaseId, int MonthId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtDefects = helper.GetDataTableByProcedure(Constants.UspGetProjectDefectDashboardByProject, "default", true, parameters.ToArray());
             List<ProjectDefects> projectDefectsList = new List<ProjectDefects>();
             if (dtDefects != null && dtDefects.Rows.Count > 0)
@@ -444,11 +450,13 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>
         /// <returns></returns>
-        public static List<ProjectWidget> GetProjectWidget(int ProjectId)
+        public static List<ProjectWidget> GetProjectWidget(int ProjectId, int ReleaseId, int MonthId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtWidget = helper.GetDataTableByProcedure(Constants.UspGetProjectWidgetDashboardByProject, "default", true, parameters.ToArray());
             List<ProjectWidget> projectWidgetList = new List<ProjectWidget>();
             if (dtWidget != null && dtWidget.Rows.Count > 0)
@@ -474,11 +482,13 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>
         /// <returns></returns>
-        public static List<ProjectVariance> GetProjectVariance(int ProjectId)
+        public static List<ProjectVariance> GetProjectVariance(int ProjectId, int ReleaseId, int MonthId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
             DataTable dtWidget = helper.GetDataTableByProcedure(Constants.UspGetProjectVarianceDashboardByProject, "default", true, parameters.ToArray());
             List<ProjectVariance> projectVariance = new List<ProjectVariance>();
             if (dtWidget != null && dtWidget.Rows.Count > 0)
@@ -504,9 +514,7 @@ namespace QRMService.Repositories
 
         #endregion
 
-
-
-        #region Productivity
+        #region Productivity/Defect Density
 
         public static List<Productivity> GetProductivityGroundUp()
         {
@@ -1326,8 +1334,293 @@ namespace QRMService.Repositories
             return ProductivitytListEnhanced;
         }
 
+        /// <summary>
+        /// Gets the productivity ground up.
+        /// </summary>
+        /// <param name="runId">The run identifier.</param>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <param name="executionStep">The execution step.</param>
+        /// <param name="createdby">The createdby.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetProductivityGroundUp(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
+        {
+            var ProductivitytListGroundUp = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGenerateProductivityGroundUp, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListGroundUp.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListGroundUp;
+        }
 
+        /// <summary>
+        /// Gets the productivity enhanced.
+        /// </summary>
+        /// <param name="runId">The run identifier.</param>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <param name="executionStep">The execution step.</param>
+        /// <param name="createdby">The createdby.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetProductivityEnhanced(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
+        {
+            var ProductivitytListEnhanced = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGenerateProductivityEnhanced, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListEnhanced.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListEnhanced;
+        }
 
+        /// <summary>
+        /// Gets the defect density ground up.
+        /// </summary>
+        /// <param name="runId">The run identifier.</param>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <param name="executionStep">The execution step.</param>
+        /// <param name="createdby">The createdby.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetDefectDensityGroundUp(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
+        {
+            var ProductivitytListGroundUp = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGenerateDefectDensityGroundUp, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListGroundUp.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListGroundUp;
+        }
+
+        /// <summary>
+        /// Gets the defect density enhanced.
+        /// </summary>
+        /// <param name="runId">The run identifier.</param>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <param name="executionStep">The execution step.</param>
+        /// <param name="createdby">The createdby.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetDefectDensityEnhanced(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
+        {
+            var ProductivitytListEnhanced = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGenerateDefectDensityEnhanced, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListEnhanced.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListEnhanced;
+        }
+
+        /// <summary>
+        /// Gets the productivity ground up.
+        /// </summary>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetProductivityGroundUp(int ProjectId, int ReleaseId, int MonthId)
+        {
+            var ProductivitytListGroundUp = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGetProductivityGroundUpByProject, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListGroundUp.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListGroundUp;
+        }
+
+        /// <summary>
+        /// Gets the productivity enhanced.
+        /// </summary>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetProductivityEnhanced(int ProjectId, int ReleaseId, int MonthId)
+        {
+            var ProductivitytListEnhanced = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGetProductivityEnhancedByProject, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListEnhanced.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListEnhanced;
+        }
+
+        /// <summary>
+        /// Gets the defect density ground up.
+        /// </summary>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetDefectDensityGroundUp(int ProjectId, int ReleaseId, int MonthId)
+        {
+            var ProductivitytListGroundUp = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGetDefectDensityGroundUpByProject, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListGroundUp.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListGroundUp;
+        }
+
+        /// <summary>
+        /// Gets the defect density enhanced.
+        /// </summary>
+        /// <param name="ProjectId">The project identifier.</param>
+        /// <param name="ReleaseId">The release identifier.</param>
+        /// <param name="MonthId">The month identifier.</param>
+        /// <returns></returns>
+        public static List<Productivity> GetDefectDensityEnhanced(int ProjectId, int ReleaseId, int MonthId)
+        {
+            var ProductivitytListEnhanced = new List<Productivity>();
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", MonthId));
+            DataTable data = helper.GetDataTableByProcedure(Constants.UspGetDefectDensityEnhancedByProject, "default", true, parameters.ToArray());
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    ProductivitytListEnhanced.Add(new Productivity
+                    {
+                        Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
+                        SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()),
+                        USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                    });
+                });
+            }
+            return ProductivitytListEnhanced;
+        }
 
         #endregion
     }

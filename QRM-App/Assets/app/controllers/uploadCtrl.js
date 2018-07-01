@@ -109,7 +109,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     //Failure Count
                     $scope.GridFailureCount = $scope.defectGridData.data.length;
 
-                    
+
                     //Test tab
                     $scope.testGridData.data = $scope.dataSanityResult.testSanityValidationModel;
                     //Total Count
@@ -135,12 +135,12 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                     }
 
                     if ($scope.testGridData.data.length > 0) {
-                        $scope.InvalidTestData= true;
+                        $scope.InvalidTestData = true;
                     } else {
                         $scope.InvalidTestData = false;
                     }
 
-                    if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0 || $scope.dataSanityResult.testSanityValidationModel.length>0) {
+                    if ($scope.dataSanityResult.effortSanityValidatonModel.length > 0 || $scope.dataSanityResult.defectSanityValidationModel.length > 0 || $scope.dataSanityResult.testSanityValidationModel.length > 0) {
                         $scope.InvalidData = true;
                     } else {
                         $scope.InvalidData = false;
@@ -451,11 +451,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             columnDefs: [
 
                 {
-                    name: 'RowNumber', displayName: "Row Number", field: "RowNumber",  
-                    cellClass: 'defectCellClass' ,
+                    name: 'RowNumber', displayName: "Row Number", field: "RowNumber",
+                    cellClass: 'defectCellClass',
                     enableColumnMenu: false, width: '15%',
                     enableCellEdit: false
-                    
+
                 },
                 {
                     name: 'Release', displayName: "Release", field: "Release",
@@ -655,56 +655,88 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         }
 
 
-        
+
         $scope.LoadProductivityDashboard_GroundUp = function () {
-            healthReportService.GetProductivityDashboard_GroundUp(config)
+            healthReportService.GetProductivityDashboardGroundUp(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                 .then(function (successResponse) {
-                    $scope.productivityGrid.data = successResponse.data;                   
+                    $scope.productivityGrid.data = successResponse.data;
                 }, function (errorResponse) {
 
                 }).finally(function () {
                     // add  empty row for better UI
-                    extraProductivity = addEmptyRowProductivity($scope.productivityGrid.data);
+                    addEmptyRow($scope.productivityGrid.data);
                 });
         }
 
 
         $scope.LoadProductivityDashboard_Enhanced = function () {
-            healthReportService.GetProductivityDashboard_Enhanced(config)
+            healthReportService.GetProductivityDashboardEnhanced(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                 .then(function (successResponse) {
                     $scope.productivityGrid2.data = successResponse.data;
                 }, function (errorResponse) {
 
                 }).finally(function () {
                     // add  empty row for better UI
-                    extraProductivity = addEmptyRowProductivity($scope.productivityGrid2.data);
+                    addEmptyRow($scope.productivityGrid2.data);
                 });
         }
 
-        function addEmptyRowProductivity(gridData) {
+        $scope.LoadDefectDensity_GroundUp = function () {
+            healthReportService.GetDefectDensityDashboardGroundUp(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
+                .then(function (successResponse) {
+                    $scope.defectDensityGrid.data = successResponse.data;
+                }, function (errorResponse) {
 
-            gridData.splice(5, 0, {
+                }).finally(function () {
+                    // add  empty row for better UI
+                    addEmptyRow($scope.defectDensityGrid.data);
+                });
+        }
+
+
+        $scope.LoadDefectDensity_Enhanced = function () {
+            healthReportService.GetDefectDensityDashboardEnhanced(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
+                .then(function (successResponse) {
+                    $scope.defectDensityGrid2.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    addEmptyRow($scope.defectDensityGrid2.data);
+                });
+        }
+
+        function addEmptyRow(gridData) {
+
+            gridData.splice(4, 0, {
                 "Type": '',
                 "SubType": '',
                 "USL": '',
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(11, 0, {
+            gridData.splice(9, 0, {
                 "Type": '',
                 "SubType": '',
                 "USL": '',
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(17, 0, {
+            gridData.splice(14, 0, {
                 "Type": '',
                 "SubType": '',
                 "USL": '',
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(23, 0, {
+            gridData.splice(19, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(24, 0, {
                 "Type": '',
                 "SubType": '',
                 "USL": '',
@@ -718,21 +750,14 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(35, 0, {
+            gridData.splice(34, 0, {
                 "Type": '',
                 "SubType": '',
                 "USL": '',
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(41, 0, {
-                "Type": '',
-                "SubType": '',
-                "USL": '',
-                "LSL": '',
-                "ProjectPerformance": ''
-            });
-            gridData.splice(47, 0, {
+            gridData.splice(39, 0, {
                 "Type": '',
                 "SubType": '',
                 "USL": '',
@@ -847,16 +872,16 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
                 { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
                 { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+                
             ],
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;
             }
         }
 
-        var tmpl2 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
         $scope.productivityGrid2 = {
             enableSorting: false,
             enableColumnMenus: false,
@@ -867,15 +892,55 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
                 { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
                 { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'ProjectPerformance', name: 'ProjectPerformance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+                
             ],
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;
             }
         }
 
+        $scope.defectDensityGrid = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                  { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+              
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+        $scope.defectDensityGrid2 = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                     { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+           
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
 
 
 

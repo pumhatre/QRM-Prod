@@ -171,7 +171,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectEffort = ReportRepository.GetProjectEffort(request.ProjectId);
+                var projectEffort = ReportRepository.GetProjectEffort(request.ProjectId,request.ReleaseId,request.MonthId);
                 for (int i = 0; i < projectEffort.Count; i++)
                 {
                     if (i % 2 == 0)
@@ -216,7 +216,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectDefect = ReportRepository.GetProjectDefects(request.ProjectId);
+                var projectDefect = ReportRepository.GetProjectDefects(request.ProjectId,request.ReleaseId,request.MonthId);
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -253,7 +253,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectTesting = ReportRepository.GetProjectTesting(request.ProjectId);
+                var projectTesting = ReportRepository.GetProjectTesting(request.ProjectId,request.ReleaseId,request.MonthId);
                 return Ok(projectTesting);
             }
             catch (Exception ex)
@@ -320,7 +320,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectWidget = ReportRepository.GetProjectWidget(request.ProjectId);
+                var projectWidget = ReportRepository.GetProjectWidget(request.ProjectId,request.ReleaseId,request.MonthId);
                 for (int i = 0; i < projectWidget.Count; i++)
                 {
                     if (i == 0)
@@ -350,7 +350,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectWidget = ReportRepository.GetProjectVariance(request.ProjectId);
+                var projectWidget = ReportRepository.GetProjectVariance(request.ProjectId,request.ReleaseId,request.MonthId);
                 return Ok(projectWidget);
             }
             catch (Exception ex)
@@ -412,7 +412,208 @@ namespace QRMService.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the producity ground up.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProductivityGroundUp(HealthReportRequestModel request)
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivityGroundUp(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < productivity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        productivity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
 
+        /// <summary>
+        /// Gets the producity enhanced.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProductivityEnhanced(HealthReportRequestModel request)
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivityEnhanced(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < productivity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        productivity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the defect density ground up.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetDefectDensityGroundUp(HealthReportRequestModel request)
+        {
+            try
+            {
+                var defectDensity = ReportRepository.GetDefectDensityGroundUp(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < defectDensity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        defectDensity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(defectDensity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the defect density enhanced.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetDefectDensityEnhanced(HealthReportRequestModel request)
+        {
+            try
+            {
+                var defectDensity = ReportRepository.GetDefectDensityEnhanced(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < defectDensity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        defectDensity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(defectDensity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetProductivityGroundUpByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivityGroundUp(request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < productivity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        productivity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the producity enhanced.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProductivityEnhancedByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var productivity = ReportRepository.GetProductivityEnhanced(request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < productivity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        productivity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(productivity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the defect density ground up.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetDefectDensityGroundUpByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var defectDensity = ReportRepository.GetDefectDensityGroundUp(request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < defectDensity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        defectDensity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(defectDensity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the defect density enhanced.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetDefectDensityEnhancedByProject(HealthReportRequestModel request)
+        {
+            try
+            {
+                var defectDensity = ReportRepository.GetDefectDensityEnhanced(request.ProjectId, request.ReleaseId, request.MonthId);
+                for (int i = 0; i < defectDensity.Count; i++)
+                {
+                    if (i % 4 == 0)
+                    {
+                        defectDensity[i].spanEffort = 9;
+                    }
+                }
+                return Ok(defectDensity);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
 
     }
 }

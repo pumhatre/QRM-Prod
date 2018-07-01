@@ -55,7 +55,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectEffortByProject = function () {
             $scope.projectEffortGridLoading = true;
-            healthReportService.GetAllProjectEffortByProject(config, $scope.selectedProjectId)
+            healthReportService.GetAllProjectEffortByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                 .then(function (successResponse) {
                     $scope.projectEffortGridLoading = false;
                     $scope.projectEffortGrid.data = successResponse.data;
@@ -66,7 +66,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectTestingByProject = function () {
             $scope.projectTestingGridLoading = true;
-            healthReportService.GetAllProjectTestingByProject(config, $scope.selectedProjectId)
+            healthReportService.GetAllProjectTestingByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                 .then(function (successResponse) {
                     $scope.projectTestingGridLoading = false;
                     $scope.projectTestingGrid.data = successResponse.data;
@@ -79,7 +79,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectDefectByProject = function () {
             $scope.projectDefectGridLoading = true;
-            healthReportService.GetProjectDefectsByProject(config, $scope.selectedProjectId)
+            healthReportService.GetProjectDefectsByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                   .then(function (successResponse) {
                       $scope.projectDefectGridLoading = false;
                       $scope.projectDefectGrid.data = successResponse.data;
@@ -90,7 +90,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectWidgetByProject = function () {
             $scope.projectWidgetGridLoading = true;
-            healthReportService.GetAllProjectWidgetByProject(config, $scope.selectedProjectId)
+            healthReportService.GetAllProjectWidgetByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                   .then(function (successResponse) {
                       $scope.projectWidgetGridLoading = false;
                       $scope.projectWidgetGrid.data = successResponse.data;
@@ -101,13 +101,123 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectPerformanceByProject = function () {
             $scope.projectPerformanceGridLoading = true;
-            healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId)
+            healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                   .then(function (successResponse) {
                       $scope.projectPerformanceGridLoading = false;
                       $scope.projectVarianceGrid.data = successResponse.data;
                   }, function (errorResponse) {
                       $scope.projectPerformanceGridLoading = false;
                   });
+        }
+
+        $scope.LoadProductivityDashboard_GroundUp = function () {
+            healthReportService.GetProductivityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+                .then(function (successResponse) {
+                    $scope.productivityGrid.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    addEmptyRow($scope.productivityGrid.data);
+                });
+        }
+
+
+        $scope.LoadProductivityDashboard_Enhanced = function () {
+            healthReportService.GetProductivityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+                .then(function (successResponse) {
+                    $scope.productivityGrid2.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    addEmptyRow($scope.productivityGrid2.data);
+                });
+        }
+
+        $scope.LoadDefectDensity_GroundUp = function () {
+            healthReportService.GetDefectDensityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+                .then(function (successResponse) {
+                    $scope.defectDensityGrid.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    addEmptyRow($scope.defectDensityGrid.data);
+                });
+        }
+
+
+        $scope.LoadDefectDensity_Enhanced = function () {
+            healthReportService.GetDefectDensityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+                .then(function (successResponse) {
+                    $scope.defectDensityGrid2.data = successResponse.data;
+                }, function (errorResponse) {
+
+                }).finally(function () {
+                    // add  empty row for better UI
+                    addEmptyRow($scope.defectDensityGrid2.data);
+                });
+        }
+
+        function addEmptyRow(gridData) {
+
+            gridData.splice(4, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(9, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(14, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(19, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(24, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(29, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(34, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
+            gridData.splice(39, 0, {
+                "Type": '',
+                "SubType": '',
+                "USL": '',
+                "LSL": '',
+                "ProjectPerformance": ''
+            });
         }
 
         var cellTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
@@ -174,9 +284,9 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            exporterExcelFilename: 'ProjectEffort.xlsx',
+            exporterExcelFilename: 'ProjectTesting.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            exporterCsvFilename: 'ProjectEffort.csv',
+            exporterCsvFilename: 'ProjectTesting.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
@@ -256,9 +366,9 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            exporterExcelFilename: 'ProjectEffort.xlsx',
+            exporterExcelFilename: 'ProjectDefect.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            exporterCsvFilename: 'ProjectEffort.csv',
+            exporterCsvFilename: 'ProjectDefect.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
@@ -297,9 +407,9 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            exporterExcelFilename: 'ProjectEffort.xlsx',
+            exporterExcelFilename: 'ProjectWidget.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            exporterCsvFilename: 'ProjectEffort.csv',
+            exporterCsvFilename: 'ProjectWidget.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
@@ -337,9 +447,9 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            exporterExcelFilename: 'ProjectEffort.xlsx',
+            exporterExcelFilename: 'ProjectVariance.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            exporterCsvFilename: 'ProjectEffort.csv',
+            exporterCsvFilename: 'ProjectVariance.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
@@ -360,6 +470,172 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 $scope.mGridApi = gridApi;
             }
         }
+
+        var tmpl2 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
+        $scope.productivityGrid = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+
+            ],
+            enableGridMenu: true,
+            enableSelectAll: true,
+            exporterExcelFilename: 'ProductivityGrundUp.xlsx',
+            exporterExcelSheetName: 'Sheet1',
+            exporterCsvFilename: 'ProductivityGrundUp.csv',
+            exporterPdfDefaultStyle: { fontSize: 9 },
+            exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+            exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+            exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+            exporterPdfFooter: function (currentPage, pageCount) {
+                return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            },
+            exporterPdfCustomFormatter: function (docDefinition) {
+                docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+                docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+                return docDefinition;
+            },
+            exporterPdfOrientation: 'Landscape',
+            exporterPdfPageSize: 'LETTER',
+            exporterPdfMaxGridWidth: 500,
+            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+        $scope.productivityGrid2 = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+
+            ],
+            enableGridMenu: true,
+            enableSelectAll: true,
+            exporterExcelFilename: 'ProductivityEnhanced.xlsx',
+            exporterExcelSheetName: 'Sheet1',
+            exporterCsvFilename: 'ProductivityEnhanced.csv',
+            exporterPdfDefaultStyle: { fontSize: 9 },
+            exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+            exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+            exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+            exporterPdfFooter: function (currentPage, pageCount) {
+                return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            },
+            exporterPdfCustomFormatter: function (docDefinition) {
+                docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+                docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+                return docDefinition;
+            },
+            exporterPdfOrientation: 'Landscape',
+            exporterPdfPageSize: 'LETTER',
+            exporterPdfMaxGridWidth: 500,
+            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+        $scope.defectDensityGrid = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                  { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+
+            ],
+            enableGridMenu: true,
+            enableSelectAll: true,
+            exporterExcelFilename: 'DefectDensityGroundUp.xlsx',
+            exporterExcelSheetName: 'Sheet1',
+            exporterCsvFilename: 'DefectDensityGroundUp.csv',
+            exporterPdfDefaultStyle: { fontSize: 9 },
+            exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+            exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+            exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+            exporterPdfFooter: function (currentPage, pageCount) {
+                return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            },
+            exporterPdfCustomFormatter: function (docDefinition) {
+                docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+                docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+                return docDefinition;
+            },
+            exporterPdfOrientation: 'Landscape',
+            exporterPdfPageSize: 'LETTER',
+            exporterPdfMaxGridWidth: 500,
+            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
+        $scope.defectDensityGrid2 = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
+
+
+                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+                     { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
+                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
+                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+
+            ],
+            enableGridMenu: true,
+            enableSelectAll: true,
+            exporterExcelFilename: 'DefectDensityEnhanced.xlsx',
+            exporterExcelSheetName: 'Sheet1',
+            exporterCsvFilename: 'DefectDensityEnhanced.csv',
+            exporterPdfDefaultStyle: { fontSize: 9 },
+            exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+            exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
+            exporterPdfHeader: { text: "Project Effort List", style: 'headerStyle' },
+            exporterPdfFooter: function (currentPage, pageCount) {
+                return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            },
+            exporterPdfCustomFormatter: function (docDefinition) {
+                docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+                docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+                return docDefinition;
+            },
+            exporterPdfOrientation: 'Landscape',
+            exporterPdfPageSize: 'LETTER',
+            exporterPdfMaxGridWidth: 500,
+            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
         $scope.LoadMonthsDropDown();

@@ -26,12 +26,20 @@ namespace QRMService.Common
         public const string UspGetProjectDefectDashboard = "[Dbo].[uspGenerateProjectDefectsDashboard]";
         public const string UspGetProjectWidgetDashboard = "[Dbo].[uspGenerateProjectWidgetDashboard]";
         public const string UspGetProjectPerformanceDashboard = "[Dbo].[uspGenerateProjectvarianceDashboard]";
+        public const string UspGenerateProductivityGroundUp = "[Dbo].[uspGenerateProductivityGroundUp]";
+        public const string UspGenerateProductivityEnhanced = "[Dbo].[uspGenerateProductivityEnhanced]";
+        public const string UspGenerateDefectDensityEnhanced = "[Dbo].[uspGenerateDefectDensityEnhanced]";
+        public const string UspGenerateDefectDensityGroundUp = "[Dbo].[uspGenerateDefectDensityGroundUp]";
 
         public const string UspGetProjectEffortDashboardByProject = "[Dbo].[uspGetProjectEffortDashboardByProject]";
         public const string UspGetProjectTestingDashboardByProject = "[Dbo].[uspGetProjectTestingDashboardByProject]";
         public const string UspGetProjectDefectDashboardByProject = "[Dbo].[uspGetProjectDefectsDashboardByProject]";
         public const string UspGetProjectWidgetDashboardByProject = "[Dbo].[uspGetProjectWidgetDashboardByProject]";
         public const string UspGetProjectVarianceDashboardByProject = "[Dbo].[uspGetProjectVarianceDashboardByProject]";
+        public const string UspGetProductivityGroundUpByProject = "[Dbo].[uspGetProductivityGroundUpByProject]";
+        public const string UspGetProductivityEnhancedByProject = "[Dbo].[uspGetProductivityEnhancedByProject]";
+        public const string UspGetDefectDensityGroundUpByProject = "[Dbo].[uspGetDefectDensityGroundUpByProject]";
+        public const string UspGetDefectDensityEnhancedByProject = "[Dbo].[uspGetDefectDensityEnhancedByProject]";
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
         public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
 
@@ -300,6 +308,15 @@ namespace QRMService.Common
             NewDefectCount,
             CalcelledDefectCount,
             TotalClosedDefectCount
+        }
+
+        public enum GroupUpEnhancedColumns
+        {
+            Type,
+            SubType,
+            ProjectPerformance,
+            USL,
+            LSL
         }
     }
 

@@ -399,7 +399,7 @@
                                                                         <a href="#tab_content6" ng-click="LoadProductivityDashboard_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Productivity</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content7" ng-click="" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
+                                                                        <a href="#tab_content7" ng-click="LoadDefectDensity_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
                                                                         <a href="#tab_content8" ng-click="" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
@@ -501,7 +501,7 @@
                                                                                                 <div class="x_panel tile fixed_height_420">
                                                                                                     <div class="x_content">
                                                                                                         <div class="col-md-12">
-                                                                                                            <div id="mGrid5" ui-grid="productivityGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                                            <div id="productivityGrid" ui-grid="productivityGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
@@ -518,7 +518,61 @@
                                                                                                 <div class="x_panel">
                                                                                                     <div class="x_content">
                                                                                                         <div class="col-md-12">
-                                                                                                            <div id="mGrid51" ui-grid="productivityGrid2" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                                            <div id="productivityGrid2" ui-grid="productivityGrid2" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div role="tabpanel" class="tab-pane fade" id="tab_content7" aria-labelledby="Project-tab">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12">
+                                                                            <div class="x_panel">
+                                                                                <div class="x_content fix">
+                                                                                    <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
+                                                                                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                                                                            <li role="presentation" class="active">
+                                                                                                <a href="#tab_content7_1" ng-click="LoadDefectDensity_GroundUp()" role="tab" target="_self" id="Project-tab1" data-toggle="tab" aria-expanded="true">Ground Up</a>
+                                                                                            </li>
+                                                                                            <li role="presentation" class="">
+                                                                                                <a href="#tab_content7_2" ng-click="LoadDefectDensity_Enhanced()" role="tab" target="_self" id="Project-tab2" data-toggle="tab" aria-expanded="false">Enhanced</a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="myTabcontent1" class="tab-content">
+                                                                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content7_1" aria-labelledby="home-tab">
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="x_panel tile fixed_height_420">
+                                                                                                    <div class="x_content">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div id="defectDensityGrid" ui-grid="defectDensityGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <div role="tabpanel" class="tab-pane fade" id="tab_content7_2" aria-labelledby="Project-tab">
+
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="x_panel">
+                                                                                                    <div class="x_content">
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div id="defectDensityGrid2" ui-grid="defectDensityGrid2" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
