@@ -53,7 +53,7 @@
         <AssociationConnector Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

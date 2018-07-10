@@ -260,6 +260,7 @@ warning 6002: The table/view 'QRMPortal.dbo.Period' does not have a primary key 
           <Property Name="ProjectEndDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="QualityController" Type="varchar" MaxLength="100" />
+          <Property Name="ReviewDate" Type="date" />
         </EntityType>
         <EntityType Name="ProjectMetricAssociation">
           <Key>
@@ -1165,7 +1166,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectMaster" EntitySet="ProjectMasters" />
             <End Role="UserProjectAssociation" EntitySet="UserProjectAssociations" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="DefectDataDetail">
           <Key>
             <PropertyRef Name="DefectDataDetailsId" />
@@ -1437,8 +1438,8 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="NormalizedTestCasesDesign" Type="Int32" />
           <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDetails_MonthId" FromRole="TestingDetail" ToRole="MonthMaster" />
           <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
           <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
@@ -1863,6 +1864,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectEndDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="QualityController" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataDetail" />
           <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataStaging" />
           <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDataStaging" />
@@ -2428,6 +2430,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="ProjectMasters">
             <EntityTypeMapping TypeName="QRMPortalModel.ProjectMaster">
               <MappingFragment StoreEntitySet="ProjectMaster">
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
                 <ScalarProperty Name="QualityController" ColumnName="QualityController" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />

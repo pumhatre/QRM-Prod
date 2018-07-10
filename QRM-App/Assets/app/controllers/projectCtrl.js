@@ -123,6 +123,7 @@
             $scope.Project.Director = row.Director;
             $scope.Project.SeniorManager = row.SeniorManager;
             $scope.Project.QualityController = row.QualityController;
+            $scope.Project.ReviewDate = row.ReviewDate;
 
             //Call the function to save the data to database
             projectService.InsertUpdateProjectMaster($scope.Project, config).then(function (response) {
@@ -222,7 +223,10 @@
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
 
-
+                    {
+                        name: 'ReviewDate', displayName: "Review Date", field: "ReviewDate", enableColumnMenu: false, width: '12%',
+                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="date" ng-model="MODEL_COL_FIELD"></div>'
+                    },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
                         cellTemplate: '<div style="padding: 5px !important; text-align: center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
