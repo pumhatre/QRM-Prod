@@ -67,7 +67,7 @@
         display: table;
     }
 
-    .grid .msg span {
+        .grid .msg span {
             display: table-cell;
             vertical-align: middle;
         }
@@ -92,7 +92,7 @@
     }
 </style>
 
-<div class="x_panel" role="main" ng-app="home" ng-controller="homeCtrl">
+<div class="x_panel" role="main" ng-app="home">
     <div class="">
         <div class="page-title">
             <div class="title_left">
@@ -106,7 +106,7 @@
                         <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                 <li role="presentation" class="active">
-                                    <a href="#tab_content1" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Charts</a>
+                                    <a href="#tab_content1" target="_self" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Project Performance Charts</a>
                                 </li>
                                 <li role="presentation" class="">
                                     <a href="#tab_content2" ng-click="LoadMyProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Projects</a>
@@ -123,32 +123,47 @@
                                     <div class="col-md-12 col-sm-4 col-xs-12">
                                         <div class="x_panel tile fixed_height_420">
                                             <div class="x_content">
-                                                @*<div class="form-group">
+                                                <div class="form-group">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <canvas id="bar" class="chart chart-bar" chart-colors="ProjectEffortDataColors"
-                                                                    chart-data="ProjectEffortData" chart-labels="labels"  chart-series="ProjectEffortDataSeries">
-                                                                chart-series="series"
-                                                            </canvas>
+                                                            <div class="text-center">
+                                                                <br />
+                                                                <h4 style="text-align:center;">Effort Variance(%)</h4>
+                                                                <canvas id="EffortVariancePercent" class="chart chart-bar"
+                                                                        chart-data="EffortVariancePercentData"
+                                                                        chart-labels="EffortVariancePercentLabels"
+                                                                        chart-series="EffortVariancePercentSeries"
+                                                                        chart-options="EffortVariancePercentOptions"
+                                                                        chart-colors="EffortVariancePercentColors"
+                                                                        chart-dataset-override="EffortVariancePercentOverride"></canvas>
+                                                        
+                                                               
+                                                            </div>
+                                                            <div>
+                                                                <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: -10% &nbsp;&nbsp;&nbsp; USL: 10%</p>
+                                                            </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <canvas id="base" class="chart-horizontal-bar" chart-colors="TestCaseDistributionColors"
-                                                                    chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries"></canvas>
+                                                            <div class="text-center">
+                                                                <br />
+                                                                <h4 style="text-align:center;">Rework(%)</h4>
+                                                                <canvas id="ReworkPercent" class="chart chart-bar"
+                                                                        chart-data="ReworkPercentData"
+                                                                        chart-labels="ReworkPercentLabels"
+                                                                        chart-series="ReworkPercentSeries"
+                                                                        chart-options="ReworkPercentOptions"
+                                                                        chart-colors="ReworkPercentColors"
+                                                                        chart-dataset-override="ReworkPercentOverride"></canvas>
+                                                             
+                                                              
+                                                            </div>
+                                                            <div>
+                                                                <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: 0% &nbsp;&nbsp;&nbsp; USL: 10%</p>
+                                                            </div>
                                                         </div>
+                                                    </div>
 
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <canvas id="doughnutTestCaseComplexity" class="chart chart-doughnut" chart-colors="TestCaseComplexityDistributionColors"
-                                                                    chart-data="TestCaseComplexityDistribution" chart-series="TestCaseComplexityDistributionSeries" chart-labels="labels4"></canvas>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <canvas id="defectDetectedPhase" class="chart chart-doughnut" chart-colors="DefectDetectedPhaseColors"
-                                                                    chart-data="DefectDetectedPhase"  chart-labels="labels3" chart-series="DefectDetectedPhaseSeries"></canvas>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>*@
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -217,12 +232,13 @@
                                                         </div>
 
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>

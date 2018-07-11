@@ -3,7 +3,15 @@
 * Description:This controller will be used for user specfic information Home
 */
 "use strict";
-angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])    
+angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize', 'chart.js'])
+    .config(['ChartJsProvider', function (ChartJsProvider) {
+        // Configure all charts
+        ChartJsProvider.setOptions({
+            responsive: false,
+            beginAtZero: true
+
+        });
+    }])
     .controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', 'mySavedReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', '$location', '$rootScope', function ($scope, homeService, healthReportService, chartService, mySavedReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, $location, $rootScope) {
         $scope.projectEffortGrid = {};
         $scope.projectDefectGrid = {};
@@ -89,9 +97,8 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                 $scope.mGridApi = gridApi;
             }
         }
-        $scope.redirectToChart = function (projectId, releaseId, reportType)
-        {
-            
+        $scope.redirectToChart = function (projectId, releaseId, reportType) {
+
             $rootScope.chartProjectId = projectId;
             $rootScope.chartreleaseId = releaseId;
             $rootScope.chartreportType = reportType;
@@ -114,12 +121,132 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
                 });
         }
+
+        $scope.loadProjectPerformceGraph = function (userId) {
+            chartService.GetProjectPerformanceGraph(config, userId)
+                              .then(function (successResponse) {
+                                  debugger;
+                                  $scope.EffortVariancePercentData = [];
+                                  $scope.EffortVariancePercentLabels = [];
+                                  $scope.EffortVariancePercentSeries = [];
+                                  $scope.EffortVariancePercentOptions = [];
+                                  $scope.EffortVariancePercentColors = [];
+                                  $scope.EffortVariancePercentOverride = [];
+                                  $scope.ReworkPercentData = [];
+                                  $scope.ReworkPercentLabels = [];
+                                  $scope.ReworkPercentSeries = [];
+                                  $scope.ReworkPercentOptions = [];
+                                  $scope.ReworkPercentColors = [];
+                                  $scope.ReworkPercentOverride = [];
+
+                                  if (successResponse.data) {
+                                      if (successResponse.data[0]) {
+                                          // set data for effort variance graph
+                                          $scope.EffortVariancePercentOptions = {
+                                              legend: {
+                                                  display: false,
+                                                  position: "top"
+                                              },
+                                              tooltipEvents: [],
+                                              showTooltips: true,
+                                              tooltipCaretSize: 0,
+                                              onAnimationComplete: function () {
+                                                  this.showTooltip(this.segments, true);
+                                              },
+                                              scales: {
+                                                  yAxes: [{
+                                                      gridLines: {
+                                                          drawBorder: false,
+                                                          color: [ '', '', '', '', 'green', '', 'green', '', '', '', '']
+                                                      },
+                                                      ticks: {
+                                                          min: -50,
+                                                          max: 50,
+                                                          stepSize: 10
+                                                      }
+                                                  }],
+                                                  xAxes: [{
+                                                      barThickness: 75
+                                                  }]
+                                              }
+                                          };
+                                          $scope.EffortVariancePercentLabels = successResponse.data[0].labels;
+                                          $scope.EffortVariancePercentSeries = successResponse.data[0].series;
+
+                                          for (var i = 0; i < successResponse.data[0].values.length; i++) {
+                                              $scope.EffortVariancePercentData.push(successResponse.data[0].values[i])
+                                          }                                         
+                                          for (var i = 0; i < successResponse.data[0].colors.length; i++) {
+                                              $scope.EffortVariancePercentColors.push({ borderColor: successResponse.data[0].colors[i] });
+                                          }
+                                          for (var i = 0; i < successResponse.data[0].series.length; i++) {
+                                              $scope.EffortVariancePercentOverride.push({ type: "bar" });
+                                              $scope.EffortVariancePercentOverride[i].label = successResponse.data[0].series[i];
+                                             $scope.EffortVariancePercentOverride[i].backgroundColor = successResponse.data[0].colors[i];
+                                          }
+                                      }
+                                      if (successResponse.data[1]) {
+                                          // set data for rework graph
+                                          $scope.ReworkPercentOptions = {
+                                              legend: {
+                                                  display: false,
+                                                  position: "top"
+                                              },
+                                              tooltipEvents: [],
+                                              showTooltips: true,
+                                              tooltipCaretSize: 0,
+                                              onAnimationComplete: function () {
+                                                  this.showTooltip(this.segments, true);
+                                              },
+                                              scales: {
+                                                  yAxes: [{
+                                                      gridLines: {
+                                                          drawBorder: false,
+                                                          color: ['', '', '', '', 'green', '', '', '', '', '', '']
+                                                      },
+                                                      ticks: {
+                                                          min: -50,
+                                                          max: 50,
+                                                          stepSize: 10
+                                                      }
+                                                  }],
+                                                  xAxes: [{
+                                                      barThickness: 75
+                                                  }]
+                                              }
+                                          };
+                                          $scope.ReworkPercentLabels = successResponse.data[1].labels;
+                                          $scope.ReworkPercentSeries = successResponse.data[1].series;
+
+                                          for (var i = 0; i < successResponse.data[1].values.length; i++) {
+                                              $scope.ReworkPercentData.push(successResponse.data[1].values[i])
+                                          }
+                                          for (var i = 0; i < successResponse.data[1].colors.length; i++) {
+                                              $scope.ReworkPercentColors.push({ borderColor: successResponse.data[1].colors[i] });
+                                          }
+                                          for (var i = 0; i < successResponse.data[1].series.length; i++) {
+                                              $scope.ReworkPercentOverride.push({ type: "bar" });
+                                              $scope.ReworkPercentOverride[i].label = successResponse.data[1].series[i];
+                                              $scope.ReworkPercentOverride[i].backgroundColor = successResponse.data[1].colors[i];
+                                          }
+                                      }
+                                  }
+
+                              }, function (errorResponse) {
+
+                              });
+        }
+
         var months = [
         'January', 'February', 'March', 'April', 'May',
         'June', 'July', 'August', 'September',
         'October', 'November', 'December'
         ];
+
+
         function monthNumToName(monthnum) {
             return months[monthnum - 1] || '';
         }
+
+        $scope.loadProjectPerformceGraph($cookies.get('_UserId'));
     }]);

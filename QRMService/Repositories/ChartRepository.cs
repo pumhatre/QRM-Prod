@@ -110,7 +110,7 @@ namespace QRMService.Repositories
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("projectId", projectId));
             parameters.Add(new KeyValuePair<string, object>("projectReleaseId", releaseId));
-            DataSet chartSetData  = helper.GetDataSetByProcedure(Constants.UspGetTestCaseComplexityDistribution, "default", true, parameters.ToArray());
+            DataSet chartSetData = helper.GetDataSetByProcedure(Constants.UspGetTestCaseComplexityDistribution, "default", true, parameters.ToArray());
             var chartDataModelList = new List<ChartDataModelDecimal>();
             foreach (DataTable chartData in chartSetData.Tables)
             {
@@ -118,10 +118,10 @@ namespace QRMService.Repositories
                 if (chartData != null && chartData.Rows.Count > 0)
                 {
                     //set series for chart data
-                    chartDataModel.series = new List<string> { "Component","E2E" };
+                    chartDataModel.series = new List<string> { "Component", "E2E" };
                     chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
                     chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex", "VeryComplex" };
-                    
+
                     chartDataModel.datasets = new List<ChartDatasetDecimal>();
                     // set planned count
                     var componentCount = new ChartDatasetDecimal { fill = false };
@@ -149,14 +149,14 @@ namespace QRMService.Repositories
 
             if (chartData != null && chartData.Rows.Count > 0)
             {
-                chartDataModel.labels = new List<string>();                
-                chartDataModel.values = new List<decimal>();              
+                chartDataModel.labels = new List<string>();
+                chartDataModel.values = new List<decimal>();
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     chartDataModel.labels.Add(row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()));
                     chartDataModel.values.Add(row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString()));
                 });
-             }
+            }
             return chartDataModel;
         }
 
@@ -268,7 +268,7 @@ namespace QRMService.Repositories
             if (chartData != null && chartData.Rows.Count > 0)
             {
                 //set series for chart data
-                chartDataModel.series = new List<string> { "Planned Test Cases", "Actual Test Cases","Test Execution %","Pass %" };
+                chartDataModel.series = new List<string> { "Planned Test Cases", "Actual Test Cases", "Test Execution %", "Pass %" };
                 chartDataModel.colors = new List<string> { "#000000", "#92D050", "#EF8C49", "#6D91D1" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
@@ -385,6 +385,88 @@ namespace QRMService.Repositories
                 chartDataModel.datasets.Add(openDefectCount);
             }
             return chartDataModel;
+        }
+
+        public static List<ChartDataModel> GetProjectPerformanceGraph(int userId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("UserId", userId));
+            var chartData = helper.GetDataSetByProcedure(Constants.UspGetProjectPerformanceChart, "default", true, parameters.ToArray());
+            var chartDataModelList = new List<ChartDataModel>();
+            if (chartData != null && chartData.Tables.Count > 0)
+            {
+                if (chartData.Tables[0].Rows.Count > 0)
+                {
+                    // set for effor variance
+                    var chartDataModel = new ChartDataModel();
+                    chartDataModel.series = new List<string>();
+                    chartDataModel.colors = new List<string>();
+                    chartDataModel.labels = new List<string>();
+                    chartDataModel.values = new List<int>();
+                    chartData.Tables[0].AsEnumerable().ToList().ForEach(row =>
+                       {
+                      
+
+                           //set series for chart data
+                           chartDataModel.series.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
+                           // set labels for chart
+                           chartDataModel.labels.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
+                           // set values data
+                           // set for effort variance
+                           chartDataModel.values.Add(row.Field<int>(ProjectPerformanceColumns.EffortVariance.ToString()));
+                          
+                       });
+                    foreach (var item in chartDataModel.values)
+                    {
+                        // TODO: change this hardcoded limits
+                        if (item >= -10 && item <= 10)
+                        {
+                            chartDataModel.colors.Add("green");
+                        }
+                        else
+                        {
+                            chartDataModel.colors.Add("red");
+                        }
+                    }
+                    chartDataModelList.Add(chartDataModel);
+
+                    // set for rework
+                    var chartDataModelR = new ChartDataModel();
+                    chartDataModelR.series = new List<string>();
+                    chartDataModelR.colors = new List<string>();
+                    chartDataModelR.labels = new List<string>();
+                    chartDataModelR.values = new List<int>();
+                    chartData.Tables[0].AsEnumerable().ToList().ForEach(row =>
+                    {
+
+
+                        //set series for chart data
+                        chartDataModelR.series.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
+                        // set labels for chart
+                        chartDataModelR.labels.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
+                        // set values data
+                        // set for rework
+                        chartDataModelR.values.Add(row.Field<int>(ProjectPerformanceColumns.Rework.ToString()));
+                    });
+                    foreach (var item in chartDataModelR.values)
+                    {
+                        // TODO: change this hardcoded limits
+                        if (item >= 0 && item <= 10)
+                        {
+                            chartDataModelR.colors.Add("green");
+                        }
+                        else
+                        {
+                            chartDataModelR.colors.Add("red");
+                        }
+                    }
+                    chartDataModelList.Add(chartDataModelR);
+
+                    // TODO: set colours
+                }
+            }
+            return chartDataModelList;
         }
     }
 }

@@ -187,5 +187,25 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        /// <summary>
+        /// Gets the project performance graph.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetProjectPerformanceGraph(HealthReportRequestModel request)
+        {
+            try
+            {
+                var chartDataModelList = ChartRepository.GetProjectPerformanceGraph(request.UserId);
+                return Ok(chartDataModelList);
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

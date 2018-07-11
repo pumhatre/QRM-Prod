@@ -54,6 +54,7 @@ namespace QRMService.Common
         public const string UspGetDefectTypeDistribution = "[Dbo].[uspGetDefectTypeDistribution]";
         public const string UspGetSITExecutionGraph = "[Dbo].[uspGetSITExecutionGraph]";
         public const string UspGetSITDefectGraph = "[Dbo].[uspGetSITDefectGraph]";
+        public const string UspGetProjectPerformanceChart = "[Dbo].[uspGetProjectPerformanceChart]";
         #endregion
 
 
@@ -317,6 +318,14 @@ namespace QRMService.Common
             ProjectPerformance,
             USL,
             LSL
+        }
+
+        public enum ProjectPerformanceColumns
+        {
+            ProjectName,
+            DashboardType,
+            EffortVariance,
+            Rework
         }
     }
 

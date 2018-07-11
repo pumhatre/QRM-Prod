@@ -45,4 +45,9 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId };
         return $http.post(config.apiUrl + 'api/Chart/GetSitDefectGraph', data);
     }
+
+    this.GetProjectPerformanceGraph = function (config, userId) {
+        var data = { UserId: userId};
+        return $http.post(config.apiUrl + 'api/Chart/GetProjectPerformanceGraph', data);
+    }
 }]);
