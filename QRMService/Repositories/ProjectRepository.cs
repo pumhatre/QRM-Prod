@@ -115,7 +115,7 @@ namespace QRMService.Repositories
                         Director = projectMaster.Director,
                         SeniorManager = projectMaster.SeniorManager,
                         QualityController=projectMaster.QualityController,
-                        ReviewDate = projectMaster.ReviewDate,
+                        ReviewDate = projectMaster.ReviewDate.Value.ToLocalTime(),
                           IsActive = true
                     };
 
@@ -141,7 +141,7 @@ namespace QRMService.Repositories
                     project.Director = projectMaster.Director;
                     project.SeniorManager = projectMaster.SeniorManager;
                     project.QualityController = projectMaster.QualityController;
-                    project.ReviewDate = projectMaster.ReviewDate;
+                    project.ReviewDate = projectMaster.ReviewDate.Value.ToLocalTime();
                     db.Entry(project).State = EntityState.Modified;
                     db.SaveChanges();
                     response.IsSuccess = true;
