@@ -157,12 +157,12 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                                   yAxes: [{
                                                       gridLines: {
                                                           drawBorder: false,
-                                                          color: [ '', '', '', '', 'green', '', 'green', '', '', '', '']
+                                                          color: ['', '', '', 'green', '', '', '', 'green', '', '', '']
                                                       },
                                                       ticks: {
-                                                          min: -50,
-                                                          max: 50,
-                                                          stepSize: 10
+                                                          min: -25,
+                                                          max: 25,
+                                                          stepSize: 5
                                                       }
                                                   }],
                                                   xAxes: [{
@@ -177,12 +177,21 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.EffortVariancePercentData.push(successResponse.data[0].values[i])
                                           }                                         
                                           for (var i = 0; i < successResponse.data[0].colors.length; i++) {
-                                              $scope.EffortVariancePercentColors.push({ borderColor: successResponse.data[0].colors[i] });
+                                              $scope.EffortVariancePercentColors.push({
+                                                  borderColor: successResponse.data[0].colors[i],
+                                                  fillColor: successResponse.data[0].colors[i],
+                                                  strokeColor: successResponse.data[0].colors[i],
+                                                  backgroundColor: successResponse.data[1].colors[i]
+
+                                              });
                                           }
                                           for (var i = 0; i < successResponse.data[0].series.length; i++) {
                                               $scope.EffortVariancePercentOverride.push({ type: "bar" });
                                               $scope.EffortVariancePercentOverride[i].label = successResponse.data[0].series[i];
-                                             $scope.EffortVariancePercentOverride[i].backgroundColor = successResponse.data[0].colors[i];
+                                              $scope.EffortVariancePercentOverride[i].backgroundColor = successResponse.data[0].colors[i];
+                                              $scope.EffortVariancePercentOverride[i].borderColor = successResponse.data[0].colors[i];
+                                              $scope.EffortVariancePercentOverride[i].fillColor = successResponse.data[0].colors[i];
+                                              $scope.EffortVariancePercentOverride[i].strokeColor = successResponse.data[0].colors[i];
                                           }
                                       }
                                       if (successResponse.data[1]) {
@@ -202,12 +211,12 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                                   yAxes: [{
                                                       gridLines: {
                                                           drawBorder: false,
-                                                          color: ['', '', '', '', 'green', '', '', '', '', '', '']
+                                                          color: ['', '', '', 'green', '', '', '', '', '', '', '']
                                                       },
                                                       ticks: {
-                                                          min: -50,
-                                                          max: 50,
-                                                          stepSize: 10
+                                                          min: -25,
+                                                          max: 25,
+                                                          stepSize: 5
                                                       }
                                                   }],
                                                   xAxes: [{
@@ -222,12 +231,20 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.ReworkPercentData.push(successResponse.data[1].values[i])
                                           }
                                           for (var i = 0; i < successResponse.data[1].colors.length; i++) {
-                                              $scope.ReworkPercentColors.push({ borderColor: successResponse.data[1].colors[i] });
+                                              $scope.ReworkPercentColors.push({
+                                                  borderColor: successResponse.data[1].colors[i],
+                                                  fillColor: successResponse.data[1].colors[i],
+                                                  strokeColor: successResponse.data[1].colors[i],
+                                                  backgroundColor: successResponse.data[1].colors[i]
+                                              });
                                           }
                                           for (var i = 0; i < successResponse.data[1].series.length; i++) {
                                               $scope.ReworkPercentOverride.push({ type: "bar" });
                                               $scope.ReworkPercentOverride[i].label = successResponse.data[1].series[i];
                                               $scope.ReworkPercentOverride[i].backgroundColor = successResponse.data[1].colors[i];
+                                              $scope.ReworkPercentOverride[i].borderColor = successResponse.data[1].colors[i];
+                                              $scope.ReworkPercentOverride[i].fillColor = successResponse.data[1].colors[i];
+                                              $scope.ReworkPercentOverride[i].strokeColor = successResponse.data[1].colors[i];
                                           }
                                       }
                                   }
