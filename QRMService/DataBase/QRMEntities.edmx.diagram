@@ -42,7 +42,7 @@
         <AssociationConnector Association="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails" />
         <EntityTypeShape EntityType="QRMPortalModel.MetricMaster" Width="1.5" PointX="5.375" PointY="1" />
         <AssociationConnector Association="QRMPortalModel.FK_ProjectMetricAssociation_MetricMaster" />
-        <EntityTypeShape EntityType="QRMPortalModel.ProjectMaster" Width="1.5" PointX="0.75" PointY="64.625" />
+        <EntityTypeShape EntityType="QRMPortalModel.ProjectMaster" Width="1.5" PointX="0.75" PointY="64.5" />
         <AssociationConnector Association="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" />

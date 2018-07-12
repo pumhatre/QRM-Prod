@@ -20,6 +20,17 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.projectVarianceGrid = {};
         $scope.selectedProjectId = 0;
 
+        $scope.LoadMyUpcomingReview = function () {
+            debugger;
+            homeService.GetProjectReviewDetail(config, userId)
+                  .then(function (successResponse) {
+                      debugger;
+                      $scope.Data = successResponse.data;
+                  }, function (errorResponse) {
+                      debugger;
+                  });
+        }
+
         var cellTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
         $scope.projectGrid = {
             enableCellSelection: false,
@@ -108,6 +119,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.LoadMyProject = function () {
             homeService.GetMyProjects(config, userId)
                   .then(function (successResponse) {
+                      debugger;
                       $scope.projectGrid.data = successResponse.data;
                   }, function (errorResponse) {
 
@@ -175,7 +187,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
                                           for (var i = 0; i < successResponse.data[0].values.length; i++) {
                                               $scope.EffortVariancePercentData.push(successResponse.data[0].values[i])
-                                          }                                         
+                                          }
                                           for (var i = 0; i < successResponse.data[0].colors.length; i++) {
                                               $scope.EffortVariancePercentColors.push({
                                                   borderColor: successResponse.data[0].colors[i],

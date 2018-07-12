@@ -45,5 +45,33 @@ namespace QRMService.Repositories
             }
             return userProjectList;
         }
+        public static List<ProjectReviewModel> GetProjectReviewDetail(int userId)
+        {
+            List<ProjectReviewModel> userProjectList = new List<ProjectReviewModel>();
+            if (userId != 0)
+            {
+                using (var db = new QRMEntities())
+                {
+                    var userProjects = (from pm in db.ProjectMasters
+                                        join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
+                                        where od.UserId == userId
+                                        select new ProjectReviewModel
+                                        {
+                                            id = pm.ProjectID,
+                                            color = pm.ProjectColor,
+                                            name = pm.ProjectName,
+                                            reviewDate = pm.ReviewDate.ToString()
+                                        }).ToList();
+                    if (userProjects.Count > 0 && userProjects != null)
+                    {
+                        foreach (var item in userProjects)
+                        {
+                            userProjectList.Add(item);
+                        }
+                    }
+                }
+            }
+            return userProjectList;
+        }
     }
 }

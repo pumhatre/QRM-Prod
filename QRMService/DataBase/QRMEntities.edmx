@@ -261,6 +261,7 @@ warning 6002: The table/view 'QRMPortal.dbo.Period' does not have a primary key 
           <Property Name="IsActive" Type="bit" />
           <Property Name="QualityController" Type="varchar" MaxLength="100" />
           <Property Name="ReviewDate" Type="date" />
+          <Property Name="ProjectColor" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ProjectMetricAssociation">
           <Key>
@@ -1865,6 +1866,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="QualityController" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ReviewDate" Type="DateTime" Precision="0" />
+          <Property Name="ProjectColor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DefectDataDetails" Relationship="QRMPortalModel.FK_DefectDataDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataDetail" />
           <NavigationProperty Name="DefectDataStagings" Relationship="QRMPortalModel.FK_DefectDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="DefectDataStaging" />
           <NavigationProperty Name="EffortDataStagings" Relationship="QRMPortalModel.FK_EffortDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDataStaging" />
@@ -2430,6 +2432,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="ProjectMasters">
             <EntityTypeMapping TypeName="QRMPortalModel.ProjectMaster">
               <MappingFragment StoreEntitySet="ProjectMaster">
+                <ScalarProperty Name="ProjectColor" ColumnName="ProjectColor" />
                 <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
                 <ScalarProperty Name="QualityController" ColumnName="QualityController" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -2467,7 +2470,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

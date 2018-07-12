@@ -90,6 +90,63 @@
         width: 100% !important;
         height: 320px !important;
     }
+
+    .tileReview {
+        width: 100%;
+        display: inline-block;
+        box-sizing: border-box;
+        /*background: #fff;*/
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+
+        .tileReview .tileReview {
+            margin-top: 0px;
+        }
+
+        .tileReview.purple, .tileReview.blue, .tileReview.red, .tileReview.orange, .tileReview.green {
+            color: #fff;
+        }
+
+        .tileReview.purple {
+            background: #5133AB;
+        }
+
+            .tileReview.purple:hover {
+                background: #3e2784;
+            }
+
+        .tileReview.red {
+            background: #AC193D;
+        }
+
+            .tileReview.red:hover {
+                background: #7f132d;
+            }
+
+        .tileReview.green {
+            background: #00A600;
+        }
+
+            .tileReview.green:hover {
+                background: #007300;
+            }
+
+        .tileReview.blue {
+            background: #2672EC;
+        }
+
+            .tileReview.blue:hover {
+                background: #125acd;
+            }
+
+        .tileReview.orange {
+            background: #DC572E;
+        }
+
+            .tileReview.orange:hover {
+                background: #b8431f;
+            }
 </style>
 
 <div class="x_panel" role="main" ng-app="home">
@@ -112,7 +169,7 @@
                                     <a href="#tab_content2" ng-click="LoadMyProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Projects</a>
                                 </li>
                                 <li role="presentation" class="">
-                                    <a href="#tab_content3" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Upcoming Reviews</a>
+                                    <a href="#tab_content3" role="tab" ng-click="LoadMyUpcomingReview()" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Upcoming Reviews</a>
                                 </li>
                                 <li role="presentation" class="">
                                     <a href="#tab_content4" ng-click="getSavedReports()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
@@ -135,8 +192,8 @@
                                                                         chart-series="EffortVariancePercentSeries"
                                                                         chart-options="EffortVariancePercentOptions"
                                                                         chart-colors="EffortVariancePercentColors"></canvas>
-                                                        
-                                                               
+
+
                                                             </div>
                                                             <div>
                                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: -10% &nbsp;&nbsp;&nbsp; USL: 10%</p>
@@ -152,8 +209,8 @@
                                                                         chart-series="ReworkPercentSeries"
                                                                         chart-options="ReworkPercentOptions"
                                                                         chart-colors="ReworkPercentColors"></canvas>
-                                                             
-                                                              
+
+
                                                             </div>
                                                             <div>
                                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: 0% &nbsp;&nbsp;&nbsp; USL: 10%</p>
@@ -199,7 +256,25 @@
                                             <div class="x_panel">
                                                 <div class="x_content">
                                                     <div class="col-md-12">
-                                                        My Upcoming Reviews
+                                                        <h1>
+                                                            <strong> My Upcoming Reviews</strong>
+                                                        </h1>
+                                                        <div class="container" ng-repeat="x in Data">
+                                                            <div class="row" ng-if="$even">
+                                                                <div class="col-sm-4">
+                                                                    <a href="" class="tileReview {{Data[$index].color}}">
+                                                                        <h3 class="tileReview">{{Data[$index].name}}</h3>
+                                                                        <p>Review Date:{{Data[$index].reviewDate}}</p>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-sm-4" ng-if="Data[$index+1]">
+                                                                    <a href="" class="tileReview {{Data[$index+1].color}}">
+                                                                        <h3 class="tileReview">{{Data[$index+1].name}}</h3>
+                                                                        <p>Review Date:{{Data[$index+1].reviewDate}}</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

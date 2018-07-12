@@ -5,8 +5,12 @@ using System.Web;
 
 namespace QRMService.Models
 {
-    public class UserSpecificModel
+    public class ProjectReviewModel
     {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string reviewDate { get; set; }
+        public string color { get; set; }
     }
 
     public class UserProjects

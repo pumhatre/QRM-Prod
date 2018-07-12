@@ -25,5 +25,19 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        [HttpGet]
+        public IHttpActionResult GetProjectReviewDetail(int userId)
+        {
+            try
+            {
+                var projects = HomeRepository.GetProjectReviewDetail(userId);
+                return Ok(projects);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }
