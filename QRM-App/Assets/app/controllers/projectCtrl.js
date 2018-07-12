@@ -225,7 +225,7 @@
 
                     {
                         name: 'ReviewDate', displayName: "Review Date", field: "ReviewDate", enableColumnMenu: false, width: '12%',
-                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="date" ng-model="MODEL_COL_FIELD"></div>'
+                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input type="date" ng-model="MODEL_COL_FIELD"></div>' 
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
