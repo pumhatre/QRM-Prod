@@ -422,11 +422,11 @@ namespace QRMService.Repositories
                         // TODO: change this hardcoded limits
                         if (item >= -10 && item <= 10)
                         {
-                            chartDataModel.colors.Add("green");
+                            chartDataModel.colors.Add("#009900");
                         }
                         else
                         {
-                            chartDataModel.colors.Add("red");
+                            chartDataModel.colors.Add("#D63232");
                         }
                     }
                     chartDataModelList.Add(chartDataModel);
@@ -454,11 +454,11 @@ namespace QRMService.Repositories
                         // TODO: change this hardcoded limits
                         if (item >= 0 && item <= 10)
                         {
-                            chartDataModelR.colors.Add("green");
+                            chartDataModelR.colors.Add("#009900");
                         }
                         else
                         {
-                            chartDataModelR.colors.Add("red");
+                            chartDataModelR.colors.Add("#D63232");
                         }
                     }
                     chartDataModelList.Add(chartDataModelR);

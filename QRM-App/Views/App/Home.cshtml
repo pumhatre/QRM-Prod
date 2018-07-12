@@ -191,9 +191,10 @@
                                                                         chart-labels="EffortVariancePercentLabels"
                                                                         chart-series="EffortVariancePercentSeries"
                                                                         chart-options="EffortVariancePercentOptions"
-                                                                        chart-colors="EffortVariancePercentColors"></canvas>
-
-
+                                                                        chart-colors="EffortVariancePercentColors"
+                                                                        chart-dataset-override="EffortVariancePercentOverride"></canvas>
+                                                        
+                                                               
                                                             </div>
                                                             <div>
                                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: -10% &nbsp;&nbsp;&nbsp; USL: 10%</p>
@@ -208,9 +209,10 @@
                                                                         chart-labels="ReworkPercentLabels"
                                                                         chart-series="ReworkPercentSeries"
                                                                         chart-options="ReworkPercentOptions"
-                                                                        chart-colors="ReworkPercentColors"></canvas>
-
-
+                                                                        chart-colors="ReworkPercentColors"
+                                                                        chart-dataset-override="ReworkPercentOverride"></canvas>
+                                                             
+                                                              
                                                             </div>
                                                             <div>
                                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: 0% &nbsp;&nbsp;&nbsp; USL: 10%</p>
@@ -287,7 +289,6 @@
                                             <div class="x_panel">
                                                 <div class="x_content">
                                                     <div class="col-md-12">
-                                                        My Saved Reports
                                                         <div id="mGrid" ui-grid="savedReportsGrid" ui-grid-pagination="" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
                                                             <div class="grid-msg-overlay" ng-show="loading">
                                                                 <div class="msg">

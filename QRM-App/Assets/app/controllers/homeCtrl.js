@@ -189,13 +189,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.EffortVariancePercentData.push(successResponse.data[0].values[i])
                                           }
                                           for (var i = 0; i < successResponse.data[0].colors.length; i++) {
-                                              $scope.EffortVariancePercentColors.push({
-                                                  borderColor: successResponse.data[0].colors[i],
-                                                  fillColor: successResponse.data[0].colors[i],
-                                                  strokeColor: successResponse.data[0].colors[i],
-                                                  backgroundColor: successResponse.data[1].colors[i]
-
-                                              });
+                                              $scope.EffortVariancePercentColors.push(successResponse.data[0].colors[i]);
                                           }
                                           for (var i = 0; i < successResponse.data[0].series.length; i++) {
                                               $scope.EffortVariancePercentOverride.push({ type: "bar" });
@@ -204,6 +198,8 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.EffortVariancePercentOverride[i].borderColor = successResponse.data[0].colors[i];
                                               $scope.EffortVariancePercentOverride[i].fillColor = successResponse.data[0].colors[i];
                                               $scope.EffortVariancePercentOverride[i].strokeColor = successResponse.data[0].colors[i];
+                                              $scope.EffortVariancePercentOverride[i].highlightFill = successResponse.data[0].colors[i];
+                                              $scope.EffortVariancePercentOverride[i].highlightStroke = successResponse.data[0].colors[i];
                                           }
                                       }
                                       if (successResponse.data[1]) {
@@ -243,12 +239,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.ReworkPercentData.push(successResponse.data[1].values[i])
                                           }
                                           for (var i = 0; i < successResponse.data[1].colors.length; i++) {
-                                              $scope.ReworkPercentColors.push({
-                                                  borderColor: successResponse.data[1].colors[i],
-                                                  fillColor: successResponse.data[1].colors[i],
-                                                  strokeColor: successResponse.data[1].colors[i],
-                                                  backgroundColor: successResponse.data[1].colors[i]
-                                              });
+                                              $scope.ReworkPercentColors.push(successResponse.data[1].colors[i]);
                                           }
                                           for (var i = 0; i < successResponse.data[1].series.length; i++) {
                                               $scope.ReworkPercentOverride.push({ type: "bar" });
@@ -257,6 +248,8 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.ReworkPercentOverride[i].borderColor = successResponse.data[1].colors[i];
                                               $scope.ReworkPercentOverride[i].fillColor = successResponse.data[1].colors[i];
                                               $scope.ReworkPercentOverride[i].strokeColor = successResponse.data[1].colors[i];
+                                              $scope.ReworkPercentOverride[i].highlightFill = successResponse.data[1].colors[i];
+                                              $scope.ReworkPercentOverride[i].highlightStroke = successResponse.data[1].colors[i];
                                           }
                                       }
                                   }
