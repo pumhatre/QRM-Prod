@@ -73,7 +73,7 @@ var setContentHeight = function () {
 	  console.log('clicked - sidebar_menu');
         var $li = $(this).parent();
 
-        if ($li.is('.active')) {
+      if ($li.is('.active')) {          
             $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
                 setContentHeight();
@@ -83,16 +83,19 @@ var setContentHeight = function () {
             if (!$li.parent().is('.child_menu')) {
                 $SIDEBAR_MENU.find('li').removeClass('active active-sm');
                 $SIDEBAR_MENU.find('li ul').slideUp();
+                
             }else
             {
 				if ( $BODY.is( ".nav-sm" ) )
 				{
 					$SIDEBAR_MENU.find( "li" ).removeClass( "active active-sm" );
 					$SIDEBAR_MENU.find( "li ul" ).slideUp();
-				}
+                }
+               location.reload();
 			}
             $li.addClass('active');
-
+         if ($li.text().indexOf("Home") > -1)
+              location.reload();
             $('ul:first', $li).slideDown(function() {
                 setContentHeight();
             });
