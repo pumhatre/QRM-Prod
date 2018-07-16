@@ -261,18 +261,18 @@
                                                         <h1>
                                                             <strong> My Upcoming Reviews</strong>
                                                         </h1>
-                                                        <div class="container" ng-repeat="x in Data">
+                                                        <div class="container" ng-repeat="x in projectReviewData">
                                                             <div class="row" ng-if="$even">
                                                                 <div class="col-sm-4">
-                                                                    <a href="" class="tileReview {{Data[$index].color}}">
-                                                                        <h3 class="tileReview">{{Data[$index].name}}</h3>
-                                                                        <p>Review Date:{{Data[$index].reviewDate}}</p>
+                                                                    <a href="" class="tileReview {{projectReviewData[$index].color}}">
+                                                                        <h3 class="tileReview">{{projectReviewData[$index].name}}</h3>
+                                                                        <p>Review Date:{{projectReviewData[$index].reviewDate}}</p>
                                                                     </a>
                                                                 </div>
-                                                                <div class="col-sm-4" ng-if="Data[$index+1]">
-                                                                    <a href="" class="tileReview {{Data[$index+1].color}}">
-                                                                        <h3 class="tileReview">{{Data[$index+1].name}}</h3>
-                                                                        <p>Review Date:{{Data[$index+1].reviewDate}}</p>
+                                                                <div class="col-sm-4" ng-if="projectReviewData[$index+1]">
+                                                                    <a href="" class="tileReview {{projectReviewData[$index+1].color}}">
+                                                                        <h3 class="tileReview">{{projectReviewData[$index+1].name}}</h3>
+                                                                        <p>Review Date:{{projectReviewData[$index+1].reviewDate}}</p>
                                                                     </a>
                                                                 </div>
                                                             </div>

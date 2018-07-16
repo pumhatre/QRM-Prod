@@ -18,12 +18,14 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.projectTestingGrid = {};
         $scope.projectWidgetGrid = {};
         $scope.projectVarianceGrid = {};
+        $scope.projectGrid = {};
+        $scope.savedReportsGrid = {};
         $scope.selectedProjectId = 0;
 
         $scope.LoadMyUpcomingReview = function () {
             homeService.GetProjectReviewDetail(config, userId)
                   .then(function (successResponse) {
-                      $scope.Data = successResponse.data;
+                      $scope.projectReviewData = successResponse.data;
                   }, function (errorResponse) {
                   });
         }
@@ -106,6 +108,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             }
         }
         $scope.redirectToChart = function (projectId, releaseId, reportType) {
+            debugger;
 
             $rootScope.chartProjectId = projectId;
             $rootScope.chartreleaseId = releaseId;
