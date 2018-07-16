@@ -13,7 +13,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
          });
      }])
 
-    .controller('chartsCtrl', ['$scope', 'chartService', '$cookies', '$cookieStore', 'config', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', '$location', '$rootScope', function ($scope,  chartService, $cookies, $cookieStore, config, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService, $location, $rootScope) {
+    .controller('chartsCtrl', ['$scope', 'chartService', '$cookies', '$cookieStore', 'config', '$templateCache', 'projectReleaseService', 'metricsAssociationService', 'mySavedReportService', '$location', '$rootScope', function ($scope, chartService, $cookies, $cookieStore, config, $templateCache, projectReleaseService, metricsAssociationService, mySavedReportService, $location, $rootScope) {
 
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
@@ -276,7 +276,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                           tooltips: {
                                               callbacks: {
                                                   label: function (tooltipItem, data) {
-                                                      
+
                                                       var dataset = data.datasets[tooltipItem.datasetIndex];
                                                       var label = data.labels[tooltipItem.index];
                                                       var currentValue = dataset.data[tooltipItem.index];
@@ -426,7 +426,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
                         .then(function (successResponse) {
                             if (successResponse.data.values) {
-                                
+
                                 $scope.DefectDetectedPhaseLabels = successResponse.data.labels;
                                 $scope.DefectDetectedPhaseData = [];
                                 $scope.ProjectDefectDetectedOverride = [];
@@ -519,14 +519,22 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
 
-        
+
         // check if this route is referred from home 
         if ($location.search().ref && $location.search().ref == 'v') {
-            
-            $scope.selectedProjectDropdown = $rootScope.chartProjectId.toString();
-            $scope.getProjectReleases($scope.selectedProjectDropdown);
-            $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
-            $scope.selectedChartType = $rootScope.chartreportType;
-            $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown);
+
+            if ($rootScope.chartProjectId) {
+                $scope.selectedProjectDropdown = $rootScope.chartProjectId.toString();
+                $scope.getProjectReleases($scope.selectedProjectDropdown);
+                if ($rootScope.chartreleaseId) {
+                    $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
+                    if ($rootScope.chartreportType) {
+                        $scope.selectedChartType = $rootScope.chartreportType;
+                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown);
+                    }
+                }
+
+            }
+
         }
     }]);

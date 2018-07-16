@@ -33,7 +33,12 @@ namespace QRM_App
 
             bundles.Add(new ScriptBundle("~/uigrid").Include(
                         "~/Assets/ng/ui-bootstrap-tpls-2.5.0.min.js",
-                       "~/Assets/ng/Ui-grid/*.js"));
+                        "~/Assets/ng/Ui-grid/ui-grid.min.js",
+                       "~/Assets/ng/Ui-grid/cbvxc.js",
+                       "~/Assets/ng/Ui-grid/csv.js",
+                       "~/Assets/ng/Ui-grid/excel-builder.dist.js",
+                       "~/Assets/ng/Ui-grid/pdfmake.js",
+                       "~/Assets/ng/Ui-grid/vfs_fonts.js"));
 
             bundles.Add(new ScriptBundle("~/app").IncludeDirectory("~/Assets/app", "*.js", true));
 
