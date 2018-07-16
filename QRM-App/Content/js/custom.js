@@ -69,7 +69,7 @@ var setContentHeight = function () {
 	$RIGHT_COL.css('min-height', contentHeight);
 };
 
-  $SIDEBAR_MENU.find('a').on('click', function(ev) {
+$SIDEBAR_MENU.find('a').on('click', function (ev) {
 	  console.log('clicked - sidebar_menu');
         var $li = $(this).parent();
 
@@ -91,11 +91,12 @@ var setContentHeight = function () {
 					$SIDEBAR_MENU.find( "li" ).removeClass( "active active-sm" );
 					$SIDEBAR_MENU.find( "li ul" ).slideUp();
                 }
-               location.reload();
+               //location.reload();
 			}
             $li.addClass('active');
-         if ($li.text().indexOf("Home") > -1)
-              location.reload();
+            //if ($li.text().indexOf("Home") > -1)
+            //    debugger;
+            //  location.reload();
             $('ul:first', $li).slideDown(function() {
                 setContentHeight();
             });

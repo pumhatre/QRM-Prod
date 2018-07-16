@@ -21,13 +21,10 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.selectedProjectId = 0;
 
         $scope.LoadMyUpcomingReview = function () {
-            debugger;
             homeService.GetProjectReviewDetail(config, userId)
                   .then(function (successResponse) {
-                      debugger;
                       $scope.Data = successResponse.data;
                   }, function (errorResponse) {
-                      debugger;
                   });
         }
 
