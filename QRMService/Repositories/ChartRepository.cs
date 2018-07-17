@@ -104,39 +104,46 @@ namespace QRMService.Repositories
             }
             return chartDataModel;
         }
-        public static List<ChartDataModelDecimal> GetTestCaseComplexityDistribution(int projectId, int releaseId)
+        public static ChartDataModelDecimal GetTestCaseComplexityDistribution(int projectId, int releaseId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("projectId", projectId));
             parameters.Add(new KeyValuePair<string, object>("projectReleaseId", releaseId));
             DataSet chartSetData = helper.GetDataSetByProcedure(Constants.UspGetTestCaseComplexityDistribution, "default", true, parameters.ToArray());
-            var chartDataModelList = new List<ChartDataModelDecimal>();
-            foreach (DataTable chartData in chartSetData.Tables)
-            {
-                var chartDataModel = new ChartDataModelDecimal();
-                if (chartData != null && chartData.Rows.Count > 0)
-                {
-                    //set series for chart data
-                    chartDataModel.series = new List<string> { "Component", "E2E" };
-                    chartDataModel.colors = new List<string> { "#FFA500", "#F7464A" };
-                    chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex", "VeryComplex" };
+            var chartDataModel = new ChartDataModelDecimal();
+            chartDataModel.datasets = new List<ChartDatasetDecimal>();
 
-                    chartDataModel.datasets = new List<ChartDatasetDecimal>();
-                    // set planned count
-                    var componentCount = new ChartDatasetDecimal { fill = false };
-                    componentCount.data = new List<decimal>();
-                    componentCount.label = "Actual";
-                    componentCount.borderColor = "#FFA500";
-                    chartData.AsEnumerable().ToList().ForEach(row =>
-                    {
-                        componentCount.data.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
-                    });
-                    chartDataModel.datasets.Add(componentCount);
-                    chartDataModelList.Add(chartDataModel);
-                }
-            }
-            return chartDataModelList;
+
+            List<decimal> componentListModel = new List<decimal>();
+            List<decimal> E2EListModel = new List<decimal>();
+
+            chartSetData.Tables[0].AsEnumerable().ToList().ForEach(row =>
+            {
+                componentListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
+            });
+
+            chartSetData.Tables[1].AsEnumerable().ToList().ForEach(row =>
+            {
+                E2EListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
+            });
+
+            chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex", "VeryComplex" };
+           
+            chartDataModel.datasets.Add(new ChartDatasetDecimal()
+            {
+                data = componentListModel,
+                backgroundColor = new List<string>() { "#FFA500", "#1E90FF", "#F7464A", "#000000" },
+                label = "Component"
+            });
+            chartDataModel.datasets.Add(new ChartDatasetDecimal()
+            {
+                data = E2EListModel,
+                backgroundColor = new List<string>() { "#F7464A","#FFA500", "#1E90FF", "#000000" },
+                label = "E2E"
+            });
+
+            return chartDataModel;
         }
         public static ChartDataModelDecimal GetDefectDetectedPhaseDistribution(int projectId, int releaseId)
         {
@@ -406,7 +413,7 @@ namespace QRMService.Repositories
                     chartDataModel.values = new List<int>();
                     chartData.Tables[0].AsEnumerable().ToList().ForEach(row =>
                        {
-                      
+
 
                            //set series for chart data
                            chartDataModel.series.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
@@ -415,7 +422,7 @@ namespace QRMService.Repositories
                            // set values data
                            // set for effort variance
                            chartDataModel.values.Add(row.Field<int>(ProjectPerformanceColumns.EffortVariance.ToString()));
-                          
+
                        });
                     foreach (var item in chartDataModel.values)
                     {

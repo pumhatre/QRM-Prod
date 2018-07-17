@@ -1,5 +1,5 @@
 ﻿<style>
-     #saveModal .modal-body {
+    #saveModal .modal-body {
         height: 15vh !important;
     }
 </style>
@@ -153,18 +153,20 @@
                                     </div>
                                     <div ng-switch-when="TCCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h4 style="text-align:center;">Test case complexity distribution</h4>
-                                        <canvas id="doubleDount" class="chart chart-doughnut" chart-colors="TestCaseComplexityDistributionColors" chart-options="TestCaseComplexityDistributionoptions"
-                                                chart-data="TestCaseComplexityDistribution" chart-series="TestCaseComplexityDistributionSeries" chart-labels="labels4" chart-dataset-override="TestCaseComplexityDistributionOverride"></canvas>
+                                        <h4 style="text-align:center;">Test case complexity distribution(Component/E2E)</h4>
+                                        <canvas id="doubleDount" class="chart chart-doughnut" 
+                                                chart-data="TestCaseComplexityDistribution"
+                                                chart-labels="labels4"
+                                                chart-options="TestCaseComplexityDistributionoptions" chart-colors="TestCaseComplexityDistributionColors"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="DDPD" class="text-center" style="width:80%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Defect Detected Phase Distribution</h4>
-                                        <canvas id="donught" class="chart chart-doughnut" 
-                                                chart-data="DefectDetectedPhaseData" 
-                                                chart-labels="DefectDetectedPhaseLabels"  
+                                        <canvas id="donught" class="chart chart-doughnut"
+                                                chart-data="DefectDetectedPhaseData"
+                                                chart-labels="DefectDetectedPhaseLabels"
                                                 chart-options="DefectDetectedPhaseOptions"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
