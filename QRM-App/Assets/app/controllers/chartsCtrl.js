@@ -529,14 +529,22 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
 
-
+        
         // check if this route is referred from home 
         if ($location.search().ref && $location.search().ref == 'v') {
 
-            $scope.selectedProjectDropdown = $rootScope.chartProjectId.toString();
-            $scope.getProjectReleases($scope.selectedProjectDropdown);
-            $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
-            $scope.selectedChartType = $rootScope.chartreportType;
-            $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown);
+            if ($rootScope.chartProjectId) {
+                $scope.selectedProjectDropdown = $rootScope.chartProjectId.toString();
+                $scope.getProjectReleases($scope.selectedProjectDropdown);
+                if ($rootScope.chartreleaseId) {
+                    $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
+                    if ($rootScope.chartreportType) {
+                        $scope.selectedChartType = $rootScope.chartreportType;
+                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown);
+                    }
+                }
+
+            }
+
         }
     }]);
