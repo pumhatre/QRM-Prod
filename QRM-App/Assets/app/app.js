@@ -75,8 +75,7 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     // Routes
     //================================================
     $routeProvider.when('/home', {
-        templateUrl: '/App/Home',
-        controller: 'homeCtrl'
+        templateUrl: '/App/Home'
     });
     $routeProvider.when('/register', {
         templateUrl: '/App/Register',

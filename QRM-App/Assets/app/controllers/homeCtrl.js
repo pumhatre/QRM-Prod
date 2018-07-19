@@ -7,27 +7,20 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     .config(['ChartJsProvider', function (ChartJsProvider) {
         // Configure all charts
         ChartJsProvider.setOptions({
-            responsive: false,
+            responsive: true,
             beginAtZero: true
 
         });
     }])
     .controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', 'mySavedReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', '$location', '$rootScope', function ($scope, homeService, healthReportService, chartService, mySavedReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, $location, $rootScope) {
-        $scope.projectEffortGrid = {};
-        $scope.projectDefectGrid = {};
-        $scope.projectTestingGrid = {};
-        $scope.projectWidgetGrid = {};
-        $scope.projectVarianceGrid = {};
-        $scope.selectedProjectId = 0;
+        $scope.projectGrid = {};
+        $scope.savedReportsGrid = {};
 
         $scope.LoadMyUpcomingReview = function () {
-            debugger;
             homeService.GetProjectReviewDetail(config, userId)
                   .then(function (successResponse) {
-                      debugger;
-                      $scope.Data = successResponse.data;
+                      $scope.projectReviewData = successResponse.data;
                   }, function (errorResponse) {
-                      debugger;
                   });
         }
 
@@ -98,18 +91,17 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                 { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '20%' },
                 { field: 'ReportName', name: 'ReportName', cellTemplate: tmpl, width: '45%' },
                 {
-                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
-                    cellTemplate: '<div style="text-align: center; padding-top: 5px; padding-bottom: 5px;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.redirectToChart(row.entity.ProjectId,row.entity.ProjectReleaseID,row.entity.ReportType)" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-th-list"></i> View this report</button>' +
+                    name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, enableCellSelection: false, width: '15%',
+                    cellTemplate: '<div style="text-align: center; padding-top: 5px; padding-bottom: 5px;"><button ng-click="grid.appScope.redirectToChart(row.entity.ProjectId,row.entity.ProjectReleaseID,row.entity.ReportType)" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-th-list"></i> View this report</button>' +
                         '</div>'
                 }
             ],
 
             onRegisterApi: function (gridApi) {
-                $scope.mGridApi = gridApi;
+                $scope.SavedReportGridApi = gridApi;
             }
         }
         $scope.redirectToChart = function (projectId, releaseId, reportType) {
-
             $rootScope.chartProjectId = projectId;
             $rootScope.chartreleaseId = releaseId;
             $rootScope.chartreportType = reportType;
@@ -119,7 +111,6 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.LoadMyProject = function () {
             homeService.GetMyProjects(config, userId)
                   .then(function (successResponse) {
-                      debugger;
                       $scope.projectGrid.data = successResponse.data;
                   }, function (errorResponse) {
 
@@ -137,7 +128,6 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         $scope.loadProjectPerformceGraph = function (userId) {
             chartService.GetProjectPerformanceGraph(config, userId)
                               .then(function (successResponse) {
-                                  debugger;
                                   $scope.EffortVariancePercentData = [];
                                   $scope.EffortVariancePercentLabels = [];
                                   $scope.EffortVariancePercentSeries = [];
