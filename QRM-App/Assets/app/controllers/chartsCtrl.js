@@ -379,10 +379,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                   });
         }
         $scope.loadTestCaseComplexityDistribution = function (projectId, releaseId) {
-            debugger;
             chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
                           .then(function (successResponse) {
-                              debugger;
                               if (successResponse.data.datasets.length > 0) {
                                   $scope.labels4 = successResponse.data.labels;
                                   $scope.TestCaseComplexityDistribution = [];
