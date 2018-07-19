@@ -19,7 +19,6 @@ namespace QRMService.Repositories
             {
 
                 return (from u in db.UserDetails
-                        join p in db.UserProjectAssociations on u.UserId equals p.UserId
                         join r in db.RoleMasters on u.RoleId equals r.RoleId
                         where u.UserName == userDetails.UserName && u.Password == userDetails.Password
                         select new LoginResponseModel

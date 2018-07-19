@@ -52,8 +52,8 @@ namespace QRMService.Repositories
                     Solution = a.Solution,
                     Director = a.Director,
                     SeniorManager = a.SeniorManager,
-                    QualityController=a.QualityController,
-                    ReviewDate=  a.ReviewDate
+                    QualityController = a.QualityController,
+                    ReviewDate = a.ReviewDate
                 }).ToList();
 
                 var refData = db.ReferenceTables.Where(a => a.ReferenceTableName == Constants.ServiceLineTableName ||
@@ -99,6 +99,8 @@ namespace QRMService.Repositories
             {
                 if (projectMaster.ProjectID == 0)
                 {
+                    var random = new Random();
+                    var color = String.Format("#{0:X6}", random.Next(0x1000000)); // = "#A197B9"
                     var project = new ProjectMaster
                     {
                         ProjectID = projectMaster.ProjectID,
@@ -114,9 +116,10 @@ namespace QRMService.Repositories
                         Solution = projectMaster.Solution,
                         Director = projectMaster.Director,
                         SeniorManager = projectMaster.SeniorManager,
-                        QualityController=projectMaster.QualityController,
+                        QualityController = projectMaster.QualityController,
                         ReviewDate = projectMaster.ReviewDate.Value.ToLocalTime(),
-                          IsActive = true
+                        ProjectColor = color,
+                        IsActive = true
                     };
 
                     db.ProjectMasters.Add(project);
