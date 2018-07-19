@@ -106,7 +106,7 @@ function uploadFile(uploadService) {
                 this.className = 'upload-drop-zone';
                 return false;
             }
-            $scope.UploadFile = function (files) {
+            if (files.length>0) {
                 localStorage.setItem("uploading", "true");
                 $scope.$apply(function () {
                     $scope.isUploaded = true;
@@ -119,7 +119,12 @@ function uploadFile(uploadService) {
                 $(uploaderBlock).hide();
                 $(loaderBlock).show();
                 uploadService.UploadFile(files, $scope.SaveData);
+                $scope.disabledUploadNext = false;
             }
+            else {
+                $scope.disabledUploadNext = true;
+            }
+               
 
             // Save excel data to our database
             $scope.SaveData = function (excelData) {
