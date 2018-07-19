@@ -150,16 +150,12 @@ namespace QRMService.Repositories
                 {
                     try
                     {
+
+                        var userRoleObj = context.UserProjectAssociations.Where(p => p.UserId == UserId);
+                        context.UserProjectAssociations.RemoveRange(userRoleObj);                       
                         var userDetail = context.UserDetails.Find(UserId);
                         context.UserDetails.Remove(userDetail);
-
-                        //var userRoleId = context.UserProjectRoleAssociations.FirstOrDefault(p => p.UserId == UserId).UserProjectRoleId;
-                        //var userRoleObj = context.UserProjectRoleAssociations.Find(userRoleId);
-
-                        //context.UserProjectRoleAssociations.Remove(userRoleObj);
-
                         context.SaveChanges();
-
                         transaction.Commit();
 
                         response.IsSuccess = true;
