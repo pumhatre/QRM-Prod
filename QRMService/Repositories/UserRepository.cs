@@ -100,7 +100,7 @@ namespace QRMService.Repositories
                             UserDetail userDetail = context.UserDetails.Find(user.userId);
 
                             //get emaildids of existing users
-                            List<string> emailIds = context.UserDetails.Select(x => x.Email).ToList();
+                            List<string> emailIds = context.UserDetails.Where(x => x.UserId != user.userId).Select(x => x.Email).ToList();
 
                             if (emailIds.Any(x => x == user.email))
                             {
@@ -116,6 +116,7 @@ namespace QRMService.Repositories
                                 userDetail.MiddleName = user.middleName;
                                 userDetail.Phone = user.phone;
                                 userDetail.Email = user.email;
+                                userDetail.RoleId = user.roleId != null ? Convert.ToInt32(user.roleId) : 0; 
                                 context.Entry(userDetail).State = System.Data.Entity.EntityState.Modified;
                                 context.SaveChanges();
                                 transaction.Commit();
