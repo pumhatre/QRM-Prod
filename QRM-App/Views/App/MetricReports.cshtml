@@ -1,4 +1,151 @@
-﻿<div class="x_panel" role="main">
+﻿<style>
+    .testClass {
+        z-index: -10;
+    }
+
+    .wrap {
+        white-space: normal;
+    }
+
+
+    .ui-grid-row:last-child > div > div {
+        border-bottom: 0.5px solid #717171 !important;
+    }
+
+    /*.ui-grid-row > div > div > div:last-child {
+        border-right: 1px solid black;
+    }*/
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
+    }
+
+    .ui-grid-pager-control-input {
+        display: none !important;
+    }
+
+    .ui-grid-pager-max-pages-number {
+        display: none;
+    }
+
+    .ui-grid-cell {
+        height: 40px !important;
+    }
+
+    @@media screen and (min-width: 1080px) {
+        .modal-dialog {
+            width: 1080px; /* New width for default modal */
+        }
+
+        .modal-sm {
+            width: 700px; /* New width for small modal */
+        }
+    }
+
+    @@media screen and (min-width: 1080px) {
+        .modal-lg {
+            width: 1080px; /* New width for large modal */
+        }
+    }
+
+    #healthReportModal .modal-body {
+        height: 85vh !important;
+    }
+    /*End */
+    .grid .msg {
+        opacity: 1;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        width: 60%;
+        height: 50%;
+        background-color: #eee;
+        border-radius: 4px;
+        border: 1px solid #555;
+        text-align: center;
+        font-size: 24px;
+        display: table;
+    }
+
+        .grid .msg span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+    /*this datalist  hide thead text box command unwanted message*/
+    .ui-grid-pager-row-count-label {
+        display: none;
+    }
+
+    .ui-grid-pager-control-input {
+        display: none !important;
+    }
+
+    .ui-grid-pager-max-pages-number {
+        display: none;
+    }
+    /*End */
+
+
+    .tileReview {
+        width: 100%;
+        display: inline-block;
+        box-sizing: border-box;
+        /*background: #fff;*/
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+
+        .tileReview .tileReview {
+            margin-top: 0px;
+        }
+
+        .tileReview.purple, .tileReview.blue, .tileReview.red, .tileReview.orange, .tileReview.green {
+            color: #fff;
+        }
+
+        .tileReview.purple {
+            background: #5133AB;
+        }
+
+            .tileReview.purple:hover {
+                background: #3e2784;
+            }
+
+        .tileReview.red {
+            background: #AC193D;
+        }
+
+            .tileReview.red:hover {
+                background: #7f132d;
+            }
+
+        .tileReview.green {
+            background: #00A600;
+        }
+
+            .tileReview.green:hover {
+                background: #007300;
+            }
+
+        .tileReview.blue {
+            background: #2672EC;
+        }
+
+            .tileReview.blue:hover {
+                background: #125acd;
+            }
+
+        .tileReview.orange {
+            background: #DC572E;
+        }
+
+            .tileReview.orange:hover {
+                background: #b8431f;
+            }
+</style>
+
+<div class="x_panel" role="main">
     <div class="">
         <div class="page-title">
             <div class="title_left">
@@ -247,6 +394,19 @@
                                                     <div class="x_content">
                                                         <div class="col-md-12">
                                                             <div id="productivityGrid" ui-grid="productivityGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                <div class="grid-msg-overlay" ng-show="productivityGridLoading">
+                                                                    <div class="msg">
+                                                                        <span>
+                                                                            Loading Data...
+                                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="grid-msg-overlay" ng-hide="productivityGridLoading || productivityGrid.data.length">
+                                                                    <div class="msg">
+                                                                        <span>No Data</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -264,6 +424,19 @@
                                                     <div class="x_content">
                                                         <div class="col-md-12">
                                                             <div id="productivityGrid2" ui-grid="productivityGrid2" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                <div class="grid-msg-overlay" ng-show="productivityGrid2Loading">
+                                                                    <div class="msg">
+                                                                        <span>
+                                                                            Loading Data...
+                                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="grid-msg-overlay" ng-hide="productivityGrid2Loading || productivityGrid2.data.length">
+                                                                    <div class="msg">
+                                                                        <span>No Data</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -301,6 +474,19 @@
                                                     <div class="x_content">
                                                         <div class="col-md-12">
                                                             <div id="defectDensityGrid" ui-grid="defectDensityGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                <div class="grid-msg-overlay" ng-show="defectDensityGridLoading">
+                                                                    <div class="msg">
+                                                                        <span>
+                                                                            Loading Data...
+                                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="grid-msg-overlay" ng-hide="defectDensityGridLoading || defectDensityGrid.data.length">
+                                                                    <div class="msg">
+                                                                        <span>No Data</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -318,6 +504,19 @@
                                                     <div class="x_content">
                                                         <div class="col-md-12">
                                                             <div id="defectDensityGrid2" ui-grid="defectDensityGrid2" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                <div class="grid-msg-overlay" ng-show="defectDensityGrid2Loading">
+                                                                    <div class="msg">
+                                                                        <span>
+                                                                            Loading Data...
+                                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="grid-msg-overlay" ng-hide="defectDensityGrid2Loading || defectDensityGrid2.data.length">
+                                                                    <div class="msg">
+                                                                        <span>No Data</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

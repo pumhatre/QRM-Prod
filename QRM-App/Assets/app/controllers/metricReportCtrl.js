@@ -111,52 +111,72 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
         }
 
         $scope.LoadProductivityDashboard_GroundUp = function () {
+            $scope.productivityGridLoading = true;
             healthReportService.GetProductivityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                 .then(function (successResponse) {
                     $scope.productivityGrid.data = successResponse.data;
+                    $scope.productivityGridLoading = false;
                 }, function (errorResponse) {
 
                 }).finally(function () {
                     // add  empty row for better UI
-                    addEmptyRow($scope.productivityGrid.data);
+                    if ($scope.productivityGrid.data.length) {
+                        addEmptyRow($scope.productivityGrid.data);
+                    }
+                    $scope.productivityGridLoading = false;
                 });
         }
 
 
         $scope.LoadProductivityDashboard_Enhanced = function () {
+            $scope.productivityGrid2Loading = true;
             healthReportService.GetProductivityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                 .then(function (successResponse) {
                     $scope.productivityGrid2.data = successResponse.data;
+                    $scope.productivityGrid2Loading = false
                 }, function (errorResponse) {
 
                 }).finally(function () {
                     // add  empty row for better UI
-                    addEmptyRow($scope.productivityGrid2.data);
+                    if ($scope.productivityGrid2.data.length) {
+                        addEmptyRow($scope.productivityGrid2.data);
+                    }
+                    $scope.productivityGrid2Loading = false;
                 });
         }
 
         $scope.LoadDefectDensity_GroundUp = function () {
+            $scope.defectDensityGridLoading = true;
             healthReportService.GetDefectDensityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                 .then(function (successResponse) {
                     $scope.defectDensityGrid.data = successResponse.data;
+                    $scope.defectDensityGridLoading = false;
                 }, function (errorResponse) {
 
                 }).finally(function () {
                     // add  empty row for better UI
-                    addEmptyRow($scope.defectDensityGrid.data);
+                    if ($scope.defectDensityGrid.data.length) {
+                        addEmptyRow($scope.defectDensityGrid.data);
+                    }
+                    $scope.defectDensityGridLoading = false;
                 });
         }
 
 
         $scope.LoadDefectDensity_Enhanced = function () {
+            $scope.defectDensityGrid2Loading = true;
             healthReportService.GetDefectDensityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                 .then(function (successResponse) {
                     $scope.defectDensityGrid2.data = successResponse.data;
+                    $scope.defectDensityGrid2Loading = false;
                 }, function (errorResponse) {
 
                 }).finally(function () {
                     // add  empty row for better UI
-                    addEmptyRow($scope.defectDensityGrid2.data);
+                    if ($scope.defectDensityGrid2.data.length) {
+                        addEmptyRow($scope.defectDensityGrid2.data);
+                    }
+                    $scope.defectDensityGrid2Loading = false;
                 });
         }
 
