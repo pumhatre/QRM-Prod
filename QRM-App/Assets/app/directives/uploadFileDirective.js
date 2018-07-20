@@ -106,23 +106,25 @@ function uploadFile(uploadService) {
                 this.className = 'upload-drop-zone';
                 return false;
             }
-            if (files.length>0) {
-                localStorage.setItem("uploading", "true");
-                $scope.$apply(function () {
-                    $scope.isUploaded = true;
-                });
-                $(alertDanger).hide();
-                $(infoBlock).show();
-                $(alertDanger).hide();
-                $(alertSuccess).hide();
-                $(alertInfo).show();
-                $(uploaderBlock).hide();
-                $(loaderBlock).show();
-                uploadService.UploadFile(files, $scope.SaveData);
-                $scope.disabledUploadNext = false;
-            }
-            else {
-                $scope.disabledUploadNext = true;
+            $scope.UploadFile = function (files) {
+                if (files.length > 0) {
+                    localStorage.setItem("uploading", "true");
+                    $scope.$apply(function () {
+                        $scope.isUploaded = true;
+                    });
+                    $(alertDanger).hide();
+                    $(infoBlock).show();
+                    $(alertDanger).hide();
+                    $(alertSuccess).hide();
+                    $(alertInfo).show();
+                    $(uploaderBlock).hide();
+                    $(loaderBlock).show();
+                    uploadService.UploadFile(files, $scope.SaveData);
+                    $scope.disabledUploadNext = false;
+                }
+                else {
+                    $scope.disabledUploadNext = true;
+                }
             }
                
 
