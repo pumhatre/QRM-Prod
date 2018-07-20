@@ -207,18 +207,55 @@ namespace QRMService.Repositories
                 var isValidCMMIRollup = row.Field<bool>(Constants.EffortSanityValidationColumnName.IsValidCMMIRollup.ToString());
 
 
-                if (!isValidTaskType && row.Field<string>(Constants.EffortSanityValidationColumnName.TaskType.ToString()) != "-Missing-")
-                    sb.Append("Invalid Task type").Append("|");
+                if (!isValidTaskType)
+                {
+
+                    if (row.Field<string>(Constants.EffortSanityValidationColumnName.TaskType.ToString()) == "-Missing-")
+                        sb.Append("Missing Task Type").Append("|");
+                    else
+                        sb.Append("Invalid Task type").Append("|");
+                }
+
                 if (!isValidStatus)
-                    sb.Append("Invalid Status").Append("|");
+                {
+                    if (row.Field<string>(Constants.EffortSanityValidationColumnName.Status.ToString()) == "-Missing-")
+                        sb.Append("Missing Status").Append("|");
+                    else
+                        sb.Append("Invalid Status").Append("|");
+                }
+
                 if (!isValidComponentType)
-                    sb.Append("Invalid Component Type").Append("|");
+                {
+                    if (row.Field<string>(Constants.EffortSanityValidationColumnName.ComponentType.ToString()) == "-Missing-")
+                        sb.Append("Missing Component Type").Append("|");
+                    else
+                        sb.Append("Invalid Component Type").Append("|");
+                }
+
                 if (!isValidWidgetType)
-                    sb.Append("Invalid Widget Type").Append("|");
+                {
+                    if (row.Field<string>(Constants.EffortSanityValidationColumnName.WidgetType.ToString()) == "-Missing-")
+                        sb.Append("Missing Widget Type").Append("|");
+                    else
+                        sb.Append("Invalid Widget Type").Append("|");
+                }
+
+
+
                 if (!isValidComplexity)
-                    sb.Append("Invalid Complexity").Append("|");
+                {
+                    if (row.Field<string>(Constants.EffortSanityValidationColumnName.Complexity.ToString()) == "-Missing-")
+                        sb.Append("Missing Complexity").Append("|");
+                    else
+                        sb.Append("Invalid Complexity").Append("|");
+                }
                 if (!isValidCMMIRollup)
-                    sb.Append("Invalid CMMIRollup").Append("|");
+                {
+                    if (row.Field<string>(Constants.EffortSanityValidationColumnName.CMMIRollUp.ToString()) == "-Missing-")
+                        sb.Append("Missing CMMIRollup").Append("|");
+                    else
+                        sb.Append("Invalid CMMIRollup").Append("|");
+                }
 
                 effortSanityValidationList.Add(new EffortSanityValidationModel
                 {
@@ -351,23 +388,63 @@ namespace QRMService.Repositories
                 var isValidDefectTypeCause = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectTypeCause.ToString());
 
                 if (!isValidDetectedStage)
-                    sb.Append("Invalid Detected Stage").Append("|");
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.DetectedStage.ToString()) == "-Missing-")
+                        sb.Append("Missing Detected Stage").Append("|");
+                    else
+                        sb.Append("Invalid Detected Stage").Append("|");
+                }
                 if (!isValidDefectStatus)
-                    sb.Append("Invalid Status").Append("|");
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.Status.ToString()) == "-Missing-")
+                        sb.Append("Missing Status").Append("|");
+                    else
+                        sb.Append("Invalid Status").Append("|");
+                }
                 if (!isValidDefectInjectedStage)
-                    sb.Append("Invalid Injected Stage").Append("|");
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.DefectInfectedStage.ToString()) == "-Missing-")
+                        sb.Append("Missing Injected Stage").Append("|");
+                    else
+                        sb.Append("Invalid Injected Stage").Append("|");
+                }
                 if (!isValidExpectedDetectionPhase)
-                    sb.Append("Invalid Expected Detection Phase").Append("|");
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.ExpectedDetectionPhase.ToString()) == "-Missing-")
+                        sb.Append("Missing Expected Detection Phase").Append("|");
+                    else
+                        sb.Append("Invalid Expected Detection Phase").Append("|");
+                }
                 if (!isValidDefectType)
-                    sb.Append("Invalid Type").Append("|");
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.DefectType.ToString()) == "-Missing-")
+                        sb.Append("Missing Type").Append("|");
+                    else
+                        sb.Append("Invalid Type").Append("|");
+                }
+
+                if (!isValidDefectCause && row.Field<string>(Constants.DefectSanityValidationColumnName.Cause.ToString()) == "-Missing-")
+                    sb.Append("Missing Cause").Append("|");
                 if (!isValidDefectSeverity)
-                    sb.Append("Invalid Severity").Append("|");
-                if (!isValidReviewType && row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString()) != "-Missing-")
-                    sb.Append("Invalid Review Type").Append("|");
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.DefectSeverity.ToString()) == "-Missing-")
+                        sb.Append("Missing Severity").Append("|");
+                    else
+                        sb.Append("Invalid Severity").Append("|");
+                }
+                if (!isValidReviewType)
+                {
+                    if (row.Field<string>(Constants.DefectSanityValidationColumnName.ReviewType.ToString()) == "-Missing-")
+                        sb.Append("Missing Review Type").Append("|");
+                    else
+                        sb.Append("Invalid Review Type").Append("|");
+                }
                 if (!isValidInjectedDetectedPhase)
-                    sb.Append("Incorrect Expected Detection Phase Mapping").Append("|");
+                        sb.Append("Incorrect Expected Detection Phase Mapping").Append("|");
                 if (!isValidDefectTypeCause)
                     sb.Append("Incorrect Defect Cause Mapping").Append("|");
+
+           
 
 
                 defectSanityValidationList.Add(new DefectSanityValidationModel

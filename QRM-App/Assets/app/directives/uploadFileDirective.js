@@ -107,19 +107,26 @@ function uploadFile(uploadService) {
                 return false;
             }
             $scope.UploadFile = function (files) {
-                localStorage.setItem("uploading", "true");
-                $scope.$apply(function () {
-                    $scope.isUploaded = true;
-                });
-                $(alertDanger).hide();
-                $(infoBlock).show();
-                $(alertDanger).hide();
-                $(alertSuccess).hide();
-                $(alertInfo).show();
-                $(uploaderBlock).hide();
-                $(loaderBlock).show();
-                uploadService.UploadFile(files, $scope.SaveData);
+                if (files.length > 0) {
+                    localStorage.setItem("uploading", "true");
+                    $scope.$apply(function () {
+                        $scope.isUploaded = true;
+                    });
+                    $(alertDanger).hide();
+                    $(infoBlock).show();
+                    $(alertDanger).hide();
+                    $(alertSuccess).hide();
+                    $(alertInfo).show();
+                    $(uploaderBlock).hide();
+                    $(loaderBlock).show();
+                    uploadService.UploadFile(files, $scope.SaveData);
+                    $scope.disabledUploadNext = false;
+                }
+                else {
+                    $scope.disabledUploadNext = true;
+                }
             }
+               
 
             // Save excel data to our database
             $scope.SaveData = function (excelData) {

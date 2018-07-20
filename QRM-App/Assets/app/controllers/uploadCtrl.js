@@ -9,6 +9,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
         $scope.dataSanityResult = [];
         $scope.InvalidData = true;
+        $scope.disabledUploadNext = true;
         $scope.HideFinalize = false;
         $scope.InvalidEffortData = true;
         $scope.InvalidDefectData = true;
