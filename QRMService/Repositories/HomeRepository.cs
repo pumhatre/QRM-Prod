@@ -13,16 +13,16 @@ namespace QRMService.Repositories
         public static List<UserProjects> GetUserProject(int userId)
         {
             List<UserProjects> userProjectList = new List<UserProjects>();
-            if (userId!=0)
+            if (userId != 0)
             {
                 using (var db = new QRMEntities())
                 {
                     var userProjects = (from pm in db.ProjectMasters
                                         join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
-                                        where od.UserId == userId
+                                        where od.UserId == userId && pm.IsActive == true
                                         select new UserProjects
                                         {
-                                            ProjectId=pm.ProjectID,
+                                            ProjectId = pm.ProjectID,
                                             ProjectName = pm.ProjectName,
                                             ServiceLine = pm.ServiceLine,
                                             ClientName = pm.ClientName,
@@ -32,9 +32,9 @@ namespace QRMService.Repositories
                                             Director = pm.Director,
                                             SeniorManager = pm.SeniorManager,
                                             ProjectManager = pm.ProjectManager,
-                                            QualityController=pm.QualityController
+                                            QualityController = pm.QualityController
                                         }).ToList();
-                    if (userProjects.Count>0 && userProjects!=null)
+                    if (userProjects.Count > 0 && userProjects != null)
                     {
                         foreach (var item in userProjects)
                         {
@@ -54,7 +54,7 @@ namespace QRMService.Repositories
                 {
                     var userProjects = (from pm in db.ProjectMasters
                                         join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
-                                        where od.UserId == userId
+                                        where od.UserId == userId && pm.IsActive == true
                                         select new ProjectReviewModel
                                         {
                                             id = pm.ProjectID,
