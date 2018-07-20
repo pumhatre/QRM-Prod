@@ -104,49 +104,13 @@
             margin-top: 0px;
         }
 
-        .tileReview.purple, .tileReview.blue, .tileReview.red, .tileReview.orange, .tileReview.green {
-            color: #fff;
+    .tileReview {
+        color: #fff;
+    }
+
+        .tileReview:hover {
+            color: #000000;
         }
-
-        .tileReview.purple {
-            background: #5133AB;
-        }
-
-            .tileReview.purple:hover {
-                background: #3e2784;
-            }
-
-        .tileReview.red {
-            background: #AC193D;
-        }
-
-            .tileReview.red:hover {
-                background: #7f132d;
-            }
-
-        .tileReview.green {
-            background: #00A600;
-        }
-
-            .tileReview.green:hover {
-                background: #007300;
-            }
-
-        .tileReview.blue {
-            background: #2672EC;
-        }
-
-            .tileReview.blue:hover {
-                background: #125acd;
-            }
-
-        .tileReview.orange {
-            background: #DC572E;
-        }
-
-            .tileReview.orange:hover {
-                background: #b8431f;
-            }
 </style>
 
 <div class="x_panel" role="main" ng-app="home">
@@ -193,8 +157,8 @@
                                                                         chart-options="EffortVariancePercentOptions"
                                                                         chart-colors="EffortVariancePercentColors"
                                                                         chart-dataset-override="EffortVariancePercentOverride"></canvas>
-                                                        
-                                                               
+
+
                                                             </div>
                                                             <div>
                                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: -10% &nbsp;&nbsp;&nbsp; USL: 10%</p>
@@ -211,8 +175,8 @@
                                                                         chart-options="ReworkPercentOptions"
                                                                         chart-colors="ReworkPercentColors"
                                                                         chart-dataset-override="ReworkPercentOverride"></canvas>
-                                                             
-                                                              
+
+
                                                             </div>
                                                             <div>
                                                                 <p>&nbsp;&nbsp;&nbsp;&nbsp;LSL: 0% &nbsp;&nbsp;&nbsp; USL: 10%</p>
@@ -259,18 +223,18 @@
                                                 <div class="x_content">
                                                     <div class="col-md-12">
                                                         <h1>
-                                                            <strong> My Upcoming Reviews</strong>
+                                                            <strong> My Monthly Reviews</strong>
                                                         </h1>
                                                         <div class="container" ng-repeat="x in projectReviewData">
                                                             <div class="row" ng-if="$even">
                                                                 <div class="col-sm-4">
-                                                                    <a href="" class="tileReview {{projectReviewData[$index].color}}">
+                                                                    <a href="" class="tileReview" style="background-color:{{projectReviewData[$index].color}}">
                                                                         <h3 class="tileReview">{{projectReviewData[$index].name}}</h3>
                                                                         <p>Review Date:{{projectReviewData[$index].reviewDate}}</p>
                                                                     </a>
                                                                 </div>
                                                                 <div class="col-sm-4" ng-if="projectReviewData[$index+1]">
-                                                                    <a href="" class="tileReview {{projectReviewData[$index+1].color}}">
+                                                                    <a href="" class="tileReview" style="background-color:{{projectReviewData[$index+1].color}}">
                                                                         <h3 class="tileReview">{{projectReviewData[$index+1].name}}</h3>
                                                                         <p>Review Date:{{projectReviewData[$index+1].reviewDate}}</p>
                                                                     </a>
