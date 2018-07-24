@@ -390,7 +390,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   $scope.TestCaseComplexityDistributionoptions = {
                                       legend: {
                                           display: true,
-                                          position: "bottom"
+                                          position: "bottom",
+                                          labels: {
+                                              fontColor: 'rgb(255, 99, 132)',
+                                              text: 'String',
+                                          }
+                                      },
+                                      title: {
+                                          display: true,
+                                          text: 'Test case complexity distribution(Component/E2E)'
+                                      },
+                                      datalabels: {
+                                               display: true,
                                       },
                                       tooltipEvents: [],
                                       showTooltips: true,

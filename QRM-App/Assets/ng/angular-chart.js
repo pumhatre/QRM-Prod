@@ -48,6 +48,44 @@
       '#EEE8AA',//pale golden rod
       '#87CEFA'//light sky blue
     ];
+    Chart.plugins.register({
+        afterDatasetsDraw: function (chart) {
+           
+                var ctx = chart.chart.ctx;
+                debugger;
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (!meta.hidden) {
+                        meta.data.forEach(function (element, index) {
+                            // Draw the text in black, with the specified font
+                            ctx.fillStyle = 'rgb(0, 0, 0)';
+
+                            var fontSize = 16;
+                            var fontStyle = 'normal';
+                            var fontFamily = 'Helvetica Neue';
+                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+                            var dataString;
+                            // Just naively convert to string for now
+                            if (chart.config.type == "doughnut") {
+                                 dataString = dataset.data[index].toString() + '%';
+                            }
+                            else {
+                                 dataString = dataset.data[index].toString();
+                            }
+
+                            // Make sure alignment settings are correct
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+
+                            var padding = 3;
+                            var position = element.tooltipPosition();
+                            ctx.fillText(dataString, position.x, position.y - (fontSize / 3) - padding);
+                        });
+                    }
+                });
+            
+        }
+    });
 
     var useExcanvas = typeof window.G_vmlCanvasManager === 'object' &&
       window.G_vmlCanvasManager !== null &&
@@ -409,4 +447,6 @@
             scope.$emit('chart-destroy', scope.chart);
         }
     }
+
+  
 }));
