@@ -298,7 +298,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                     if (successResponse.data.datasets.length > 0) {
                         $scope.labels = successResponse.data.labels;
                         $scope.ProjectEffortData = [];
-                        $scope.ProjectEffortDashboardOverride = [];
+                        $scope.ProjectEffortDashboardOverride = [];                      
                         for (var i = 0; i < successResponse.data.datasets.length; i++) {
                             $scope.ProjectEffortData.push(successResponse.data.datasets[i].data)
                         }
@@ -339,20 +339,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                               $scope.TestCaseDistribution.push(successResponse.data.datasets[i].data)
                           }
                           $scope.TestCaseDistributionSeries = successResponse.data.series;
-                          $scope.TestCaseDistributionColors = [];
-                          for (var i = 0; i < successResponse.data.colors.length; i++) {
-                              $scope.TestCaseDistributionColors.push({ borderColor: successResponse.data.colors[i] });
-                          }
-                          $scope.TestCaseDistributionOverride = [
-                                           { type: 'bar', fill: false },
-                                           { type: 'bar', fill: false },
-                                           { type: 'bar', fill: false },
-                                           { type: 'bar', fill: false }
-                          ];
-                          for (var i = 0; i < successResponse.data.series.length; i++) {
-                              $scope.TestCaseDistributionOverride[i].label = successResponse.data.series[i];
-                              $scope.TestCaseDistributionOverride[i].backgroundColor = successResponse.data.colors[i];
-                          }
+                          //$scope.TestCaseDistributionColors = [];
+                          //for (var i = 0; i < successResponse.data.colors.length; i++) {
+                          //    $scope.TestCaseDistributionColors.push({ borderColor: successResponse.data.colors[i] });
+                          //}
+                        
+                          //for (var i = 0; i < successResponse.data.series.length; i++) {
+                          //   // $scope.TestCaseDistributionOverride[i].label = successResponse.data.series[i];
+                          //   // $scope.TestCaseDistributionOverride[i].backgroundColor = successResponse.data.colors[i];
+                          //}
                           $scope.TestCaseDistributionoptions = {
                               legend: {
                                   display: true,
