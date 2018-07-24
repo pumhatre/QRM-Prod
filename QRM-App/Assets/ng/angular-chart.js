@@ -38,10 +38,15 @@
       '#97BBCD',// blue
       '#F7464A',// red
       '#FFA500',//orange
+      '#00FFFF',//cyan
       '#46BFBD',// green
+      '#6495ED',//corn flower blue
       '#FDB45C',// yellow
       '#800080',//purple
-      '#FF7F50'//coral
+      '#3CB371',//medium sea green
+      '#FF7F50',//coral
+      '#EEE8AA',//pale golden rod
+      '#87CEFA'//light sky blue
     ];
 
     var useExcanvas = typeof window.G_vmlCanvasManager === 'object' &&

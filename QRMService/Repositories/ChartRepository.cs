@@ -132,13 +132,13 @@ namespace QRMService.Repositories
             chartDataModel.datasets.Add(new ChartDatasetDecimal()
             {
                 data = componentListModel,
-                backgroundColor = new List<string>() { "#FFA500", "#1E90FF", "#F7464A", "#000000" },
+                //backgroundColor = new List<string>() { "#FFA500", "#1E90FF", "#F7464A", "#000000" },
                 label = "Component"
             });
             chartDataModel.datasets.Add(new ChartDatasetDecimal()
             {
                 data = E2EListModel,
-                backgroundColor = new List<string>() { "#F7464A","#FFA500", "#1E90FF", "#000000" },
+               // backgroundColor = new List<string>() { "#F7464A","#FFA500", "#1E90FF", "#000000" },
                 label = "E2E"
             });
 
