@@ -133,10 +133,10 @@
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
 
-                                    <div ng-switch-when="ED" class="text-center">
+                                    <div ng-switch-when="ED" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Effort Distribution</h4>
-                                        <canvas id="bar" class="chart chart-bar" chart-colors="ProjectEffortDataColors" chart-options="ProjectEffortDataoptions"
+                                        <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
                                                 chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride">
                                             chart-series="series"
                                         </canvas>

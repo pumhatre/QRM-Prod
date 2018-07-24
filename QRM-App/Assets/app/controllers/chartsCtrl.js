@@ -294,6 +294,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         $scope.loadEffortDistribution = function (projectId, releaseId) {
             chartService.GetEffortDistribution(config, projectId, releaseId)
                 .then(function (successResponse) {
+                    debugger;
                     if (successResponse.data.datasets.length > 0) {
                         $scope.labels = successResponse.data.labels;
                         $scope.ProjectEffortData = [];
@@ -302,22 +303,14 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                             $scope.ProjectEffortData.push(successResponse.data.datasets[i].data)
                         }
                         $scope.ProjectEffortDataSeries = successResponse.data.series;
-                        $scope.ProjectEffortDataColors = [];
-                        for (var i = 0; i < successResponse.data.colors.length; i++) {
-                            $scope.ProjectEffortDataColors.push({ borderColor: successResponse.data.colors[i] });
-                        }
+                        //$scope.ProjectEffortDataColors = [];
+                        //for (var i = 0; i < successResponse.data.colors.length; i++) {
+                        //    $scope.ProjectEffortDataColors.push({ borderColor: successResponse.data.colors[i] });
+                        //}
 
-                        $scope.ProjectEffortDashboardOverride = [
-                                            { type: 'bar', fill: false },
-                                            { type: 'bar', fill: false },
-                                            { type: 'bar', fill: false },
-                                            { type: 'bar', fill: false }
-                        ];
-                        for (var i = 0; i < successResponse.data.series.length; i++) {
-                            $scope.ProjectEffortDashboardOverride[i].label = successResponse.data.series[i];
-                            $scope.ProjectEffortDashboardOverride[i].backgroundColor = successResponse.data.colors[i];
-                        }
+
                         $scope.ProjectEffortDataoptions = {
+
                             legend: {
                                 display: true,
                                 position: "bottom"
