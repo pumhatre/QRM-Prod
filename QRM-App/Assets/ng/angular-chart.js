@@ -32,20 +32,23 @@
     Chart.defaults.global.multiTooltipTemplate = '<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>';
     Chart.defaults.global.tooltips.mode = 'label';
     Chart.defaults.global.elements.line.borderWidth = 2;
-    Chart.defaults.global.elements.rectangle.borderWidth = 2;
+    Chart.defaults.global.elements.rectangle.borderWidth = 2;    
+    Chart.defaults.global.elements.arc.borderWidth = 2;
+    Chart.defaults.global.elements.arc.borderColor = '#ffffff';  
+    Chart.defaults.global.elements.arc.backgroundColor = 'rgba(255,255,255,255)';
     Chart.defaults.global.legend.display = false;
     Chart.defaults.global.colors = [
       '#97BBCD',// blue
       '#F7464A',// red
-      '#FFA500',//orange
+      '#ffff99',//yellow light
       '#00FFFF',//cyan
-      '#46BFBD',// green
+      '#46bf8e',// green
       '#6495ED',//corn flower blue
       '#FDB45C',// yellow
       '#800080',//purple
       '#3CB371',//medium sea green
       '#FF7F50',//coral
-      '#EEE8AA',//pale golden rod
+     // '#EEE8AA',//pale golden rod
       '#87CEFA'//light sky blue
     ];
 
