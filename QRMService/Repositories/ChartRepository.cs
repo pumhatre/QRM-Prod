@@ -128,7 +128,7 @@ namespace QRMService.Repositories
                 E2EListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
             });
 
-            chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex", "VeryComplex" };
+            chartDataModel.labels = new List<string>() { string.Format("{0} ({1}%)","Simple", E2EListModel[0]), string.Format("{0} ({1}%)", "Medium", E2EListModel[1]), string.Format("{0} ({1}%)", "Complex", E2EListModel[2]), string.Format("{0} ({1}%)", "Very Complex", E2EListModel[3]) };
            
             chartDataModel.datasets.Add(new ChartDatasetDecimal()
             {
@@ -160,7 +160,7 @@ namespace QRMService.Repositories
                 chartDataModel.values = new List<decimal>();
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
-                    chartDataModel.labels.Add(row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()));
+                    chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()),row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString())));
                     chartDataModel.values.Add(row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString()));
                 });
             }
@@ -256,7 +256,7 @@ namespace QRMService.Repositories
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
                     // set labels
-                    chartDataModel.labels.Add(row.Field<string>(DefectDistributionColumns.DefectType.ToString()));
+                    chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(DefectDistributionColumns.DefectType.ToString()), row.Field<int>(DefectDistributionColumns.CountPercentage.ToString())));
                     // set data
                     chartDataModel.values.Add(row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()));
                 });
