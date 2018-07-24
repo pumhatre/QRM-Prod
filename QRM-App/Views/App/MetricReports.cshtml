@@ -224,13 +224,16 @@
                     <a href="#tab_projectWidget" ng-click="LoadProjectWidgetByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Widget Dashboard</a>
                 </li>
                 <li role="presentation" class="">
+                    <a href="#tab_projectPerformance" ng-click="LoadProjectPerformanceByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Project Metrics</a>
+                </li>
+                <li role="presentation" class="">
                     <a href="#tab_content6" ng-click="LoadProductivityDashboard_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Productivity</a>
                 </li>
                 <li role="presentation" class="">
                     <a href="#tab_content7" ng-click="LoadDefectDensity_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
                 </li>
                 <li role="presentation" class="">
-                    <a href="#tab_projectPerformance" ng-click="LoadProjectPerformanceByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
+                    <a href="#tab_content8" ng-click="LoadProjectPerformanceByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
                 </li>
             </ul>
             <div id="myTabcontent" class="tab-content">
@@ -522,6 +525,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_content8" aria-labelledby="Project-tab">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_content">
+                                    <div class="col-md-12">
+                                        <div id="mGrid5" ui-grid="" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 180px !important; width:100%">
+                                            
                                         </div>
                                     </div>
                                 </div>
