@@ -26,7 +26,6 @@ namespace QRMService.Repositories
             {
                 //set series for chart data
                 chartDataModel.series = new List<string> { "Planned", "Actual" };
-                chartDataModel.colors = new List<string> { "#FFA500", "#1E90FF" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -39,20 +38,20 @@ namespace QRMService.Repositories
                 var actualCount = new ChartDatasetDecimal { fill = false };
                 actualCount.data = new List<decimal>();
                 actualCount.label = "Actual";
-                actualCount.borderColor = "#FFA500";
+
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {
+                {                   
                     actualCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.ActualEffortPercentage.ToString()));
-                });
+                    
+                });          
                 chartDataModel.datasets.Add(actualCount);
                 // set completed count
                 var plannedCount = new ChartDatasetDecimal { fill = false };
                 plannedCount.data = new List<decimal>();
                 plannedCount.label = "Planned";
-                plannedCount.borderColor = "#1E90FF";
+                
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {
-                    plannedCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.PlannedEffortPercentage.ToString()));
+                {                    plannedCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.PlannedEffortPercentage.ToString()));                  
                 });
                 chartDataModel.datasets.Add(plannedCount);
             }
@@ -72,7 +71,7 @@ namespace QRMService.Repositories
             {
                 //set series for chart data
                 chartDataModel.series = new List<string> { "Component", "E2E" };
-                chartDataModel.colors = new List<string> { "#FFA500", "#1E90FF" };
+                //chartDataModel.colors = new List<string> { "#FFA500", "#1E90FF" };
                 chartDataModel.labels = new List<string>();
                 // set labels for line chart
                 chartData.AsEnumerable().ToList().ForEach(row =>
@@ -85,9 +84,9 @@ namespace QRMService.Repositories
                 var componentCount = new ChartDatasetDecimal { fill = false };
                 componentCount.data = new List<decimal>();
                 componentCount.label = "Actual";
-                componentCount.borderColor = "#FFA500";
+                //componentCount.borderColor = "#FFA500";
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {
+                {                 
                     componentCount.data.Add(row.Field<decimal>(ProjectTestCaseDistributionColumnName.ComponentPercentage.ToString()));
                 });
                 chartDataModel.datasets.Add(componentCount);
@@ -95,9 +94,9 @@ namespace QRMService.Repositories
                 var e2ePercentangeCount = new ChartDatasetDecimal { fill = false };
                 e2ePercentangeCount.data = new List<decimal>();
                 e2ePercentangeCount.label = "Planned";
-                e2ePercentangeCount.borderColor = "#1E90FF";
+                //e2ePercentangeCount.borderColor = "#1E90FF";
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {
+                {                   
                     e2ePercentangeCount.data.Add(row.Field<decimal>(ProjectTestCaseDistributionColumnName.E2EPercentage.ToString()));
                 });
                 chartDataModel.datasets.Add(e2ePercentangeCount);

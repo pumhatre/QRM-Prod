@@ -133,20 +133,20 @@
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
 
-                                    <div ng-switch-when="ED" class="text-center">
+                                    <div ng-switch-when="ED" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Effort Distribution</h4>
-                                        <canvas id="bar" class="chart chart-bar" chart-colors="ProjectEffortDataColors" chart-options="ProjectEffortDataoptions"
+                                        <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
                                                 chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride">
                                             chart-series="series"
                                         </canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
-                                    <div ng-switch-when="TCD" class="text-center">
+                                    <div ng-switch-when="TCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Test Case Distribution</h4>
-                                        <canvas id="base" class="chart-horizontal-bar" chart-colors="TestCaseDistributionColors" chart-options="TestCaseDistributionoptions"
+                                        <canvas id="doubleDount" class="chart chart-doughnut"  chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
