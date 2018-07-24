@@ -222,6 +222,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   $scope.SITDefectSeverityLabels = [];
                                   $scope.SITDefectSeverityData = [];
                                   if (successResponse.data.values) {
+                                      debugger;
                                       $scope.SITDefectSeverityLabels = successResponse.data.labels;
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
@@ -335,10 +336,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadTestCaseDistribution = function (projectId, releaseId) {
-            debugger;
             chartService.GetTestCaseDistribution(config, projectId, releaseId)
                   .then(function (successResponse) {
-                      debugger;
                       if (successResponse.data.datasets.length > 0) {
                           $scope.labels1 = successResponse.data.labels;
                           $scope.TestCaseDistribution = [];
@@ -387,29 +386,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   for (var i = 0; i < successResponse.data.datasets.length; i++) {
                                       $scope.TestCaseComplexityDistribution.push(successResponse.data.datasets[i].data)
                                   }
-                                  //for (var j = 0; j < successResponse.data.length; j++) {
-                                  //    for (var i = 0; i < successResponse.data[j].datasets.length; i++) {
-                                  //        $scope.TestCaseComplexityDistribution.push(successResponse.data[j].datasets[0].data)
-                                  //    }
-                                  //}
-
-                                  $scope.TestCaseComplexityDistributionColors = ['#FF0000', '#008000', '#0000FF', '#FFFFFF'];
-                                  //  $scope.TestCaseComplexityDistributionSeries = successResponse.data[0].labels;
-                                  //$scope.TestCaseComplexityDistributionColors = [];
-                                  //for (var i = 0; i < successResponse.data[0].colors.length; i++) {
-                                  //    $scope.TestCaseComplexityDistribution.push({ borderColor: successResponse.data[0].colors[i] });
-                                  //}
-
-                                  //$scope.TestCaseComplexityDistributionOverride = [
-                                  //        { type: 'doughnut', fill: false },
-                                  //        { type: 'doughnut', fill: false },
-                                  //        { type: 'doughnut', fill: false },
-                                  //        { type: 'doughnut', fill: false }
-                                  //];
-                                  //for (var i = 0; i < successResponse.data[0].labels.length; i++) {
-                                  //    $scope.TestCaseComplexityDistributionOverride[i].label = successResponse.data[0].labels[i];
-                                  //    $scope.TestCaseComplexityDistributionOverride[i].backgroundColor = successResponse.data[0].colors[i];
-                                  //}
+                                 
                                   $scope.TestCaseComplexityDistributionoptions = {
                                       legend: {
                                           display: true,
@@ -425,7 +402,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   };
                               }
                           }, function (errorResponse) {
-
+                              console.log(errorResponse);
                           });
         }
 
@@ -437,7 +414,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                 $scope.DefectDetectedPhaseLabels = successResponse.data.labels;
                                 $scope.DefectDetectedPhaseData = [];
                                 $scope.ProjectDefectDetectedOverride = [];
-                                debugger;
                                 for (var i = 0; i < successResponse.data.values.length; i++) {
                                     $scope.DefectDetectedPhaseData.push(successResponse.data.values[i])
                                 }
@@ -527,7 +503,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
 
-        
+
         // check if this route is referred from home 
         if ($location.search().ref && $location.search().ref == 'v') {
 
