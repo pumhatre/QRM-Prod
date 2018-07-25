@@ -53,7 +53,6 @@
     ];
     Chart.plugins.register({
         afterDatasetsDraw: function (chart) {
-           
                 var ctx = chart.chart.ctx;               
                 chart.data.datasets.forEach(function (dataset, i) {
                     var meta = chart.getDatasetMeta(i);

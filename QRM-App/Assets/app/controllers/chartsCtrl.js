@@ -310,10 +310,19 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
 
 
                         $scope.ProjectEffortDataoptions = {
-
                             legend: {
                                 display: true,
                                 position: "bottom"
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function (tooltipItem, data) {
+                                        debugger;
+                                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                                        var index = tooltipItem.index;
+                                        return data.labels[index] + " : " + data.datasets[tooltipItem.datasetIndex].label;
+                                    }
+                                }
                             },
                             tooltipEvents: [],
                             showTooltips: true,
