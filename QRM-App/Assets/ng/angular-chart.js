@@ -54,8 +54,7 @@
     Chart.plugins.register({
         afterDatasetsDraw: function (chart) {
            
-                var ctx = chart.chart.ctx;
-                debugger;
+                var ctx = chart.chart.ctx;               
                 chart.data.datasets.forEach(function (dataset, i) {
                     var meta = chart.getDatasetMeta(i);
                     if (!meta.hidden) {
@@ -67,22 +66,21 @@
                             var fontStyle = 'normal';
                             var fontFamily = 'Helvetica Neue';
                             ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-                            var dataString;
+                            var dataString;                      
                             // Just naively convert to string for now
-                            if (chart.config.type == "doughnut") {
-                                 dataString = dataset.data[index].toString() + '%';
-                            }
-                            else {
-                                 dataString = dataset.data[index].toString();
-                            }
+                            if (chart.config.type == "line" || chart.config.type == "bar") {
+                                dataString = dataset.data[index].toString();
 
-                            // Make sure alignment settings are correct
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
+                                // Make sure alignment settings are correct
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'middle';
 
-                            var padding = 3;
-                            var position = element.tooltipPosition();
-                            ctx.fillText(dataString, position.x, position.y - (fontSize / 3) - padding);
+                                var padding = 3;
+                                var position = element.tooltipPosition();
+                                ctx.fillText(dataString, position.x, position.y - (fontSize / 3) - padding);
+                            }
+                           
+
                         });
                     }
                 });
@@ -364,8 +362,8 @@
               getData(scope.chartLabels, scope.chartData, colors, scope.chartDatasetOverride);
         }
 
-        function getDataSets(labels, data, series, colors, datasetOverride) {
-            return {
+        function getDataSets(labels, data, series, colors, datasetOverride) {      
+            return {                
                 labels: labels,
                 datasets: data.map(function (item, i) {
                     var dataset = angular.extend({}, colors[i], {
@@ -386,7 +384,7 @@
             };
         }
 
-        function getData(labels, data, colors, datasetOverride) {
+        function getData(labels, data, colors, datasetOverride) {         
             var dataset = {
                 labels: labels,
                 datasets: [{
