@@ -83,7 +83,7 @@ namespace QRMService.Repositories
                 // set planned count
                 var componentCount = new ChartDatasetDecimal { fill = false };
                 componentCount.data = new List<decimal>();
-                componentCount.label = "Actual";
+                //componentCount.label = "Actual";
                 //componentCount.borderColor = "#FFA500";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {                 
@@ -93,7 +93,7 @@ namespace QRMService.Repositories
                 // set completed count
                 var e2ePercentangeCount = new ChartDatasetDecimal { fill = false };
                 e2ePercentangeCount.data = new List<decimal>();
-                e2ePercentangeCount.label = "Planned";
+                //e2ePercentangeCount.label = "Planned";
                 //e2ePercentangeCount.borderColor = "#1E90FF";
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {                   
@@ -127,7 +127,7 @@ namespace QRMService.Repositories
                 E2EListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
             });
 
-            chartDataModel.labels = new List<string>() { string.Format("{0} ({1}%)","Simple", E2EListModel[0]), string.Format("{0} ({1}%)", "Medium", E2EListModel[1]), string.Format("{0} ({1}%)", "Complex", E2EListModel[2]), string.Format("{0} ({1}%)", "Very Complex", E2EListModel[3]) };
+            chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex","Very Complex"};
            
             chartDataModel.datasets.Add(new ChartDatasetDecimal()
             {

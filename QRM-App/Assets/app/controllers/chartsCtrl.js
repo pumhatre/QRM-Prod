@@ -221,8 +221,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                               .then(function (successResponse) {
                                   $scope.SITDefectSeverityLabels = [];
                                   $scope.SITDefectSeverityData = [];
-                                  if (successResponse.data.values) {
-                                      debugger;
+                                  if (successResponse.data.values) {                                      
                                       $scope.SITDefectSeverityLabels = successResponse.data.labels;
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
@@ -293,8 +292,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
         $scope.loadEffortDistribution = function (projectId, releaseId) {
             chartService.GetEffortDistribution(config, projectId, releaseId)
-                .then(function (successResponse) {
-                    debugger;
+                .then(function (successResponse) {                    
                     if (successResponse.data.datasets.length > 0) {
                         $scope.labels = successResponse.data.labels;
                         $scope.ProjectEffortData = [];
@@ -316,11 +314,10 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                             },
                             tooltips: {
                                 callbacks: {
-                                    label: function (tooltipItem, data) {
-                                        debugger;
+                                    label: function (tooltipItem, data) {                                        
                                         var dataset = data.datasets[tooltipItem.datasetIndex];
                                         var index = tooltipItem.index;
-                                        return data.labels[index] + " : " + data.datasets[tooltipItem.datasetIndex].label;
+                                        return data.labels[index] + " : " + data.datasets[tooltipItem.datasetIndex].data[index] + '% ('+ data.datasets[tooltipItem.datasetIndex].label +')';
                                     }
                                 }
                             },
@@ -362,7 +359,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   display: true,
                                   position: "bottom"
                               },
-                              tooltipEvents: [],
+                              tooltips: {
+                                  callbacks: {
+                                      label: function (tooltipItem, data) {                                          
+                                          var dataset = data.datasets[tooltipItem.datasetIndex];
+                                          var index = tooltipItem.index;
+                                          return data.labels[index] + " : " + data.datasets[tooltipItem.datasetIndex].data[index] + '% (' + data.datasets[tooltipItem.datasetIndex].label + ')';
+                                      }
+                                  }
+                              },
                               showTooltips: true,
                               tooltipCaretSize: 0,
                               onAnimationComplete: function () {
@@ -400,7 +405,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                       datalabels: {
                                                display: true,
                                       },
-                                      tooltipEvents: [],
+                                      tooltips: {
+                                          callbacks: {
+                                              label: function (tooltipItem, data) {                                                  
+                                                  var dataset = data.datasets[tooltipItem.datasetIndex];
+                                                  var index = tooltipItem.index;
+                                                  return data.labels[index] + " : " + data.datasets[tooltipItem.datasetIndex].data[index] + '% (' + data.datasets[tooltipItem.datasetIndex].label + ')';
+                                              }
+                                          }
+                                      },
                                       showTooltips: true,
                                       tooltipCaretSize: 0,
                                       showLabels: true,
