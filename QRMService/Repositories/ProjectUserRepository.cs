@@ -93,7 +93,15 @@ namespace QRMService.Repositories
                 var projectUser = db.UserProjectAssociations.Where(a => a.ProjectId == projectId && a.UserId == userId).FirstOrDefault();
                 if (projectUser == null)
                 {
-                    var userProjectId = db.UserProjectAssociations.OrderByDescending(p => p.UserProjectId).FirstOrDefault().UserProjectId;
+
+
+                    var userProjectIdVal = db.UserProjectAssociations.OrderByDescending(p => p.UserProjectId);
+                    int userProjectId = 0;
+
+                        if (userProjectIdVal.Any())
+                    {
+                         userProjectId = db.UserProjectAssociations.OrderByDescending(p => p.UserProjectId).FirstOrDefault().UserProjectId;
+                    }
                     var projectUserAssoc = new UserProjectAssociation
                     {
 
