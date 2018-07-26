@@ -112,7 +112,7 @@ namespace QRMService.Repositories
             DataSet chartSetData = helper.GetDataSetByProcedure(Constants.UspGetTestCaseComplexityDistribution, "default", true, parameters.ToArray());
             var chartDataModel = new ChartDataModelDecimal();
             chartDataModel.datasets = new List<ChartDatasetDecimal>();
-
+            chartDataModel.series = new List<string> { "Component", "E2E" };
 
             List<decimal> componentListModel = new List<decimal>();
             List<decimal> E2EListModel = new List<decimal>();

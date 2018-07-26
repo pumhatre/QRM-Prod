@@ -388,7 +388,9 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   for (var i = 0; i < successResponse.data.datasets.length; i++) {
                                       $scope.TestCaseComplexityDistribution.push(successResponse.data.datasets[i].data)
                                   }
-                                 
+
+                                  $scope.TestCaseComplexityDistributionSeries = successResponse.data.series;
+
                                   $scope.TestCaseComplexityDistributionoptions = {
                                       legend: {
                                           display: true,
