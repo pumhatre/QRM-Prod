@@ -85,4 +85,8 @@
         var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId };
         return $http.post(config.apiUrl + 'api/Report/GetDefectDensityEnhancedByProject', data);
     }
+
+    this.GetTestingMetricsGrid = function (config) {
+        return $http.post(config.apiUrl + 'api/Report/GetTestingMetricsReferencevalues');
+    }
 }]);

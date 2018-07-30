@@ -1623,6 +1623,19 @@ namespace QRMService.Repositories
         }
 
         #endregion
+
+
+        #region Testing Metrics
+
+
+
+        public static TestingMetrics TestingMetricsRefereneceValues()
+        {           
+
+            return new TestingMetrics();
+        }
+
+        #endregion
     }
 
 }

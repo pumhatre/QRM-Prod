@@ -615,5 +615,22 @@ namespace QRMService.Controllers
             }
         }
 
+
+
+        [HttpPost]
+        public IHttpActionResult GetTestingMetricsReferencevalues()
+        {
+            try
+            {
+                var TestingMetricsRefereneceValues = ReportRepository.TestingMetricsRefereneceValues();
+                
+                return Ok(TestingMetricsRefereneceValues);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
     }
 }
