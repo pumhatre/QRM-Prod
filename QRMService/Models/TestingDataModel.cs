@@ -33,9 +33,9 @@ namespace QRMService.Models
         public int TotalCasesPassed { get; set; }
         public int DefectsFound { get; set; }
         public int DefectsRejected { get; set; }
-        public double TestDesignProductivity { get; set; }
-        public double TestExectionProductivity { get; set; }
-        public double DefectRejectionPer { get; set; }
+        public decimal? TestDesignProductivity { get; set; }
+        public decimal? TestExectionProductivity { get; set; }
+        public decimal? DefectRejectionPer { get; set; }
         public string MonthTestCaseCreationEndDate { get; set; }
         public int ProjectId { get; set; }
         public int ProjectReleaseId { get; set; }

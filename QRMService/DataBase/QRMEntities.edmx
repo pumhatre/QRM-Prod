@@ -362,6 +362,9 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ActualEndDateExecution" Type="datetime" />
           <Property Name="ManualOrAutomatedExecution" Type="varchar" MaxLength="50" />
           <Property Name="NormalizedTestCasesDesign" Type="int" />
+          <Property Name="TestDesignProductivity" Type="numeric" Precision="9" Scale="5" />
+          <Property Name="TestExectionProductivity" Type="numeric" Precision="9" Scale="5" />
+          <Property Name="DefectRejectionPer" Type="numeric" Precision="9" Scale="5" />
         </EntityType>
         <EntityType Name="TestingDetails">
           <Key>
@@ -415,6 +418,9 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ManualOrAutomatedExecution" Type="varchar" MaxLength="50" />
           <Property Name="NormalizedTestCasesDesign" Type="int" />
           <Property Name="Module" Type="varchar" MaxLength="50" />
+          <Property Name="TestDesignProductivity" Type="numeric" Precision="9" Scale="5" />
+          <Property Name="TestExectionProductivity" Type="numeric" Precision="9" Scale="5" />
+          <Property Name="DefectRejectionPer" Type="numeric" Precision="9" Scale="5" />
         </EntityType>
         <EntityType Name="UserDetails">
           <Key>
@@ -1044,8 +1050,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySet Name="ProjectReleaseMasters" EntityType="QRMPortalModel.ProjectReleaseMaster" />
           <EntitySet Name="ReferenceTables" EntityType="QRMPortalModel.ReferenceTable" />
           <EntitySet Name="RoleMasters" EntityType="QRMPortalModel.RoleMaster" />
-          <EntitySet Name="TestingDataStagings" EntityType="QRMPortalModel.TestingDataStaging" />
-          <EntitySet Name="TestingDetails" EntityType="QRMPortalModel.TestingDetail" />
           <EntitySet Name="UserDetails" EntityType="QRMPortalModel.UserDetail" />
           <EntitySet Name="UserProjectAssociations" EntityType="QRMPortalModel.UserProjectAssociation" />
           <EntitySet Name="UserReportAssociations" EntityType="QRMPortalModel.UserReportAssociation" />
@@ -1085,14 +1089,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="MonthMaster" EntitySet="MonthMasters" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_MonthId" Association="QRMPortalModel.FK_TestingDataStaging_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_MonthId" Association="QRMPortalModel.FK_TestingDetails_MonthId">
-            <End Role="MonthMaster" EntitySet="MonthMasters" />
-            <End Role="TestingDetail" EntitySet="TestingDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProjectMetricAssociation_ReleaseId" Association="QRMPortalModel.FK_ProjectMetricAssociation_ReleaseId">
             <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="ProjectMetricAssociation" EntitySet="ProjectMetricAssociations" />
@@ -1104,14 +1100,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <AssociationSet Name="FK_EffortDetails_ReleaseId" Association="QRMPortalModel.FK_EffortDetails_ReleaseId">
             <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="EffortDetail" EntitySet="EffortDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
-            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
-            <End Role="TestingDetail" EntitySet="TestingDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_UserDetails_RoleMaster" Association="QRMPortalModel.FK_UserDetails_RoleMaster">
             <End Role="RoleMaster" EntitySet="RoleMasters" />
@@ -1155,6 +1143,20 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectMaster" EntitySet="ProjectMasters" />
             <End Role="ProjectWidgetDetail" EntitySet="ProjectWidgetDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="UserProjectAssociation" EntitySet="UserProjectAssociations" />
+          </AssociationSet>
+          <EntitySet Name="TestingDataStagings" EntityType="QRMPortalModel.TestingDataStaging" />
+          <EntitySet Name="TestingDetails" EntityType="QRMPortalModel.TestingDetail" />
+          <AssociationSet Name="FK_TestingDataStaging_MonthId" Association="QRMPortalModel.FK_TestingDataStaging_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_MonthId" Association="QRMPortalModel.FK_TestingDetails_MonthId">
+            <End Role="MonthMaster" EntitySet="MonthMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_TestingDataStaging_ProjectMaster" Association="QRMPortalModel.FK_TestingDataStaging_ProjectMaster">
             <End Role="ProjectMaster" EntitySet="ProjectMasters" />
             <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
@@ -1163,9 +1165,13 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectMaster" EntitySet="ProjectMasters" />
             <End Role="TestingDetail" EntitySet="TestingDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserProjectRoleAssociation_ProjectMaster" Association="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster">
-            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
-            <End Role="UserProjectAssociation" EntitySet="UserProjectAssociations" />
+          <AssociationSet Name="FK_TestingDataStaging_ReleaseId" Association="QRMPortalModel.FK_TestingDataStaging_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="TestingDataStaging" EntitySet="TestingDataStagings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
+            <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
+            <End Role="TestingDetail" EntitySet="TestingDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="DefectDataDetail">
@@ -1330,117 +1336,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="UserDetails" Relationship="QRMPortalModel.FK_UserDetails_RoleMaster" FromRole="RoleMaster" ToRole="UserDetail" />
-        </EntityType>
-        <EntityType Name="TestingDataStaging">
-          <Key>
-            <PropertyRef Name="TestingDataStagingId" />
-          </Key>
-          <Property Name="TestingDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestingPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TestingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PlannedNoOfTestCasesDesigned" Type="Int32" />
-          <Property Name="ActualNumberOfTestCasesDesigned" Type="Int32" />
-          <Property Name="NoOfTestCasesReviewComments" Type="Int32" />
-          <Property Name="PlannedStartDate" Type="DateTime" Precision="3" />
-          <Property Name="PlannedEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
-          <Property Name="TestDesignStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TestCasePreparationPlanned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReviewPlanned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReworkPlanned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCasePreparationActual" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReviewActual" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCaseReworkActual" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TestCasedPlannedForExecution" Type="Int32" />
-          <Property Name="PlannedEffortforExecution" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExecutionStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TestCasesExecuted" Type="Int32" />
-          <Property Name="ActualEffortForExecution" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TotalCasesPassed" Type="Int32" />
-          <Property Name="DefectsFound" Type="Int32" />
-          <Property Name="DefectsRejected" Type="Int32" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SimpleTestCasesDesign" Type="Int32" />
-          <Property Name="MediumTestCasesDesign" Type="Int32" />
-          <Property Name="ComplexTestCasesDesign" Type="Int32" />
-          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
-          <Property Name="SimpleTestCasesExecution" Type="Int32" />
-          <Property Name="MediumTestCasesExecution" Type="Int32" />
-          <Property Name="ComplexTestCasesExecution" Type="Int32" />
-          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
-          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
-          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_MonthId" FromRole="TestingDataStaging" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
-        </EntityType>
-        <EntityType Name="TestingDetail">
-          <Key>
-            <PropertyRef Name="TestingDetailsID" />
-          </Key>
-          <Property Name="TestingDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestingPhaseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TestingTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReleaseId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PlannedNumberOfTestCasesDesigned" Type="Int32" />
-          <Property Name="ActualNumberOfTestCasesDesigned" Type="Int32" />
-          <Property Name="PlannedStartDate" Type="DateTime" Precision="3" />
-          <Property Name="PlannedEndDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
-          <Property Name="TestDesignStatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TestExecutionTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TestCasePreparationPlannedEffort" Type="Double" />
-          <Property Name="TestCaseReviewPlannedEffort" Type="Double" />
-          <Property Name="TestCaseReworkPlannedEffort" Type="Double" />
-          <Property Name="TestCasePreparationActualEffort" Type="Double" />
-          <Property Name="TestCaseReviewActualEffort" Type="Double" />
-          <Property Name="TestCaseReworkActualEffort" Type="Double" />
-          <Property Name="NumberOfTestCasesPlannedForExecution" Type="Int32" />
-          <Property Name="PlannedEffortForTestCaseExecution" Type="Int32" />
-          <Property Name="ExecutionStatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NumberOfTestCasesExecuted" Type="Int32" />
-          <Property Name="ActualEffortForTestCasesExecution" Type="Double" />
-          <Property Name="TotalTestCasesPassed" Type="Int32" />
-          <Property Name="TotalDefectsFound" Type="Int32" />
-          <Property Name="TotalDefectsRejected" Type="Int32" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectReleaseId" Type="Int32" />
-          <Property Name="MonthId" Type="Int32" />
-          <Property Name="SimpleTestCasesDesign" Type="Int32" />
-          <Property Name="MediumTestCasesDesign" Type="Int32" />
-          <Property Name="ComplexTestCasesDesign" Type="Int32" />
-          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
-          <Property Name="SimpleTestCasesExecution" Type="Int32" />
-          <Property Name="MediumTestCasesExecution" Type="Int32" />
-          <Property Name="ComplexTestCasesExecution" Type="Int32" />
-          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
-          <Property Name="NoofTestCases" Type="Int32" />
-          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
-          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
-          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
-          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDetails_MonthId" FromRole="TestingDetail" ToRole="MonthMaster" />
-          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
-          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
         </EntityType>
         <EntityType Name="UserDetail">
           <Key>
@@ -1706,30 +1601,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestingDataStaging_MonthId">
-          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthMaster">
-              <PropertyRef Name="MonthId" />
-            </Principal>
-            <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDetails_MonthId">
-          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthMaster">
-              <PropertyRef Name="MonthId" />
-            </Principal>
-            <Dependent Role="TestingDetail">
-              <PropertyRef Name="MonthId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProjectMetricAssociation_ReleaseId">
           <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="1" />
           <End Type="QRMPortalModel.ProjectMetricAssociation" Role="ProjectMetricAssociation" Multiplicity="*" />
@@ -1762,30 +1633,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
               <PropertyRef Name="ProjectReleaseId" />
             </Principal>
             <Dependent Role="EffortDetail">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDataStaging_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="TestingDataStaging">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestingDetails_ReleaseId">
-          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectReleaseMaster">
-              <PropertyRef Name="ProjectReleaseId" />
-            </Principal>
-            <Dependent Role="TestingDetail">
               <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1874,9 +1721,9 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <NavigationProperty Name="EffortDetails" Relationship="QRMPortalModel.FK_EffortDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="EffortDetail" />
           <NavigationProperty Name="ProjectMetricAssociations" Relationship="QRMPortalModel.FK_ProjectMetricAssociation_ProjectId" FromRole="ProjectMaster" ToRole="ProjectMetricAssociation" />
           <NavigationProperty Name="ProjectWidgetDetails" Relationship="QRMPortalModel.FK_ProjectWidgetDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="ProjectWidgetDetail" />
+          <NavigationProperty Name="UserProjectAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectAssociation" />
           <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDataStaging" />
           <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDetail" />
-          <NavigationProperty Name="UserProjectAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectAssociation" />
         </EntityType>
         <Association Name="FK_DefectDataDetails_ProjectMaster">
           <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
@@ -1962,6 +1809,159 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserProjectRoleAssociation_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.UserProjectAssociation" Role="UserProjectAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="UserProjectAssociation">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TestingDataStaging">
+          <Key>
+            <PropertyRef Name="TestingDataStagingId" />
+          </Key>
+          <Property Name="TestingDataStagingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestingPhase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Release" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlannedNoOfTestCasesDesigned" Type="Int32" />
+          <Property Name="ActualNumberOfTestCasesDesigned" Type="Int32" />
+          <Property Name="NoOfTestCasesReviewComments" Type="Int32" />
+          <Property Name="PlannedStartDate" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="TestDesignStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestCasePreparationPlanned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReviewPlanned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReworkPlanned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCasePreparationActual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReviewActual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCaseReworkActual" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TestCasedPlannedForExecution" Type="Int32" />
+          <Property Name="PlannedEffortforExecution" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExecutionStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestCasesExecuted" Type="Int32" />
+          <Property Name="ActualEffortForExecution" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalCasesPassed" Type="Int32" />
+          <Property Name="DefectsFound" Type="Int32" />
+          <Property Name="DefectsRejected" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SimpleTestCasesDesign" Type="Int32" />
+          <Property Name="MediumTestCasesDesign" Type="Int32" />
+          <Property Name="ComplexTestCasesDesign" Type="Int32" />
+          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
+          <Property Name="SimpleTestCasesExecution" Type="Int32" />
+          <Property Name="MediumTestCasesExecution" Type="Int32" />
+          <Property Name="ComplexTestCasesExecution" Type="Int32" />
+          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
+          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
+          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
+          <Property Name="TestDesignProductivity" Type="Decimal" Precision="9" Scale="5" />
+          <Property Name="TestExectionProductivity" Type="Decimal" Precision="9" Scale="5" />
+          <Property Name="DefectRejectionPer" Type="Decimal" Precision="9" Scale="5" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_MonthId" FromRole="TestingDataStaging" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="TestingDataStaging" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDataStaging_ReleaseId" FromRole="TestingDataStaging" ToRole="ProjectReleaseMaster" />
+        </EntityType>
+        <EntityType Name="TestingDetail">
+          <Key>
+            <PropertyRef Name="TestingDetailsID" />
+          </Key>
+          <Property Name="TestingDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestingPhaseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TestingTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReleaseId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PlannedNumberOfTestCasesDesigned" Type="Int32" />
+          <Property Name="ActualNumberOfTestCasesDesigned" Type="Int32" />
+          <Property Name="PlannedStartDate" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="3" />
+          <Property Name="TestDesignStatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TestExecutionTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TestCasePreparationPlannedEffort" Type="Double" />
+          <Property Name="TestCaseReviewPlannedEffort" Type="Double" />
+          <Property Name="TestCaseReworkPlannedEffort" Type="Double" />
+          <Property Name="TestCasePreparationActualEffort" Type="Double" />
+          <Property Name="TestCaseReviewActualEffort" Type="Double" />
+          <Property Name="TestCaseReworkActualEffort" Type="Double" />
+          <Property Name="NumberOfTestCasesPlannedForExecution" Type="Int32" />
+          <Property Name="PlannedEffortForTestCaseExecution" Type="Int32" />
+          <Property Name="ExecutionStatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfTestCasesExecuted" Type="Int32" />
+          <Property Name="ActualEffortForTestCasesExecution" Type="Double" />
+          <Property Name="TotalTestCasesPassed" Type="Int32" />
+          <Property Name="TotalDefectsFound" Type="Int32" />
+          <Property Name="TotalDefectsRejected" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectReleaseId" Type="Int32" />
+          <Property Name="MonthId" Type="Int32" />
+          <Property Name="SimpleTestCasesDesign" Type="Int32" />
+          <Property Name="MediumTestCasesDesign" Type="Int32" />
+          <Property Name="ComplexTestCasesDesign" Type="Int32" />
+          <Property Name="VeryComplexTestCasesDesign" Type="Int32" />
+          <Property Name="SimpleTestCasesExecution" Type="Int32" />
+          <Property Name="MediumTestCasesExecution" Type="Int32" />
+          <Property Name="ComplexTestCasesExecution" Type="Int32" />
+          <Property Name="VeryComplexTestCasesExecution" Type="Int32" />
+          <Property Name="NoofTestCases" Type="Int32" />
+          <Property Name="Iteration" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TestingSubphase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NormalizedTestCasesExecution" Type="Int32" />
+          <Property Name="PlannedStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="PlannedEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualStartDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ActualEndDateExecution" Type="DateTime" Precision="3" />
+          <Property Name="ManualOrAutomatedExecution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NormalizedTestCasesDesign" Type="Int32" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TestDesignProductivity" Type="Decimal" Precision="9" Scale="5" />
+          <Property Name="TestExectionProductivity" Type="Decimal" Precision="9" Scale="5" />
+          <Property Name="DefectRejectionPer" Type="Decimal" Precision="9" Scale="5" />
+          <NavigationProperty Name="MonthMaster" Relationship="QRMPortalModel.FK_TestingDetails_MonthId" FromRole="TestingDetail" ToRole="MonthMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="TestingDetail" ToRole="ProjectMaster" />
+          <NavigationProperty Name="ProjectReleaseMaster" Relationship="QRMPortalModel.FK_TestingDetails_ReleaseId" FromRole="TestingDetail" ToRole="ProjectReleaseMaster" />
+        </EntityType>
+        <Association Name="FK_TestingDataStaging_MonthId">
+          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_MonthId">
+          <End Type="QRMPortalModel.MonthMaster" Role="MonthMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthMaster">
+              <PropertyRef Name="MonthId" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="MonthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TestingDataStaging_ProjectMaster">
           <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
           <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
@@ -1986,15 +1986,27 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserProjectRoleAssociation_ProjectMaster">
-          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="0..1" />
-          <End Type="QRMPortalModel.UserProjectAssociation" Role="UserProjectAssociation" Multiplicity="*" />
+        <Association Name="FK_TestingDataStaging_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDataStaging" Role="TestingDataStaging" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ProjectMaster">
-              <PropertyRef Name="ProjectID" />
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
             </Principal>
-            <Dependent Role="UserProjectAssociation">
-              <PropertyRef Name="ProjectId" />
+            <Dependent Role="TestingDataStaging">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestingDetails_ReleaseId">
+          <End Type="QRMPortalModel.ProjectReleaseMaster" Role="ProjectReleaseMaster" Multiplicity="0..1" />
+          <End Type="QRMPortalModel.TestingDetail" Role="TestingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectReleaseMaster">
+              <PropertyRef Name="ProjectReleaseId" />
+            </Principal>
+            <Dependent Role="TestingDetail">
+              <PropertyRef Name="ProjectReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2144,113 +2156,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TestingDataStagings">
-            <EntityTypeMapping TypeName="QRMPortalModel.TestingDataStaging">
-              <MappingFragment StoreEntitySet="TestingDataStaging">
-                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
-                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
-                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
-                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
-                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
-                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
-                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
-                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
-                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
-                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
-                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
-                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
-                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
-                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
-                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
-                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
-                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="DefectsRejected" ColumnName="DefectsRejected" />
-                <ScalarProperty Name="DefectsFound" ColumnName="DefectsFound" />
-                <ScalarProperty Name="TotalCasesPassed" ColumnName="TotalCasesPassed" />
-                <ScalarProperty Name="ActualEffortForExecution" ColumnName="ActualEffortForExecution" />
-                <ScalarProperty Name="TestCasesExecuted" ColumnName="TestCasesExecuted" />
-                <ScalarProperty Name="ExecutionStatus" ColumnName="ExecutionStatus" />
-                <ScalarProperty Name="PlannedEffortforExecution" ColumnName="PlannedEffortforExecution" />
-                <ScalarProperty Name="TestCasedPlannedForExecution" ColumnName="TestCasedPlannedForExecution" />
-                <ScalarProperty Name="TestCaseReworkActual" ColumnName="TestCaseReworkActual" />
-                <ScalarProperty Name="TestCaseReviewActual" ColumnName="TestCaseReviewActual" />
-                <ScalarProperty Name="TestCasePreparationActual" ColumnName="TestCasePreparationActual" />
-                <ScalarProperty Name="TestCaseReworkPlanned" ColumnName="TestCaseReworkPlanned" />
-                <ScalarProperty Name="TestCaseReviewPlanned" ColumnName="TestCaseReviewPlanned" />
-                <ScalarProperty Name="TestCasePreparationPlanned" ColumnName="TestCasePreparationPlanned" />
-                <ScalarProperty Name="TestDesignStatus" ColumnName="TestDesignStatus" />
-                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
-                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
-                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
-                <ScalarProperty Name="NoOfTestCasesReviewComments" ColumnName="NoOfTestCasesReviewComments" />
-                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
-                <ScalarProperty Name="PlannedNoOfTestCasesDesigned" ColumnName="PlannedNoOfTestCasesDesigned" />
-                <ScalarProperty Name="Release" ColumnName="Release" />
-                <ScalarProperty Name="Module" ColumnName="Module" />
-                <ScalarProperty Name="TestingType" ColumnName="TestingType" />
-                <ScalarProperty Name="TestingPhase" ColumnName="TestingPhase" />
-                <ScalarProperty Name="TestingDataStagingId" ColumnName="TestingDataStagingId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TestingDetails">
-            <EntityTypeMapping TypeName="QRMPortalModel.TestingDetail">
-              <MappingFragment StoreEntitySet="TestingDetails">
-                <ScalarProperty Name="Module" ColumnName="Module" />
-                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
-                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
-                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
-                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
-                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
-                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
-                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
-                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
-                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
-                <ScalarProperty Name="NoofTestCases" ColumnName="NoofTestCases" />
-                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
-                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
-                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
-                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
-                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
-                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
-                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
-                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
-                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
-                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="TotalDefectsRejected" ColumnName="TotalDefectsRejected" />
-                <ScalarProperty Name="TotalDefectsFound" ColumnName="TotalDefectsFound" />
-                <ScalarProperty Name="TotalTestCasesPassed" ColumnName="TotalTestCasesPassed" />
-                <ScalarProperty Name="ActualEffortForTestCasesExecution" ColumnName="ActualEffortForTestCasesExecution" />
-                <ScalarProperty Name="NumberOfTestCasesExecuted" ColumnName="NumberOfTestCasesExecuted" />
-                <ScalarProperty Name="ExecutionStatusCode" ColumnName="ExecutionStatusCode" />
-                <ScalarProperty Name="PlannedEffortForTestCaseExecution" ColumnName="PlannedEffortForTestCaseExecution" />
-                <ScalarProperty Name="NumberOfTestCasesPlannedForExecution" ColumnName="NumberOfTestCasesPlannedForExecution" />
-                <ScalarProperty Name="TestCaseReworkActualEffort" ColumnName="TestCaseReworkActualEffort" />
-                <ScalarProperty Name="TestCaseReviewActualEffort" ColumnName="TestCaseReviewActualEffort" />
-                <ScalarProperty Name="TestCasePreparationActualEffort" ColumnName="TestCasePreparationActualEffort" />
-                <ScalarProperty Name="TestCaseReworkPlannedEffort" ColumnName="TestCaseReworkPlannedEffort" />
-                <ScalarProperty Name="TestCaseReviewPlannedEffort" ColumnName="TestCaseReviewPlannedEffort" />
-                <ScalarProperty Name="TestCasePreparationPlannedEffort" ColumnName="TestCasePreparationPlannedEffort" />
-                <ScalarProperty Name="TestExecutionTypeCode" ColumnName="TestExecutionTypeCode" />
-                <ScalarProperty Name="TestDesignStatusCode" ColumnName="TestDesignStatusCode" />
-                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
-                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
-                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
-                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
-                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
-                <ScalarProperty Name="PlannedNumberOfTestCasesDesigned" ColumnName="PlannedNumberOfTestCasesDesigned" />
-                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
-                <ScalarProperty Name="TestingTypeCode" ColumnName="TestingTypeCode" />
-                <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
-                <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2453,6 +2358,119 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="ServiceLine" ColumnName="ServiceLine" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestingDataStagings">
+            <EntityTypeMapping TypeName="QRMPortalModel.TestingDataStaging">
+              <MappingFragment StoreEntitySet="TestingDataStaging">
+                <ScalarProperty Name="DefectRejectionPer" ColumnName="DefectRejectionPer" />
+                <ScalarProperty Name="TestExectionProductivity" ColumnName="TestExectionProductivity" />
+                <ScalarProperty Name="TestDesignProductivity" ColumnName="TestDesignProductivity" />
+                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
+                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
+                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
+                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
+                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
+                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
+                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="DefectsRejected" ColumnName="DefectsRejected" />
+                <ScalarProperty Name="DefectsFound" ColumnName="DefectsFound" />
+                <ScalarProperty Name="TotalCasesPassed" ColumnName="TotalCasesPassed" />
+                <ScalarProperty Name="ActualEffortForExecution" ColumnName="ActualEffortForExecution" />
+                <ScalarProperty Name="TestCasesExecuted" ColumnName="TestCasesExecuted" />
+                <ScalarProperty Name="ExecutionStatus" ColumnName="ExecutionStatus" />
+                <ScalarProperty Name="PlannedEffortforExecution" ColumnName="PlannedEffortforExecution" />
+                <ScalarProperty Name="TestCasedPlannedForExecution" ColumnName="TestCasedPlannedForExecution" />
+                <ScalarProperty Name="TestCaseReworkActual" ColumnName="TestCaseReworkActual" />
+                <ScalarProperty Name="TestCaseReviewActual" ColumnName="TestCaseReviewActual" />
+                <ScalarProperty Name="TestCasePreparationActual" ColumnName="TestCasePreparationActual" />
+                <ScalarProperty Name="TestCaseReworkPlanned" ColumnName="TestCaseReworkPlanned" />
+                <ScalarProperty Name="TestCaseReviewPlanned" ColumnName="TestCaseReviewPlanned" />
+                <ScalarProperty Name="TestCasePreparationPlanned" ColumnName="TestCasePreparationPlanned" />
+                <ScalarProperty Name="TestDesignStatus" ColumnName="TestDesignStatus" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+                <ScalarProperty Name="NoOfTestCasesReviewComments" ColumnName="NoOfTestCasesReviewComments" />
+                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
+                <ScalarProperty Name="PlannedNoOfTestCasesDesigned" ColumnName="PlannedNoOfTestCasesDesigned" />
+                <ScalarProperty Name="Release" ColumnName="Release" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="TestingType" ColumnName="TestingType" />
+                <ScalarProperty Name="TestingPhase" ColumnName="TestingPhase" />
+                <ScalarProperty Name="TestingDataStagingId" ColumnName="TestingDataStagingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestingDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.TestingDetail">
+              <MappingFragment StoreEntitySet="TestingDetails">
+                <ScalarProperty Name="DefectRejectionPer" ColumnName="DefectRejectionPer" />
+                <ScalarProperty Name="TestExectionProductivity" ColumnName="TestExectionProductivity" />
+                <ScalarProperty Name="TestDesignProductivity" ColumnName="TestDesignProductivity" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="NormalizedTestCasesDesign" ColumnName="NormalizedTestCasesDesign" />
+                <ScalarProperty Name="ManualOrAutomatedExecution" ColumnName="ManualOrAutomatedExecution" />
+                <ScalarProperty Name="ActualEndDateExecution" ColumnName="ActualEndDateExecution" />
+                <ScalarProperty Name="ActualStartDateExecution" ColumnName="ActualStartDateExecution" />
+                <ScalarProperty Name="PlannedEndDateExecution" ColumnName="PlannedEndDateExecution" />
+                <ScalarProperty Name="PlannedStartDateExecution" ColumnName="PlannedStartDateExecution" />
+                <ScalarProperty Name="NormalizedTestCasesExecution" ColumnName="NormalizedTestCasesExecution" />
+                <ScalarProperty Name="TestingSubphase" ColumnName="TestingSubphase" />
+                <ScalarProperty Name="Iteration" ColumnName="Iteration" />
+                <ScalarProperty Name="NoofTestCases" ColumnName="NoofTestCases" />
+                <ScalarProperty Name="VeryComplexTestCasesExecution" ColumnName="VeryComplexTestCasesExecution" />
+                <ScalarProperty Name="ComplexTestCasesExecution" ColumnName="ComplexTestCasesExecution" />
+                <ScalarProperty Name="MediumTestCasesExecution" ColumnName="MediumTestCasesExecution" />
+                <ScalarProperty Name="SimpleTestCasesExecution" ColumnName="SimpleTestCasesExecution" />
+                <ScalarProperty Name="VeryComplexTestCasesDesign" ColumnName="VeryComplexTestCasesDesign" />
+                <ScalarProperty Name="ComplexTestCasesDesign" ColumnName="ComplexTestCasesDesign" />
+                <ScalarProperty Name="MediumTestCasesDesign" ColumnName="MediumTestCasesDesign" />
+                <ScalarProperty Name="SimpleTestCasesDesign" ColumnName="SimpleTestCasesDesign" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectReleaseId" ColumnName="ProjectReleaseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="TotalDefectsRejected" ColumnName="TotalDefectsRejected" />
+                <ScalarProperty Name="TotalDefectsFound" ColumnName="TotalDefectsFound" />
+                <ScalarProperty Name="TotalTestCasesPassed" ColumnName="TotalTestCasesPassed" />
+                <ScalarProperty Name="ActualEffortForTestCasesExecution" ColumnName="ActualEffortForTestCasesExecution" />
+                <ScalarProperty Name="NumberOfTestCasesExecuted" ColumnName="NumberOfTestCasesExecuted" />
+                <ScalarProperty Name="ExecutionStatusCode" ColumnName="ExecutionStatusCode" />
+                <ScalarProperty Name="PlannedEffortForTestCaseExecution" ColumnName="PlannedEffortForTestCaseExecution" />
+                <ScalarProperty Name="NumberOfTestCasesPlannedForExecution" ColumnName="NumberOfTestCasesPlannedForExecution" />
+                <ScalarProperty Name="TestCaseReworkActualEffort" ColumnName="TestCaseReworkActualEffort" />
+                <ScalarProperty Name="TestCaseReviewActualEffort" ColumnName="TestCaseReviewActualEffort" />
+                <ScalarProperty Name="TestCasePreparationActualEffort" ColumnName="TestCasePreparationActualEffort" />
+                <ScalarProperty Name="TestCaseReworkPlannedEffort" ColumnName="TestCaseReworkPlannedEffort" />
+                <ScalarProperty Name="TestCaseReviewPlannedEffort" ColumnName="TestCaseReviewPlannedEffort" />
+                <ScalarProperty Name="TestCasePreparationPlannedEffort" ColumnName="TestCasePreparationPlannedEffort" />
+                <ScalarProperty Name="TestExecutionTypeCode" ColumnName="TestExecutionTypeCode" />
+                <ScalarProperty Name="TestDesignStatusCode" ColumnName="TestDesignStatusCode" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+                <ScalarProperty Name="ActualNumberOfTestCasesDesigned" ColumnName="ActualNumberOfTestCasesDesigned" />
+                <ScalarProperty Name="PlannedNumberOfTestCasesDesigned" ColumnName="PlannedNumberOfTestCasesDesigned" />
+                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+                <ScalarProperty Name="TestingTypeCode" ColumnName="TestingTypeCode" />
+                <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
+                <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
