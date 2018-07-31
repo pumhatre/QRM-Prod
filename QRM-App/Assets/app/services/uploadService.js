@@ -273,10 +273,10 @@
                         ExcelName: "Total Test Cases passed",
                         Datatype: "int"
                     },
-                    //"DefectsFound": {
-                    //    ExcelName: "Total valid Defects found",
-                    //    Datatype: "int"
-                    //},
+                    "DefectsFound": {
+                        ExcelName: "Total Defects found",
+                        Datatype: "int"
+                    },
                     //"DefectsRejected": {
                     //    ExcelName: "Defects Fix Rejected",
                     //    Datatype: "int"
