@@ -18,7 +18,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.alerts = [];
-
+        $scope.savePopupButton = false;
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
             var UserId = $cookies.get('_UserId');
@@ -51,6 +51,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadProjectWidgetDashboard = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.ProjectWidgetDashboardData = [];
@@ -90,6 +91,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               this.showTooltip(this.segments, true);
                                           },
                                       };
+                                      $scope.savePopupButton = true;
                                   }
 
 
@@ -99,6 +101,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadSITExecutionGraph = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetSitExecutionGraph(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.SitExecutionGraphLabels = [];
@@ -106,6 +109,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   $scope.SitExecutionGraphColors = [];
                                   $scope.SitExecutionGraphData = [];
                                   $scope.SitExecutionGraphOverride = [];
+                                  ;
                                   if (successResponse.data.datasets) {
                                       $scope.SitExecutionGraphOptions = {
                                           legend: {
@@ -157,7 +161,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                           $scope.SitExecutionGraphOverride[i].label = successResponse.data.series[i];
                                           $scope.SitExecutionGraphOverride[i].backgroundColor = successResponse.data.colors[i];
                                       }
-
+                                      $scope.savePopupButton = true;
                                   }
 
 
@@ -167,6 +171,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadSitDefectGraph = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetSitDefectGraph(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.SitDefectGraphLabels = [];
@@ -208,7 +213,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               this.showTooltip(this.segments, true);
                                           },
                                       };
-
+                                      $scope.savePopupButton = true;
                                   }
 
 
@@ -218,6 +223,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadSITDefectSeverity = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetSITDefectSeverity(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.SITDefectSeverityLabels = [];
@@ -239,6 +245,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               this.showTooltip(this.segments, true);
                                           },
                                       }
+                                      $scope.savePopupButton = true;
                                   }
 
                               }, function (errorResponse) {
@@ -247,6 +254,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadDefectTypeDistribution = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetDefectTypeDistribution(config, projectId, releaseId)
                               .then(function (successResponse) {
                                   $scope.DefectTypeDistributionData = [];
@@ -286,12 +294,14 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               }
                                           }
                                       }
+                                      $scope.savePopupButton = true;
                                   }
                               }, function (errorResponse) {
 
                               });
         }
         $scope.loadEffortDistribution = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetEffortDistribution(config, projectId, releaseId)
                 .then(function (successResponse) {                    
                     if (successResponse.data.datasets.length > 0) {
@@ -329,6 +339,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                 this.showTooltip(this.segments, true);
                             },
                         };
+                        $scope.savePopupButton = true;
                     }
                 }, function (errorResponse) {
 
@@ -336,9 +347,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadTestCaseDistribution = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetTestCaseDistribution(config, projectId, releaseId)
                   .then(function (successResponse) {
                       if (successResponse.data.datasets.length > 0) {
+                          ;
                           $scope.labels1 = successResponse.data.labels;
                           $scope.TestCaseDistribution = [];
                           $scope.TestCaseDistributionOverride = [];
@@ -375,15 +388,18 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   this.showTooltip(this.segments, true);
                               },
                           };
+                          $scope.savePopupButton = true;
                       }
                   }, function (errorResponse) {
 
                   });
         }
         $scope.loadTestCaseComplexityDistribution = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
                           .then(function (successResponse) {
                               if (successResponse.data.datasets.length > 0) {
+                                  ;
                                   $scope.labels4 = successResponse.data.labels;
                                   $scope.TestCaseComplexityDistribution = [];
                                   for (var i = 0; i < successResponse.data.datasets.length; i++) {
@@ -401,13 +417,13 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               text: 'String',
                                           }
                                       },
-                                      title: {
-                                          display: true,
-                                          text: 'Test case complexity distribution(Component/E2E)'
-                                      },
-                                      datalabels: {
-                                               display: true,
-                                      },
+                                      //title: {
+                                      //    display: true,
+                                      //    text: 'Test case complexity distribution(Component/E2E)'
+                                      //},
+                                      //datalabels: {
+                                      //         display: true,
+                                      //},
                                       tooltips: {
                                           callbacks: {
                                               label: function (tooltipItem, data) {                                                  
@@ -424,6 +440,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                           this.showTooltip(this.segments, true);
                                       },
                                   };
+                                  $scope.savePopupButton = true;
                               }
                           }, function (errorResponse) {
                               console.log(errorResponse);
@@ -431,6 +448,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.loadDefectDetectedPhaseDistribution = function (projectId, releaseId) {
+            $scope.savePopupButton = false;
             chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
                         .then(function (successResponse) {
                             if (successResponse.data.values) {
@@ -454,6 +472,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                         this.showTooltip(this.segments, true);
                                     },
                                 };
+                                $scope.savePopupButton = true;
                             }
                         }, function (errorResponse) {
 
