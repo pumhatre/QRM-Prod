@@ -94,9 +94,9 @@ namespace QRMService.Models
     {
 
         public string DashBoardType { get; set; }
-        public int TestDesignProductivity { get; set; }
-        public int TestExecutionProductivity { get; set; }
-        public int TestExecutionDefectDensity { get; set; }
+        public string TestDesignProductivity { get; set; }
+        public string TestExecutionProductivity { get; set; }
+        public string TestExecutionDefectDensity { get; set; }
 
 
     }

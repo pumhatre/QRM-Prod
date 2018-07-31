@@ -86,8 +86,8 @@
         return $http.post(config.apiUrl + 'api/Report/GetDefectDensityEnhancedByProject', data);
     }
 
-    this.getTestingMetrics = function (config, projectId, releaseId, monthId, testingPhase, Iteration, TestingSubPhase, testingPhase, ManaualOrAutomated) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId ,TestingPhase: testingPhase, Iteration: Iteration, TestingSubPhase: TestingSubPhase, TestingPhase: testingPhase, ManaualOrAutomated: ManaualOrAutomated };
+    this.getTestingMetrics = function (config, projectId, releaseId, monthId, executionStep, testingPhase, Iteration, TestingSubPhase, TestingType, ManaualOrAutomated) {    
+        var data = { ProjectId: projectId, ReleaseId: releaseId, MonthId: monthId, executionStep: executionStep, TestingPhase: testingPhase, Iteration: Iteration, TestingSubPhase: TestingSubPhase, TestingType: TestingType, ManualOrAutomated: ManaualOrAutomated };
         return $http.post(config.apiUrl + 'api/Report/GetTestingMetricsData', data);
     }
   

@@ -778,24 +778,29 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.IterationList = [];
       
         $scope.LoadTestingMetrics = function () {
+
             referenceDataService.getReferenceTable("TestingPhase", config).then(function (response) {
                 $scope.TestingPhaseList = response.data;
+                $scope.selectedtestingPhase = $scope.TestingPhaseList[0].ReferenceValue
             }, function (error) {
 
             });
 
             referenceDataService.getReferenceTable("TestingSubPhase", config).then(function (response) {
                 $scope.TestingSubPhaseList = response.data;
+                $scope.selectedtestingSubPhase = $scope.TestingSubPhaseList[0].ReferenceValue
             }, function (error) {
 
             });
             referenceDataService.getReferenceTable("Iteration", config).then(function (response) {
                 $scope.IterationList = response.data;
+                $scope.selectedIteration = $scope.IterationList[0].ReferenceValue
             }, function (error) {
 
             });
             referenceDataService.getReferenceTable("Testingtype", config).then(function (response) {
                 $scope.TestingtypeList = response.data;
+                $scope.selectedtestingtype = $scope.TestingtypeList[0].ReferenceValue
             }, function (error) {
 
                 });
@@ -803,10 +808,12 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
             referenceDataService.getReferenceTable("ManualOrAutomated", config).then(function (response) {
                 $scope.ManualOrAutomatedList = response.data;
+                $scope.selectedManualOrAutomated = $scope.ManualOrAutomatedList[0].ReferenceValue
             }, function (error) {
 
-            });
+                });
 
+          
         }
 
         $scope.EvaluateTestingMetrics = function () {
@@ -815,7 +822,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             var Iteration = $scope.selectedIteration;
             var TestingType = $scope.selectedtestingtype;
             var ManaualOrAutomated = $scope.selectedManualOrAutomated;
-            healthReportService.getTestingMetrics(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month), testingPhase, Iteration, TestingSubPhase, testingPhase, ManaualOrAutomated).then(function (response) {
+            healthReportService.getTestingMetrics(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month),0, testingPhase, Iteration, TestingSubPhase, TestingType, ManaualOrAutomated).then(function (response) {
                 $scope.TestingMetricsGrid.data = response.data;
                 $scope.IstestingMetricsVisible = true;
             }, function (error) {
@@ -1012,7 +1019,6 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 { field: 'TestDesignProductivity', name: 'Test Design Productivity', cellTemplate: tmpl2, width: '25%' },
                 { field: 'TestExecutionDefectDensity', name: 'Test Execution Defect Density', width: '25%', cellTemplate: tmpl2 },
                 { field: 'TestExecutionProductivity', displayName: 'Test Execution Productivity', cellTemplate: tmpl2, width: '25%' },
-               
 
             ],
             onRegisterApi: function (gridApi) {

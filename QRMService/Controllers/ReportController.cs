@@ -621,7 +621,7 @@ namespace QRMService.Controllers
             try
             {
                 var testingMetrics = ReportRepository.GetTestingMetricsData(request);
-                return Ok();
+                return Ok(testingMetrics);
             }
             catch (Exception ex)
             {

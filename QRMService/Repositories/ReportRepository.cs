@@ -1629,20 +1629,19 @@ namespace QRMService.Repositories
         {
             var helper = new SqlClientHelper();
             List<TestingMetrics> TestingMetricsList = new List<TestingMetrics>();
-            int executionStep = 0;
-            string createdby = "1";
+         
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();           
-            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
-            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep",requestModel.executionStep));
+           // parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
             parameters.Add(new KeyValuePair<string, object>("ProjectId", requestModel.ProjectId));
             parameters.Add(new KeyValuePair<string, object>("ReleaseId", requestModel.ReleaseId));
             parameters.Add(new KeyValuePair<string, object>("MonthId", requestModel.MonthId));
-            parameters.Add(new KeyValuePair<string, object>("TestingPhase", requestModel.TestingPhase));
+            parameters.Add(new KeyValuePair<string, object>("TestingPhaseCode", requestModel.TestingPhase));
             parameters.Add(new KeyValuePair<string, object>("Iteration", requestModel.Iteration));
             parameters.Add(new KeyValuePair<string, object>("TestingSubPhase", requestModel.TestingSubPhase));
-            parameters.Add(new KeyValuePair<string, object>("TestingType", requestModel.TestingType));
-            parameters.Add(new KeyValuePair<string, object>("ManualOrAutomated", requestModel.ManualOrAutomated));
-            DataTable data =  helper.GetDataTableByProcedure(Constants.UspGetDefectDensityEnhancedByProject, "default", true, parameters.ToArray());
+            parameters.Add(new KeyValuePair<string, object>("TestingTypeCode", requestModel.TestingType));
+            parameters.Add(new KeyValuePair<string, object>("ManualOrAutomatedExecution", requestModel.ManualOrAutomated));
+            DataTable data =  helper.GetDataTableByProcedure(Constants.uspGetSystemTestingMetricDashboard, "default", true, parameters.ToArray());
 
             if (data != null && data.Rows.Count > 0)
             {
@@ -1651,13 +1650,33 @@ namespace QRMService.Repositories
                     TestingMetricsList.Add(new TestingMetrics
                     {
                        DashBoardType  =string.Empty,
-                        TestDesignProductivity = row.Field<int>(Constants.TestingMetricsColum.TestDesignProductivity.ToString()),
-                        TestExecutionDefectDensity = row.Field<int>(Constants.TestingMetricsColum.TestExecutionDefectDensity.ToString()),
-                        TestExecutionProductivity = row.Field<int>(Constants.TestingMetricsColum.TestExecutionProductivity.ToString()),
+                        TestDesignProductivity =Convert.ToString(row.Field<decimal?>(Constants.TestingMetricsColum.TestDesignProductivity.ToString())),
+                        TestExecutionDefectDensity = Convert.ToString(row.Field<decimal?>(Constants.TestingMetricsColum.TestExecutionDefectDensity.ToString())),
+                        TestExecutionProductivity = Convert.ToString( row.Field<decimal?>(Constants.TestingMetricsColum.TestExecutionProductivity.ToString())),
                     });
                 });
             }
-            return new List<TestingMetrics>();
+
+
+            List<string> Type = new List<string>();
+            string[] input = { "Project Performance", "Upper Specification Limit (USL)", "Lower Specification Limit (LSL)" };
+            Type.AddRange(input);
+            for (int i=1; i<=3; i++)
+            {
+                if(TestingMetricsList.Count< i)
+                {
+                    TestingMetricsList.Add(new TestingMetrics());
+                }
+
+                TestingMetricsList[i-1].DashBoardType = Type[i-1];
+                if(i==1)
+                {
+                    TestingMetricsList[i-1].TestDesignProductivity = string.IsNullOrEmpty(TestingMetricsList[i-1].TestDesignProductivity) ? "NA" : TestingMetricsList[i-1].TestDesignProductivity;
+                    TestingMetricsList[i-1].TestExecutionDefectDensity = string.IsNullOrEmpty(TestingMetricsList[i-1].TestExecutionDefectDensity) ? "NA" : TestingMetricsList[i-1].TestExecutionDefectDensity;
+                    TestingMetricsList[i-1].TestExecutionProductivity = string.IsNullOrEmpty(TestingMetricsList[i-1].TestExecutionProductivity) ? "NA" : TestingMetricsList[i-1].TestExecutionProductivity;
+                }
+            }
+            return TestingMetricsList;
         }
 
 

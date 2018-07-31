@@ -233,7 +233,7 @@
                     <a href="#tab_content7" ng-click="LoadDefectDensity_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
                 </li>
                 <li role="presentation" class="">
-                    <a href="#tab_content8" ng-click="LoadProjectPerformanceByProject()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
+                    <a href="#tab_content8" ng-init="LoadTestingMetrics()" ng-click="EvaluateTestingMetrics()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
                 </li>
             </ul>
             <div id="myTabcontent" class="tab-content">
@@ -537,15 +537,71 @@
                         <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_content">
-                                    <div class="col-md-12">
-                                        <div id="mGrid5" ui-grid="" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 180px !important; width:100%">
-                                            
+                                    <form novalidate name="testingMetricsForm" role="form" class="form-horizontal">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Testing Phase</th>
+                                                        <th>Iteration</th>
+                                                        <th>Testing Sub-Phase</th>
+                                                        <th>Testing Type</th>
+                                                        <th>Manual Or Automated?</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select class="form-control" ng-model="selectedtestingPhase" ng-required="true">
+                                                                <option ng-repeat="testingPhase in TestingPhaseList" value="{{testingPhase.ReferenceValue}}">{{testingPhase.ReferenceValue}}</option>
+                                                            </select>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">
+                                                                <option ng-repeat="Iteration in IterationList" value="{{Iteration.ReferenceValue}}">{{Iteration.ReferenceValue}}</option>
+                                                            </select>
+
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">
+                                                                <option ng-repeat="testingSubPhase in TestingSubPhaseList" value="{{testingSubPhase.ReferenceValue}}">{{testingSubPhase.ReferenceValue}}</option>
+                                                            </select>
+
+
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" ng-model="selectedtestingtype" ng-required="true">
+                                                                <option ng-repeat="testingtype in TestingtypeList" value="{{testingtype.ReferenceValue}}">{{testingtype.ReferenceValue}}</option>
+                                                            </select>
+
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" ng-model="selectedManualOrAutomated" ng-required="true">
+                                                                <option ng-repeat="ManualOrAutomated in ManualOrAutomatedList" value="{{ManualOrAutomated.ReferenceValue}}">{{ManualOrAutomated.ReferenceValue}}</option>
+                                                            </select>
+
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
                                         </div>
+                                    </form>
+                                    <button class="btn btn-green btn-md col-md-offset-5 " type="button" ng-click="EvaluateTestingMetrics()" ng-hide="testingMetricsForm.$invalid">Evaluate</button>
+
+                                    <div id="TestingMetricsmGrid" ui-grid="TestingMetricsGrid" ng-if="IstestingMetricsVisible" class=" col-md-offset-2 grid col-md-6 " ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 150px !important; width:60%">
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

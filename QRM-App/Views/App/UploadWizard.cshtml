@@ -402,7 +402,7 @@
                                                                         <a href="#tab_content7" ng-click="LoadDefectDensity_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content8" ng-click="LoadTestingMetrics()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
+                                                                        <a href="#tab_content8" ng-init="LoadTestingMetrics()" ng-click="EvaluateTestingMetrics()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -606,38 +606,33 @@
                                                                                                 <tbody>
                                                                                                     <tr>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedtestingPhase" ng-required="true">
-                                                                                                                <option value="">Select Testing Phase</option>
+                                                                                                            <select class="form-control" ng-model="selectedtestingPhase" ng-required="true">                                                                                                   
                                                                                                                 <option ng-repeat="testingPhase in TestingPhaseList" value="{{testingPhase.ReferenceValue}}">{{testingPhase.ReferenceValue}}</option>
                                                                                                             </select>
 
                                                                                                         </td>
 
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">
-                                                                                                                <option value="">Select Iteration</option>
+                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">                                                                                                           
                                                                                                                 <option ng-repeat="Iteration in IterationList" value="{{Iteration.ReferenceValue}}">{{Iteration.ReferenceValue}}</option>
                                                                                                             </select>
 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">
-                                                                                                                <option value="">Select Testing Sub-Phase</option>
+                                                                                                            <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">                                                                                                               
                                                                                                                 <option ng-repeat="testingSubPhase in TestingSubPhaseList" value="{{testingSubPhase.ReferenceValue}}">{{testingSubPhase.ReferenceValue}}</option>
                                                                                                             </select>
 
 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedtestingtype" ng-required="true">
-                                                                                                                <option value="">Select Testing Type</option>
+                                                                                                            <select class="form-control" ng-model="selectedtestingtype" ng-required="true">                                                                                                              
                                                                                                                 <option ng-repeat="testingtype in TestingtypeList" value="{{testingtype.ReferenceValue}}">{{testingtype.ReferenceValue}}</option>
                                                                                                             </select>
 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedManualOrAutomated" ng-required="true">
-                                                                                                                <option value="">Manual Or Automated</option>
+                                                                                                            <select class="form-control" ng-model="selectedManualOrAutomated" ng-required="true">                                                                                                            
                                                                                                                 <option ng-repeat="ManualOrAutomated in ManualOrAutomatedList" value="{{ManualOrAutomated.ReferenceValue}}">{{ManualOrAutomated.ReferenceValue}}</option>
                                                                                                             </select>
 
@@ -650,8 +645,9 @@
 
                                                                                         </div>
                                                                                     </form>
-                                                                                    <button class="btn btn-green btn-md" type="button" ng-click="EvaluateTestingMetrics()" ng-disabled="testingMetricsForm.$invalid">Evaluate</button>
-                                                                                    <div id="TestingMetricsmGrid" ui-grid="TestingMetricsGrid" ng-if="IstestingMetricsVisible" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:60%">
+                                                                                    <button class="btn btn-green btn-md col-md-offset-5 " type="button" ng-click="EvaluateTestingMetrics()" ng-hide="testingMetricsForm.$invalid">Evaluate</button>
+                                                                                    
+                                                                                    <div  id="TestingMetricsmGrid" ui-grid="TestingMetricsGrid" ng-if="IstestingMetricsVisible" class=" col-md-offset-2 grid col-md-6 " ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 150px !important; width:60%">
 
                                                                                     </div>
                                                                                 </div>

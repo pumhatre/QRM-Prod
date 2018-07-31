@@ -20,7 +20,8 @@ namespace QRMService.Models
     {
         public int ProjectId { get; set; }
         public int ReleaseId { get; set; }
-        public int MonthId { get; set; }       
+        public int MonthId { get; set; }      
+        public int executionStep { get; set; }
         public string TestingPhase { get; set; }
         public string Iteration { get; set; }
         public string TestingSubPhase { get; set; }
