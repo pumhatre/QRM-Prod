@@ -53,7 +53,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
-            projectReleaseService.GetProjectsLists(config)
+            var UserId = $cookies.get('_UserId');
+            projectReleaseService.GetProjectsLists(config, UserId)
                 .then(function (successResponse) {
                     $scope.projectsDropdown = successResponse.data;
                 }, function (errorResponse) {

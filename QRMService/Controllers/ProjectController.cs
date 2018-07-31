@@ -11,9 +11,9 @@ namespace QRMService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult GetProjectsList()
+        public IHttpActionResult GetProjectsList(int UserId)
         {
-            var data = ProjectRepository.GetProjectsList();
+            var data = ProjectRepository.GetProjectsList(UserId);
             return Ok(data);
         }
 

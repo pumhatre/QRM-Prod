@@ -24,7 +24,7 @@
         return $http.post(config.apiUrl + 'api/ProjectRelease/DeleteProjectRelease', data);
     }
 
-    this.GetProjectsLists= function (config) {
-        return $http.get(config.apiUrl + 'api/Project/GetProjectsList');
+    this.GetProjectsLists = function (config, UserId) {
+        return $http.get(config.apiUrl + 'api/Project/GetProjectsList?UserId=' + UserId);
     }
 }]);

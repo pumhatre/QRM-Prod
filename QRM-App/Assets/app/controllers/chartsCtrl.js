@@ -21,7 +21,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
 
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
-            projectReleaseService.GetProjectsLists(config)
+            var UserId = $cookies.get('_UserId');
+            projectReleaseService.GetProjectsLists(config, UserId)
                 .then(function (successResponse) {
                     $scope.projectsDropdown = successResponse.data;
                 }, function (errorResponse) {

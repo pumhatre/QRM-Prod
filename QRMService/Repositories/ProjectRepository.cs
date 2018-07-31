@@ -15,18 +15,30 @@ namespace QRMService.Repositories
         /// Gets the projects list.
         /// </summary>
         /// <returns></returns>
-        public static List<SelectListItem> GetProjectsList()
+        public static List<SelectListItem> GetProjectsList(int UserId)
         {
+            List<SelectListItem> userProjectList = new List<SelectListItem>();
             using (var db = new QRMEntities())
             {
-                return db.ProjectMasters
-                    .Where(a => a.IsActive == true)
-                    .Select(a => new SelectListItem
+
+                var userProjects = (from pm in db.ProjectMasters
+                                    join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
+                                    where od.UserId == UserId && pm.IsActive == true
+                                    select new SelectListItem
+                                    {
+                                        Text = pm.ProjectName,
+                                        Value = pm.ProjectID.ToString(),
+                                    }).ToList();
+                if (userProjects.Count > 0 && userProjects != null)
+                {
+                    foreach (var item in userProjects)
                     {
-                        Text = a.ProjectName,
-                        Value = a.ProjectID.ToString()
-                    }).OrderBy(b => b.Text).ToList();
+                        userProjectList.Add(item);
+                    }
+                }
             }
+
+            return userProjectList;
         }
 
         /// <summary>
