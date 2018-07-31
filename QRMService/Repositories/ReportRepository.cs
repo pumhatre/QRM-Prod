@@ -1625,6 +1625,12 @@ namespace QRMService.Repositories
         #endregion
 
 
+        public static List<TestingMetrics> GetTestingMetricsData()
+        {
+            return new List<TestingMetrics>();
+        }
+
+
     }
 
 }

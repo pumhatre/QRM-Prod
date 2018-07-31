@@ -402,7 +402,7 @@
                                                                         <a href="#tab_content7" ng-click="LoadDefectDensity_GroundUp()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Defect Density</a>
                                                                     </li>
                                                                     <li role="presentation" class="">
-                                                                        <a href="#tab_content8" ng-click="LoadTestingMetricsRefValues()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
+                                                                        <a href="#tab_content8" ng-click="LoadTestingMetrics()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">Testing Metrics</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -596,8 +596,8 @@
                                                                                                 <thead>
                                                                                                     <tr>
                                                                                                         <th> Testing Phase</th>
-                                                                                                        <th>Testing Sub-Phase</th>
                                                                                                         <th>Iteration</th>
+                                                                                                        <th>Testing Sub-Phase</th>
                                                                                                         <th>Testing Type</th>
                                                                                                         <th>Manual Or Automated?</th>
                                                                                                     </tr>
@@ -612,19 +612,20 @@
                                                                                                             </select>
 
                                                                                                         </td>
+
+                                                                                                        <td>
+                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">
+                                                                                                                <option value="">Select Iteration</option>
+                                                                                                                <option ng-repeat="Iteration in IterationList" value="{{Iteration.ReferenceValue}}">{{Iteration.ReferenceValue}}</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
                                                                                                         <td>
                                                                                                             <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">
                                                                                                                 <option value="">Select Testing Sub-Phase</option>
                                                                                                                 <option ng-repeat="testingSubPhase in TestingSubPhaseList" value="{{testingSubPhase.ReferenceValue}}">{{testingSubPhase.ReferenceValue}}</option>
                                                                                                             </select>
 
-
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">
-                                                                                                                <option value="">Select Iteration</option>
-                                                                                                                <option ng-repeat="Iteration in IterationList" value="{{Iteration.ReferenceValue}}">{{Iteration.ReferenceValue}}</option>
-                                                                                                            </select>
 
                                                                                                         </td>
                                                                                                         <td>
@@ -649,7 +650,7 @@
 
                                                                                         </div>
                                                                                     </form>
-                                                                                    <button class="btn btn-green btn-md" type="button" ng-disabled="testingMetricsForm.$invalid">Evaluate</button>
+                                                                                    <button class="btn btn-green btn-md" type="button" ng-click="EvaluateTestingMetrics()" ng-disabled="testingMetricsForm.$invalid">Evaluate</button>
 
 
                                                                                 </div>

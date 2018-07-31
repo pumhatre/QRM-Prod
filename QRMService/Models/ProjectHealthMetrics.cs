@@ -92,13 +92,7 @@ namespace QRMService.Models
 
    public class TestingMetrics
     {
-        public string TestingPhase { get; set; }
-        public string Iteration { get; set; }
-
-        public string TestingSubPhase { get; set; }
-        public string TestingType { get; set; }
-
-        public string ManualorAutomated { get; set; }
+       
         
 
     }

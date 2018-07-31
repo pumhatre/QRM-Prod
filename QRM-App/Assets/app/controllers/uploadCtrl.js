@@ -808,10 +808,20 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
         }
 
-        $scope.LoadTestingMetricsRefValues = function () {
-            $scope.LoadTestingMetrics();
-           
+        $scope.EvaluateTestingMetrics = function () {
+            var testingPhase = $scope.selectedtestingPhase;
+            var TestingSubPhase = $scope.selectedtestingSubPhase;
+            var Iteration = $scope.selectedIteration;
+            var TestingType = $scope.selectedtestingtype;
+            var ManaualOrAutomated = $scope.selectedManualOrAutomated;
+            healthReportService.getTestingMetrics(config, testingPhase, Iteration, TestingSubPhase, testingPhase, ManaualOrAutomated).then(function (response) {
+             
+            }, function (error) {
+
+            });
         }
+
+       
 
         var tmpl1 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
         $scope.projectEffortGrid = {

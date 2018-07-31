@@ -144,10 +144,10 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid(), request.ProjectId,request.ReleaseId,request.MonthId);
+                var projectEffort = ReportRepository.GetProjectEffort(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
                 for (int i = 0; i < projectEffort.Count; i++)
                 {
-                    if (i%2==0)
+                    if (i % 2 == 0)
                     {
                         projectEffort[i].spanEffort = 3;
                     }
@@ -171,7 +171,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectEffort = ReportRepository.GetProjectEffort(request.ProjectId,request.ReleaseId,request.MonthId);
+                var projectEffort = ReportRepository.GetProjectEffort(request.ProjectId, request.ReleaseId, request.MonthId);
                 for (int i = 0; i < projectEffort.Count; i++)
                 {
                     if (i % 2 == 0)
@@ -197,7 +197,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid(),request.ProjectId, request.ReleaseId, request.MonthId);
+                var projectDefect = ReportRepository.GetProjectDefects(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -216,7 +216,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectDefect = ReportRepository.GetProjectDefects(request.ProjectId,request.ReleaseId,request.MonthId);
+                var projectDefect = ReportRepository.GetProjectDefects(request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectDefect);
             }
             catch (Exception ex)
@@ -253,7 +253,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectTesting = ReportRepository.GetProjectTesting(request.ProjectId,request.ReleaseId,request.MonthId);
+                var projectTesting = ReportRepository.GetProjectTesting(request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectTesting);
             }
             catch (Exception ex)
@@ -274,7 +274,7 @@ namespace QRMService.Controllers
                 var projectWidget = ReportRepository.GetProjectWidget(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
                 for (int i = 0; i < projectWidget.Count; i++)
                 {
-                    if (i==0)
+                    if (i == 0)
                     {
                         projectWidget[i].spanWidget = 3;
                     }
@@ -301,7 +301,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectVariance = ReportRepository.GetProjectVariance(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);                
+                var projectVariance = ReportRepository.GetProjectVariance(Guid.NewGuid(), request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectVariance);
             }
             catch (Exception ex)
@@ -320,7 +320,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectWidget = ReportRepository.GetProjectWidget(request.ProjectId,request.ReleaseId,request.MonthId);
+                var projectWidget = ReportRepository.GetProjectWidget(request.ProjectId, request.ReleaseId, request.MonthId);
                 for (int i = 0; i < projectWidget.Count; i++)
                 {
                     if (i == 0)
@@ -350,7 +350,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var projectWidget = ReportRepository.GetProjectVariance(request.ProjectId,request.ReleaseId,request.MonthId);
+                var projectWidget = ReportRepository.GetProjectVariance(request.ProjectId, request.ReleaseId, request.MonthId);
                 return Ok(projectWidget);
             }
             catch (Exception ex)
@@ -615,7 +615,13 @@ namespace QRMService.Controllers
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult GetTestingMetricsData(HealthReportRequestModel request)
+        {
 
+
+            return Ok();
+        }
 
     }
 }
