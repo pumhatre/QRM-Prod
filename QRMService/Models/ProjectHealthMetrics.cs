@@ -90,10 +90,14 @@ namespace QRMService.Models
     }
 
 
-   public class TestingMetrics
+    public class TestingMetrics
     {
-       
-        
+
+        public string DashBoardType { get; set; }
+        public int TestDesignProductivity { get; set; }
+        public int TestExecutionProductivity { get; set; }
+        public int TestExecutionDefectDensity { get; set; }
+
 
     }
 

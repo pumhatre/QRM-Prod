@@ -48,11 +48,17 @@ namespace QRMService.Repositories
         public static List<ProjectReviewModel> GetProjectReviewDetail(int userId)
         {
             List<ProjectReviewModel> userProjectList = new List<ProjectReviewModel>();
-            if (userId != 0)
+            using (var db = new QRMEntities())
             {
-                using (var db = new QRMEntities())
+                var role = (from p in db.UserDetails
+                            join r in db.RoleMasters on p.RoleId equals r.RoleId
+                            where r.IsActive == "Y" && p.UserId == userId
+                            select r.RoleName).ToList().FirstOrDefault();
+                List<ProjectReviewModel> userProjects = new List<ProjectReviewModel>();
+                if (role.ToString() != "SuperUser")
                 {
-                    var userProjects = (from pm in db.ProjectMasters
+
+                     userProjects = (from pm in db.ProjectMasters
                                         join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
                                         where od.UserId == userId && pm.IsActive == true
                                         select new ProjectReviewModel
@@ -61,13 +67,26 @@ namespace QRMService.Repositories
                                             color = pm.ProjectColor,
                                             name = pm.ProjectName,
                                             reviewDate = pm.ReviewDate.ToString()
-                                        }).ToList();
-                    if (userProjects.Count > 0 && userProjects != null)
+                                        }).ToList();                   
+
+                }
+                else
+                {
+                    userProjects = db.ProjectMasters
+                    .Where(a => a.IsActive == true)
+                    .Select(a => new ProjectReviewModel
                     {
-                        foreach (var item in userProjects)
-                        {
-                            userProjectList.Add(item);
-                        }
+                        id = a.ProjectID,
+                        color = a.ProjectColor,
+                        name = a.ProjectName,
+                        reviewDate = a.ReviewDate.ToString()
+                    }).ToList();
+                }
+                if (userProjects.Count > 0 && userProjects != null)
+                {
+                    foreach (var item in userProjects)
+                    {
+                        userProjectList.Add(item);
                     }
                 }
             }

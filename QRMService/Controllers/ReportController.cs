@@ -616,11 +616,17 @@ namespace QRMService.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult GetTestingMetricsData(HealthReportRequestModel request)
+        public IHttpActionResult GetTestingMetricsData(TestingMetricsRequestModel request)
         {
-
-
-            return Ok();
+            try
+            {
+                var testingMetrics = ReportRepository.GetTestingMetricsData(Guid.NewGuid(), request);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
     }
