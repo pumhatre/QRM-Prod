@@ -590,12 +590,69 @@
                                                                         <div class="col-md-12">
                                                                             <div class="x_panel">
                                                                                 <div class="x_content">
-                                                                                    <div class="col-md-12">
-                                                                                        <div id="TestingMetricsGrid" ui-grid="TestingMetrics" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                    <form novalidate name="testingMetricsForm" role="form" class="form-horizontal">
+                                                                                        <div class="table-responsive">
+                                                                                            <table class="table">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th> Testing Phase</th>
+                                                                                                        <th>Testing Sub-Phase</th>
+                                                                                                        <th>Iteration</th>
+                                                                                                        <th>Testing Type</th>
+                                                                                                        <th>Manual Or Automated?</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <select class="form-control" ng-model="selectedtestingPhase" ng-required="true">
+                                                                                                                <option value="">Select Testing Phase</option>
+                                                                                                                <option ng-repeat="testingPhase in TestingPhaseList" value="{{testingPhase.ReferenceValue}}">{{testingPhase.ReferenceValue}}</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">
+                                                                                                                <option value="">Select Testing Sub-Phase</option>
+                                                                                                                <option ng-repeat="testingSubPhase in TestingSubPhaseList" value="{{testingSubPhase.ReferenceValue}}">{{testingSubPhase.ReferenceValue}}</option>
+                                                                                                            </select>
+
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">
+                                                                                                                <option value="">Select Iteration</option>
+                                                                                                                <option ng-repeat="Iteration in IterationList" value="{{Iteration.ReferenceValue}}">{{Iteration.ReferenceValue}}</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-control" ng-model="selectedtestingtype" ng-required="true">
+                                                                                                                <option value="">Select Testing Type</option>
+                                                                                                                <option ng-repeat="testingtype in TestingtypeList" value="{{testingtype.ReferenceValue}}">{{testingtype.ReferenceValue}}</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <select class="form-control" ng-model="selectedManualOrAutomated" ng-required="true">
+                                                                                                                <option value="">Manual Or Automated</option>
+                                                                                                                <option ng-repeat="ManualOrAutomated in ManualOrAutomatedList" value="{{ManualOrAutomated.ReferenceValue}}">{{ManualOrAutomated.ReferenceValue}}</option>
+                                                                                                            </select>
+
+                                                                                                        </td>
+
+                                                                                                    </tr>
+
+                                                                                                </tbody>
+                                                                                            </table>
+
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </form>
+                                                                                    <button class="btn btn-green btn-md" type="button" ng-disabled="testingMetricsForm.$invalid">Evaluate</button>
+
+
                                                                                 </div>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

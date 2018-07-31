@@ -774,14 +774,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.TestingSubPhaseList = [];
         $scope.TestingtypeList = [];
         $scope.ManualOrAutomatedList = [];
-        $scope.LoadTestingMetricsRef = function () {
-            healthReportService.GetTestingMetricsGrid(config)
-                .then(function (successResponse) {
-                    $scope.TestingMetrics.data = successResponse.data;
-                }, function (errorResponse) {
-
-                });
-        };
+        $scope.IterationList = [];
+      
         $scope.LoadTestingMetrics = function () {
             referenceDataService.getReferenceTable("TestingPhase", config).then(function (response) {
                 $scope.TestingPhaseList = response.data;
@@ -794,7 +788,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             }, function (error) {
 
             });
+            referenceDataService.getReferenceTable("Iteration", config).then(function (response) {
+                $scope.IterationList = response.data;
+            }, function (error) {
 
+            });
             referenceDataService.getReferenceTable("Testingtype", config).then(function (response) {
                 $scope.TestingtypeList = response.data;
             }, function (error) {
@@ -812,7 +810,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
         $scope.LoadTestingMetricsRefValues = function () {
             $scope.LoadTestingMetrics();
-            $scope.LoadTestingMetricsRef();
+           
         }
 
         var tmpl1 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
@@ -993,39 +991,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
 
 
-      var tmpl1 = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
-        $scope.TestingMetrics = {
-               loading: true,
-                enableSorting: false,
-                enableColumnMenus: false,
-                enableRowHeaderSelection: false,
-                columnDefs: [
-                    {
-                        field: 'TestingPhase', name: 'Testing Phase',
-                        cellTemplate: '<div  style="padding: 5px;" <select ng-model="row.entity.TestingPhase"><option value="">Select Testing Phase</option> <option ng-repeat="TestingPhase in grid.appScope.TestingPhaseList" value="{{TestingPhaseList.ReferenceCode}}">{{TestingPhaseList.ReferenceValue}}</option> </select></div>', width: '20%'
-                    },
-                    { field: 'Iteration', name: 'Iteration/Cycle', cellTemplate: '<di style="padding: 5px;"v ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
-                    { field: 'TestingSubPhase', name: 'Testing Sub-Phase', width: '20%', cellTemplate: '<div  style="padding: 5px;" <select ng-model="row.entity.TestingSubPhase"><option value="">Select Testing Phase</option> <option ng-repeat="TestingSubPhase in grid.appScope.TestingSubPhaseList" value="{{TestingSubPhaseList.ReferenceCode}}">{{TestingSubPhaseList.ReferenceValue}}</option> </select></div>' },
-                    { field: 'TestingType', name: 'Testing Type', width: '20%', cellTemplate: '<div  style="padding: 5px;" <select ng-model="row.entity.TestingType"><option value="">Select Testing Type</option> <option ng-repeat="TestingType in grid.appScope.TestingTypeList" value="{{TestingTypeList.ReferenceCode}}">{{TestingPhaseList.ReferenceValue}}</option> </select></div>' },
-                    { field: 'ManualorAutomated', name: 'Manual execution or Automated?', cellTemplate: '<div  style="padding: 5px;" <select ng-model="row.entity.ManualorAutomated"><option value="">Select Testing Phase</option> <option ng-repeat="ManualorAutomated in grid.appScope.ManualorAutomatedList" value="{{ManualorAutomatedList.ReferenceCode}}">{{ManualorAutomatedList.ReferenceValue}}</option> </select></div>', width: '20%' },
-
-                ],
-                // columnDefs: [
-                //    {
-                //        field: 'TestingPhase', name: 'Testing Phase',
-                //         cellTemplate: tmpl1, width: '20%'
-                //    },
-                //     { field: 'Iteration', name: 'Iteration/Cycle', cellTemplate: tmpl1, width: '21%' },
-                //     { field: 'TestingSubPhase', name: 'Testing Sub-Phase', width: '20%', cellTemplate: tmpl1 },
-                //     { field: 'TestingType', name: 'Testing Type', width: '20%', cellTemplate: tmpl1 },
-                //     { field: 'ManualorAutomated', name: 'Manual execution or Automated?', cellTemplate: tmpl1, width: '20%' },
-
-                //],
-                onRegisterApi: function (gridApi) {
-                    $scope.mGridApi = gridApi;
-                }
-
-            }
+ 
 
      
 

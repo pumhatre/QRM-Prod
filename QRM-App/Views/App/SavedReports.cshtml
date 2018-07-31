@@ -26,6 +26,8 @@
             </div>
         </div>
         <div ng-app="savedReport" ng-controller="savedReportCtrl" ng-init="init()">
+
+            <div uib-alert ng-class="'alert-' + (alert.type || 'warning')" dismiss-on-timeout="5000" ng-repeat="alert in alerts" close="alerts.splice($index, 1);"> {{alert.msg}} </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="x_panel">
