@@ -42,7 +42,7 @@ namespace QRMService.Common
         public const string UspGetDefectDensityEnhancedByProject = "[Dbo].[uspGetDefectDensityEnhancedByProject]";
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
         public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
-
+        public const string uspGetSystemTestingMetricDashboard = "[Dbo].[uspGetSystemTestingMetricDashboard]";
 
         #region Charts
         public const string UspGetEffortDistribution = "[Dbo].[uspGetEffortDistribution]";
@@ -330,7 +330,7 @@ namespace QRMService.Common
 
         public enum TestingMetricsColum
         {
-            DashBoardType,
+            
             TestDesignProductivity,
             TestExecutionProductivity,
             TestExecutionDefectDensity

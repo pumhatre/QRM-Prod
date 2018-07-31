@@ -651,7 +651,7 @@
                                                                                         </div>
                                                                                     </form>
                                                                                     <button class="btn btn-green btn-md" type="button" ng-click="EvaluateTestingMetrics()" ng-disabled="testingMetricsForm.$invalid">Evaluate</button>
-                                                                                    <div id="TestingMetricsmGrid" ui-grid="TestingMetricsGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 400px !important; width:100%">
+                                                                                    <div id="TestingMetricsmGrid" ui-grid="TestingMetricsGrid" ng-if="IstestingMetricsVisible" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:60%">
 
                                                                                     </div>
                                                                                 </div>

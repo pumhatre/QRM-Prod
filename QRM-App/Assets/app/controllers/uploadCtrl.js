@@ -18,7 +18,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.effortGridData = {};
         $scope.defectGridData = {};
         $scope.testGridData = {};
-
+        $scope.IstestingMetricsVisible = false;
 
         $scope.init = function () {
             $scope.LoadProjectsDropDown();
@@ -817,6 +817,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             var ManaualOrAutomated = $scope.selectedManualOrAutomated;
             healthReportService.getTestingMetrics(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month), testingPhase, Iteration, TestingSubPhase, testingPhase, ManaualOrAutomated).then(function (response) {
                 $scope.TestingMetricsGrid.data = response.data;
+                $scope.IstestingMetricsVisible = true;
             }, function (error) {
 
             });
@@ -1007,10 +1008,10 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             columnDefs: [
-                { field: 'DashBoardType', name: '', cellTemplate: tmpl2, width: '20%' },            
-                { field: 'TestDesignProductivity', name: 'Test Design Productivity', cellTemplate: tmpl2, width: '20%' },
-                { field: 'TestExecutionDefectDensity', name: 'Test Execution Defect Density', width: '20%', cellTemplate: tmpl2 },
-                { field: 'TestExecutionProductivity', displayName: 'Test Execution Productivity', cellTemplate: tmpl2, width: '20%' },
+                { field: 'DashBoardType', name: '', cellTemplate: tmpl2, width: '25%' },            
+                { field: 'TestDesignProductivity', name: 'Test Design Productivity', cellTemplate: tmpl2, width: '25%' },
+                { field: 'TestExecutionDefectDensity', name: 'Test Execution Defect Density', width: '25%', cellTemplate: tmpl2 },
+                { field: 'TestExecutionProductivity', displayName: 'Test Execution Productivity', cellTemplate: tmpl2, width: '25%' },
                
 
             ],

@@ -620,7 +620,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var testingMetrics = ReportRepository.GetTestingMetricsData(Guid.NewGuid(), request);
+                var testingMetrics = ReportRepository.GetTestingMetricsData(request);
                 return Ok();
             }
             catch (Exception ex)
