@@ -348,7 +348,24 @@
                     "NormalizedTestCasesDesign" : {
                         ExcelName: "Normalized Size (Test Design)",
                         Datatype: "nullableint"
+                    },
+
+                    "TestDesignProductivity": {
+                        ExcelName: "Test Design Productivity",
+                        Datatype: "nullablefloat"
+                    },
+
+                    "TestExectionProductivity": {
+                        ExcelName: "Test Exection Productivity",
+                        Datatype: "nullablefloat"
+                    },
+
+                    "DefectRejectionPer": {
+                        ExcelName: "Defect Density",
+                        Datatype: "nullablefloat"
                     }
+
+
                 }
             }
         };

@@ -162,6 +162,9 @@ namespace QRMService.Repositories
                     SimpleTestCasesDesign = x.SimpleTestCasesDesign,
                     VeryComplexTestCasesDesign = x.VeryComplexTestCasesDesign,
                     VeryComplexTestCasesExecution = x.VeryComplexTestCasesExecution,
+                    DefectRejectionPer=x.DefectRejectionPer,
+                    TestDesignProductivity=x.TestDesignProductivity,
+                    TestExectionProductivity=x.TestExectionProductivity
                 }).ToList();
                 db.TestingDataStagings.AddRange(obj);
                 db.SaveChanges();

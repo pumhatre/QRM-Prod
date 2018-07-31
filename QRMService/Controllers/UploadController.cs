@@ -14,6 +14,7 @@ namespace QRMService.Controllers
         public IHttpActionResult SaveExcelData(UploadViewModel upload)
         {
             UploadViewModel value = UploadRepository.SaveExcelData(upload);
+            System.Console.WriteLine();
             return Ok(value);
         }
 

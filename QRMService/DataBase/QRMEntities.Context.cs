@@ -34,8 +34,6 @@ namespace QRMService.DataBase
         public virtual DbSet<ProjectReleaseMaster> ProjectReleaseMasters { get; set; }
         public virtual DbSet<ReferenceTable> ReferenceTables { get; set; }
         public virtual DbSet<RoleMaster> RoleMasters { get; set; }
-        public virtual DbSet<TestingDataStaging> TestingDataStagings { get; set; }
-        public virtual DbSet<TestingDetail> TestingDetails { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<UserProjectAssociation> UserProjectAssociations { get; set; }
         public virtual DbSet<UserReportAssociation> UserReportAssociations { get; set; }
@@ -45,5 +43,7 @@ namespace QRMService.DataBase
         public virtual DbSet<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
         public virtual DbSet<MetricMaster> MetricMasters { get; set; }
         public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
+        public virtual DbSet<TestingDataStaging> TestingDataStagings { get; set; }
+        public virtual DbSet<TestingDetail> TestingDetails { get; set; }
     }
 }
