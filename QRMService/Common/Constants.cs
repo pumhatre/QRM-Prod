@@ -327,6 +327,19 @@ namespace QRMService.Common
             EffortVariance,
             Rework
         }
+
+        public enum TestingMetricsColum
+        {
+            DashBoardType,
+            TestDesignProductivity,
+            TestExecutionProductivity,
+            TestExecutionDefectDensity
+            
+        }
+
+
+       
+
     }
 
 

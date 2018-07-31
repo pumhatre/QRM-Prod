@@ -1625,8 +1625,40 @@ namespace QRMService.Repositories
         #endregion
 
 
-        public static List<TestingMetrics> GetTestingMetricsData()
+        public static List<TestingMetrics> GetTestingMetricsData(Guid runId,TestingMetricsRequestModel requestModel)
         {
+            var helper = new SqlClientHelper();
+            List<TestingMetrics> TestingMetricsList = new List<TestingMetrics>();
+            int executionStep = 0;
+            string createdby = "1";
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", executionStep));
+            parameters.Add(new KeyValuePair<string, object>("CreatedBy", createdby));
+            parameters.Add(new KeyValuePair<string, object>("ProjectId", requestModel.ProjectId));
+            parameters.Add(new KeyValuePair<string, object>("ReleaseId", requestModel.ReleaseId));
+            parameters.Add(new KeyValuePair<string, object>("MonthId", requestModel.MonthId));
+            parameters.Add(new KeyValuePair<string, object>("TestingPhase", requestModel.TestingPhase));
+            parameters.Add(new KeyValuePair<string, object>("Iteration", requestModel.Iteration));
+            parameters.Add(new KeyValuePair<string, object>("TestingSubPhase", requestModel.TestingSubPhase));
+            parameters.Add(new KeyValuePair<string, object>("TestingType", requestModel.TestingType));
+            parameters.Add(new KeyValuePair<string, object>("ManualOrAutomated", requestModel.ManualOrAutomated));
+            DataTable data = null;
+                //helper.GetDataTableByProcedure(Constants.UspGetDefectDensityEnhancedByProject, "default", true, parameters.ToArray());
+
+            if (data != null && data.Rows.Count > 0)
+            {
+                data.AsEnumerable().ToList().ForEach(row =>
+                {
+                    TestingMetricsList.Add(new TestingMetrics
+                    {
+                       DashBoardType  = row.Field<string>(Constants.TestingMetricsColum.DashBoardType.ToString()),
+                        TestDesignProductivity = row.Field<int>(Constants.TestingMetricsColum.TestDesignProductivity.ToString()),
+                        TestExecutionDefectDensity = row.Field<int>(Constants.TestingMetricsColum.TestExecutionDefectDensity.ToString()),
+                        TestExecutionProductivity = row.Field<int>(Constants.TestingMetricsColum.TestExecutionProductivity.ToString()),
+                    });
+                });
+            }
             return new List<TestingMetrics>();
         }
 
