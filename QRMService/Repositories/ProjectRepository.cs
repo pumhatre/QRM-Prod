@@ -20,15 +20,34 @@ namespace QRMService.Repositories
             List<SelectListItem> userProjectList = new List<SelectListItem>();
             using (var db = new QRMEntities())
             {
+                var role = (from p in db.UserDetails
+                            join r in db.RoleMasters on p.RoleId equals r.RoleId where r.IsActive == "Y" && p.UserId == UserId
+                            select r.RoleName).ToList().FirstOrDefault();
+                List<SelectListItem> userProjects= new List<SelectListItem>();
+                if (role.ToString() != "SuperUser")
+                {
 
-                var userProjects = (from pm in db.ProjectMasters
-                                    join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
-                                    where od.UserId == UserId && pm.IsActive == true
-                                    select new SelectListItem
-                                    {
-                                        Text = pm.ProjectName,
-                                        Value = pm.ProjectID.ToString(),
-                                    }).ToList();
+                     userProjects = (from pm in db.ProjectMasters
+                                        join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
+                                        where od.UserId == UserId && pm.IsActive == true
+                                        select new SelectListItem
+                                        {
+                                            Text = pm.ProjectName,
+                                            Value = pm.ProjectID.ToString(),
+                                        }).ToList();
+                }
+                else
+                {
+                    userProjects = db.ProjectMasters
+                    .Where(a => a.IsActive == true)
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.ProjectName,
+                        Value = a.ProjectID.ToString()
+                    }).OrderBy(b => b.Text).ToList();
+                }
+
+
                 if (userProjects.Count > 0 && userProjects != null)
                 {
                     foreach (var item in userProjects)
