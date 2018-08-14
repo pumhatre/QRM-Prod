@@ -49,6 +49,8 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 $scope.projectTestingGrid.data = [];
                 $scope.projectWidgetGrid.data = [];
                 $scope.projectVarianceGrid.data = [];
+                $scope.projectVarianceGridtwo.data = [];
+                $scope.projectVarianceGridthree.data = [];
                 $scope.selectedProjectId = projectId;
                 $scope.LoadProjectEffortByProject();
             }
@@ -105,7 +107,10 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
                   .then(function (successResponse) {
                       $scope.projectPerformanceGridLoading = false;
-                      $scope.projectVarianceGrid.data = successResponse.data;
+                     
+                      $scope.projectVarianceGrid.data = successResponse.data.projectVariances;
+                      $scope.projectVarianceGridtwo.data = successResponse.data.projectVariancesTwo;
+                      $scope.projectVarianceGridthree.data = successResponse.data.projectVariancesThree;
                   }, function (errorResponse) {
                       $scope.projectPerformanceGridLoading = false;
                   });
@@ -734,6 +739,38 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 $scope.mGridApi = gridApi;
             }
         }
+
+        $scope.projectVarianceGridtwo = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+                { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
+
+
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+        $scope.projectVarianceGridthree = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+                { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
+
+
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();

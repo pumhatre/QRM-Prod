@@ -43,6 +43,7 @@ namespace QRMService.Common
         public const string UspExecuteDashboard = "[Dbo].[ExecuteMatricsProcedure]";
         public const string UspGetProjectData = "[Dbo].[UspGetProjectData]";
         public const string uspGetSystemTestingMetricDashboard = "[Dbo].[uspGetSystemTestingMetricDashboard]";
+        public const string uspGenerateProjectPerformance = "[Dbo].[uspGenerateProjectPerformance]";
 
         #region Charts
         public const string UspGetEffortDistribution = "[Dbo].[uspGetEffortDistribution]";
@@ -337,7 +338,13 @@ namespace QRMService.Common
             
         }
 
-
+        public enum ProjectPerformance
+        {
+            FDDEffort,
+            TDDEffort,
+            CodingEffort,
+            UTEffort
+        }
        
 
     }

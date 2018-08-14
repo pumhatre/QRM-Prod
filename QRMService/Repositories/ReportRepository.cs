@@ -314,8 +314,10 @@ namespace QRMService.Repositories
         /// <param name="executionStep">The execution step.</param>
         /// <param name="createdby">The createdby.</param>
         /// <returns></returns>
-        public static List<ProjectVariance> GetProjectVariance(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
+        public static ProjectVarianceList GetProjectVariance(Guid runId, int ProjectId, int ReleaseId, int MonthId, int executionStep = 0, int createdby = 1)
         {
+
+            ProjectVarianceList projectVariances = new ProjectVarianceList();
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("RunId", runId));
@@ -343,7 +345,161 @@ namespace QRMService.Repositories
                     });
                 });
             }
-            return projectVariance;
+
+
+
+            projectVariances.projectVariances= projectVariance;           
+            DataTable dtDefects = helper.GetDataTableByProcedure(Constants.UspGetProjectDefectDashboard, "default", true, parameters.ToArray());
+            List<ProjectVarianceLst> projectVarianceslst = new List<ProjectVarianceLst>();
+            List<ProjectVarianceLst> projectVarianceslsttwo = new List<ProjectVarianceLst>();
+            decimal SitClosureRate = 0;
+            decimal SitClosureRateOverall = 0;
+            if (dtDefects != null && dtDefects.Rows.Count > 0)
+            {
+                dtDefects.AsEnumerable().ToList().ForEach(row =>
+                {
+                   if( row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString())== "Functional Design")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Functional Design Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString())==0?"NA": Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) / 
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Technical Design")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Technical Design Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Code Review")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Coding Defect Closure Rate (%)",
+                            ProjectPerformance=row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Unit Test")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Unit Test Defect Closure Rate (%))",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "UAT")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "UAT Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Integ/Pre-SIT")
+                    {
+                        SitClosureRate += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString()));
+                        SitClosureRateOverall += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()));
+                    }
+
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "SIT E2E")
+                    {
+                        SitClosureRate += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString()));
+                        SitClosureRateOverall += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()));
+                    }
+                });
+
+                projectVarianceslst.Add(new ProjectVarianceLst
+                {
+                    Type = "SIT Defect Closure Rate (%)",
+                    ProjectPerformance = SitClosureRateOverall==0? "NA": Convert.ToString(Math.Round(SitClosureRate / SitClosureRateOverall * 100, 2)) + " %"
+                });
+            }
+            
+
+            decimal FDDEffort = 0;
+            decimal TDDEffort = 0;
+            decimal CodingEffort = 0;
+            decimal UTEffort = 0;
+            decimal TotalActualProjectEffort = 0;
+            decimal SITEffort = 0;
+            
+            DataTable dtEffort = helper.GetDataTableByProcedure(Constants.UspGetProjectEffortDashboard, "default", true, parameters.ToArray());
+            if (dtEffort != null && dtEffort.Rows.Count > 0)
+            {
+                dtEffort.AsEnumerable().ToList().ForEach(row =>
+                {
+                   if( row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString())== "Total Project Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString())==
+                    "TotalActual")
+                    {
+                        TotalActualProjectEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                    }
+
+                    if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Testing Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
+                     "TotalActual")
+                    {
+                        SITEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                    }
+
+                });
+            }
+
+            parameters.Remove(new KeyValuePair<string, object>("RunId", runId));
+            parameters.Remove(new KeyValuePair<string, object>("CreatedBy", createdby));
+            DataTable projectPerformance = helper.GetDataTableByProcedure(Constants.uspGenerateProjectPerformance, "default", true, parameters.ToArray());
+            if (projectPerformance != null && projectPerformance.Rows.Count > 0)
+            {
+                projectPerformance.AsEnumerable().ToList().ForEach(row =>
+                {
+                    FDDEffort = row.Field<decimal>(Constants.ProjectPerformance.FDDEffort.ToString());
+                    TDDEffort = row.Field<decimal>(Constants.ProjectPerformance.TDDEffort.ToString());
+                    CodingEffort = row.Field<decimal>(Constants.ProjectPerformance.CodingEffort.ToString());
+                    UTEffort = row.Field<decimal>(Constants.ProjectPerformance.UTEffort.ToString());
+                });
+            }
+            projectVarianceslsttwo.Add(new ProjectVarianceLst
+            {
+                Type = "FDD Effort (%)",
+                ProjectPerformance = TotalActualProjectEffort==0? "NA": Convert.ToString(Math.Round(FDDEffort/TotalActualProjectEffort *100,2)) + "%"
+        });
+
+
+            projectVarianceslsttwo.Add(new ProjectVarianceLst
+            {
+                Type = "TDD Effort (%)",
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(TDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
+        });
+            projectVarianceslsttwo.Add(new ProjectVarianceLst
+            {
+                Type = "Coding Effort (%)",
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(CodingEffort / TotalActualProjectEffort * 100, 2)) + "%"
+        });
+            projectVarianceslsttwo.Add(new ProjectVarianceLst
+            {
+                Type = "UT Effort (%)",
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(UTEffort / TotalActualProjectEffort * 100, 2)) + "%"
+        });
+
+            projectVarianceslsttwo.Add(new ProjectVarianceLst
+            {
+                Type = "SIT Effort (%)",
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(SITEffort / TotalActualProjectEffort * 100, 2)) + "%"
+            });
+                
+
+
+            projectVariances.projectVariancesTwo = projectVarianceslst;
+            projectVariances.projectVariancesThree = projectVarianceslsttwo;
+            return projectVariances;
+
         }
         /// <summary>
         /// Get Project Effort detail
@@ -482,8 +638,9 @@ namespace QRMService.Repositories
         /// </summary>
         /// <param name="ProjectId">The project identifier.</param>
         /// <returns></returns>
-        public static List<ProjectVariance> GetProjectVariance(int ProjectId, int ReleaseId, int MonthId)
+        public static ProjectVarianceList GetProjectVariance(int ProjectId, int ReleaseId, int MonthId)
         {
+            ProjectVarianceList projectVariances = new ProjectVarianceList();
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", ProjectId));
@@ -508,7 +665,162 @@ namespace QRMService.Repositories
                     });
                 });
             }
-            return projectVariance;
+
+            DataTable dtDefects = helper.GetDataTableByProcedure(Constants.UspGetProjectDefectDashboardByProject, "default", true, parameters.ToArray());
+            projectVariances.projectVariances = projectVariance;
+       
+            List<ProjectVarianceLst> projectVarianceslst = new List<ProjectVarianceLst>();
+            List<ProjectVarianceLst> projectVarianceslsttwo = new List<ProjectVarianceLst>();
+            decimal SitClosureRate = 0;
+            decimal SitClosureRateOverall = 0;
+            if (dtDefects != null && dtDefects.Rows.Count > 0)
+            {
+                dtDefects.AsEnumerable().ToList().ForEach(row =>
+                {
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Functional Design")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Functional Design Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Technical Design")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Technical Design Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Code Review")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Coding Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Unit Test")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "Unit Test Defect Closure Rate (%))",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "UAT")
+                    {
+                        projectVarianceslst.Add(new ProjectVarianceLst
+                        {
+                            Type = "UAT Defect Closure Rate (%)",
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
+                        });
+                    }
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Integ/Pre-SIT")
+                    {
+                        SitClosureRate += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString()));
+                        SitClosureRateOverall += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()));
+                    }
+
+                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "SIT E2E")
+                    {
+                        SitClosureRate += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString()));
+                        SitClosureRateOverall += Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()));
+                    }
+                });
+
+                projectVarianceslst.Add(new ProjectVarianceLst
+                {
+                    Type = "SIT Defect Closure Rate (%)",
+                    ProjectPerformance = SitClosureRateOverall == 0 ? "NA" : Convert.ToString(Math.Round(SitClosureRate / SitClosureRateOverall * 100, 2)) + " %"
+                });
+            }
+
+
+            decimal FDDEffort = 0;
+            decimal TDDEffort = 0;
+            decimal CodingEffort = 0;
+            decimal UTEffort = 0;
+            decimal TotalActualProjectEffort = 0;
+            decimal SITEffort = 0;
+            
+            DataTable dtEffort = helper.GetDataTableByProcedure(Constants.UspGetProjectEffortDashboardByProject, "default", true, parameters.ToArray());
+            if (dtEffort != null && dtEffort.Rows.Count > 0)
+            {
+                dtEffort.AsEnumerable().ToList().ForEach(row =>
+                {
+                    if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Total Project Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
+                     "Total Actual")
+                    {
+                        TotalActualProjectEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                    }
+
+                    if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Testing Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
+                     "Total Actual")
+                    {
+                        SITEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                    }
+
+                });
+            }
+            parameters.Add(new KeyValuePair<string, object>("ExecutionStep", 1));
+            DataTable projectPerformance = helper.GetDataTableByProcedure(Constants.uspGenerateProjectPerformance, "default", true, parameters.ToArray());
+            if (projectPerformance != null && projectPerformance.Rows.Count > 0)
+            {
+                projectPerformance.AsEnumerable().ToList().ForEach(row =>
+                {
+                    FDDEffort = row.Field<decimal>(Constants.ProjectPerformance.FDDEffort.ToString());
+                    TDDEffort = row.Field<decimal>(Constants.ProjectPerformance.TDDEffort.ToString());
+                    CodingEffort = row.Field<decimal>(Constants.ProjectPerformance.CodingEffort.ToString());
+                    UTEffort = row.Field<decimal>(Constants.ProjectPerformance.UTEffort.ToString());
+                });
+
+
+                projectVarianceslsttwo.Add(new ProjectVarianceLst
+                {
+                    Type = "FDD Effort (%)",
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(FDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                });
+
+
+                projectVarianceslsttwo.Add(new ProjectVarianceLst
+                {
+                    Type = "TDD Effort (%)",
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(TDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                });
+                projectVarianceslsttwo.Add(new ProjectVarianceLst
+                {
+                    Type = "Coding Effort (%)",
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(CodingEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                });
+                projectVarianceslsttwo.Add(new ProjectVarianceLst
+                {
+                    Type = "UT Effort (%)",
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(UTEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                });
+
+                projectVarianceslsttwo.Add(new ProjectVarianceLst
+                {
+                    Type = "SIT Effort (%)",
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(SITEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                });
+            }
+
+
+
+
+            projectVariances.projectVariancesTwo = projectVarianceslst;
+            projectVariances.projectVariancesThree = projectVarianceslsttwo;
+            return projectVariances;
+
+            
         }
 
 
@@ -1679,6 +1991,7 @@ namespace QRMService.Repositories
             return TestingMetricsList;
         }
 
+        
 
     }
 

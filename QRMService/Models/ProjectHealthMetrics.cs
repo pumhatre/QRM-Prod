@@ -76,8 +76,17 @@ namespace QRMService.Models
                 return string.Format("{0}%", Convert.ToString(ComponentDefectRejectionRate == "NR" ? 0 : Convert.ToInt32(ComponentDefectRejectionRate.Replace("%","")) + E2EDefectRejectionRate == "NR" ? 0 : Convert.ToInt32(E2EDefectRejectionRate.Replace("%",""))));
             }
         }
-    }
+}
 
+
+    public class ProjectVarianceList
+    {
+        public List<ProjectVariance> projectVariances { get; set; }
+
+        public List<ProjectVarianceLst> projectVariancesTwo { get;set;}
+        public List<ProjectVarianceLst> projectVariancesThree { get; set; }
+
+    }
 
     public class Productivity
     {
@@ -99,6 +108,11 @@ namespace QRMService.Models
         public string TestExecutionDefectDensity { get; set; }
 
 
+    }
+    public class ProjectVarianceLst
+    {
+        public string Type { get; set; }
+        public string ProjectPerformance { get; set; }
     }
 
 

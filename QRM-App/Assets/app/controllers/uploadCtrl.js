@@ -650,10 +650,13 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         $scope.LoadProjectPerformance = function () {
             healthReportService.GetAllProjectVariance(config, parseInt($scope.projectDetails.selectedProjectDropdown), parseInt($scope.projectDetails.selectedReleaseDropdown), parseInt($scope.projectDetails.month))
                   .then(function (successResponse) {
-                      $scope.projectVarianceGrid.data = successResponse.data;
+                      $scope.projectVarianceGrid.data = successResponse.data.projectVariances;
+                      $scope.projectVarianceGridtwo.data = successResponse.data.projectVariancesTwo;
+                      $scope.projectVarianceGridthree.data = successResponse.data.projectVariancesThree;
                   }, function (errorResponse) {
 
-                  });
+                });
+
         }
 
 
@@ -1025,7 +1028,36 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 $scope.mGridApi = gridApi;
             }
         }
- 
+        $scope.projectVarianceGridtwo = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+                { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
+                
+
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
+        $scope.projectVarianceGridthree = {
+            enableSorting: false,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            loading: true,
+            columnDefs: [
+                { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+                { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
+
+
+            ],
+            onRegisterApi: function (gridApi) {
+                $scope.mGridApi = gridApi;
+            }
+        }
 
      
 
