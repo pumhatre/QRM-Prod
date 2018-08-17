@@ -1,5 +1,5 @@
 ﻿angular.module('metricsAssociation', ['ngAnimate', 'ui.multiselect', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
-    .controller('metricsAssociationCtrl', ['$scope', '$http', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', 'ReportService', 'projectUserService', function ($scope, $http, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService, ReportService, projectUserService) {
+    .controller('metricsAssociationCtrl', ['$scope', '$http', '$cookies', '$confirm', 'projectReleaseService', 'config', 'uiGridConstants', 'metricsAssociationService', 'ReportService', 'projectUserService', function ($scope, $http,$cookies, $confirm, projectReleaseService, config, uiGridConstants, metricsAssociationService, ReportService, projectUserService) {
         $scope.projectsDropdown = [];
         $scope.projectsReleases = [];
         $scope.monthList = [];
@@ -21,7 +21,8 @@
 
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
-            projectReleaseService.GetProjectsLists(config)
+            var UserId = $cookies.get('_UserId');            
+            projectReleaseService.GetProjectsLists(config, UserId)
                 .then(function (successResponse) {
                     $scope.projectsDropdown = successResponse.data;
                 }, function (errorResponse) {

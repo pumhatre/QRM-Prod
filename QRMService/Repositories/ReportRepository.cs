@@ -180,10 +180,10 @@ namespace QRMService.Repositories
                     {
                         DashBoardType = row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()),
                         DashboardSubtype = row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()),
-                        CompleteHours = row.Field<int>(Constants.ProjectEffortColumnName.Complete.ToString()),
-                        WIPHours = row.Field<int>(Constants.ProjectEffortColumnName.WorkinProgress.ToString()),//Not taking from enum because sp is returning the value in spaces.
-                        NotStartedHours = row.Field<int>(Constants.ProjectEffortColumnName.NotStarted.ToString()),//Not taking from enum because sp is returning the value in spaces.
-                        TotalHours = row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString())
+                        CompleteHours = row.Field<int?>(Constants.ProjectEffortColumnName.Complete.ToString()),
+                        WIPHours = row.Field<int?>(Constants.ProjectEffortColumnName.WorkinProgress.ToString()),//Not taking from enum because sp is returning the value in spaces.
+                        NotStartedHours = row.Field<int?>(Constants.ProjectEffortColumnName.NotStarted.ToString()),//Not taking from enum because sp is returning the value in spaces.
+                        TotalHours = row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString())
 
                     });
                 });
@@ -440,13 +440,13 @@ namespace QRMService.Repositories
                    if( row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString())== "Total Project Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString())==
                     "TotalActual")
                     {
-                        TotalActualProjectEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                        TotalActualProjectEffort = Convert.ToDecimal(row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()));
                     }
 
                     if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Testing Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
                      "TotalActual")
                     {
-                        SITEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                        SITEffort = Convert.ToDecimal(row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()));
                     }
 
                 });
@@ -523,10 +523,10 @@ namespace QRMService.Repositories
                     {
                         DashBoardType = row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()),
                         DashboardSubtype = row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()),
-                        CompleteHours = row.Field<int>(Constants.ProjectEffortColumnName.Complete.ToString()),
-                        WIPHours = row.Field<int>(Constants.ProjectEffortColumnName.WorkinProgress.ToString()),//Not taking from enum because sp is returning the value in spaces.
-                        NotStartedHours = row.Field<int>(Constants.ProjectEffortColumnName.NotStarted.ToString()),//Not taking from enum because sp is returning the value in spaces.
-                        TotalHours = row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()),
+                        CompleteHours = row.Field<int?>(Constants.ProjectEffortColumnName.Complete.ToString()),
+                        WIPHours = row.Field<int?>(Constants.ProjectEffortColumnName.WorkinProgress.ToString()),//Not taking from enum because sp is returning the value in spaces.
+                        NotStartedHours = row.Field<int?>(Constants.ProjectEffortColumnName.NotStarted.ToString()),//Not taking from enum because sp is returning the value in spaces.
+                        TotalHours = row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()),
                         ReleaseId = row.Field<int>(Constants.ProjectEffortColumnName.ReleaseId.ToString()),
                         MonthId = row.Field<int>(Constants.ProjectEffortColumnName.MonthId.ToString())
                     });
@@ -759,13 +759,13 @@ namespace QRMService.Repositories
                     if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Total Project Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
                      "Total Actual")
                     {
-                        TotalActualProjectEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                        TotalActualProjectEffort = Convert.ToDecimal(row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()));
                     }
 
                     if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Testing Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
                      "Total Actual")
                     {
-                        SITEffort = Convert.ToDecimal(row.Field<int>(Constants.ProjectEffortColumnName.Total.ToString()));
+                        SITEffort = Convert.ToDecimal(row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()));
                     }
 
                 });

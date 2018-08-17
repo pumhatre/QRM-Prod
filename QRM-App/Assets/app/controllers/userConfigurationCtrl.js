@@ -1,5 +1,5 @@
 ﻿angular.module('userConfiguration', [])
-    .controller('userConfigurationCtrl', ['$scope', '$http', '$confirm', 'roleService', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http, $confirm, uiGridConstants, roleService, projectReleaseService, userDetailsService, config) {
+    .controller('userConfigurationCtrl', ['$scope', '$http', '$cookies', '$confirm', 'roleService', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http,$cookies, $confirm, uiGridConstants, roleService, projectReleaseService, userDetailsService, config) {
         $scope.arr = [];
         $scope.alerts = [];
         $scope.myData;
@@ -14,7 +14,8 @@
         $scope.showErrorMessage = false;
         $scope.responseMessage = "";
         $scope.LoadProjectsDropDown = function () {
-            projectReleaseService.GetProjectsLists(config)
+            var UserId = $cookies.get('_UserId');
+            projectReleaseService.GetProjectsLists(config, UserId)
                 .then(function (successResponse) {
                     $scope.projectsDropdown = successResponse.data;
                 }, function (errorResponse) {
