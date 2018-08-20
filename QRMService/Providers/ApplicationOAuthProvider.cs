@@ -35,8 +35,8 @@ namespace QRMService.Providers
 
                 context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
                 // call FindIt business layer for login
-                var userDetails = LoginRepository.ValidateUser(new UserDetails { UserName=context.UserName, Password=context.Password});
-                if (userDetails==null)
+                var userDetails = LoginRepository.ValidateUser(new UserDetails { UserName = context.UserName, Password = context.Password });
+                if (userDetails == null)
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
@@ -50,10 +50,14 @@ namespace QRMService.Providers
                 // add more user details to return with token
                 var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    { "UserId", userDetails.UserId.ToString() },
+                   { "UserId", userDetails.UserId.ToString() },
                     { "UserName", userDetails.UserName },
                     { "RoleId", userDetails.RoleId.ToString() },
-                    { "RoleName", userDetails.RoleName.ToString() }
+                    { "RoleName", userDetails.RoleName },
+                    { "FirstName", !string.IsNullOrEmpty(userDetails.FirstName)?userDetails.FirstName:string.Empty },
+                    { "MiddleName", !string.IsNullOrEmpty(userDetails.LastName)?userDetails.LastName:string.Empty },
+                    { "LastName", !string.IsNullOrEmpty(userDetails.MiddleName)?userDetails.MiddleName:string.Empty },
+                    { "Email", !string.IsNullOrEmpty(userDetails.Email)?userDetails.Email:string.Empty }
                 });
 
                 var ticket = new AuthenticationTicket(identity, props);

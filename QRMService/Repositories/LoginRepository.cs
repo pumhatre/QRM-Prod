@@ -26,7 +26,11 @@ namespace QRMService.Repositories
                             UserName = u.UserName,
                             UserId = u.UserId,
                             RoleId = r.RoleId,
-                            RoleName = r.RoleName
+                            RoleName = r.RoleName,
+                            FirstName = u.FirstName,
+                            MiddleName = u.MiddleName,
+                            LastName = u.LastName,
+                            Email = u.Email
                         }).FirstOrDefault();
             }
         }
