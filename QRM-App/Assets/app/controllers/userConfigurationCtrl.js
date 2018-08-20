@@ -1,5 +1,5 @@
 ﻿angular.module('userConfiguration', [])
-    .controller('userConfigurationCtrl', ['$scope', '$http', '$cookies', '$confirm', 'roleService', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http,$cookies, $confirm, uiGridConstants, roleService, projectReleaseService, userDetailsService, config) {
+    .controller('userConfigurationCtrl', ['$scope', '$http', '$cookies', '$confirm', 'roleService', 'uiGridConstants', 'projectReleaseService', 'userDetailsService', 'config', function ($scope, $http, $cookies, $confirm, uiGridConstants, roleService, projectReleaseService, userDetailsService, config) {
         $scope.arr = [];
         $scope.alerts = [];
         $scope.myData;
@@ -89,40 +89,59 @@
 
             $scope.showErrorMessage = false;
             $scope.responseMessage = "";
-
-            var ProjectRelease = $scope.selectedProjectReleaseDropdown;
-            var index = $scope.gridOptions1.data.indexOf(row);
-            $scope.gridOptions1.data[0].editable = false;
             $scope.User = {};
-            $scope.User.userId = row.userId;
-            $scope.User.firstName = row.firstName;
-            $scope.User.middleName = row.middleName;
-            $scope.User.lastName = row.lastName;
-            $scope.User.email = row.email;
-            $scope.User.phone = row.phone;
-            $scope.User.roleId = row.roleId;
-            $scope.User.projectId = row.projectId;
-            $scope.User.roleName = row.roleName;
-
-            $scope.User.projectName = row.projectName;
-
-            if ($scope.User.email == undefined) {
-                
-               // $scope.GetUsers();
-                $scope.alerts.push({
-                    msg: 'Email Id is required',
-                    type: 'danger'
-                });
-                
-               
+            var isValidData = true;
+            if (row.firstName) {
+                $scope.User.firstName = row.firstName;
             }
             else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'First name is required',
+                    type: 'danger'
+                });
+            }
+            if (row.email) {
+                $scope.User.email = row.email;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Email is required',
+                    type: 'danger'
+                });
+            }
+
+            if (row.roleId) {
+                $scope.User.roleId = row.roleId;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Role is required',
+                    type: 'danger'
+                });
+            }
+
+            if (isValidData) {
+                var ProjectRelease = $scope.selectedProjectReleaseDropdown;
+                var index = $scope.gridOptions1.data.indexOf(row);
+                $scope.gridOptions1.data[0].editable = false;               
+                $scope.User.userId = row.userId;
+                $scope.User.middleName = row.middleName;
+                $scope.User.lastName = row.lastName;
+                $scope.User.phone = row.phone;
+                $scope.User.projectId = row.projectId;
+                $scope.User.roleName = row.roleName;
+
+                $scope.User.projectName = row.projectName;
+
                 userDetailsService.InsertUpdateUser($scope.User, config).then(function (response) {
                     if (response.data.IsSuccess) {
                         $scope.GetUsers();
                         $scope.alerts.push({
                             msg: 'User Updated Successfully',
-                            type: 'Success'
+                            type: 'success'
                         });
                     } else {
                         $scope.alerts.push({
@@ -133,11 +152,11 @@
                 }, function (error) {
                     $scope.alerts.push({
                         msg: error.data.ResponseMessage,
-                        type: 'Success'
+                        type: 'danger'
                     });
                 });
+
             }
-            //}
 
         }
 
@@ -195,14 +214,14 @@
                      //    name: 'ProjectName', displayName: "Project Name", field: "projectName", enableColumnMenu: false, width: '10%',
                      //    cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.projectId"><option value="">Select Project</option> <option ng-repeat="proj in grid.appScope.projects" value="{{proj.Value}}">{{proj.Text}}</option> </select></div>'
                      //},
-                    { field: 'firstName', name: 'First Name', cellTemplate: tmpl },
+                    { field: 'firstName', name: 'First Name', cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input placeholder="Required" ng-model="MODEL_COL_FIELD"></div>' },
                     { field: 'userId', name: 'User Id', visible: false },
                     { field: 'userProjectRoleId', name: 'User Project Role Id', visible: false },
                     { field: 'middleName', name: 'Middle Name', cellTemplate: tmpl },
                     { field: 'lastName', name: 'Last Name', cellTemplate: tmpl },
                     {
                         field: 'email', name: 'Email', width: '15%', cellTemplate:
-                        '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input ng-model="MODEL_COL_FIELD" type="email" required></div>'
+                        '<div style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><input placeholder="Required" ng-model="MODEL_COL_FIELD" type="email"></div>'
                     },
                     {
                         field: 'phone', name: 'Phone', cellTemplate:
@@ -213,7 +232,7 @@
                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editable">{{COL_FIELD}}</div><div ng-if="row.entity.editable"><select ng-model="row.entity.roleId"><option value="">Select Role</option> <option ng-repeat="role in grid.appScope.roles" value="{{role.Value}}">{{role.Text}}</option> </select></div>'
                     },
                     {
-                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '12%',
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
                         cellTemplate: '<div style="padding: 5px !important; text-align: center;"><button ng-show="!row.entity.editable" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button  ng-show="row.entity.editable" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
                         '<button  ng-show="row.entity.editable" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
