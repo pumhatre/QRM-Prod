@@ -167,6 +167,9 @@ app.controller('AppController', ['$scope', '$cookies', '$cookieStore', 'Auth',
       
         $scope.IsSuperUser = $cookies.get('_IsSuperUser');
         $scope.UserName = $cookies.get('_UserName');
+        $scope.FirstName = $cookies.get('_FirstName');
+        $scope.LastName = $cookies.get('_LastName');
+        $scope.Email = $cookies.get('_Email');
 
         $scope.$watch(Auth.isLoggedIn, function (value, oldValue) {
             if (!value && oldValue) {
@@ -182,7 +185,10 @@ app.run(['$http', '$cookies', '$rootScope', '$cookieStore', function ($http, $co
   
     $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('_Token');  
     $http.defaults.headers.common.RefreshToken = $cookies.get('_RefreshToken');   
-    $rootScope.RoleName = $cookies.get('_IsSuperUser'); 
+    $rootScope.RoleName = $cookies.get('_IsSuperUser');
+    $rootScope.FirstName = $cookies.get('_FirstName');
+    $rootScope.LastName = $cookies.get('_LastName');
+    $rootScope.Email = $cookies.get('_Email');
 }]);
 
 
@@ -228,6 +234,12 @@ app.run(['$rootScope', '$http', '$cookies',  '$cookieStore', function ($rootScop
                 $cookies.remove("_UserId", { path: "/app" });
                 $cookies.remove("_UserName", { path: "/app" });
                 $cookies.remove("_RoleName", { path: "/app" });
+                $cookies.remove("_FirstName", { path: "/" });
+                $cookies.remove("_LastName", { path: "/" });
+                $cookies.remove("_Email", { path: "/" });
+                $cookies.remove("_FirstName", { path: "/app" });
+                $cookies.remove("_LastName", { path: "/app" });
+                $cookies.remove("_Email", { path: "/app" });
                 //
                 window.location.href = '/app/SignIn';                              
             });

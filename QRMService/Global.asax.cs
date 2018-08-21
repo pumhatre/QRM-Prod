@@ -19,5 +19,16 @@ namespace QRMService
             //RouteConfig.RegisterRoutes(RouteTable.Routes);
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        void Application_Error(object sender, EventArgs e)
+        {
+            // Code that runs when an unhandled error occurs
+
+            // Get the exception object.
+            Exception exc = Server.GetLastError();            
+
+            // Clear the error from the server
+            Server.ClearError();
+        }
     }
 }

@@ -66,7 +66,7 @@
                             <!--<img src="images/img1.jpg" alt="..." class="img-circle profile_img">-->
                         </div>
                         <div class="profile_info">
-                            <span>Welcome <span style="font-weight:bold;">{{UserName}}</span></span>
+                            <span>Welcome, <span style="font-weight:bold;">{{FirstName}}</span></span>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -85,9 +85,8 @@
                                 <li ng-if="IsSuperUser=='true'">
                                     <a><i class="fa fa-wrench"></i> Configuration  <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li>
-                                            <i class="fa fa-chevron-down"></i> <a href="#!/Projects">Project</a>
-                                            <ul class="nav">
+                                        <li> <a href="#!/Projects">Project <span class="fa fa-chevron-down" /></a>
+                                            <ul class="nav child_menu">
                                                 <li>
                                                     <a href="#!/MetricsAssociation">Association</a>
                                                 </li>
@@ -123,14 +122,8 @@
                     <!-- /sidebar menu -->
                     <!-- /menu footer buttons -->
                     <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
                         <a data-toggle="tooltip" data-placement="top" title="FullScreen">
                             <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="Logout" ng-click="logout()">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -151,18 +144,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <!--<img src="images/img.jpg" alt="">-->My Profile
-                                    <span class=" fa fa-angle-down"></span>
+                                    <!--<img src="images/img.jpg" alt="">-->Welcome, {{ FirstName }}
+                                    <span class="fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a></li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="javascript:;">Help</a></li>
+                                  
                                     <li><a ng-click="logout()"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                                 </ul>
                             </li>

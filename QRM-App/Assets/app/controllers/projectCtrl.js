@@ -83,6 +83,8 @@
         //function to be called on row edit button click
         //Passing the selected row object as parameter, we use this row object to identify  the edited row
         $scope.edit = function (row) {
+            var reviewDate = new Date(row.ReviewDate);
+            row.ReviewDate = reviewDate;
             $scope.mode = 'Update';
             //Get the index of selected row from row object
             var index = $scope.gridOptions.data.indexOf(row);
@@ -105,43 +107,137 @@
         //Function to save the data
         //Here we pass the row object as parmater, we use this row object to identify  the edited row
         $scope.updateRow = function (row) {
+            var isValidData=true;
             //get the index of selected row 
             var index = $scope.gridOptions.data.indexOf(row);
-            //Remove the edit mode when user click on Save button
-            $scope.gridOptions.data[index].editrow = false;
+            
 
             //Assign the updated value to Customer object
             $scope.Project = {};
             $scope.Project.ProjectID = row.ProjectID;
-            $scope.Project.ProjectName = row.ProjectName;
-            $scope.Project.ServiceLineCode = row.ServiceLineCode;
-            $scope.Project.ProjectManager = row.ProjectManager;
-            $scope.Project.ClientName = row.ClientName;
-            $scope.Project.TechnologyCode = row.TechnologyCode;
-            $scope.Project.IndustryCode = row.IndustryCode;
-            $scope.Project.LifeCycle = row.LifeCycle;
-            $scope.Project.Director = row.Director;
-            $scope.Project.SeniorManager = row.SeniorManager;
-            $scope.Project.QualityController = row.QualityController;
-            $scope.Project.ReviewDate = row.ReviewDate;
-
-            //Call the function to save the data to database
-            projectService.InsertUpdateProjectMaster($scope.Project, config).then(function (response) {
-                if (response.data.IsSuccess) {
-                    $scope.loadProjects();
-                    $scope.alerts.push({
-                        msg: 'Project updated successfully',
-                        type: 'success'
-                    });
-                }
-
-            }, function (error) {
-                //Display Error message if any error occurs
+            if (row.ProjectName) {
+                $scope.Project.ProjectName = row.ProjectName;
+            }
+            else {
+                isValidData = false;
                 $scope.alerts.push({
-                    msg: error.data.ResponseMessage,
+                    msg: 'Project Name is required',
                     type: 'danger'
                 });
-            });
+            }
+            if (row.ServiceLineCode) {
+                $scope.Project.ServiceLineCode = row.ServiceLineCode;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Offerings is required',
+                    type: 'danger'
+                });
+            }
+            if (row.ProjectManager) {
+                $scope.Project.ProjectManager = row.ProjectManager;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Project Manager Name is required',
+                    type: 'danger'
+                });
+            }
+            if (row.ClientName) {
+                $scope.Project.ClientName = row.ClientName;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Client Name is required',
+                    type: 'danger'
+                });
+            }
+            if (row.TechnologyCode) {
+                $scope.Project.TechnologyCode = row.TechnologyCode;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Technology is required',
+                    type: 'danger'
+                });
+            }
+            if (row.IndustryCode) {
+                $scope.Project.IndustryCode = row.IndustryCode;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Industry is required',
+                    type: 'danger'
+                });
+            }
+            if (row.LifeCycle) {
+                $scope.Project.LifeCycle = row.LifeCycle;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Life Cycle is required',
+                    type: 'danger'
+                });
+            }
+            if (row.Director) {
+                $scope.Project.Director = row.Director;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Director Name is required',
+                    type: 'danger'
+                });
+            }
+            if (row.SeniorManager) {
+                $scope.Project.SeniorManager = row.SeniorManager;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Senior Manager Name is required',
+                    type: 'danger'
+                });
+            }
+            if (row.ReviewDate) {
+                $scope.Project.ReviewDate = row.ReviewDate;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Review Date is required',
+                    type: 'danger'
+                });
+            }
+            $scope.Project.QualityController = row.QualityController;
+
+            if (isValidData) {
+                //Remove the edit mode when user click on Save button
+                $scope.gridOptions.data[index].editrow = false;
+                //Call the function to save the data to database
+                projectService.InsertUpdateProjectMaster($scope.Project, config).then(function (response) {
+                    if (response.data.IsSuccess) {
+                        $scope.loadProjects();
+                        $scope.alerts.push({
+                            msg: 'Project updated successfully',
+                            type: 'success'
+                        });
+                    }
+
+                }, function (error) {
+                    //Display Error message if any error occurs
+                    $scope.alerts.push({
+                        msg: error.data.ResponseMessage,
+                        type: 'danger'
+                    });
+                });
+            }
         };
 
 
@@ -184,7 +280,7 @@
                 columnDefs: [
                     {
                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: 'ServiceLine', displayName: "Offerings", field: "ServiceLine", enableColumnMenu: false, width: '10%',
@@ -192,19 +288,19 @@
                     },
                     {
                         name: 'ProjectManager', displayName: "Project Manager", field: "ProjectManager", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                       {
                           name: 'SeniorManager', displayName: "Senior Manager", field: "SeniorManager", enableColumnMenu: false, width: '10%',
-                          cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                          cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                       },
                        {
                            name: 'Director', displayName: "Director", field: "Director", enableColumnMenu: false, width: '12%',
-                           cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                           cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                        },
                     {
                         name: 'ClientName', displayName: "Client Name", field: "ClientName", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                        cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '7%',
@@ -216,7 +312,7 @@
                     },
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
+                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: 'QualityController', displayName: "QC", field: "QualityController", enableColumnMenu: false, width: '7%',
@@ -225,7 +321,7 @@
 
                     {
                         name: 'ReviewDate', displayName: "Review Date", field: "ReviewDate", enableColumnMenu: false, width: '12%',
-                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input type="date" ng-model="MODEL_COL_FIELD"></div>' 
+                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input  placeholder="Required" type="date" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
