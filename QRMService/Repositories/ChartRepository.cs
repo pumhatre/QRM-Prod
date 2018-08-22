@@ -453,7 +453,7 @@ namespace QRMService.Repositories
                         chartDataModelR.labels.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
                         // set values data
                         // set for rework
-                        chartDataModelR.values.Add(row.Field<int>(ProjectPerformanceColumns.Rework.ToString()));
+                        chartDataModelR.values.Add(row.Field<int?>(ProjectPerformanceColumns.Rework.ToString())==null?0:row.Field<int>(ProjectPerformanceColumns.Rework.ToString()));
                     });
                     foreach (var item in chartDataModelR.values)
                     {
