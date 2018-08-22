@@ -95,7 +95,7 @@ namespace QRMService.Models
         public int spanEffort { get; set; }
         public decimal? USL { get; set; }
         public decimal? LSL { get; set; }
-        public decimal? ProjectPerformance { get; set; }
+        public string ProjectPerformance { get; set; }
     }
 
 
