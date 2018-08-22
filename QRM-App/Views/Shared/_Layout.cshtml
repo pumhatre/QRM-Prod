@@ -104,7 +104,7 @@
                                         <span class="fa fa-chevron-down"></span>
                                     </a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#!/Upload">Upload Wizard</a></li>
+                                        <li><a onclick="Redirect()">Upload Wizard</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -220,6 +220,9 @@
         $('body').tooltip({
             selector: '[data-toggle= "tooltip"]'
         });
+        function Redirect() {
+            window.location.href = '/app/qrm/#!Upload';
+        }
     </script>
 </body>
 </html>
