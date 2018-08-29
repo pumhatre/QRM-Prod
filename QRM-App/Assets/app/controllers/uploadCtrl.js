@@ -922,7 +922,8 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 { field: 'UnitTestEffectiveness', name: 'Unit Test Effectiveness (%)', width: '15%', cellTemplate: varianceTempl },
                 { field: 'SystemTestEffectiveness', name: 'System Test Effectiveness (%)', cellTemplate: varianceTempl, width: '15%' },
                 { field: 'SITDefectDetectionRate', name: 'SIT Defect Detection Rate (Defects per Hr)', displayName: 'SIT Defect Detection Rate (Defects per Hr)', cellTemplate: varianceTempl, width: '20%' },
-                { field: 'RejectionRate', name: 'Rejection Rate (%)', cellTemplate: varianceTempl, width: '20%' }
+                { field: 'ComponentDefectRejectionRate', name: 'Rejection Rate (%)', cellTemplate: varianceTempl, width: '20%' },
+                { field: 'E2EDefectRejectionRate', name: 'Retest Rejection Rate (%)', cellTemplate: varianceTempl, width: '20%' }
             ],
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;

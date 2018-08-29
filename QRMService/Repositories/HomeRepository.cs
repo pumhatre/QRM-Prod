@@ -90,6 +90,13 @@ namespace QRMService.Repositories
                     }
                 }
             }
+
+            foreach (var project in userProjectList)
+            {
+                DateTime revDate = DateTime.Parse(project.reviewDate);
+                project.reviewDate = revDate.ToString("MM/dd/yyyy");
+            }
+
             return userProjectList;
         }
     }

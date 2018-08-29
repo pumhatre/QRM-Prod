@@ -277,10 +277,14 @@
                         ExcelName: "Total Defects found",
                         Datatype: "int"
                     },
-                    //"DefectsRejected": {
-                    //    ExcelName: "Defects Fix Rejected",
-                    //    Datatype: "int"
-                    //},
+                    "DefectsRejected": {
+                        ExcelName: "Defects Rejected (rejected by Dev team)",
+                        Datatype: "int"
+                    },
+                    "DefectsRejectedByQA": {
+                        ExcelName: "Defects Retest Rejected (rejected by QA team)",
+                        Datatype: "int"
+                    },
                     "Iteration" : {
                         ExcelName: "Iteration/Cycle",
                         Datatype: "string"
@@ -378,12 +382,14 @@
     }
 
     this.SaveExcelData = function (data) {
+        debugger;
         var updatedData = {};
         var map = {
             "Effort Data": "EffortData",
             "Defect Data": "DefectData",
             "Testing Data": "TestingData"
         };
+        debugger;
         _.each(data, function (value, key) {
             key = map[key] || key;
             updatedData[key] = value;
