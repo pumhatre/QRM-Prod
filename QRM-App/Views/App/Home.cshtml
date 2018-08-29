@@ -145,7 +145,7 @@
                                         <div class="x_panel tile fixed_height_420">
                                             <div class="x_content">
                                                 <div class="form-group">
-                                                    <div class="row">
+                                                    <div class="row" ng-hide="displayLSL">
                                                         <div class="col-md-6">
                                                             <div class="text-center">
                                                                 <br />
@@ -183,7 +183,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <div class="row" ng-show="ShowNoData">
+                                                       <p style="text-align:center;font-size:20px;"> No Data</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

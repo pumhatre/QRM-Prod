@@ -15,7 +15,8 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
     .controller('homeCtrl', ['$scope', 'homeService', 'healthReportService', 'chartService', 'mySavedReportService', '$cookies', '$cookieStore', 'config', 'uiGridConstants', '$templateCache', '$location', '$rootScope', function ($scope, homeService, healthReportService, chartService, mySavedReportService, $cookies, $cookieStore, config, uiGridConstants, $templateCache, $location, $rootScope) {
         $scope.projectGrid = {};
         $scope.savedReportsGrid = {};
-
+        $scope.displayLSL = false;
+        $scope.ShowNoData = false;
         $scope.LoadMyUpcomingReview = function () {
             homeService.GetProjectReviewDetail(config, userId)
                   .then(function (successResponse) {
@@ -142,7 +143,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                   $scope.ReworkPercentOptions = [];
                                   $scope.ReworkPercentColors = [];
                                   $scope.ReworkPercentOverride = [];
-
+                                  debugger;
                                   if (successResponse.data) {
                                       if (successResponse.data[0]) {
                                           // set data for effort variance graph
@@ -194,6 +195,10 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.EffortVariancePercentOverride[i].highlightStroke = successResponse.data[0].colors[i];
                                           }
                                       }
+                                      else {
+                                          $scope.displayLSL = true;
+                                          $scope.ShowNoData = true;
+                                      }
                                       if (successResponse.data[1]) {
                                           // set data for rework graph
                                           $scope.ReworkPercentOptions = {
@@ -244,6 +249,14 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                               $scope.ReworkPercentOverride[i].highlightStroke = successResponse.data[1].colors[i];
                                           }
                                       }
+                                      else {
+                                          $scope.displayLSL = true;
+                                          $scope.ShowNoData = true;
+                                      }
+                                  }
+                                  else {
+                                      $scope.displayLSL = true;
+                                      $scope.ShowNoData = true;
                                   }
 
                               }, function (errorResponse) {
