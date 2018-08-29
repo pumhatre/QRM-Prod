@@ -22,8 +22,8 @@ namespace QRMService.DataBase
             this.EffortDataStagings = new HashSet<EffortDataStaging>();
             this.EffortDetails = new HashSet<EffortDetail>();
             this.ProjectMetricAssociations = new HashSet<ProjectMetricAssociation>();
-            this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
+            this.TestingDataStagings = new HashSet<TestingDataStaging>();
         }
     
         public int MonthId { get; set; }
@@ -44,8 +44,8 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDetail> TestingDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
     }
 }
