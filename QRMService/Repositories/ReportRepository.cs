@@ -358,34 +358,6 @@ namespace QRMService.Repositories
             {
                 dtDefects.AsEnumerable().ToList().ForEach(row =>
                 {
-                   if( row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString())== "Functional Design")
-                    {
-                        projectVarianceslst.Add(new ProjectVarianceLst
-                        {
-                            Type = "Functional Design Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString())==0?"NA": Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) / 
-                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
-                        });
-                    }
-
-                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Technical Design")
-                    {
-                        projectVarianceslst.Add(new ProjectVarianceLst
-                        {
-                            Type = "Technical Design Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
-                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
-                        });
-                    }
-                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Code Review")
-                    {
-                        projectVarianceslst.Add(new ProjectVarianceLst
-                        {
-                            Type = "Coding Defect Closure Rate (%)",
-                            ProjectPerformance=row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
-                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
-                        });
-                    }
                     if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Unit Test")
                     {
                         projectVarianceslst.Add(new ProjectVarianceLst
@@ -676,35 +648,7 @@ namespace QRMService.Repositories
             if (dtDefects != null && dtDefects.Rows.Count > 0)
             {
                 dtDefects.AsEnumerable().ToList().ForEach(row =>
-                {
-                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Functional Design")
-                    {
-                        projectVarianceslst.Add(new ProjectVarianceLst
-                        {
-                            Type = "Functional Design Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
-                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
-                        });
-                    }
-
-                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Technical Design")
-                    {
-                        projectVarianceslst.Add(new ProjectVarianceLst
-                        {
-                            Type = "Technical Design Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
-                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
-                        });
-                    }
-                    if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Code Review")
-                    {
-                        projectVarianceslst.Add(new ProjectVarianceLst
-                        {
-                            Type = "Coding Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
-                            Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
-                        });
-                    }
+                {  
                     if (row.Field<string>(Constants.ProjectDefectColumnName.DashBoardType.ToString()) == "Unit Test")
                     {
                         projectVarianceslst.Add(new ProjectVarianceLst
