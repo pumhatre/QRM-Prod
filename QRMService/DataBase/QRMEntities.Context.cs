@@ -43,7 +43,7 @@ namespace QRMService.DataBase
         public virtual DbSet<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
         public virtual DbSet<MetricMaster> MetricMasters { get; set; }
         public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
-        public virtual DbSet<TestingDetail> TestingDetails { get; set; }
         public virtual DbSet<TestingDataStaging> TestingDataStagings { get; set; }
+        public virtual DbSet<TestingDetail> TestingDetails { get; set; }
     }
 }

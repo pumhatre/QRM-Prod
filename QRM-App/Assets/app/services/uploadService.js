@@ -364,8 +364,6 @@
                         ExcelName: "Defect Density",
                         Datatype: "nullablefloat"
                     }
-
-
                 }
             }
         };

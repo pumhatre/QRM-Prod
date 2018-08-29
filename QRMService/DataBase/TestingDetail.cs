@@ -65,6 +65,7 @@ namespace QRMService.DataBase
         public Nullable<decimal> TestDesignProductivity { get; set; }
         public Nullable<decimal> TestExectionProductivity { get; set; }
         public Nullable<decimal> DefectRejectionPer { get; set; }
+        public Nullable<int> DefectsRejectedByQA { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
