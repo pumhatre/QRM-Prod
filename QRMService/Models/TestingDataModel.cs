@@ -57,6 +57,7 @@ namespace QRMService.Models
         public int? MediumTestCasesExecution { get; set; }
         public int? ComplexTestCasesExecution { get; set; }
         public int? VeryComplexTestCasesExecution { get; set; }
+        public int DefectsRejectedByQA { get; set; }
 
         public int TestingDataStagingId { get; set; }
 

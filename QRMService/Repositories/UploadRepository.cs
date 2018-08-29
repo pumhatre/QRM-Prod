@@ -142,6 +142,7 @@ namespace QRMService.Repositories
                     TotalCasesPassed = x.TotalCasesPassed,
                     DefectsFound = x.DefectsFound,
                     DefectsRejected = x.DefectsRejected,
+                    DefectsRejectedByQA= x.DefectsRejectedByQA,
                     ProjectId = x.ProjectId,
                     ProjectReleaseId = x.ProjectReleaseId,
                     MonthId = x.MonthId,
