@@ -100,18 +100,28 @@ namespace QRMService.Repositories
             using (var db = new QRMEntities())
             {
                 var projectRelease = db.ProjectReleaseMasters.Where(a => a.ProjectReleaseId == projectReleaseId).FirstOrDefault();
-                if (projectRelease != null)
-                {
-                    projectRelease.ReleaseName = releaseName.Trim();
-                    db.Entry(projectRelease).State = EntityState.Modified;
-                    db.SaveChanges();
+               
+                var projectReleaseCheck = db.ProjectReleaseMasters.Where(a => a.ProjectID == projectRelease.ProjectID && a.ReleaseName.ToLower().Trim() == releaseName.ToLower().Trim() && a.IsActive == true).FirstOrDefault();
 
-                    response.IsSuccess = true;
-                    response.ResponseMessage = "Project Release updated successfully";
+                if (projectReleaseCheck == null)
+                {
+                    if (projectRelease != null)
+                    {
+                        projectRelease.ReleaseName = releaseName.Trim();
+                        db.Entry(projectRelease).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        response.IsSuccess = true;
+                        response.ResponseMessage = "Project Release updated successfully";
+                    }
+                    else
+                    {
+                        response.ResponseMessage = "Project Release does not exist.";
+                    }
                 }
                 else
                 {
-                    response.ResponseMessage = "Project Release does not exist.";
+                    response.ResponseMessage= "Release Name already exists.";
                 }
                 return response;
             }

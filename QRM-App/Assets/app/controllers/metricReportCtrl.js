@@ -317,12 +317,12 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             loading: true,
             columnDefs: [
                 { field: 'ProjectName', name: 'Project Name', cellTemplate: cellTempl, width: '15%' },
-                { field: 'ServiceLine', name: 'Offerings', cellTemplate: cellTempl, width: '15%' },
+                { field: 'ServiceLine', name: 'Offering', cellTemplate: cellTempl, width: '15%' },
                 { field: 'ClientName', name: 'Client Name', width: '15%', cellTemplate: cellTempl },
                 { field: 'Technology', name: 'Technology', width: '15%', cellTemplate: cellTempl },
                 { field: 'Industry', name: 'Industry', cellTemplate: cellTempl, width: '15%' },
                 { field: 'LifeCycle', name: 'Life Cycle', cellTemplate: cellTempl, width: '15%' },
-                { field: 'QualityController', displayName: 'QC', cellTemplate: cellTempl, width: '15%' },
+                { field: 'QualityController', displayName: 'Quality Consultant', cellTemplate: cellTempl, width: '15%' },
                 { field: 'ProjectManager', name: 'Project Manager', cellTemplate: cellTempl, width: '15%' },
             ],
             enableGridMenu: true,
@@ -348,6 +348,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;
+                debugger;
                 if ($cookies.get('_IsSuperUser') == "false") {
                     $scope.projectGrid.columnDefs[6].visible = false
                 }

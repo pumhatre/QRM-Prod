@@ -33,14 +33,15 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             enableRowHeaderSelection: false,
             loading: true,
             columnDefs: [
-                { field: 'ProjectName', name: 'Project Name', cellTemplate: cellTempl, width: '15%' },
-                { field: 'ServiceLine', name: 'Offerings', cellTemplate: cellTempl, width: '10%' },
+                { field: 'ProjectName', name: 'Project Name', cellTemplate: cellTempl, width: '12%' },
+                { field: 'ServiceLine', name: 'Offering', cellTemplate: cellTempl, width: '10%' },
                 { field: 'ClientName', name: 'Client Name', width: '15%', cellTemplate: cellTempl },
-                { field: 'Technology', name: 'Technology', width: '15%', cellTemplate: cellTempl },
-                { field: 'Industry', name: 'Industry', cellTemplate: cellTempl, width: '15%' },
-                { field: 'LifeCycle', name: 'Life Cycle', cellTemplate: cellTempl, width: '15%' },
+                { field: 'Technology', name: 'Technology', width: '12%', cellTemplate: cellTempl },
+                { field: 'Industry', name: 'Market Offerings', cellTemplate: cellTempl, width: '12%' },
+                { field: 'LifeCycle', name: 'Life Cycle', cellTemplate: cellTempl, width: '12%' },
+                { field: 'QualityController', name: 'Quality Consultant', cellTemplate: cellTempl, width: '12%' },
                 { field: 'Director', displayName: 'Director', cellTemplate: cellTempl, width: '15%' },
-                 { field: 'SeniorManager', displayName: 'Senior manager', cellTemplate: cellTempl, width: '15%' },
+                { field: 'SeniorManager', displayName: 'Senior manager', cellTemplate: cellTempl, width: '15%' },
                 { field: 'ProjectManager', name: 'Project Manager', cellTemplate: cellTempl, width: '15%' },
             ],
             enableGridMenu: true,
@@ -65,7 +66,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             exporterPdfMaxGridWidth: 500,
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
             onRegisterApi: function (gridApi) {
-                $scope.mGridApi = gridApi;
+                $scope.mGridApi = gridApi;                
                 if ($cookies.get('_IsSuperUser') == "false") {
                     $scope.projectGrid.columnDefs[6].visible = false
                 }

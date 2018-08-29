@@ -249,16 +249,20 @@
             $scope.projectReleaseGridOptions.data[index].editrow = false;
 
             //Call the function to save the data to database
-            projectReleaseService.UpdateProjectRelease(row.ProjectReleaseId, row.ReleaseName, config).then(function (response) {
+            projectReleaseService.UpdateProjectRelease(row.ProjectReleaseId, row.ReleaseName, config).then(function (response) {             
                 if (response.data.IsSuccess) {
                     $scope.alertType = "Success";
+                    $scope.alertMessage = response.data.ResponseMessage;                    
+                }
+                else {
+                    $scope.alertType = "Failure";
                     $scope.alertMessage = response.data.ResponseMessage;
-                    if ($scope.selectedProjectDropDown > 0) {
-                        $scope.GetProjectReleasesByProjectId();
-                    }
-                    else {
-                        $scope.GetAllProjectReleases();
-                    }
+                }
+                if ($scope.selectedProjectDropDown > 0) {
+                    $scope.GetProjectReleasesByProjectId();
+                }
+                else {
+                    $scope.GetAllProjectReleases();
                 }
 
             }, function (error) {
