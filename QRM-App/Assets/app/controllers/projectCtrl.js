@@ -13,6 +13,7 @@
         $scope.gridOptions = {};
         $scope.showModal = false;
         $scope.gridheight = "";
+        $scope.today = new Date();
 
         $scope.LoadRefData = function () {
             referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
@@ -102,6 +103,7 @@
             if ($scope.mode === 'Save') {
                 $scope.gridOptions.data.shift();
             }
+            $scope.loadProjects()
         };
 
         //Function to save the data
@@ -125,13 +127,13 @@
                     type: 'danger'
                 });
             }
-            if (row.ServiceLineCode) {
-                $scope.Project.ServiceLineCode = row.ServiceLineCode;
+            if (row.ServiceLine) {
+                $scope.Project.ServiceLine = row.ServiceLine;
             }
             else {
                 isValidData = false;
                 $scope.alerts.push({
-                    msg: 'Offerings is required',
+                    msg: 'Offering is required',
                     type: 'danger'
                 });
             }
@@ -155,8 +157,8 @@
                     type: 'danger'
                 });
             }
-            if (row.TechnologyCode) {
-                $scope.Project.TechnologyCode = row.TechnologyCode;
+            if (row.Technology) {
+                $scope.Project.Technology = row.Technology;
             }
             else {
                 isValidData = false;
@@ -165,8 +167,8 @@
                     type: 'danger'
                 });
             }
-            if (row.IndustryCode) {
-                $scope.Project.IndustryCode = row.IndustryCode;
+            if (row.Industry) {
+                $scope.Project.Industry = row.Industry;
             }
             else {
                 isValidData = false;
@@ -215,6 +217,18 @@
                     type: 'danger'
                 });
             }
+           
+            if (row.ReviewDate > $scope.today) {
+                $scope.Project.ReviewDate = row.ReviewDate;
+            }
+            else {
+                isValidData = false;
+                $scope.alerts.push({
+                    msg: 'Review Date should not be a past date.',
+                    type: 'danger'
+                });
+            }
+
             $scope.Project.QualityController = row.QualityController;
 
             if (isValidData) {
@@ -272,7 +286,7 @@
 
         //Get function to populate the UI-Grid
         $scope.GetProjects = function () {
-            $scope.loading = true;
+            $scope.loading = true;            
             $scope.gridOptions = {
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
@@ -283,8 +297,8 @@
                         cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: 'ServiceLine', displayName: "Offerings", field: "ServiceLine", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLineCode"><option value="">Select Service Line</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceValue}}</option> </select></div>'
+                        name: 'ServiceLine', displayName: "Offering", field: "ServiceLine", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLine"><option value="">Select Service Line</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceCode}}</option> </select></div>'
                     },
                     {
                         name: 'ProjectManager', displayName: "Project Manager", field: "ProjectManager", enableColumnMenu: false, width: '10%',
@@ -304,27 +318,27 @@
                     },
                     {
                         name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '7%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.TechnologyCode"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceValue}}</option> </select></div>'
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.Technology"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceCode}}</option> </select></div>'
                     },
                     {
-                        name: 'Industry', displayName: "Industry", field: "Industry", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.IndustryCode"><option value="">Select Industry</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
+                        name: 'Industry', displayName: "Market Offerings", field: "Industry", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.Industry"><option value="">Select Industry</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceCode}}</option> </select></div>'
                     },
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: 'QualityController', displayName: "QC", field: "QualityController", enableColumnMenu: false, width: '7%',
+                        name: 'QualityController', displayName: "Quality Consultant", field: "QualityController", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
 
                     {
-                        name: 'ReviewDate', displayName: "Review Date", field: "ReviewDate", enableColumnMenu: false, width: '12%',
+                        name: 'ReviewDate', displayName: "Review Date", field: "ReviewDate", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input  placeholder="Required" type="date" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
-                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '15%',
+                        name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '14%',
                         cellTemplate: '<div style="padding: 5px !important; text-align: center;"><button ng-show="!row.entity.editrow" ng-click="grid.appScope.edit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Edit</button>' +  //Edit Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.updateRow(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-save"></i>{{grid.appScope.mode}}</button>' +//Save Button
                         '<button ng-show="row.entity.editrow" ng-click="grid.appScope.cancelEdit(row.entity)" class="btn btn-info btn-xs"><i class="fa fa-times"></i>Cancel</button>' + //Cancel Button
@@ -332,8 +346,8 @@
                         '</div>'
                     }
                 ],
-                onRegisterApi: function (gridApi) {
-                    $scope.gridApi = gridApi;
+                onRegisterApi: function (gridApi) {                   
+                    $scope.gridApi = gridApi;                    
                 }
             };
             //Function to load the data from database

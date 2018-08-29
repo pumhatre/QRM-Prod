@@ -176,6 +176,7 @@ function uploadFile(uploadService) {
                     $(errorBlock).show();
                     $(alertInfo).hide();
                     $(alertDanger).show();
+                    $('.nextBtn:visible').attr('disabled', true)
                 }
                 
             }
