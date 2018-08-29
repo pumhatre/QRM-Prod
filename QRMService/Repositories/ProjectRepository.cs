@@ -72,46 +72,20 @@ namespace QRMService.Repositories
                 {
                     ProjectID = a.ProjectID,
                     ProjectName = a.ProjectName,
-                    ServiceLineCode = a.ServiceLine,
+                    ServiceLine = a.ServiceLine,
                     Capability = a.Capability,
                     ProjectManager = a.ProjectManager,
                     ClientName = a.ClientName,
                     GDM = a.GDM,
-                    TechnologyCode = a.Technology,
-                    IndustryCode = a.Industry,
+                    Technology = a.Technology,
+                    Industry = a.Industry,
                     LifeCycle = a.LifeCycle,
                     Solution = a.Solution,
                     Director = a.Director,
                     SeniorManager = a.SeniorManager,
                     QualityController = a.QualityController,
                     ReviewDate = a.ReviewDate
-                }).ToList();
-
-                var refData = db.ReferenceTables.Where(a => a.ReferenceTableName == Constants.ServiceLineTableName ||
-                  a.ReferenceTableName == Constants.TechnologyTableName ||
-                  a.ReferenceTableName == Constants.IndustryTableName).ToList();
-
-                foreach (var project in projects)
-                {
-                    var serviceLine = refData.Where(a => a.ReferenceTableName == Constants.ServiceLineTableName &&
-                        a.ReferenceCode == project.ServiceLineCode).FirstOrDefault();
-                    if (serviceLine != null)
-                    {
-                        project.ServiceLine = serviceLine.ReferenceValue;
-                    }
-                    var technology = refData.Where(a => a.ReferenceTableName == Constants.TechnologyTableName &&
-                      a.ReferenceCode == project.TechnologyCode).FirstOrDefault();
-                    if (technology != null)
-                    {
-                        project.Technology = technology.ReferenceValue;
-                    }
-                    var industry = refData.Where(a => a.ReferenceTableName == Constants.IndustryTableName &&
-                     a.ReferenceCode == project.IndustryCode).FirstOrDefault();
-                    if (industry != null)
-                    {
-                        project.Industry = industry.ReferenceValue;
-                    }
-                }
+                }).ToList();            
 
                 return projects;
             }
@@ -137,13 +111,13 @@ namespace QRMService.Repositories
                     {
                         ProjectID = projectMaster.ProjectID,
                         ProjectName = projectMaster.ProjectName,
-                        ServiceLine = projectMaster.ServiceLineCode,
+                        ServiceLine = projectMaster.ServiceLine,
                         Capability = projectMaster.Capability,
                         ProjectManager = projectMaster.ProjectManager,
                         ClientName = projectMaster.ClientName,
                         GDM = projectMaster.GDM,
-                        Technology = projectMaster.TechnologyCode,
-                        Industry = projectMaster.IndustryCode,
+                        Technology = projectMaster.Technology,
+                        Industry = projectMaster.Industry,
                         LifeCycle = projectMaster.LifeCycle,
                         Solution = projectMaster.Solution,
                         Director = projectMaster.Director,
@@ -164,13 +138,13 @@ namespace QRMService.Repositories
 
                     ProjectMaster project = db.ProjectMasters.Find(projectMaster.ProjectID);
                     project.ProjectName = projectMaster.ProjectName;
-                    project.ServiceLine = projectMaster.ServiceLineCode;
+                    project.ServiceLine = projectMaster.ServiceLine;
                     project.Capability = projectMaster.Capability;
                     project.ProjectManager = projectMaster.ProjectManager;
                     project.ClientName = projectMaster.ClientName;
                     project.GDM = projectMaster.GDM;
-                    project.Technology = projectMaster.TechnologyCode;
-                    project.Industry = projectMaster.IndustryCode;
+                    project.Technology = projectMaster.Technology;
+                    project.Industry = projectMaster.Industry;
                     project.LifeCycle = projectMaster.LifeCycle;
                     project.Solution = projectMaster.Solution;
                     project.Director = projectMaster.Director;
