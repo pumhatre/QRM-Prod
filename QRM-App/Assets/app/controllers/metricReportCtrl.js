@@ -306,7 +306,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
             });
         }
-
+        debugger;
         var cellTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
         $scope.projectGrid = {
             enableCellSelection: false,
