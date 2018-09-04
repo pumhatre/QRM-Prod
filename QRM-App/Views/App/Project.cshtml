@@ -110,7 +110,7 @@
                         <label class="control-label col-lg-4" for="ServiceLineCode">Service Line:</label>
                         <div class="col-lg-8">
                             <select class="form-control" style="width:85%;" ng-model="NewProject.ServiceLineCode" required>
-                                <option value="">Select Service Line</option>
+                                <option value="">Select Offering</option>
                                 <option ng-repeat="serviceLine in serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceValue}}</option>
                             </select>
                         </div>
@@ -140,7 +140,7 @@
                         <label class="control-label col-lg-4" for="IndustryCode">IndustryCode:</label>
                         <div class="col-lg-8">
                             <select class="form-control" style="width:85%;" ng-model="NewProject.IndustryCode" required>
-                                <option value="">Select Industry</option>
+                                <option value="">Select Market Offering</option>
                                 <option ng-repeat="industry in industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option>
                             </select>
                         </div>

@@ -129,7 +129,7 @@
                     <div class="col-md-12">
                         <div class="x_panel">
                             <div class="x_content">
-                                Follow the mentioned steps to upload the QRM sheet.
+                                Follow the mentioned steps to upload the QRM metrics report.
                                 <div class="container">
                                     <step-tabs options="stepTabsOptions" callback="nextClick(msg)"></step-tabs>
                                     <div class="row setup-content margin-top15px" id="step-1">
@@ -200,17 +200,17 @@
                                                 </div>
 
                                                 @*<div class="alert alert-success" ng-hide="InvalidEffortData">
-                                                        <button type="button" class="close">×</button> <strong>Effort Data is Valid</strong>
-                                                    </div>
-                                                    <div class="alert alert-danger" ng-show="InvalidEffortData">
-                                                        <button type="button" class="close">×</button> <strong>Invalid Effort Data.Please correct the below rows</strong>
-                                                    </div>
-                                                    <div class="alert alert-success" ng-hide="InvalidDefectData">
-                                                        <button type="button" class="close">×</button> <strong>Defect Data is Valid</strong>
-                                                    </div>
-                                                    <div class="alert alert-danger" ng-show="InvalidDefectData">
-                                                        <button type="button" class="close">×</button> <strong>Invalid Defect Data.Please correct the below rows</strong>
-                                                    </div>*@
+                            <button type="button" class="close">×</button> <strong>Effort Data is Valid</strong>
+                        </div>
+                        <div class="alert alert-danger" ng-show="InvalidEffortData">
+                            <button type="button" class="close">×</button> <strong>Invalid Effort Data.Please correct the below rows</strong>
+                        </div>
+                        <div class="alert alert-success" ng-hide="InvalidDefectData">
+                            <button type="button" class="close">×</button> <strong>Defect Data is Valid</strong>
+                        </div>
+                        <div class="alert alert-danger" ng-show="InvalidDefectData">
+                            <button type="button" class="close">×</button> <strong>Invalid Defect Data.Please correct the below rows</strong>
+                        </div>*@
 
                                                 <div class="col-md-12" role="tabpanel" data-example-id="togglable-tabs">
                                                     <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
@@ -464,34 +464,34 @@
                                                                     </div>
                                                                 </div>
                                                                 <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="Project-tab">
-                                                                    
-                                                                        <div class="col-md-12">
-                                                                            <div class="x_panel">
-                                                                                <div class="x_content">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-12">
-                                                                                            <div id="mGrid5" ui-grid="projectVarianceGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
-                                                                                            </div>
+
+                                                                    <div class="col-md-12">
+                                                                        <div class="x_panel">
+                                                                            <div class="x_content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div id="mGrid5" ui-grid="projectVarianceGrid" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
                                                                                         </div>
                                                                                     </div>
-                                                                                        <div class="row" style="height:25px"></div>
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-4 col-md-offset-1">
-                                                                                                <div id="mGrid5" ui-grid="projectVarianceGridtwo" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 180px !important; width:100%">
-                                                                                                </div>
-                                                                                            </div>
-
-                                                                                            <div class="col-md-4 col-md-offset-2">
-                                                                                                <div id="mGrid5" ui-grid="projectVarianceGridthree" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 250px !important; width:100%">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                   
                                                                                 </div>
+                                                                                <div class="row" style="height:25px"></div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4 col-md-offset-1">
+                                                                                        <div id="mGrid5" ui-grid="projectVarianceGridtwo" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 180px !important; width:100%">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-4 col-md-offset-2">
+                                                                                        <div id="mGrid5" ui-grid="projectVarianceGridthree" class="grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 250px !important; width:100%">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
-                                                                  
+
                                                                 </div>
                                                                 <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="Project-tab">
                                                                     <div class="row">
@@ -622,33 +622,33 @@
                                                                                                 <tbody>
                                                                                                     <tr>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedtestingPhase" ng-required="true">                                                                                                   
+                                                                                                            <select class="form-control" ng-model="selectedtestingPhase" ng-required="true">
                                                                                                                 <option ng-repeat="testingPhase in TestingPhaseList" value="{{testingPhase.ReferenceValue}}">{{testingPhase.ReferenceValue}}</option>
                                                                                                             </select>
 
                                                                                                         </td>
 
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">                                                                                                           
+                                                                                                            <select class="form-control" ng-model="selectedIteration" ng-required="true">
                                                                                                                 <option ng-repeat="Iteration in IterationList" value="{{Iteration.ReferenceValue}}">{{Iteration.ReferenceValue}}</option>
                                                                                                             </select>
 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">                                                                                                               
+                                                                                                            <select class="form-control" ng-model="selectedtestingSubPhase" ng-required="true">
                                                                                                                 <option ng-repeat="testingSubPhase in TestingSubPhaseList" value="{{testingSubPhase.ReferenceValue}}">{{testingSubPhase.ReferenceValue}}</option>
                                                                                                             </select>
 
 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedtestingtype" ng-required="true">                                                                                                              
+                                                                                                            <select class="form-control" ng-model="selectedtestingtype" ng-required="true">
                                                                                                                 <option ng-repeat="testingtype in TestingtypeList" value="{{testingtype.ReferenceValue}}">{{testingtype.ReferenceValue}}</option>
                                                                                                             </select>
 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <select class="form-control" ng-model="selectedManualOrAutomated" ng-required="true">                                                                                                            
+                                                                                                            <select class="form-control" ng-model="selectedManualOrAutomated" ng-required="true">
                                                                                                                 <option ng-repeat="ManualOrAutomated in ManualOrAutomatedList" value="{{ManualOrAutomated.ReferenceValue}}">{{ManualOrAutomated.ReferenceValue}}</option>
                                                                                                             </select>
 
@@ -662,27 +662,27 @@
                                                                                         </div>
                                                                                     </form>
                                                                                     <button class="btn btn-green btn-md col-md-offset-5 " type="button" ng-click="EvaluateTestingMetrics()" ng-hide="testingMetricsForm.$invalid">Evaluate</button>
-                                                                                    
+
                                                                                     <div  id="TestingMetricsmGrid" ui-grid="TestingMetricsGrid" ng-if="IstestingMetricsVisible" class=" col-md-offset-2 grid col-md-6 " ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 150px !important; width:60%">
 
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
+                                                    <button class="btn btn-green btn-md pull-right" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Finalize</button>
                                                 </div>
-                                            </div>
-                                            <button class="btn btn-green btn-md pull-right" ng-click="InsertDetailData()" ng-hide="HideFinalize" type="button">Finalize</button>
-                                        </div>
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

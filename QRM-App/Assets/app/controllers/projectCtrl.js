@@ -218,7 +218,7 @@
                 });
             }
            
-            if (row.ReviewDate > $scope.today) {
+            if (row.ReviewDate >= $scope.today || row.ReviewDate.isToday()) {
                 $scope.Project.ReviewDate = row.ReviewDate;
             }
             else {
@@ -298,7 +298,7 @@
                     },
                     {
                         name: 'ServiceLine', displayName: "Offering", field: "ServiceLine", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLine"><option value="">Select Service Line</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceCode}}</option> </select></div>'
+                        cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLine"><option value="">Select Offering</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceCode}}</option> </select></div>'
                     },
                     {
                         name: 'ProjectManager', displayName: "Project Manager", field: "ProjectManager", enableColumnMenu: false, width: '10%',
@@ -322,7 +322,7 @@
                     },
                     {
                         name: 'Industry', displayName: "Market Offerings", field: "Industry", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.Industry"><option value="">Select Industry</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceCode}}</option> </select></div>'
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.Industry"><option value="">Select  Market Offering</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceCode}}</option> </select></div>'
                     },
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '10%',
