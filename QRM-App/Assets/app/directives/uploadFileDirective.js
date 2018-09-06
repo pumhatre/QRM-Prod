@@ -187,15 +187,16 @@ function uploadFile(uploadService) {
                     $(alertInfo).hide();
                     
                     if ($scope.errors != "Invalid File Type") {
-
+                        $(alertInvalid).hide();
                         $(errorBlock).show();
                         $(alertDanger).show();
-                        $(alertInvalid).hide();
+                       
                     }
                     else {
-                        $(alertInvalid).show();
+                      
                         $(errorBlock).hide();
                         $(alertDanger).hide();
+                        $(alertInvalid).show();
                     }
                     $('.nextBtn:visible').attr('disabled', true)
                 }
