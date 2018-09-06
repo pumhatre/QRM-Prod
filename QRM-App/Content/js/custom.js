@@ -88,8 +88,8 @@ $SIDEBAR_MENU.find('a').on('click', function (ev) {
             {
 				if ( $BODY.is( ".nav-sm" ) )
 				{
-					$SIDEBAR_MENU.find( "li" ).removeClass( "active active-sm" );
-					$SIDEBAR_MENU.find( "li ul" ).slideUp();
+					//$SIDEBAR_MENU.find( "li" ).removeClass( "active active-sm" );
+					//$SIDEBAR_MENU.find( "li ul" ).slideUp();
                 }
                //location.reload();
 			}
