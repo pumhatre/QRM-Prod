@@ -31,7 +31,12 @@ function uploadFile(uploadService) {
                             '<div class="alert alert-success fade in" style="display:none">' +
                                 '<span class="close">&times;</span>' +
                                 '<strong>Success!</strong> Excel data uploaded successfully.'+
-                            '</div>'+
+            '</div>' +
+            '<div class="alert alert-danger alert-invalid fade in" style="display:none">' +
+            '<span class="close">&times;</span>' +
+            '<strong>Error!</strong> Invalid File Type' +
+            '</div>'+
+
                             '<div class="alert alert-info fade in" style="display:none">' +
                                 '<span class="close">&times;</span>'+
                                 '<strong>Note!</strong> This may take several minutes. Please do not refresh.' +
@@ -72,6 +77,7 @@ function uploadFile(uploadService) {
             var alertInfo = ".alert-info";
             var alertSuccess = ".alert-success";
             var alertDanger = ".alert-danger";
+            var alertInvalid = ".alert-invalid";
             $(circleLoader).hide();
             $(completeBlock).hide();
             $(errorBlock).hide();
@@ -131,6 +137,7 @@ function uploadFile(uploadService) {
             // Save excel data to our database
             $scope.SaveData = function (excelData) {
                 if (excelData.Errors.length <= 0) {
+                    debugger;
                     $(errorBlock).hide();
                     $scope.$apply(function () {
                         $scope.errors = [];
@@ -163,7 +170,9 @@ function uploadFile(uploadService) {
                     },
                    function (error) {
                        console.log(error);
-                   });
+                        });
+
+                    $('.nextBtn:visible').attr('disabled', false)
                 } else {
                     $scope.$apply(function () {
                         $scope.errors = excelData.Errors;
@@ -173,9 +182,15 @@ function uploadFile(uploadService) {
                     localStorage.setItem("uploading", "false");
                     $(loaderBlock).hide();
                     $(uploaderBlock).show();
-                    $(errorBlock).show();
                     $(alertInfo).hide();
-                    $(alertDanger).show();
+                    if ($scope.errors != "Invalid File Type") {
+
+                        $(errorBlock).show();
+                        $(alertDanger).show();
+                    }
+                    else {
+                        $(alertInvalid).show();
+                    }
                     $('.nextBtn:visible').attr('disabled', true)
                 }
                 

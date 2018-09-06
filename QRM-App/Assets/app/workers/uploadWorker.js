@@ -18,61 +18,83 @@ this.onmessage = function receiveMessage(message) {
     for (i = 0; i != files.length; ++i) {
         var reader = new FileReader();
         f = files[i];
-        var name = f.name;
-        if (rABS) reader.readAsBinaryString(f);
-        else reader.readAsArrayBuffer(f);
-        reader.onload = function (e) {
-            var data = e.target.result;
-            var result = {};
-            var arr = rABS ? data : btoa(fixdata(data));
-            //reading data from excel
-            var workbook = XLSX.read(arr, { type: rABS ? 'binary' : 'base64' });
-            
+        if (f.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || f.type == "application/vnd.ms-excel.sheet.macroEnabled.12") {
 
-            //Getting the sheet names
-            var sheet_name_list = workbook.SheetNames;
-            var needsheets = [];
-            _.each(neededSheetsViewModels, function (value, key) {
-                needsheets.push(key);
-            })
-            sheet_name_list.forEach(function (y) { /* iterate through sheets */
-                //Convert the cell value to Json
-                if (needsheets.indexOf(y) > -1) {
-                    let s = findSheet(workbook, y);
-                    if (sheetColumnsRendering[y]!==undefined) {
-                        let keys = _.keys(sheetColumnsRendering[y]);
-                        for (let i = 0; i < keys.length; i++) {
-                            s.sheet[keys[i]].v = sheetColumnsRendering[y][keys[i]];
-                            s.sheet[keys[i]].r = "<t>"+sheetColumnsRendering[y][keys[i]]+"</t>";
-                            s.sheet[keys[i]].h = sheetColumnsRendering[y][keys[i]];
-                            s.sheet[keys[i]].w = sheetColumnsRendering[y][keys[i]];
-                        }
-                    }
-                    excelNames = {};
-                    columnDataTypes = {};
-                    mandatoryField = "";
-                    dateProperties = [];
-                    _.each(neededSheetsViewModels[y], function (value, key) {
-                        excelNames[key] = value.ExcelName;
-                        columnDataTypes[key] = value.Datatype;
-                        if (value.isMandatory && value.isMandatory!==undefined) {
-                            mandatoryField = key;
-                        }
-                        if (value.isDateProperty && value.isDateProperty !== undefined) {
-                            dateProperties.push(key);
-                        }
-                    })
-                    let t = findTable(s.sheet, s.range, excelNames);
-                    if (t.firstRow === null) {
-                        return null;
-                    }
-                    const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, function (row) { return false; });
-                    result[y] = tdata;
+            var name = f.name;
+            if (rABS) reader.readAsBinaryString(f);
+            else reader.readAsArrayBuffer(f);
+            reader.onload = function (e) {
+                var data = e.target.result;
+                var result = {};
+                var arr = rABS ? data : btoa(fixdata(data));
+                //reading data from excel
+                var workbook = XLSX.read(arr, { type: rABS ? 'binary' : 'base64' });
+
+
+
+
+
+                //Getting the sheet names
+                var sheet_name_list = workbook.SheetNames;
+                var needsheets = [];
+                if (!(sheet_name_list.indexOf("Effort Data") > -1 && sheet_name_list.indexOf("Defect Data") > -1 && sheet_name_list.indexOf("Testing Data") > -1)) {
+                    result["Errors"] = "Invalid File Type";
+                    self.postMessage(result);
                 }
-            });
-            result["Errors"] = errors;
+
+                else {
+
+                    _.each(neededSheetsViewModels, function (value, key) {
+                        needsheets.push(key);
+                    })
+                    sheet_name_list.forEach(function (y) { /* iterate through sheets */
+                        //Convert the cell value to Json
+                        if (needsheets.indexOf(y) > -1) {
+                            let s = findSheet(workbook, y);
+                            if (sheetColumnsRendering[y]!==undefined) {
+                                let keys = _.keys(sheetColumnsRendering[y]);
+                                for (let i = 0; i < keys.length; i++) {
+                                    s.sheet[keys[i]].v = sheetColumnsRendering[y][keys[i]];
+                                    s.sheet[keys[i]].r = "<t>"+sheetColumnsRendering[y][keys[i]]+"</t>";
+                                    s.sheet[keys[i]].h = sheetColumnsRendering[y][keys[i]];
+                                    s.sheet[keys[i]].w = sheetColumnsRendering[y][keys[i]];
+                                }
+                            }
+                            excelNames = {};
+                            columnDataTypes = {};
+                            mandatoryField = "";
+                            dateProperties = [];
+                            _.each(neededSheetsViewModels[y], function (value, key) {
+                                excelNames[key] = value.ExcelName;
+                                columnDataTypes[key] = value.Datatype;
+                                if (value.isMandatory && value.isMandatory!==undefined) {
+                                    mandatoryField = key;
+                                }
+                                if (value.isDateProperty && value.isDateProperty !== undefined) {
+                                    dateProperties.push(key);
+                                }
+                            })
+                            let t = findTable(s.sheet, s.range, excelNames);
+                            if (t.firstRow === null) {
+                                return null;
+                            }
+                            const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, function (row) { return false; });
+                            result[y] = tdata;
+                        }
+                    });
+                    result["Errors"] = errors;
+                    self.postMessage(result);
+
+                }
+            }
+        }
+        else {
+            var result = {};
+            result["Errors"] = "Invalid File Type";
             self.postMessage(result);
-        };
+        }
+       
+        
     }
 }
 var fixdata = function (data) {

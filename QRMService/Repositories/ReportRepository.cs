@@ -339,7 +339,7 @@ namespace QRMService.Repositories
                         Rework = row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()))),
                         UnitTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()))),
                         SystemTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()))),
-                        SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()))),
+                        SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" :  Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString())),
                         ComponentDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()))),
                         E2EDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()))),
                     });
@@ -631,7 +631,7 @@ namespace QRMService.Repositories
                         Rework = row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.Rework.ToString()))),
                         UnitTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.UnitTestEffectiveness.ToString()))),
                         SystemTestEffectiveness = row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.SystemTestEffectiveness.ToString()))),
-                        SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()))),
+                        SITDefectDetectionRate = row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString()) == null ? "NR" :  Convert.ToString(row.Field<decimal?>(Constants.ProjectVarianceColumnName.SITDefectDetectionRate.ToString())),
                         ComponentDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.ComponentDefectRejectionRate.ToString()))),
                         E2EDefectRejectionRate = row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString()) == null ? "NR" : string.Format("{0}%", Convert.ToString(row.Field<int?>(Constants.ProjectVarianceColumnName.E2EDefectRejectionRate.ToString())))
                     });
@@ -1096,9 +1096,9 @@ namespace QRMService.Repositories
 
 
             List<string> Type = new List<string>();
-            string[] input = { "Project Performance", "Upper Specification Limit (USL)", "Lower Specification Limit (LSL)" };
+            string[] input = { "Project Performance" };
             Type.AddRange(input);
-            for (int i=1; i<=3; i++)
+            for (int i=1; i<=1; i++)
             {
                 if(TestingMetricsList.Count< i)
                 {
