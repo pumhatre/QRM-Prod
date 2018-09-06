@@ -121,6 +121,8 @@ function uploadFile(uploadService) {
                     $(alertDanger).hide();
                     $(infoBlock).show();
                     $(alertDanger).hide();
+                    $(alertInvalid).hide();
+                    $(errorBlock).hide()
                     $(alertSuccess).hide();
                     $(alertInfo).show();
                     $(uploaderBlock).hide();
@@ -183,13 +185,17 @@ function uploadFile(uploadService) {
                     $(loaderBlock).hide();
                     $(uploaderBlock).show();
                     $(alertInfo).hide();
+                    
                     if ($scope.errors != "Invalid File Type") {
 
                         $(errorBlock).show();
                         $(alertDanger).show();
+                        $(alertInvalid).hide();
                     }
                     else {
                         $(alertInvalid).show();
+                        $(errorBlock).hide();
+                        $(alertDanger).hide();
                     }
                     $('.nextBtn:visible').attr('disabled', true)
                 }
