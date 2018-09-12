@@ -193,7 +193,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 }, function (errorResponse) {
 
                 }).finally(function () {
-                    // add  empty row for better UI
+                     // add  empty row for better UI
                     if ($scope.defectDensityGrid.data.length) {
                         addEmptyRow($scope.defectDensityGrid.data);
                     }
@@ -343,7 +343,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
             });
         }
-        debugger;
+        
         var cellTempl = '<div style="padding: 5px;">{{COL_FIELD}}</div>';
         $scope.projectGrid = {
             enableCellSelection: false,
@@ -351,6 +351,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableSorting: true,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             loading: true,
             columnDefs: [
                 { field: 'ProjectName', name: 'Project Name', cellTemplate: cellTempl, width: '15%' },
@@ -398,6 +399,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: 'Manual/Automation', width: '15%', cellTemplate: cellTempl },
                  { field: 'DashboardSubtype', name: '', width: '20%', cellTemplate: cellTempl },
@@ -441,6 +443,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: cellTempl, width: '21%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: cellTempl, width: '22%' },
@@ -482,6 +485,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             loading: true,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: cellTempl, width: '20%' },
@@ -523,6 +527,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: cellTempl, width: '20%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: cellTempl, width: '22%' },
@@ -562,6 +567,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashboardType', name: '', cellTemplate: varianceTempl, width: '22%' },
                 { field: 'EffortVariance', name: 'Effort Variance (%)', cellTemplate: varianceTempl, width: '15%' },
@@ -604,6 +610,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             headerTemplate: '/Assets/app/directives/header-template.html',
             superColDefs: [{
                 name: 'type',
@@ -668,7 +675,8 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
     enableSorting: false,
 enableColumnMenus: false,
 enableRowHeaderSelection: false,
-loading: true,
+            loading: true,
+            gridMenuShowHideColumns: false,
 columnDefs: [
     { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
 
@@ -710,6 +718,7 @@ $scope.defectDensityGrid = {
     enableColumnMenus: false,
     enableRowHeaderSelection: false,
     loading: true,
+    gridMenuShowHideColumns: false,
     columnDefs: [
         { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
 
@@ -751,9 +760,10 @@ $scope.defectDensityGrid2 = {
     enableColumnMenus: false,
     enableRowHeaderSelection: false,
     loading: true,
+    gridMenuShowHideColumns: false,
     columnDefs: [
-        { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
-        { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
+        { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
+ { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
         { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
         { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
         { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
@@ -790,6 +800,7 @@ $scope.TestingMetricsGrid = {
     enableColumnMenus: false,
     enableRowHeaderSelection: false,
     loading: true,
+    gridMenuShowHideColumns: false,
     columnDefs: [
         { field: 'DashBoardType', name: '', cellTemplate: tmpl2, width: '25%' },
         { field: 'TestDesignProductivity', name: 'Test Design Productivity', cellTemplate: tmpl2, width: '25%' },
@@ -828,6 +839,7 @@ $scope.projectVarianceGridtwo = {
     enableColumnMenus: false,
     enableRowHeaderSelection: false,
     loading: true,
+    gridMenuShowHideColumns: false,
     columnDefs: [
         { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
         { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
@@ -864,6 +876,7 @@ $scope.projectVarianceGridthree = {
     enableColumnMenus: false,
     enableRowHeaderSelection: false,
     loading: true,
+    gridMenuShowHideColumns: false,
     columnDefs: [
         { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
         { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
