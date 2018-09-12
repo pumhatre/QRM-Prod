@@ -614,23 +614,18 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             headerTemplate: '/Assets/app/directives/header-template.html',
             superColDefs: [{
                 name: 'type',
-                width: '10%',
                 displayName: 'Type'
             }, {
                 name: 'subType',
-                width: '10%',
                 displayName: 'SubType'
             }, {
                 name: 'java',
-                width: '25%',
                 displayName: 'Java'
             }, {
                 name: 'dotNet',
-                width: '25%',
                 displayName: 'DotNet'
             }, {
                 name: 'other',
-                width: '30%',
                 displayName: 'Other'
             }],
 
