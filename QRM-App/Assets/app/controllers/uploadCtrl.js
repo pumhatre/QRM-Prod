@@ -167,6 +167,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             paginationPageSize: 10,
             loading: true,
+            gridMenuShowHideColumns: false,
             //Declaring column and its related properties
             columnDefs: [
                 {
@@ -285,6 +286,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             paginationPageSize: 10,
             loading: true,
+            gridMenuShowHideColumns: false,
             //Declaring column and its related properties
             columnDefs: [
                 {
@@ -449,6 +451,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             paginationPageSize: 10,
             loading: true,
+            gridMenuShowHideColumns: false,
             //Declaring column and its related properties
             columnDefs: [
 
@@ -706,6 +709,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 }, function (errorResponse) {
 
                 }).finally(function () {
+                    debugger;
                     // add  empty row for better UI
                     addEmptyRow($scope.defectDensityGrid2.data);
                 });
@@ -840,6 +844,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: '<div style="padding: 5px;" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '21%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<di style="padding: 5px;"v ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
@@ -880,6 +885,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashboardSubtype', name: '', width: '25%', cellTemplate: '<div style="padding: 5px;"><b>{{COL_FIELD}}</b></div>' },
                 { field: 'PreSitComponent', name: 'PRE-SIT Component', displayName: 'PRE-SIT Component', width: '20%', cellTemplate: tmp2 },
@@ -921,6 +927,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '20%' },
                 { field: 'Overall', name: 'Overall', cellTemplate: tmpl2, width: '20%' },
@@ -959,6 +966,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: '<div style="padding: 5px;" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanWidget + \'px\', width:20.5+\'%\', position:\'absolute\', display:row.entity.spanWidget==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '22%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<div style="padding: 5px;" ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '22%' },
@@ -999,6 +1007,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashboardType', name: '', cellTemplate: varianceTempl, width: '20%' },
                 { field: 'EffortVariance', name: 'Effort Variance (%)', cellTemplate: varianceTempl, width: '12%' },
@@ -1042,6 +1051,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
 
@@ -1083,6 +1093,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
 
@@ -1124,6 +1135,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
 
@@ -1165,6 +1177,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
 
@@ -1207,6 +1220,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
             loading: true,
+            gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'DashBoardType', name: '', cellTemplate: tmpl2, width: '25%' },            
                 { field: 'TestDesignProductivity', name: 'Test Design Productivity', cellTemplate: tmpl2, width: '25%' },
@@ -1243,6 +1257,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             loading: true,
             columnDefs: [
                 { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
@@ -1279,6 +1294,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableSorting: false,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            gridMenuShowHideColumns: false,
             loading: true,
             columnDefs: [
                 { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
