@@ -1260,7 +1260,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             gridMenuShowHideColumns: false,
             loading: true,
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+                { field: 'Type', name: 'Defects Closure Rate', cellTemplate: tmpl2, width: '65%' },
                 { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
                 
 
@@ -1297,7 +1297,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             gridMenuShowHideColumns: false,
             loading: true,
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+                { field: 'Type', name: 'Effort Distribution', cellTemplate: tmpl2, width: '65%' },
                 { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
 
 
