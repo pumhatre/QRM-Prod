@@ -840,7 +840,7 @@ $scope.projectVarianceGridtwo = {
     loading: true,
     gridMenuShowHideColumns: false,
     columnDefs: [
-        { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+        { field: 'Type', name: 'Defects Closure Rate', cellTemplate: tmpl2, width: '65%' },
         { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
 
 
@@ -877,7 +877,7 @@ $scope.projectVarianceGridthree = {
     loading: true,
     gridMenuShowHideColumns: false,
     columnDefs: [
-        { field: 'Type', name: '', cellTemplate: tmpl2, width: '65%' },
+        { field: 'Type', name: 'Effort Distribution', cellTemplate: tmpl2, width: '65%' },
         { field: 'ProjectPerformance', name: 'ProjectPerformance', cellTemplate: varianceTempl, width: '35%' },
 
 
