@@ -229,9 +229,10 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   $scope.SITDefectSeverityLabels = [];
                                   $scope.SITDefectSeverityData = [];
                                   if (successResponse.data.values) {                                      
-                                      $scope.SITDefectSeverityLabels = successResponse.data.labels;
+                                    
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
+                                          $scope.SITDefectSeverityLabels.push(successResponse.data.labels[i] + " - " + successResponse.data.values[i]) ;
                                       }
                                       $scope.SITDefectSeverityOptions = {
                                           legend: {
@@ -240,6 +241,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                           },
                                           tooltipEvents: [],
                                           showTooltips: true,
+                                          tooltips: {
+                                              callbacks: {
+                                                  label: function (tooltipItem, data) {
+                                                      var index = tooltipItem.index;
+                                                      return data.labels[index];
+                                                  }
+                                              }
+                                          },
+
                                           tooltipCaretSize: 0,
                                           onAnimationComplete: function () {
                                               this.showTooltip(this.segments, true);
@@ -278,6 +288,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                           },
                                           tooltipEvents: [],
                                           showTooltips: true,
+                                          
                                           tooltipCaretSize: 0,
                                           onAnimationComplete: function () {
                                               this.showTooltip(this.segments, true);
@@ -286,10 +297,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               callbacks: {
                                                   label: function (tooltipItem, data) {
 
-                                                      var dataset = data.datasets[tooltipItem.datasetIndex];
-                                                      var label = data.labels[tooltipItem.index];
-                                                      var currentValue = dataset.data[tooltipItem.index];
-                                                      return label + ": " + currentValue + "%";
+                                                      var index = tooltipItem.index;
+                                                      return data.labels[index];
                                                   }
                                               }
                                           }
