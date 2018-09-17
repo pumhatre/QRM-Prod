@@ -2,6 +2,37 @@
     #saveModal .modal-body {
         height: 15vh !important;
     }
+
+    .outer-1 {
+        background-color: blue;
+        width: 200px; /* You can define it by % also */
+        height: 200px; /* You can define it by % also*/
+        position: relative;
+        border: 1px solid black;
+        border-radius: 50%;
+    }
+
+    .inner-1 {
+        background-color: lime;
+        top: 10%;
+        left: 10%; /* of the container */
+        width: 80%; /* of the outer-1 */
+        height: 80%; /* of the outer-1 */
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 50%;
+    }
+
+    .inner-2 {
+        background-color: yellow;
+        top: 20%;
+        left: 20%; /* of the container */
+        width: 60%; /* of the inner-1 */
+        height: 60%; /* of the inner-1 */
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 50%;
+    }
 </style>
 <div class="x_panel" role="main">
     <div class="">
@@ -137,15 +168,14 @@
                                         <br />
                                         <h4 style="text-align:center;">Effort Distribution</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
-                                                chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride">
-                                        </canvas>
+                                                chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="TCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Test Case Distribution</h4>
-                                        <canvas id="doubleDount" class="chart chart-doughnut"  chart-options="TestCaseDistributionoptions"
+                                        <canvas id="doubleDount" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
@@ -153,14 +183,23 @@
                                     <div ng-switch-when="TCCD" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
                                         <h4 style="text-align:center;">Test case complexity distribution(Component/E2E)</h4>
-                                        <canvas id="doubleDount" class="chart chart-doughnut" 
+                                        <canvas id="doubleDount" class="chart chart-doughnut"
                                                 chart-data="TestCaseComplexityDistribution"
                                                 chart-labels="labels4"
                                                 chart-series="TestCaseComplexityDistributionSeries"
                                                 chart-options="TestCaseComplexityDistributionoptions"></canvas>
-                                     
-                                        <br />
 
+                                        <br />
+                                        <div class="outer-1">
+                                            <h1>Component</h1>
+                                            <div class="inner-1">
+                                                <h1>E2E</h1>
+                                                &nbsp;
+                                            </div>
+                                            <div class="inner-2">
+                                                &nbsp;
+                                            </div>
+                                        </div>
                                         <button ng-click="OpenSavePopup()" ng-hide="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="DDPD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
