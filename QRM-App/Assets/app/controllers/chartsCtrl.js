@@ -480,6 +480,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                     onAnimationComplete: function () {
                                         this.showTooltip(this.segments, true);
                                     },
+                                    tooltips: {
+                                        callbacks: {
+                                            label: function (tooltipItem, data) {
+
+                                                var index = tooltipItem.index;
+                                                return data.labels[index];
+                                            }
+                                        }
+                                    }
+
                                 };
                                 $scope.savePopupButton = true;
                             }
