@@ -58,6 +58,8 @@
                     var meta = chart.getDatasetMeta(i);
                     if (!meta.hidden) {
                         meta.data.forEach(function (element, index) {
+
+                          
                             // Draw the text in black, with the specified font
                             ctx.fillStyle = 'rgb(0, 0, 0)';
 
@@ -78,7 +80,11 @@
                                 var position = element.tooltipPosition();
                                 ctx.fillText(dataString, position.x, position.y - (fontSize / 3) - padding);
                             }
-                           
+                            if (chart.config.type == "doughnut" && chart.data.datasets.length > 1) {
+                                dataString = dataset.label;
+                            }
+
+                       
 
                         });
                     }

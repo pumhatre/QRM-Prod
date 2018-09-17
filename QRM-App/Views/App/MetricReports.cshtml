@@ -170,18 +170,7 @@
                                 <div class="col-md-3"></div>
                             </div>
                             <br>
-                            <br>
-                            <div class="form-group">
-                                <div class="col-md-3"></div>
-                                <label class="control-label col-md-3 col-sm-3 col-xs-2">Month</label>
-                                <div class="col-md-3">
-                                    <select ng-model="selectedMonth" class="form-control" ng-required="true">
-                                        <option value="">Select a Month</option>
-                                        <option ng-repeat="option in months" value="{{option.MonthId}}">{{option.MonthName}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <br>
+                           
                             <br>
                             <div class="form-group">
                                 <div class="col-md-3"></div>
@@ -199,7 +188,7 @@
 
                             <div class="row">
                                 <div class="col-md-offset-7">
-                                    <button class="btn btn-green nextBtn btn-md" type="button" ng-click="getHealthReport(selectedProjectReleaseDropdown,selectedReleaseDropdown,selectedMonth)">Submit</button>
+                                    <button class="btn btn-green nextBtn btn-md" type="button" ng-click="getHealthReport(selectedProjectReleaseDropdown,selectedReleaseDropdown)">Submit</button>
                                 </div>
                             </div>
                         </div>

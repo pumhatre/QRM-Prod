@@ -30,19 +30,10 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
                 });
         }
-        $scope.LoadMonthsDropDown = function () {
-            uploadService.GetMonthList(config).then(function (response) {
-                if (response.status == 200) {
-                    $scope.months = response.data;
-                }
-            },
-                function (errorResponse) {
+    
 
-                });
-        }
-
-        $scope.getHealthReport = function (projectId, releaseId, monthId) {
-            if (projectId != null && releaseId != null && monthId != null) {
+        $scope.getHealthReport = function (projectId, releaseId) {
+            if (projectId != null && releaseId != null ) {
                 $scope.HideShow = true;
                 $scope.projectEffortGrid.data = [];
                 $scope.projectDefectGrid.data = [];
@@ -67,7 +58,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectEffortByProject = function () {
             $scope.projectEffortGridLoading = true;
-            healthReportService.GetAllProjectEffortByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetAllProjectEffortByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown,0)
                 .then(function (successResponse) {
                     $scope.projectEffortGridLoading = false;
                     $scope.projectEffortGrid.data = successResponse.data;
@@ -81,7 +72,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectTestingByProject = function () {
             $scope.projectTestingGridLoading = true;
-            healthReportService.GetAllProjectTestingByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetAllProjectTestingByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0)
                 .then(function (successResponse) {
                     $scope.projectTestingGridLoading = false;
                     $scope.projectTestingGrid.data = successResponse.data;
@@ -97,7 +88,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectDefectByProject = function () {
             $scope.projectDefectGridLoading = true;
-            healthReportService.GetProjectDefectsByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetProjectDefectsByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown,0)
                   .then(function (successResponse) {
                       $scope.projectDefectGridLoading = false;
                       $scope.projectDefectGrid.data = successResponse.data;
@@ -111,7 +102,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectWidgetByProject = function () {
             $scope.projectWidgetGridLoading = true;
-            healthReportService.GetAllProjectWidgetByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetAllProjectWidgetByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0)
                   .then(function (successResponse) {
                       $scope.projectWidgetGridLoading = false;
                       $scope.projectWidgetGrid.data = successResponse.data;
@@ -124,7 +115,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProjectPerformanceByProject = function () {
             $scope.projectPerformanceGridLoading = true;
-            healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetAllProjectVarianceByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0)
                   .then(function (successResponse) {
                       $scope.projectPerformanceGridLoading = false;
 
@@ -145,7 +136,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProductivityDashboard_GroundUp = function () {
             $scope.productivityGridLoading = true;
-            healthReportService.GetProductivityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetProductivityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0)
                 .then(function (successResponse) {
                     $scope.productivityGrid.data = successResponse.data;
                     $scope.productivityGridLoading = false;
@@ -165,7 +156,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadProductivityDashboard_Enhanced = function () {
             $scope.productivityGrid2Loading = true;
-            healthReportService.GetProductivityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetProductivityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0)
                 .then(function (successResponse) {
                     $scope.productivityGrid2.data = successResponse.data;
                     $scope.productivityGrid2Loading = false
@@ -184,7 +175,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadDefectDensity_GroundUp = function () {
             $scope.defectDensityGridLoading = true;
-            healthReportService.GetDefectDensityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetDefectDensityDashboardGroundUpByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown,0)
                 .then(function (successResponse) {
                     $scope.defectDensityGrid.data = successResponse.data;
                     $scope.defectDensityGridLoading = false;
@@ -204,7 +195,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
 
         $scope.LoadDefectDensity_Enhanced = function () {
             $scope.defectDensityGrid2Loading = true;
-            healthReportService.GetDefectDensityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth)
+            healthReportService.GetDefectDensityDashboardEnhancedByProject(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0)
                 .then(function (successResponse) {
                     $scope.defectDensityGrid2.data = successResponse.data;
                     $scope.defectDensityGrid2Loading = false;
@@ -334,7 +325,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             var Iteration = $scope.selectedIteration;
             var TestingType = $scope.selectedtestingtype;
             var ManaualOrAutomated = $scope.selectedManualOrAutomated;
-            healthReportService.getTestingMetrics(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, $scope.selectedMonth, 1, testingPhase, Iteration, TestingSubPhase, TestingType, ManaualOrAutomated).then(function (response) {
+            healthReportService.getTestingMetrics(config, $scope.selectedProjectId, $scope.selectedReleaseDropdown, 0, 1, testingPhase, Iteration, TestingSubPhase, TestingType, ManaualOrAutomated).then(function (response) {
                 $scope.TestingMetricsGrid.data = response.data;
                 $scope.IstestingMetricsVisible = true;
                 scope.TestingMetricsGrid.exporterCsvFilename = $scope.ProjectName + '_DefectDensity_GroundUp.csv';
@@ -911,5 +902,5 @@ $scope.projectVarianceGridthree = {
 
         // load projects dropdown on load
         $scope.LoadProjectsDropDown();
-        $scope.LoadMonthsDropDown();
+ 
     }]);
