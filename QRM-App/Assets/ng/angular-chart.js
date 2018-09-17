@@ -357,11 +357,12 @@
         function getChartData(type, scope) {
             var colors = getColors(type, scope);
             return Array.isArray(scope.chartData[0]) ?
-              getDataSets(scope.chartLabels, scope.chartData, scope.chartSeries || [], colors, scope.chartDatasetOverride) :
+                type == 'doughnut' ? getDataSetsforDonought(scope.chartLabels, scope.chartData, scope.chartSeries || [], colors, scope.chartDatasetOverride): getDataSets(scope.chartLabels, scope.chartData, scope.chartSeries || [], colors, scope.chartDatasetOverride) :
               getData(scope.chartLabels, scope.chartData, colors, scope.chartDatasetOverride);
         }
 
-        function getDataSets(labels, data, series, colors, datasetOverride) {      
+        function getDataSets(labels, data, series, colors, datasetOverride) { 
+           
             return {                
                 labels: labels,
                 datasets: data.map(function (item, i) {
@@ -383,7 +384,32 @@
             };
         }
 
-        function getData(labels, data, colors, datasetOverride) {         
+        function getDataSetsforDonought(labels, data, series, colors, datasetOverride) {         
+            return {
+                labels: labels,
+                datasets: data.map(function (item, i) {
+                    var dataset = angular.extend({}, colors[i], {
+                        label: series[i],
+                        data: item,
+                        backgroundColor: colors.map(function (color) {
+                            return color.pointBackgroundColor;
+                        }),
+                        hoverBackgroundColor: colors.map(function (color) {
+                            return color.backgroundColor;
+                        }),
+
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    });
+                    if (datasetOverride && datasetOverride.length >= i) {
+                        angular.merge(dataset, datasetOverride[i]);
+                    }
+                    return dataset;
+                })
+            };
+        }
+
+        function getData(labels, data, colors, datasetOverride) {          
             var dataset = {
                 labels: labels,
                 datasets: [{
