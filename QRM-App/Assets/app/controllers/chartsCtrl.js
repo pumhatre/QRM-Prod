@@ -395,11 +395,12 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                   });
         }
         $scope.loadTestCaseComplexityDistribution = function (projectId, releaseId) {
+  
             $scope.savePopupButton = false;
             chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
                           .then(function (successResponse) {
                               if (successResponse.data.datasets.length > 0) {
-                                  ;
+                                 
                                   $scope.labels4 = successResponse.data.labels;
                                   $scope.TestCaseComplexityDistribution = [];
                                   for (var i = 0; i < successResponse.data.datasets.length; i++) {
