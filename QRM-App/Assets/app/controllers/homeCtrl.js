@@ -278,4 +278,26 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         }
 
         $scope.loadProjectPerformceGraph($cookies.get('_UserId'));
+
+        $scope.uploadReportGrid = {
+            enableCellSelection: false,
+            enableRowSelection: false,
+            enableSorting: true,
+            enableColumnMenus: false,
+            enableRowHeaderSelection: false,
+            paginationPageSizes: [10, 50, 100],
+            paginationPageSize: 10,
+            gridMenuShowHideColumns: false,
+            columnDefs: [
+              
+                { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '20%' },
+                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '20%' },
+                { field: 'Month', name: 'MonthName', cellTemplate: tmpl, width: '20%' }
+             
+            ],
+
+            onRegisterApi: function (gridApi) {
+                $scope.SavedReportGridApi = gridApi;
+            }
+        }
     }]);

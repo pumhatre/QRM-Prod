@@ -138,6 +138,10 @@
                                 <li role="presentation" class="">
                                     <a href="#tab_content4" ng-click="getSavedReports()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Saved Reports</a>
                                 </li>
+                                <li role="presentation" class="">
+                                    <a href="#tab_content5" ng-click="getSavedReports()" role="tab" target="_self" id="Project-tab" data-toggle="tab" aria-expanded="false">My Uploaded Data</a>
+                                </li>
+
                             </ul>
                             <div id="myTabcontent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -184,7 +188,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row" ng-show="ShowNoData">
-                                                       <p style="text-align:center;font-size:20px;"> No Data</p>
+                                                        <p style="text-align:center;font-size:20px;"> No Data</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -277,7 +281,34 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="Project-tab">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="x_panel">
+                                                <div class="x_content">
+                                                    <div class="col-md-12">
+                                                        <div id="mGrid" ui-grid="uploadReportGrid" ui-grid-pagination="" class="gridDiv grid" ui-grid-cellNav ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize style="height: 200px !important; width:100%">
+                                                            <div class="grid-msg-overlay" ng-show="loading">
+                                                                <div class="msg">
+                                                                    <span>
+                                                                        Loading Data...
+                                                                        <i class="fa fa-spinner fa-spin"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="grid-msg-overlay" ng-hide="loading || uploadReportGrid.data.length">
+                                                                <div class="msg">
+                                                                    <span>No Data</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -37,6 +37,7 @@
     Chart.defaults.global.elements.arc.borderColor = '#ffffff';  
     Chart.defaults.global.elements.arc.backgroundColor = 'rgba(255,255,255,255)';
     Chart.defaults.global.legend.display = false;
+    
     Chart.defaults.global.colors = [
       '#97BBCD',// blue
       '#F7464A',// red
@@ -80,8 +81,32 @@
                                 var position = element.tooltipPosition();
                                 ctx.fillText(dataString, position.x, position.y - (fontSize / 3) - padding);
                             }
-                            if (chart.config.type == "doughnut" && chart.data.datasets.length > 1) {
-                                dataString = dataset.label;
+                            if (chart.config.type == "doughnut" && chart.data.datasets.length > 1) { 
+
+                                 
+                                    var fontStyle =  'Arial';
+                                   var txt = chart.data.datasets[1].label;
+                                    var color = '#87cefa';
+                                    var sidePadding =  20;
+                                    var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
+                                 
+
+                                    //Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+                                    var stringWidth = ctx.measureText(txt).width;
+                                    var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+                                
+                                    
+                                    //Set font settings to draw it correctly.
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'middle';
+                                    var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+                                    var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+                                    ctx.font =  "50px " + fontStyle;
+                                    ctx.fillStyle = color;
+
+                                    //Draw text in center
+                                    ctx.fillText(txt, centerX, centerY);
+                                
                             }
 
                        
