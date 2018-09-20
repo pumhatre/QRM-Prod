@@ -45,5 +45,6 @@ namespace QRMService.DataBase
         public virtual DbSet<ProjectMaster> ProjectMasters { get; set; }
         public virtual DbSet<TestingDataStaging> TestingDataStagings { get; set; }
         public virtual DbSet<TestingDetail> TestingDetails { get; set; }
+        public virtual DbSet<UploadDetail> UploadDetails { get; set; }
     }
 }

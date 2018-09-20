@@ -424,6 +424,16 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="DefectRejectionPer" Type="numeric" Precision="9" Scale="5" />
           <Property Name="DefectsRejectedByQA" Type="int" />
         </EntityType>
+        <EntityType Name="UploadDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="MonthId" Type="int" Nullable="false" />
+          <Property Name="ReleaseId" Type="int" Nullable="false" />
+          <Property Name="UploadedBy" Type="int" />
+        </EntityType>
         <EntityType Name="UserDetails">
           <Key>
             <PropertyRef Name="UserId" />
@@ -759,6 +769,18 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UploadDetails_ProjectMaster">
+          <End Role="ProjectMaster" Type="Self.ProjectMaster" Multiplicity="1" />
+          <End Role="UploadDetails" Type="Self.UploadDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="UploadDetails">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserDetails_RoleMaster">
           <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
           <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
@@ -809,6 +831,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestingDataStaging" EntityType="Self.TestingDataStaging" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestingDetails" EntityType="Self.TestingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UploadDetails" EntityType="Self.UploadDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProjectAssociation" EntityType="Self.UserProjectAssociation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserReportAssociation" EntityType="Self.UserReportAssociation" Schema="dbo" store:Type="Tables" />
@@ -1025,6 +1048,10 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMaster" />
             <End Role="TestingDetails" EntitySet="TestingDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_UploadDetails_ProjectMaster" Association="Self.FK_UploadDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMaster" />
+            <End Role="UploadDetails" EntitySet="UploadDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserDetails_RoleMaster" Association="Self.FK_UserDetails_RoleMaster">
             <End Role="RoleMaster" EntitySet="RoleMaster" />
             <End Role="UserDetails" EntitySet="UserDetails" />
@@ -1174,6 +1201,11 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <AssociationSet Name="FK_TestingDetails_ReleaseId" Association="QRMPortalModel.FK_TestingDetails_ReleaseId">
             <End Role="ProjectReleaseMaster" EntitySet="ProjectReleaseMasters" />
             <End Role="TestingDetail" EntitySet="TestingDetails" />
+          </AssociationSet>
+          <EntitySet Name="UploadDetails" EntityType="QRMPortalModel.UploadDetail" />
+          <AssociationSet Name="FK_UploadDetails_ProjectMaster" Association="QRMPortalModel.FK_UploadDetails_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="UploadDetail" EntitySet="UploadDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="DefectDataDetail">
@@ -1726,6 +1758,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <NavigationProperty Name="UserProjectAssociations" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="ProjectMaster" ToRole="UserProjectAssociation" />
           <NavigationProperty Name="TestingDataStagings" Relationship="QRMPortalModel.FK_TestingDataStaging_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDataStaging" />
           <NavigationProperty Name="TestingDetails" Relationship="QRMPortalModel.FK_TestingDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="TestingDetail" />
+          <NavigationProperty Name="UploadDetails" Relationship="QRMPortalModel.FK_UploadDetails_ProjectMaster" FromRole="ProjectMaster" ToRole="UploadDetail" />
         </EntityType>
         <Association Name="FK_DefectDataDetails_ProjectMaster">
           <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
@@ -2011,6 +2044,29 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Principal>
             <Dependent Role="TestingDetail">
               <PropertyRef Name="ProjectReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UploadDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="MonthId" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseId" Type="Int32" Nullable="false" />
+          <Property Name="UploadedBy" Type="Int32" />
+          <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_UploadDetails_ProjectMaster" FromRole="UploadDetail" ToRole="ProjectMaster" />
+        </EntityType>
+        <Association Name="FK_UploadDetails_ProjectMaster">
+          <End Type="QRMPortalModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="QRMPortalModel.UploadDetail" Role="UploadDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="UploadDetail">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2477,6 +2533,17 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="TestingTypeCode" ColumnName="TestingTypeCode" />
                 <ScalarProperty Name="TestingPhaseCode" ColumnName="TestingPhaseCode" />
                 <ScalarProperty Name="TestingDetailsID" ColumnName="TestingDetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UploadDetails">
+            <EntityTypeMapping TypeName="QRMPortalModel.UploadDetail">
+              <MappingFragment StoreEntitySet="UploadDetails">
+                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+                <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
+                <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

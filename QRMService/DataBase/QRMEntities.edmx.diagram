@@ -53,6 +53,8 @@
         <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_MonthId" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ProjectMaster" />
         <AssociationConnector Association="QRMPortalModel.FK_TestingDetails_ReleaseId" />
+        <EntityTypeShape EntityType="QRMPortalModel.UploadDetail" Width="1.5" PointX="3" PointY="67" />
+        <AssociationConnector Association="QRMPortalModel.FK_UploadDetails_ProjectMaster" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
