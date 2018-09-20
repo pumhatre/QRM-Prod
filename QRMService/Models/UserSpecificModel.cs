@@ -27,4 +27,11 @@ namespace QRMService.Models
         public string ProjectManager { get; set; }
         public string QualityController { get; set; }
     }
+
+    public class ProjectUploadModel
+    {
+        public string Project { get; set; }
+        public string Month { get; set; }
+        public string Release { get; set; }
+    }
 }

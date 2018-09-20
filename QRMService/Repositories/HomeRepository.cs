@@ -101,57 +101,64 @@ namespace QRMService.Repositories
         }
 
 
-        public static List<ProjectReviewModel> GetUploadedData(int userId)
+        public static List<ProjectUploadModel> GetUploadedData(int userId)
         {
-            List<ProjectReviewModel> userProjectList = new List<ProjectReviewModel>();
+            List<ProjectUploadModel> userProjectList = new List<ProjectUploadModel>();
             using (var db = new QRMEntities())
             {
                 var role = (from p in db.UserDetails
                             join r in db.RoleMasters on p.RoleId equals r.RoleId
                             where r.IsActive == "Y" && p.UserId == userId
                             select r.RoleName).ToList().FirstOrDefault();
-                List<ProjectReviewModel> userProjects = new List<ProjectReviewModel>();
+                List<ProjectUploadModel> userProjects = new List<ProjectUploadModel>();
                 if (role.ToString() != "SuperUser")
                 {
 
-                    userProjects = (from pm in db.ProjectMasters
-                                    join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
-                                    where od.UserId == userId && pm.IsActive == true
-                                    select new ProjectReviewModel
+                    userProjects = (from pm in db.UploadDetails
+                                    join od in db.UserProjectAssociations on pm.ProjectId equals od.ProjectId    
+                                    join pr in db.ProjectMasters on pm.ProjectId equals pr.ProjectID
+                                    join rl in db.ProjectReleaseMasters on pm.ReleaseId equals rl.ProjectReleaseId
+                                    join mn in db.MonthMasters on pm.MonthId equals mn.MonthId
+                                    where od.UserId == userId && pr.IsActive== true
+                                    select new ProjectUploadModel
                                     {
-                                        id = pm.ProjectID,
-                                        color = pm.ProjectColor,
-                                        name = pm.ProjectName,
-                                        reviewDate = pm.ReviewDate.ToString()
+                                        Project = pr.ProjectName,
+                                        Release = rl.ReleaseName,
+                                        Month = mn.MonthName
+
+                                        
                                     }).ToList();
 
                 }
                 else
                 {
-                    userProjects = db.ProjectMasters
-                    .Where(a => a.IsActive == true)
-                    .Select(a => new ProjectReviewModel
-                    {
-                        id = a.ProjectID,
-                        color = a.ProjectColor,
-                        name = a.ProjectName,
-                        reviewDate = a.ReviewDate.ToString()
-                    }).ToList();
+                    userProjects =(from pm in db.UploadDetails
+                           join pr in db.ProjectMasters on pm.ProjectId equals pr.ProjectID
+                                   join rl in db.ProjectReleaseMasters on pm.ReleaseId equals rl.ProjectReleaseId
+                                   join mn in db.MonthMasters on pm.MonthId equals mn.MonthId
+                                   where  pr.IsActive == true
+                                  select new ProjectUploadModel
+                                  {
+                                      Project = pr.ProjectName,
+                                      Release = rl.ReleaseName,
+                                      Month = mn.MonthName
+                                  }).ToList();
                 }
+
+
+
+
                 if (userProjects.Count > 0 && userProjects != null)
                 {
                     foreach (var item in userProjects)
                     {
+                        
                         userProjectList.Add(item);
                     }
                 }
             }
 
-            foreach (var project in userProjectList)
-            {
-                DateTime revDate = DateTime.Parse(project.reviewDate);
-                project.reviewDate = revDate.ToString("MM/dd/yyyy");
-            }
+            
 
             return userProjectList;
         }

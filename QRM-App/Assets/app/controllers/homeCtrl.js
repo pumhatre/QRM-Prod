@@ -278,9 +278,14 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
         $scope.loadProjectPerformceGraph($cookies.get('_UserId'));
 
-        $scope.LoadMyProjectUploadData = function (userId ) {
-          
-            mySavedReportService
+        $scope.LoadMyProjectUploadData = function ( ) {
+            var userId = $cookies.get('_UserId');
+            mySavedReportService.LoadMyProjectUploadData( config,userId)
+                .then(function (successResponse) {
+                    $scope.uploadReportGrid.data = successResponse.data;
+                }, function (errorResponse) {
+
+                });
         }
 
         $scope.uploadReportGrid = {
@@ -294,10 +299,10 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             gridMenuShowHideColumns: false,
             columnDefs: [
               
-                { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '20%' },
-                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '20%' },
-                { field: 'Month', name: 'Month', cellTemplate: tmpl, width: '20%' },
-                 { field: 'UploadedBy', name: 'Uploaded By', cellTemplate: tmpl, width: '20%' }
+                { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '33%' },
+                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '33%' },
+                { field: 'Month', name: 'Month', cellTemplate: tmpl, width: '34%' }
+                
 
              
             ],

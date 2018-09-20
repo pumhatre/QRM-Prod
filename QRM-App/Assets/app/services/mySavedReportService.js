@@ -15,8 +15,7 @@
         return $http.post(config.apiUrl + 'api/SaveReports/DeleteMyReport', data);
     }
 
-    this.LoadMyProjectUploadData = function (userId) {
-        var data = { userId: userId };
-        return $http.post(config.apiUrl + 'api/Home/GetUploadedData', data);
+    this.LoadMyProjectUploadData = function (config,userId) {      
+        return $http.get(config.apiUrl + 'api/Home/GetUploadedData?userId=' + userId);
     }
 }]);
