@@ -164,9 +164,10 @@
                                         <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
 
-                                    <div ng-switch-when="ED" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
+                                    <div ng-switch-when="ED" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h4 style="text-align:center;">Effort Distribution</h4>
+                                        <h1 style="text-decoration: underline" >Effort Distribution</h1>
+                                        <h4 style="font-size:35px; color:#000099">Planned</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
                                                 chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride"></canvas>
                                         <br />
@@ -174,7 +175,8 @@
                                     </div>
                                     <div ng-switch-when="TCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h4 style="text-align:center;">Test Case Distribution</h4>
+                                        <h1 style="text-decoration: underline">Test Case Distribution</h1>
+                                        <h4 style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
                                         <br />
@@ -182,7 +184,9 @@
                                     </div>
                                     <div ng-switch-when="TCCD" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h4 style="text-align:center;">Test case complexity distribution(Component/E2E)</h4>
+                                        <h1 style="text-decoration: underline">Test case complexity distribution(Component/E2E)</h1>
+                                        <br/>
+                                        <h4 style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut"
                                                 chart-data="TestCaseComplexityDistribution"
                                                 chart-labels="labels4"

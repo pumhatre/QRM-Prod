@@ -144,8 +144,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                   $scope.ReworkPercentSeries = [];
                                   $scope.ReworkPercentOptions = [];
                                   $scope.ReworkPercentColors = [];
-                                  $scope.ReworkPercentOverride = [];
-                                  debugger;
+                                  $scope.ReworkPercentOverride = [];                                 
                                   if (successResponse.data) {
                                       if (successResponse.data[0]) {
                                           // set data for effort variance graph
@@ -279,6 +278,11 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
         $scope.loadProjectPerformceGraph($cookies.get('_UserId'));
 
+        $scope.LoadMyProjectUploadData = function (userId ) {
+          
+            mySavedReportService
+        }
+
         $scope.uploadReportGrid = {
             enableCellSelection: false,
             enableRowSelection: false,
@@ -292,7 +296,9 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
               
                 { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '20%' },
                 { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '20%' },
-                { field: 'Month', name: 'MonthName', cellTemplate: tmpl, width: '20%' }
+                { field: 'Month', name: 'Month', cellTemplate: tmpl, width: '20%' },
+                 { field: 'UploadedBy', name: 'Uploaded By', cellTemplate: tmpl, width: '20%' }
+
              
             ],
 

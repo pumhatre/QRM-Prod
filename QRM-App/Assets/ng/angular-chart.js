@@ -86,7 +86,7 @@
                                  
                                     var fontStyle =  'Arial';
                                    var txt = chart.data.datasets[1].label;
-                                    var color = '#87cefa';
+                                var color = '#000099';
                                     var sidePadding =  20;
                                     var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
                                  
@@ -101,7 +101,7 @@
                                     ctx.textBaseline = 'middle';
                                     var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
                                     var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
-                                    ctx.font =  "50px " + fontStyle;
+                                    ctx.font =  "35px " + fontStyle;
                                     ctx.fillStyle = color;
 
                                     //Draw text in center

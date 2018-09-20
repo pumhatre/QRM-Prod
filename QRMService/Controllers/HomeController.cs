@@ -39,5 +39,20 @@ namespace QRMService.Controllers
                 throw (ex);
             }
         }
+
+        [HttpGet]
+        public IHttpActionResult GetUploadedData(int userId)
+        {
+            try
+            {
+                var UploadedData = HomeRepository.GetUploadedData(userId);
+                return Ok(UploadedData);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
     }
 }
