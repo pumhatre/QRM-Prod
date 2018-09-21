@@ -802,9 +802,16 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())== null? "NA": Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())== null? "NA": Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString( Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
+
                     });
                 });
             }
@@ -841,9 +848,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }
@@ -880,9 +893,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }
@@ -919,9 +938,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }
@@ -952,9 +977,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())== null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }
@@ -985,9 +1016,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }
@@ -1018,9 +1055,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }
@@ -1051,9 +1094,15 @@ namespace QRMService.Repositories
                     {
                         Type = row.Field<string>(Constants.GroupUpEnhancedColumns.Type.ToString()),
                         SubType = row.Field<string>(Constants.GroupUpEnhancedColumns.SubType.ToString()),
-                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString())),
+                        ProjectPerformance = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformance.ToString()), 2)),
                         USL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USL.ToString()),
-                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString())
+                        LSL = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSL.ToString()),
+                        ProjectPerformanceDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceDOTNET.ToString()), 2)),
+                        USLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLDOTNET.ToString()),
+                        LSLDOTNET = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLDOTNET.ToString()),
+                        ProjectPerformanceOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()) == null ? "NA" : Convert.ToString(Math.Round(row.Field<decimal>(Constants.GroupUpEnhancedColumns.ProjectPerformanceOther.ToString()), 2)),
+                        USLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.USLOther.ToString()),
+                        LSLOther = row.Field<decimal?>(Constants.GroupUpEnhancedColumns.LSLOther.ToString())
                     });
                 });
             }

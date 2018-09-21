@@ -96,6 +96,13 @@ namespace QRMService.Models
         public decimal? USL { get; set; }
         public decimal? LSL { get; set; }
         public string ProjectPerformance { get; set; }
+
+        public decimal? USLDOTNET { get; set; }
+        public decimal? LSLDOTNET { get; set; }
+        public string ProjectPerformanceDOTNET { get; set; }
+        public decimal? USLOther { get; set; }
+        public decimal? LSLOther { get; set; }
+        public string ProjectPerformanceOther { get; set; }
     }
 
 

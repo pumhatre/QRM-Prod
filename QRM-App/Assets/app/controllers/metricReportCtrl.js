@@ -669,21 +669,44 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
+            headerTemplate: '/Assets/app/directives/header-template.html',
+            superColDefs: [{
+                name: 'type',
+                displayName: 'Type'
+            }, {
+                name: 'subType',
+                displayName: 'SubType'
+            }, {
+                name: 'java',
+                displayName: 'Java'
+            }, {
+                name: 'dotNet',
+                displayName: 'DotNet'
+            }, {
+                name: 'other',
+                displayName: 'Other'
+            }],
+
+
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
-
-
-                            { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                            { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
-                            { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                            { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:12+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '12%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7.3%' },
+                { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '6.5%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
+                { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
 
             ],
             enableGridMenu: true,
             enableSelectAll: true,
             //  exporterExcelFilename: $scope.ProjectName + '.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            //  exporterCsvFilename: $scope.ProjectName + '.csv',
+            //   exporterCsvFilename: $scope.ProjectName + '.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
@@ -711,21 +734,44 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
+            headerTemplate: '/Assets/app/directives/header-template.html',
+            superColDefs: [{
+                name: 'type',
+                displayName: 'Type'
+            }, {
+                name: 'subType',
+                displayName: 'SubType'
+            }, {
+                name: 'java',
+                displayName: 'Java'
+            }, {
+                name: 'dotNet',
+                displayName: 'DotNet'
+            }, {
+                name: 'other',
+                displayName: 'Other'
+            }],
+
+
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
-
-
-                        { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                          { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
-                        { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                        { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:12+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '12%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7.3%' },
+                { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '6.5%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
+                { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
 
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            //   exporterExcelFilename: $scope.ProjectName + '.xlsx',
+            //  exporterExcelFilename: $scope.ProjectName + '.xlsx',
             exporterExcelSheetName: 'Sheet1',
-            //     exporterCsvFilename: $scope.ProjectName + '.csv',
+            //   exporterCsvFilename: $scope.ProjectName + '.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },
             exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
             exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
@@ -753,17 +799,42 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
+            headerTemplate: '/Assets/app/directives/header-template.html',
+            superColDefs: [{
+                name: 'type',
+                displayName: 'Type'
+            }, {
+                name: 'subType',
+                displayName: 'SubType'
+            }, {
+                name: 'java',
+                displayName: 'Java'
+            }, {
+                name: 'dotNet',
+                displayName: 'DotNet'
+            }, {
+                name: 'other',
+                displayName: 'Other'
+            }],
+
+
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
-         { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
-                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:12+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '12%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7.3%' },
+                { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '6.5%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
+                { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
 
             ],
             enableGridMenu: true,
             enableSelectAll: true,
-            //    exporterExcelFilename: $scope.ProjectName + '.xlsx',
+            //  exporterExcelFilename: $scope.ProjectName + '.xlsx',
             exporterExcelSheetName: 'Sheet1',
             //   exporterCsvFilename: $scope.ProjectName + '.csv',
             exporterPdfDefaultStyle: { fontSize: 9 },

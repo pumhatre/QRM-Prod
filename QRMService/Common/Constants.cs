@@ -318,7 +318,13 @@ namespace QRMService.Common
             SubType,
             ProjectPerformance,
             USL,
-            LSL
+            LSL,
+            ProjectPerformanceDOTNET,
+            USLDOTNET,
+            LSLDOTNET,
+            ProjectPerformanceOther,
+            USLOther,
+            LSLOther
         }
 
         public enum ProjectPerformanceColumns
