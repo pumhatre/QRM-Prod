@@ -212,6 +212,7 @@
     <Content Include="Assets\app\controllers\uploadCtrl.js" />
     <Content Include="Assets\app\controllers\viewPreferencesReportCtrl.js" />
     <Content Include="Assets\app\directives\header-template.html" />
+    <Content Include="Assets\app\directives\header-template2.html" />
     <Content Include="Assets\app\directives\multiSelect.js" />
     <Content Include="Assets\app\directives\multiselect.tmpl.html" />
     <Content Include="Assets\app\directives\stepTabsDirective.js" />

@@ -1052,7 +1052,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
-            headerTemplate: '/Assets/app/directives/header-template.html',
+            headerTemplate: '/Assets/app/directives/header-template2.html',
             superColDefs: [{
                 name: 'type',
                 displayName: 'Type'
@@ -1069,19 +1069,19 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 name: 'other',
                 displayName: 'Other'
             }],
-            columnDefs: [
-                { field: 'Type', superCol: 'type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '12%', },
-                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
-                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '12%' },
+            columnDefs: [              
+
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
-                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7.3%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
                 { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
-                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '6.5%' },
-                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
                 { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
-                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
                 { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
-                
             ],
             enableGridMenu: true,
             enableSelectAll: true,
@@ -1115,15 +1115,36 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
+            headerTemplate: '/Assets/app/directives/header-template2.html',
+            superColDefs: [{
+                name: 'type',
+                displayName: 'Type'
+            }, {
+                name: 'subType',
+                displayName: 'SubType'
+            }, {
+                name: 'java',
+                displayName: 'Java'
+            }, {
+                name: 'dotNet',
+                displayName: 'DotNet'
+            }, {
+                name: 'other',
+                displayName: 'Other'
+            }],
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
 
-
-                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
-                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
-                
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
             ],
             enableGridMenu: true,
             enableSelectAll: true,
@@ -1157,15 +1178,36 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
+            headerTemplate: '/Assets/app/directives/header-template2.html',
+            superColDefs: [{
+                name: 'type',
+                displayName: 'Type'
+            }, {
+                name: 'subType',
+                displayName: 'SubType'
+            }, {
+                name: 'java',
+                displayName: 'Java'
+            }, {
+                name: 'dotNet',
+                displayName: 'DotNet'
+            }, {
+                name: 'other',
+                displayName: 'Other'
+            }],
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%', },
 
-
-                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                  { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
-                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
-              
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
             ],
             enableGridMenu: true,
             enableSelectAll: true,
@@ -1199,15 +1241,36 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             loading: true,
             gridMenuShowHideColumns: false,
+            headerTemplate: '/Assets/app/directives/header-template2.html',
+            superColDefs: [{
+                name: 'type',
+                displayName: 'Type'
+            }, {
+                name: 'subType',
+                displayName: 'SubType'
+            }, {
+                name: 'java',
+                displayName: 'Java'
+            }, {
+                name: 'dotNet',
+                displayName: 'DotNet'
+            }, {
+                name: 'other',
+                displayName: 'Other'
+            }],
             columnDefs: [
-                { field: 'Type', name: '', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '20%' },
 
-
-                { field: 'SubType', name: ' ', cellTemplate: tmpl2, width: '20%' },
-                     { field: 'ProjectPerformance', name: 'Project Performance', width: '20%', cellTemplate: tmpl2 },
-                { field: 'USL', displayName: 'USL', cellTemplate: tmpl2, width: '20%' },
-                { field: 'LSL', displayName: 'LSL', cellTemplate: tmpl2, width: '20%' }
-           
+                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
             ],
             enableGridMenu: true,
             enableSelectAll: true,

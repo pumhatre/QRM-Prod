@@ -300,7 +300,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             columnDefs: [
               
                 { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '33%' },
-                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '33%' },
+                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '34%' },
                 { field: 'Month', name: 'Month', cellTemplate: tmpl, width: '34%' }
                 
 
