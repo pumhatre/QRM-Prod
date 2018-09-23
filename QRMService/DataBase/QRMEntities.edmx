@@ -133,7 +133,7 @@ warning 6002: The table/view 'QRMPortal.dbo.DevMetrics' does not have a primary 
           <Property Name="WidgetType" Type="varchar" MaxLength="50" />
           <Property Name="Complexity" Type="varchar" MaxLength="50" />
           <Property Name="TaskType" Type="varchar" MaxLength="50" />
-          <Property Name="BaselinedEffort" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BaselinedEffort" Type="numeric" Precision="18" Scale="2" />
           <Property Name="ActualEffort" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="CMMIRollUp" Type="varchar" MaxLength="50" />
@@ -165,7 +165,7 @@ warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a prima
           <Property Name="ComponentTypeCode" Type="nvarchar" MaxLength="20" />
           <Property Name="ComplexityCode" Type="nvarchar" MaxLength="20" />
           <Property Name="TaskTypeCode" Type="varchar" MaxLength="50" />
-          <Property Name="BaselineEffort" Type="int" />
+          <Property Name="BaselineEffort" Type="numeric" Precision="18" Scale="2" />
           <Property Name="ActualEffort" Type="numeric" Precision="18" Scale="2" />
           <Property Name="StatusCode" Type="nvarchar" MaxLength="20" />
           <Property Name="CMMIRollUpCode" Type="nvarchar" MaxLength="20" />
@@ -432,7 +432,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectId" Type="int" Nullable="false" />
           <Property Name="MonthId" Type="int" Nullable="false" />
           <Property Name="ReleaseId" Type="int" Nullable="false" />
-          <Property Name="UploadedBy" Type="int" />
+          <Property Name="UploadedDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="UserDetails">
           <Key>
@@ -1270,7 +1270,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="WidgetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Complexity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ActualEffort" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CMMIRollUp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -2055,7 +2055,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
           <Property Name="MonthId" Type="Int32" Nullable="false" />
           <Property Name="ReleaseId" Type="Int32" Nullable="false" />
-          <Property Name="UploadedBy" Type="Int32" />
+          <Property Name="UploadedDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_UploadDetails_ProjectMaster" FromRole="UploadDetail" ToRole="ProjectMaster" />
         </EntityType>
         <Association Name="FK_UploadDetails_ProjectMaster">
@@ -2539,7 +2539,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySetMapping Name="UploadDetails">
             <EntityTypeMapping TypeName="QRMPortalModel.UploadDetail">
               <MappingFragment StoreEntitySet="UploadDetails">
-                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
                 <ScalarProperty Name="ReleaseId" ColumnName="ReleaseId" />
                 <ScalarProperty Name="MonthId" ColumnName="MonthId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />

@@ -18,7 +18,7 @@ namespace QRMService.DataBase
         public int ProjectId { get; set; }
         public int MonthId { get; set; }
         public int ReleaseId { get; set; }
-        public Nullable<int> UploadedBy { get; set; }
+        public System.DateTime UploadedDate { get; set; }
     
         public virtual ProjectMaster ProjectMaster { get; set; }
     }

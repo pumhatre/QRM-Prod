@@ -115,17 +115,19 @@ namespace QRMService.Repositories
                 {
 
                     userProjects = (from pm in db.UploadDetails
-                                    join od in db.UserProjectAssociations on pm.ProjectId equals od.ProjectId    
+                                    join od in db.UserProjectAssociations on pm.ProjectId equals od.ProjectId
                                     join pr in db.ProjectMasters on pm.ProjectId equals pr.ProjectID
                                     join rl in db.ProjectReleaseMasters on pm.ReleaseId equals rl.ProjectReleaseId
                                     join mn in db.MonthMasters on pm.MonthId equals mn.MonthId
-                                    where od.UserId == userId && pr.IsActive== true
+                                    where od.UserId == userId && pr.IsActive == true
+                                    orderby pm.UploadedDate
                                     select new ProjectUploadModel
                                     {
                                         Project = pr.ProjectName,
                                         Release = rl.ReleaseName,
-                                        Month = mn.MonthName
-
+                                        Month = mn.MonthName,
+                                        UploadedDate = pm.UploadedDate.ToString()
+                                        
                                         
                                     }).ToList();
 
@@ -136,12 +138,13 @@ namespace QRMService.Repositories
                            join pr in db.ProjectMasters on pm.ProjectId equals pr.ProjectID
                                    join rl in db.ProjectReleaseMasters on pm.ReleaseId equals rl.ProjectReleaseId
                                    join mn in db.MonthMasters on pm.MonthId equals mn.MonthId
-                                   where  pr.IsActive == true
+                                   where  pr.IsActive == true orderby pm.UploadedDate
                                   select new ProjectUploadModel
                                   {
                                       Project = pr.ProjectName,
                                       Release = rl.ReleaseName,
-                                      Month = mn.MonthName
+                                      Month = mn.MonthName,
+                                      UploadedDate = pm.UploadedDate.ToString()
                                   }).ToList();
                 }
 

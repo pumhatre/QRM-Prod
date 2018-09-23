@@ -33,5 +33,7 @@ namespace QRMService.Models
         public string Project { get; set; }
         public string Month { get; set; }
         public string Release { get; set; }
+        public string UploadedDate { get; set; }
+
     }
 }

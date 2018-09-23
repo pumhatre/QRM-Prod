@@ -299,10 +299,10 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             gridMenuShowHideColumns: false,
             columnDefs: [
               
-                { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '33%' },
-                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '34%' },
-                { field: 'Month', name: 'Month', cellTemplate: tmpl, width: '34%' }
-                
+                { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '25%' },
+                { field: 'Release', name: 'Release', cellTemplate: tmpl, width: '25%' },
+                { field: 'Month', name: 'Month', cellTemplate: tmpl, width: '25%' },
+                { field: 'UploadedDate', name: 'Uploaded Date', cellTemplate: tmpl, width: '25%'}
 
              
             ],

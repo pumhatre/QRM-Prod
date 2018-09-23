@@ -607,33 +607,33 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             headerTemplate: '/Assets/app/directives/header-template.html',
             superColDefs: [{
                 name: 'type',
-                displayName: 'Type'               
+                displayName: 'Type'
             }, {
-                name: 'subType',
-                displayName: 'SubType'
-            }, {
-                name: 'java',
+                    name: 'java',
                 displayName: 'Java'
             }, {
-                name: 'dotNet',
-                displayName: 'DotNet'
+                    name: 'dotNet',
+                    displayName: 'DotNet'
+            }, {
+                    name: 'other',
+                    displayName: 'Other'
             }, {
                 name: 'other',
                 displayName: 'Other'
             }],
 
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
-                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
-                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
-                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7%' },
                 { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
-                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
-                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '7%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
                 { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
-                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%'   },
-                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%'   },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '7%' }
 
             ],
             enableGridMenu: true,
@@ -673,9 +673,6 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 name: 'type',
                 displayName: 'Type'
             }, {
-                name: 'subType',
-                displayName: 'SubType'
-            }, {
                 name: 'java',
                 displayName: 'Java'
             }, {
@@ -684,21 +681,23 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }, {
                 name: 'other',
                 displayName: 'Other'
+            }, {
+                name: 'other',
+                displayName: 'Other'
             }],
 
-
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
-                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
-                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
-                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7%' },
                 { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
-                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
-                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '7%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
                 { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
-                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
-                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '7%' }
 
             ],
             enableGridMenu: true,
@@ -738,9 +737,6 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 name: 'type',
                 displayName: 'Type'
             }, {
-                name: 'subType',
-                displayName: 'SubType'
-            }, {
                 name: 'java',
                 displayName: 'Java'
             }, {
@@ -749,21 +745,24 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }, {
                 name: 'other',
                 displayName: 'Other'
+            }, {
+                name: 'other',
+                displayName: 'Other'
             }],
 
-
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
-                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
-                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
-                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7%' },
                 { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
-                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
-                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '7%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
                 { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
-                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
-                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '7%' }
+
             ],
             enableGridMenu: true,
             enableSelectAll: true,
@@ -802,9 +801,6 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 name: 'type',
                 displayName: 'Type'
             }, {
-                name: 'subType',
-                displayName: 'SubType'
-            }, {
                 name: 'java',
                 displayName: 'Java'
             }, {
@@ -813,21 +809,23 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }, {
                 name: 'other',
                 displayName: 'Other'
+            }, {
+                name: 'other',
+                displayName: 'Other'
             }],
 
-
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '12%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:11.5+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
-                { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12%' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
-                { name: 'USL', displayName: 'USL', superCol: 'java', width: '8%' },
-                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '8%' },
+                { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
+                { name: 'LSL', displayName: 'LSL', superCol: 'java', width: '7%' },
                 { name: 'ProjectPerformanceDOTNET', displayName: 'Project Performance ', superCol: 'dotNet', width: '11%' },
-                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '8%' },
-                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '8%' },
+                { name: 'USLDOTNET', displayName: 'USL ', superCol: 'dotNet', width: '7%' },
+                { name: 'LSLDOTNET ', displayName: 'LSL ', superCol: 'dotNet', width: '7%' },
                 { name: 'ProjectPerformanceOther', displayName: 'Project Performance  ', superCol: 'other', width: '11%' },
-                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '8%' },
-                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '8%' }
+                { name: 'USLOther', displayName: 'USL  ', superCol: 'other', width: '7%' },
+                { name: 'LSLOther', displayName: 'LSL  ', superCol: 'other', width: '7%' }
 
             ],
             enableGridMenu: true,
