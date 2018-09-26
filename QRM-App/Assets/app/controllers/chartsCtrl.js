@@ -312,8 +312,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         $scope.loadEffortDistribution = function (projectId, releaseId) {
             $scope.savePopupButton = false;
             chartService.GetEffortDistribution(config, projectId, releaseId)
-                .then(function (successResponse) {                    
-                    if (successResponse.data.datasets.length > 0) {
+                .then(function (successResponse) {
+                    if (successResponse.data.datasets != null && successResponse.data.datasets.length > 0) {
                         $scope.labels = successResponse.data.labels;
                         $scope.ProjectEffortData = [];
                         $scope.ProjectEffortDashboardOverride = [];                      
@@ -359,7 +359,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             $scope.savePopupButton = false;
             chartService.GetTestCaseDistribution(config, projectId, releaseId)
                   .then(function (successResponse) {
-                      if (successResponse.data.datasets.length > 0) {
+                      if (successResponse.data.datasets!= null && successResponse.data.datasets.length > 0) {
                           ;
                           $scope.labels1 = successResponse.data.labels;
                           $scope.TestCaseDistribution = [];
@@ -408,7 +408,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             $scope.savePopupButton = false;
             chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
                           .then(function (successResponse) {
-                              if (successResponse.data.datasets.length > 0) {
+                              if (successResponse.data.datasets!= null && successResponse.data.datasets.length > 0) {
                                  
                                   $scope.labels4 = successResponse.data.labels;
                                   $scope.TestCaseComplexityDistribution = [];
