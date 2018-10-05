@@ -111,36 +111,40 @@ namespace QRMService.Repositories
             parameters.Add(new KeyValuePair<string, object>("projectReleaseId", releaseId));
             DataSet chartSetData = helper.GetDataSetByProcedure(Constants.UspGetTestCaseComplexityDistribution, "default", true, parameters.ToArray());
             var chartDataModel = new ChartDataModelDecimal();
-            chartDataModel.datasets = new List<ChartDatasetDecimal>();
-            chartDataModel.series = new List<string> { "Component", "E2E" };
 
-            List<decimal> componentListModel = new List<decimal>();
-            List<decimal> E2EListModel = new List<decimal>();
+            if (chartSetData != null && chartSetData.Tables.Count>0)
+            {
+                chartDataModel.datasets = new List<ChartDatasetDecimal>();
+                chartDataModel.series = new List<string> { "Component", "E2E" };
 
-            chartSetData.Tables[0].AsEnumerable().ToList().ForEach(row =>
-            {
-                componentListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
-            });
+                List<decimal> componentListModel = new List<decimal>();
+                List<decimal> E2EListModel = new List<decimal>();
 
-            chartSetData.Tables[1].AsEnumerable().ToList().ForEach(row =>
-            {
-                E2EListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
-            });
+                chartSetData.Tables[0].AsEnumerable().ToList().ForEach(row =>
+                {
+                    componentListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
+                });
 
-            chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex","Very Complex"};
-           
-            chartDataModel.datasets.Add(new ChartDatasetDecimal()
-            {
-                data = componentListModel,
-                //backgroundColor = new List<string>() { "#FFA500", "#1E90FF", "#F7464A", "#000000" },
-                label = "Component"
-            });
-            chartDataModel.datasets.Add(new ChartDatasetDecimal()
-            {
-                data = E2EListModel,
-               // backgroundColor = new List<string>() { "#F7464A","#FFA500", "#1E90FF", "#000000" },
-                label = "E2E"
-            });
+                chartSetData.Tables[1].AsEnumerable().ToList().ForEach(row =>
+                {
+                    E2EListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
+                });
+
+                chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex", "Very Complex" };
+
+                chartDataModel.datasets.Add(new ChartDatasetDecimal()
+                {
+                    data = componentListModel,
+                    //backgroundColor = new List<string>() { "#FFA500", "#1E90FF", "#F7464A", "#000000" },
+                    label = "Component"
+                });
+                chartDataModel.datasets.Add(new ChartDatasetDecimal()
+                {
+                    data = E2EListModel,
+                    // backgroundColor = new List<string>() { "#F7464A","#FFA500", "#1E90FF", "#000000" },
+                    label = "E2E"
+                });
+            }
 
             return chartDataModel;
         }

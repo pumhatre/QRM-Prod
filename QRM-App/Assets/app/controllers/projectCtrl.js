@@ -157,8 +157,8 @@
                     type: 'danger'
                 });
             }
-            if (row.Technology) {
-                $scope.Project.Technology = row.Technology;
+            if (row.TechnologyCode) {
+                $scope.Project.TechnologyCode = row.TechnologyCode;
             }
             else {
                 isValidData = false;
@@ -167,13 +167,13 @@
                     type: 'danger'
                 });
             }
-            if (row.Industry) {
-                $scope.Project.Industry = row.Industry;
+            if (row.IndustryCode) {
+                $scope.Project.IndustryCode = row.IndustryCode;
             }
             else {
                 isValidData = false;
                 $scope.alerts.push({
-                    msg: 'Industry is required',
+                    msg: 'Market Offerings is required',
                     type: 'danger'
                 });
             }
@@ -318,11 +318,11 @@
                     },
                     {
                         name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '7%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.Technology"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceCode}}</option> </select></div>'
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.TechnologyCode"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceValue}}</option> </select></div>'
                     },
                     {
                         name: 'Industry', displayName: "Market Offerings", field: "Industry", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.Industry"><option value="">Select  Market Offering</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceCode}}</option> </select></div>'
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.IndustryCode"><option value="">Select  Market Offering</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
                     },
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '10%',

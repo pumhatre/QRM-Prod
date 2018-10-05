@@ -77,16 +77,37 @@ namespace QRMService.Repositories
                     ProjectManager = a.ProjectManager,
                     ClientName = a.ClientName,
                     GDM = a.GDM,
-                    Technology = a.Technology,
-                    Industry = a.Industry,
+                    TechnologyCode = a.Technology,
+                    IndustryCode = a.Industry,
                     LifeCycle = a.LifeCycle,
                     Solution = a.Solution,
                     Director = a.Director,
                     SeniorManager = a.SeniorManager,
                     QualityController = a.QualityController,
                     ReviewDate = a.ReviewDate
-                }).ToList();            
+                }).ToList();
 
+
+                var refData = db.ReferenceTables.Where(a => 
+                  a.ReferenceTableName == Constants.TechnologyTableName ||
+                  a.ReferenceTableName == Constants.IndustryTableName).ToList();
+
+                foreach (var project in projects)
+                {
+                    
+                    var technology = refData.Where(a => a.ReferenceTableName == Constants.TechnologyTableName &&
+                      a.ReferenceCode == project.TechnologyCode).FirstOrDefault();
+                    if (technology != null)
+                    {
+                        project.Technology = technology.ReferenceValue;
+                    }
+                    var industry = refData.Where(a => a.ReferenceTableName == Constants.IndustryTableName &&
+                     a.ReferenceCode == project.IndustryCode).FirstOrDefault();
+                    if (industry != null)
+                    {
+                        project.Industry = industry.ReferenceValue;
+                    }
+                }
                 return projects;
             }
 
@@ -116,8 +137,8 @@ namespace QRMService.Repositories
                         ProjectManager = projectMaster.ProjectManager,
                         ClientName = projectMaster.ClientName,
                         GDM = projectMaster.GDM,
-                        Technology = projectMaster.Technology,
-                        Industry = projectMaster.Industry,
+                        Technology = projectMaster.TechnologyCode,
+                        Industry = projectMaster.IndustryCode,
                         LifeCycle = projectMaster.LifeCycle,
                         Solution = projectMaster.Solution,
                         Director = projectMaster.Director,
@@ -143,8 +164,8 @@ namespace QRMService.Repositories
                     project.ProjectManager = projectMaster.ProjectManager;
                     project.ClientName = projectMaster.ClientName;
                     project.GDM = projectMaster.GDM;
-                    project.Technology = projectMaster.Technology;
-                    project.Industry = projectMaster.Industry;
+                    project.Technology = projectMaster.TechnologyCode;
+                    project.Industry = projectMaster.IndustryCode;
                     project.LifeCycle = projectMaster.LifeCycle;
                     project.Solution = projectMaster.Solution;
                     project.Director = projectMaster.Director;

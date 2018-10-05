@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using QRMService.Common;
 
 namespace QRMService.Repositories
 {
@@ -34,10 +35,28 @@ namespace QRMService.Repositories
                                             ProjectManager = pm.ProjectManager,
                                             QualityController = pm.QualityController
                                         }).ToList();
+
+                    var refData = db.ReferenceTables.Where(a =>
+                a.ReferenceTableName == Constants.TechnologyTableName ||
+                a.ReferenceTableName == Constants.IndustryTableName).ToList();
+
+                  
                     if (userProjects.Count > 0 && userProjects != null)
                     {
                         foreach (var item in userProjects)
                         {
+                            var technology = refData.Where(a => a.ReferenceTableName == Constants.TechnologyTableName &&
+                            a.ReferenceCode == item.Technology).FirstOrDefault();
+                            if (technology != null)
+                            {
+                                item.Technology = technology.ReferenceValue;
+                            }
+                            var industry = refData.Where(a => a.ReferenceTableName == Constants.IndustryTableName &&
+                             a.ReferenceCode == item.Industry).FirstOrDefault();
+                            if (industry != null)
+                            {
+                                item.Industry = industry.ReferenceValue;
+                            }
                             userProjectList.Add(item);
                         }
                     }
