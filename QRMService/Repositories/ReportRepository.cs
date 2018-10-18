@@ -53,7 +53,7 @@ namespace QRMService.Repositories
         {
             using (var db = new QRMEntities())
             {
-                return db.ProjectReleaseMasters.Select(p => new ProjectReleaseModel
+                return db.ProjectReleaseMasters.Where(x=>x.IsActive== true).Select(p => new ProjectReleaseModel
                 {
                     ProjectReleaseId = p.ProjectReleaseId,
                     ProjectID = p.ProjectID,

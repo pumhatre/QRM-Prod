@@ -35,11 +35,11 @@ namespace QRMService.Repositories
             using (var db = new QRMEntities())
             {
                 var releaseDetails = (from m in db.ProjectReleaseMasters
-                                      where m.ProjectID == projectId
+                                      where m.ProjectID == projectId && m.IsActive == true
                                       select new ProjectReleaseModel
                                       {
                                           ProjectReleaseId = m.ProjectReleaseId,
-                                          ReleaseName = m.ReleaseName,
+                                          ReleaseName = m.ReleaseName,                                          
                                       }).ToList()
                                       ;
                 return releaseDetails;

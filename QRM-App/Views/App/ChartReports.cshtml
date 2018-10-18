@@ -177,7 +177,7 @@
                                         <br />
                                         <h1 >Test Case Distribution</h1>
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Component</h4>
-                                        <canvas id="doubleDount" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
+                                        <canvas id="doubleDount" ng-show="savePopupButton" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
                                         <br />
                                         <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
