@@ -144,7 +144,7 @@ namespace QRMService.Repositories
                                     {
                                         Project = pr.ProjectName,
                                         Release = rl.ReleaseName,
-                                        Month = mn.MonthName,
+                                        Month = mn.MonthName + " "+ mn.Year,
                                         UploadedDate = pm.UploadedDate.ToString()
                                         
                                         
@@ -162,7 +162,7 @@ namespace QRMService.Repositories
                                   {
                                       Project = pr.ProjectName,
                                       Release = rl.ReleaseName,
-                                      Month = mn.MonthName,
+                                      Month = mn.MonthName + " "+ mn.Year,
                                       UploadedDate = pm.UploadedDate.ToString()
                                   }).ToList();
                 }
