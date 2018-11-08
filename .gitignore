@@ -240,3 +240,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/QRM-App/Properties/PublishProfiles
+/QRMService/Properties/PublishProfiles
