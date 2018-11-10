@@ -19,6 +19,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         $scope.projectsReleases = [];
         $scope.alerts = [];
         $scope.savePopupButton = false;
+        $scope.IsRedirectedFromHome = false;
         // function to load projects dropdown
         $scope.LoadProjectsDropDown = function () {
             var UserId = $cookies.get('_UserId');
@@ -582,6 +583,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                     }
                 }
 
+                $scope.IsRedirectedFromHome = true;
+               
             }
 
         }

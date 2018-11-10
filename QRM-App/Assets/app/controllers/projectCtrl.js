@@ -213,7 +213,7 @@
             else {
                 isValidData = false;
                 $scope.alerts.push({
-                    msg: 'Review Date is required',
+                    msg: 'Metrics Submission Date is required',
                     type: 'danger'
                 });
             }
@@ -224,7 +224,7 @@
             else {
                 isValidData = false;
                 $scope.alerts.push({
-                    msg: 'Review Date should not be a past date.',
+                    msg: 'Metrics Submission Date should not be a past date.',
                     type: 'danger'
                 });
             }
@@ -334,7 +334,7 @@
                     },
 
                     {
-                        name: 'ReviewDate', displayName: "Review Date", field: "ReviewDate", enableColumnMenu: false, width: '10%',
+                        name: 'ReviewDate', displayName: "Metrics Submission Date", field: "ReviewDate", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input  placeholder="Required" type="date" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
