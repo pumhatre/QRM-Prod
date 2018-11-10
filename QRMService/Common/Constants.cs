@@ -56,6 +56,7 @@ namespace QRMService.Common
         public const string UspGetSITExecutionGraph = "[Dbo].[uspGetSITExecutionGraph]";
         public const string UspGetSITDefectGraph = "[Dbo].[uspGetSITDefectGraph]";
         public const string UspGetProjectPerformanceChart = "[Dbo].[uspGetProjectPerformanceChart]";
+        public const string UspGetSavedChartData = "[Dbo].[UspGetSavedChartData]";
         #endregion
 
 

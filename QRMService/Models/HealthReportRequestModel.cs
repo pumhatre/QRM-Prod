@@ -14,6 +14,7 @@ namespace QRMService.Models
         public int MonthId { get; set; }
 
         public int UserId { get; set; }
+        public int SavedChartId { get; set; }
     }
 
     public class TestingMetricsRequestModel

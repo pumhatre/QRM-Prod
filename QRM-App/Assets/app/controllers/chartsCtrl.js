@@ -51,9 +51,9 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             }
         }
 
-        $scope.loadProjectWidgetDashboard = function (projectId, releaseId) {
+        $scope.loadProjectWidgetDashboard = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetProjectWidgetDashboard(config, projectId, releaseId)
+            chartService.GetProjectWidgetDashboard(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
                                   $scope.ProjectWidgetDashboardData = [];
                                   $scope.ProjectWidgetDashboardColors = [];
@@ -500,34 +500,34 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                         });
         }
 
-        $scope.DisplayChart = function (selectedProjectDropdown, selectedReleaseDropdown) {
+        $scope.DisplayChart = function (selectedProjectDropdown, selectedReleaseDropdown, savedChartId) {
             switch ($scope.selectedChartType) {
                 case 'DWD':
-                    $scope.loadProjectWidgetDashboard(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadProjectWidgetDashboard(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'SDSD':
-                    $scope.loadSITDefectSeverity(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadSITDefectSeverity(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'DTD':
-                    $scope.loadDefectTypeDistribution(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadDefectTypeDistribution(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'ED':
-                    $scope.loadEffortDistribution(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadEffortDistribution(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'TCD':
-                    $scope.loadTestCaseDistribution(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadTestCaseDistribution(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'TCCD':
-                    $scope.loadTestCaseComplexityDistribution(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadTestCaseComplexityDistribution(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'DDPD':
-                    $scope.loadDefectDetectedPhaseDistribution(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadDefectDetectedPhaseDistribution(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'SEG':
-                    $scope.loadSITExecutionGraph(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadSITExecutionGraph(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 case 'SDG':
-                    $scope.loadSitDefectGraph(selectedProjectDropdown, selectedReleaseDropdown);
+                    $scope.loadSitDefectGraph(selectedProjectDropdown, selectedReleaseDropdown, savedChartId);
                     break;
                 default:
                     break;
@@ -570,7 +570,6 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
 
         // check if this route is referred from home 
         if ($location.search().ref && $location.search().ref == 'v') {
-
             if ($rootScope.chartProjectId) {
                 $scope.selectedProjectDropdown = $rootScope.chartProjectId.toString();
                 $scope.getProjectReleases($scope.selectedProjectDropdown);
@@ -578,7 +577,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                     $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
                     if ($rootScope.chartreportType) {
                         $scope.selectedChartType = $rootScope.chartreportType;
-                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown);
+                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown,$scope.IsSavedCharts);
                     }
                 }
 

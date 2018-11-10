@@ -40,18 +40,19 @@ namespace QRMService.Repositories
                 actualCount.label = "Actual";
 
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {                   
+                {
                     actualCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.ActualEffortPercentage.ToString()));
-                    
-                });          
+
+                });
                 chartDataModel.datasets.Add(actualCount);
                 // set completed count
                 var plannedCount = new ChartDatasetDecimal { fill = false };
                 plannedCount.data = new List<decimal>();
                 plannedCount.label = "Planned";
-                
+
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {                    plannedCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.PlannedEffortPercentage.ToString()));                  
+                {
+                    plannedCount.data.Add(row.Field<decimal>(ProjectEffortDistributionColumnName.PlannedEffortPercentage.ToString()));
                 });
                 chartDataModel.datasets.Add(plannedCount);
             }
@@ -86,7 +87,7 @@ namespace QRMService.Repositories
                 //componentCount.label = "Actual";
                 //componentCount.borderColor = "#FFA500";
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {                 
+                {
                     componentCount.data.Add(row.Field<decimal>(ProjectTestCaseDistributionColumnName.ComponentPercentage.ToString()));
                 });
                 chartDataModel.datasets.Add(componentCount);
@@ -96,7 +97,7 @@ namespace QRMService.Repositories
                 //e2ePercentangeCount.label = "Planned";
                 //e2ePercentangeCount.borderColor = "#1E90FF";
                 chartData.AsEnumerable().ToList().ForEach(row =>
-                {                   
+                {
                     e2ePercentangeCount.data.Add(row.Field<decimal>(ProjectTestCaseDistributionColumnName.E2EPercentage.ToString()));
                 });
                 chartDataModel.datasets.Add(e2ePercentangeCount);
@@ -112,7 +113,7 @@ namespace QRMService.Repositories
             DataSet chartSetData = helper.GetDataSetByProcedure(Constants.UspGetTestCaseComplexityDistribution, "default", true, parameters.ToArray());
             var chartDataModel = new ChartDataModelDecimal();
 
-            if (chartSetData != null && chartSetData.Tables.Count>0)
+            if (chartSetData != null && chartSetData.Tables.Count > 0)
             {
                 chartDataModel.datasets = new List<ChartDatasetDecimal>();
                 chartDataModel.series = new List<string> { "Component", "E2E" };
@@ -163,20 +164,29 @@ namespace QRMService.Repositories
                 chartDataModel.values = new List<decimal>();
                 chartData.AsEnumerable().ToList().ForEach(row =>
                 {
-                    chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()),row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString())));
+                    chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()), row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString())));
                     chartDataModel.values.Add(row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString()));
                 });
             }
             return chartDataModel;
         }
 
-        public static ChartDataModel GetDevelopementWidgetDashboard(int projectId, int releaseId)
+        public static ChartDataModel GetDevelopementWidgetDashboard(int projectId, int releaseId, int savedChartId)
         {
             var helper = new SqlClientHelper();
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
             parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
-            var chartData = helper.GetDataTableByProcedure(Constants.UspGetDevelopementWidgetDashboard, "default", true, parameters.ToArray());
+            var chartData="";
+            //if (savedChartId>0)
+            //{
+            //    chartData = helper.GetDataTableByProcedure(Constants.UspGetSavedChartData, "default", true, parameters.ToArray());
+            //}
+            //else
+            //{
+            //    chartData = helper.GetDataTableByProcedure(Constants.UspGetDevelopementWidgetDashboard, "default", true, parameters.ToArray());
+            //}
+
             var chartDataModel = new ChartDataModel();
             if (chartData != null && chartData.Rows.Count > 0)
             {
@@ -457,7 +467,7 @@ namespace QRMService.Repositories
                         chartDataModelR.labels.Add(row.Field<string>(ProjectPerformanceColumns.ProjectName.ToString()));
                         // set values data
                         // set for rework
-                        chartDataModelR.values.Add(row.Field<int?>(ProjectPerformanceColumns.Rework.ToString())==null?0:row.Field<int>(ProjectPerformanceColumns.Rework.ToString()));
+                        chartDataModelR.values.Add(row.Field<int?>(ProjectPerformanceColumns.Rework.ToString()) == null ? 0 : row.Field<int>(ProjectPerformanceColumns.Rework.ToString()));
                     });
                     foreach (var item in chartDataModelR.values)
                     {

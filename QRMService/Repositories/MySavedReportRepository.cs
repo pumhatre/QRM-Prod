@@ -18,11 +18,11 @@ namespace QRMService.Repositories
         /// <param name="reportType">Type of the report.</param>
         /// <param name="reportName">Name of the report.</param>
         /// <returns></returns>
-        public static bool SaveReport(int userId, int projectId, int releaseId, string reportType, string reportName)
+        public static bool SaveReport(int userId, int projectId, int releaseId, string reportType, string reportName,byte[] reportData)
         {
             using (var db = new QRMEntities())
             {
-                var data = new UserReportAssociation { UserId = userId, ProjectId = projectId, ProjectReleaseID = releaseId, ReportType = reportType, ReportName = reportName, IsActive=true };
+                var data = new UserReportAssociation { UserId = userId, ProjectId = projectId, ProjectReleaseID = releaseId, ReportType = reportType, ReportName = reportName, IsActive=true ,ReportData=reportData};
                 db.UserReportAssociations.Add(data);
                 db.SaveChanges();
                 return true;

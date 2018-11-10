@@ -21,7 +21,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var isSuccess = MySavedReportRepository.SaveReport(request.UserId, request.ProjectId, request.ProjectReleaseID, request.ReportType, request.ReportName);
+                var isSuccess = MySavedReportRepository.SaveReport(request.UserId, request.ProjectId, request.ProjectReleaseID, request.ReportType, request.ReportName, request.SavedReportData);
                 return Ok(new { Success = isSuccess });
             }
             catch (Exception ex)
