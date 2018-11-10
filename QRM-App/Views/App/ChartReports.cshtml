@@ -54,7 +54,7 @@
                                 <div class="col-md-3"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Project Name</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="selectedProjectDropdown" ng-change="getProjectReleases(selectedProjectDropdown)">
+                                    <select class="form-control" ng-model="selectedProjectDropdown" ng-change="getProjectReleases(selectedProjectDropdown)" ng-disabled="IsRedirectedFromHome">
                                         <option value="">Select a Project</option>
                                         <option ng-repeat="project in projectsDropdown" value="{{project.Value}}">{{project.Text}}</option>
                                     </select>
@@ -67,7 +67,7 @@
                                 <div class="col-md-3"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Release</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectDropdown,selectedReleaseDropdown); DisplayChart(selectedProjectDropdown,selectedReleaseDropdown)">
+                                    <select class="form-control" ng-model="selectedReleaseDropdown" ng-change="getSelectedProjectMonth(selectedProjectDropdown,selectedReleaseDropdown); DisplayChart(selectedProjectDropdown,selectedReleaseDropdown)" ng-disabled="IsRedirectedFromHome">
                                         <option ng-repeat="release in releaseDropdown" value="{{release.ProjectReleaseId}}">{{release.ReleaseName}}</option>
                                     </select>
                                 </div>
@@ -79,7 +79,7 @@
                                 <div class="col-md-3"></div>
                                 <label class="control-label col-md-3 col-sm-3 col-xs-2">Chart Type</label>
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="selectedChartType" ng-change="DisplayChart(selectedProjectDropdown,selectedReleaseDropdown)">
+                                    <select class="form-control" ng-model="selectedChartType" ng-change="DisplayChart(selectedProjectDropdown,selectedReleaseDropdown)" ng-disabled="IsRedirectedFromHome">
                                         <option value="">Select Chart Type</option>
                                         <optgroup label="Ongoing charts">
                                             <option value="DWD">Development Widget Dashboard</option>
@@ -105,7 +105,7 @@
                                 <div class="col-md-8" ng-switch="selectedChartType">
                                     <div ng-switch-when="DWD" class="text-center">
                                         <br />
-                                        <h1 >Development Widget Dashboard</h1>
+                                        <h1>Development Widget Dashboard</h1>
                                         <canvas id="lineProjectWidgetDashBoard" class="chart chart-line"
                                                 chart-data="ProjectWidgetDashboardData"
                                                 chart-labels="ProjectWidgetDashboardLabels"
@@ -113,8 +113,15 @@
                                                 chart-series="ProjectWidgetDashboardSeries"
                                                 chart-options="ProjectWidgetDashboardOptions"
                                                 chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
+
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
+
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="SEG" class="text-center">
                                         <br />
@@ -126,8 +133,14 @@
                                                 chart-options="SitExecutionGraphOptions"
                                                 chart-colors="SitExecutionGraphColors"
                                                 chart-dataset-override="SitExecutionGraphOverride"></canvas>
+
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="SDG" class="text-center">
                                         <br />
@@ -139,8 +152,13 @@
                                                 chart-options="SitDefectGraphOptions"
                                                 chart-colors="SitDefectGraphColors"
                                                 chart-dataset-override="SitDefectGraphOverride"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="SDSD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
@@ -149,8 +167,13 @@
                                                 chart-data="SITDefectSeverityData"
                                                 chart-labels="SITDefectSeverityLabels"
                                                 chart-options="SITDefectSeverityOptions" width="300" height="300"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="DTD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
@@ -160,41 +183,64 @@
                                                 chart-labels="DefectTypeDistributionLabels"
                                                 chart-options="DefectTypeDistributionOptions"
                                                 chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
 
                                     <div ng-switch-when="ED" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1  >Effort Distribution</h1>
+                                        <h1>Effort Distribution</h1>
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Planned</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
                                                 chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="TCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1 >Test Case Distribution</h1>
+                                        <h1>Test Case Distribution</h1>
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" ng-show="savePopupButton" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="TCCD" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1 >Test case complexity distribution(Component/E2E)</h1>
-                                        <br/>
+                                        <h1>Test case complexity distribution(Component/E2E)</h1>
+                                        <br />
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut"
                                                 chart-data="TestCaseComplexityDistribution"
                                                 chart-labels="labels4"
                                                 chart-series="TestCaseComplexityDistributionSeries"
                                                 chart-options="TestCaseComplexityDistributionoptions"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
 
-                                        <br />                                        
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <br />
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
                                     <div ng-switch-when="DDPD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
@@ -203,8 +249,13 @@
                                                 chart-data="DefectDetectedPhaseData"
                                                 chart-labels="DefectDetectedPhaseLabels"
                                                 chart-options="DefectDetectedPhaseOptions"></canvas>
+                                        <div class="grid-msg-overlay" ng-hide="savePopupButton">
+                                            <div class="msg">
+                                                <h1>No Data Available</h1>
+                                            </div>
+                                        </div>
                                         <br />
-                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
+                                        <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
                                     </div>
 
 
