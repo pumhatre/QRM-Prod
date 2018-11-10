@@ -5,8 +5,8 @@
         return $http.post(config.apiUrl + 'api/SaveReports/GetMySavedReports', data);
     }
 
-    this.SaveReports = function (config, userId,projectId,releaseId,reportType, reportName) {
-        var data = { UserId: userId, ProjectId: projectId, ProjectReleaseID: releaseId, ReportType: reportType, ReportName:reportName };
+    this.SaveReports = function (config, userId, projectId, releaseId, reportType, reportName, dataReport) {
+        var data = { UserId: userId, ProjectId: projectId, ProjectReleaseID: releaseId, ReportType: reportType, ReportName: reportName,SavedReportData:dataReport };
         return $http.post(config.apiUrl + 'api/SaveReports/SaveReport', data);
     }
 

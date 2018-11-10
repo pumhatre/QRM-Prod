@@ -177,16 +177,15 @@ namespace QRMService.Repositories
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
             parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
-            var chartData="";
-            //if (savedChartId>0)
-            //{
-            //    chartData = helper.GetDataTableByProcedure(Constants.UspGetSavedChartData, "default", true, parameters.ToArray());
-            //}
-            //else
-            //{
-            //    chartData = helper.GetDataTableByProcedure(Constants.UspGetDevelopementWidgetDashboard, "default", true, parameters.ToArray());
-            //}
-
+            DataTable chartData;
+            if (savedChartId > 0)
+            {
+                chartData=GetSavedChartReport(savedChartId);
+            }
+            else
+            {
+                chartData = helper.GetDataTableByProcedure(Constants.UspGetDevelopementWidgetDashboard, "default", true, parameters.ToArray());
+            }
             var chartDataModel = new ChartDataModel();
             if (chartData != null && chartData.Rows.Count > 0)
             {
@@ -488,5 +487,14 @@ namespace QRMService.Repositories
             }
             return chartDataModelList;
         }
+
+        private static DataTable GetSavedChartReport(int chartReportId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ReportId", chartReportId));
+            return helper.GetDataTableByProcedure(Constants.UspGetSavedChartData, "default", true, parameters.ToArray());
+        }
+
     }
 }

@@ -54,6 +54,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             $scope.savePopupButton = false;
             chartService.GetProjectWidgetDashboard(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
+                                  $scope.ResponseData = successResponse;
                                   $scope.ProjectWidgetDashboardData = [];
                                   $scope.ProjectWidgetDashboardColors = [];
                                   $scope.ProjectWidgetDashboardOverride = [];
@@ -534,15 +535,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.OpenSavePopup = function () {
+            debugger;
             $('#saveModal').modal('show');
         }
 
         $scope.saveThisReport = function (formIsVallid) {
-
+            debugger;
             if (formIsVallid) {
                 //Call the function to save the data to database
                 var userId = $cookies.get('_UserId');
-                mySavedReportService.SaveReports(config, userId, $scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $scope.selectedChartType, $scope.ReportName).then(function (response) {
+                mySavedReportService.SaveReports(config, userId, $scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $scope.selectedChartType, $scope.ReportName, $scope.ResponseData).then(function (response) {
                     //Display Successfull message after save
                     if (response.data.Success) {
                         $scope.ReportName = "";
