@@ -22,5 +22,6 @@ namespace QRMService.DataBase
         public Nullable<int> ProjectId { get; set; }
         public string ReportType { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public byte[] ReportData { get; set; }
     }
 }

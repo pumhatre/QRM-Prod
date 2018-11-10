@@ -133,7 +133,7 @@ warning 6002: The table/view 'QRMPortal.dbo.DevMetrics' does not have a primary 
           <Property Name="WidgetType" Type="varchar" MaxLength="50" />
           <Property Name="Complexity" Type="varchar" MaxLength="50" />
           <Property Name="TaskType" Type="varchar" MaxLength="50" />
-          <Property Name="BaselinedEffort" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="BaselinedEffort" Type="numeric" Precision="18" Scale="0" />
           <Property Name="ActualEffort" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="CMMIRollUp" Type="varchar" MaxLength="50" />
@@ -165,7 +165,7 @@ warning 6002: The table/view 'QRMPortal.dbo.EffortDetails' does not have a prima
           <Property Name="ComponentTypeCode" Type="nvarchar" MaxLength="20" />
           <Property Name="ComplexityCode" Type="nvarchar" MaxLength="20" />
           <Property Name="TaskTypeCode" Type="varchar" MaxLength="50" />
-          <Property Name="BaselineEffort" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="BaselineEffort" Type="int" />
           <Property Name="ActualEffort" Type="numeric" Precision="18" Scale="2" />
           <Property Name="StatusCode" Type="nvarchar" MaxLength="20" />
           <Property Name="CMMIRollUpCode" Type="nvarchar" MaxLength="20" />
@@ -468,6 +468,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectId" Type="int" />
           <Property Name="ReportType" Type="varchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="ReportData" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_DefectDataDetails_MonthId">
           <End Role="MonthMaster" Type="Self.MonthMaster" Multiplicity="0..1" />
@@ -1081,7 +1082,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <EntitySet Name="RoleMasters" EntityType="QRMPortalModel.RoleMaster" />
           <EntitySet Name="UserDetails" EntityType="QRMPortalModel.UserDetail" />
           <EntitySet Name="UserProjectAssociations" EntityType="QRMPortalModel.UserProjectAssociation" />
-          <EntitySet Name="UserReportAssociations" EntityType="QRMPortalModel.UserReportAssociation" />
           <EntitySet Name="DevMetrics" EntityType="QRMPortalModel.DevMetric" />
           <EntitySet Name="EffortDetails" EntityType="QRMPortalModel.EffortDetail" />
           <EntitySet Name="Periods" EntityType="QRMPortalModel.Period" />
@@ -1207,6 +1207,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             <End Role="ProjectMaster" EntitySet="ProjectMasters" />
             <End Role="UploadDetail" EntitySet="UploadDetails" />
           </AssociationSet>
+          <EntitySet Name="UserReportAssociations" EntityType="QRMPortalModel.UserReportAssociation" />
           </EntityContainer>
         <EntityType Name="DefectDataDetail">
           <Key>
@@ -1270,7 +1271,7 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="WidgetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Complexity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TaskType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BaselinedEffort" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ActualEffort" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CMMIRollUp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1396,19 +1397,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
           <Property Name="ProjectId" Type="Int32" />
           <NavigationProperty Name="UserDetail" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_UserDetails" FromRole="UserProjectAssociation" ToRole="UserDetail" />
           <NavigationProperty Name="ProjectMaster" Relationship="QRMPortalModel.FK_UserProjectRoleAssociation_ProjectMaster" FromRole="UserProjectAssociation" ToRole="ProjectMaster" />
-        </EntityType>
-        <EntityType Name="UserReportAssociation">
-          <Key>
-            <PropertyRef Name="UserReportAssociationID" />
-          </Key>
-          <Property Name="UserReportAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="ReportName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectReleaseID" Type="Int32" />
-          <Property Name="MonthID" Type="Int32" />
-          <Property Name="ProjectId" Type="Int32" />
-          <Property Name="ReportType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="DevMetric">
           <Key>
@@ -2070,6 +2058,20 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserReportAssociation">
+          <Key>
+            <PropertyRef Name="UserReportAssociationID" />
+          </Key>
+          <Property Name="UserReportAssociationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ReportName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectReleaseID" Type="Int32" />
+          <Property Name="MonthID" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="ReportType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ReportData" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2240,20 +2242,6 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserProjectId" ColumnName="UserProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserReportAssociations">
-            <EntityTypeMapping TypeName="QRMPortalModel.UserReportAssociation">
-              <MappingFragment StoreEntitySet="UserReportAssociation">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
-                <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
-                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserReportAssociationID" ColumnName="UserReportAssociationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2544,6 +2532,21 @@ warning 6002: The table/view 'QRMPortal.dbo.ProjectWidgetDetails' does not have 
                 <ScalarProperty Name="MonthId" ColumnName="MonthId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReportAssociations">
+            <EntityTypeMapping TypeName="QRMPortalModel.UserReportAssociation">
+              <MappingFragment StoreEntitySet="UserReportAssociation">
+                <ScalarProperty Name="ReportData" ColumnName="ReportData" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+                <ScalarProperty Name="ProjectReleaseID" ColumnName="ProjectReleaseID" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserReportAssociationID" ColumnName="UserReportAssociationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

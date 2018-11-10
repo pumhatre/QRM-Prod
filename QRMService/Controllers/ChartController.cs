@@ -98,7 +98,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var chartDataModel = ChartRepository.GetDevelopementWidgetDashboard(request.ProjectId, request.ReleaseId);
+                var chartDataModel = ChartRepository.GetDevelopementWidgetDashboard(request.ProjectId, request.ReleaseId,request.SavedChartId);
                 return Ok(chartDataModel);
 
             }
