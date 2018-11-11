@@ -1,4 +1,5 @@
-﻿using QRMFrameworkHelpers;
+﻿using Newtonsoft.Json;
+using QRMFrameworkHelpers;
 using QRMService.Common;
 using QRMService.Models;
 using System;
@@ -177,50 +178,50 @@ namespace QRMService.Repositories
             List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
             parameters.Add(new KeyValuePair<string, object>("ProjectId", projectId));
             parameters.Add(new KeyValuePair<string, object>("ReleaseId", releaseId));
-            var chartData="";
-            //if (savedChartId>0)
-            //{
-            //    chartData = helper.GetDataTableByProcedure(Constants.UspGetSavedChartData, "default", true, parameters.ToArray());
-            //}
-            //else
-            //{
-            //    chartData = helper.GetDataTableByProcedure(Constants.UspGetDevelopementWidgetDashboard, "default", true, parameters.ToArray());
-            //}
-
             var chartDataModel = new ChartDataModel();
-            if (chartData != null && chartData.Rows.Count > 0)
+            if (savedChartId > 0)
             {
-                //set series for chart data
-                chartDataModel.series = new List<string> { "Planned Cumulative", "Completed Cumulative" };
-                chartDataModel.colors = new List<string> { "#F7464A", "#FFA500" };
-                chartDataModel.labels = new List<string>();
-                // set labels for line chart
-                chartData.AsEnumerable().ToList().ForEach(row =>
+              return JsonConvert.DeserializeObject<ChartDataModel>(System.Text.Encoding.UTF8.GetString(GetSavedChartReport(savedChartId)));
+            }
+            else
+            {
+                var chartData = helper.GetDataTableByProcedure(Constants.UspGetDevelopementWidgetDashboard, "default", true, parameters.ToArray());
+
+
+                if (chartData != null && chartData.Rows.Count > 0)
                 {
-                    chartDataModel.labels.Add(row.Field<string>(ProjectWidgetDashboardColumns.Weekend.ToString()));
-                });
-                // set dataset for line chart
-                chartDataModel.datasets = new List<ChartDataset>();
-                // set planned count
-                var plannedCount = new ChartDataset { fill = false };
-                plannedCount.data = new List<int>();
-                plannedCount.label = "Planned Cumulative";
-                plannedCount.borderColor = "#F7464A";
-                chartData.AsEnumerable().ToList().ForEach(row =>
-                {
-                    plannedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.PlannedCount.ToString()));
-                });
-                chartDataModel.datasets.Add(plannedCount);
-                // set completed count
-                var completedCount = new ChartDataset { fill = false };
-                completedCount.data = new List<int>();
-                completedCount.label = "Completed Cumulative";
-                completedCount.borderColor = "#FFA500";
-                chartData.AsEnumerable().ToList().ForEach(row =>
-                {
-                    completedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.CompletedCount.ToString()));
-                });
-                chartDataModel.datasets.Add(completedCount);
+                    //set series for chart data
+                    chartDataModel.series = new List<string> { "Planned Cumulative", "Completed Cumulative" };
+                    chartDataModel.colors = new List<string> { "#F7464A", "#FFA500" };
+                    chartDataModel.labels = new List<string>();
+                    // set labels for line chart
+                    chartData.AsEnumerable().ToList().ForEach(row =>
+                    {
+                        chartDataModel.labels.Add(row.Field<string>(ProjectWidgetDashboardColumns.Weekend.ToString()));
+                    });
+                    // set dataset for line chart
+                    chartDataModel.datasets = new List<ChartDataset>();
+                    // set planned count
+                    var plannedCount = new ChartDataset { fill = false };
+                    plannedCount.data = new List<int>();
+                    plannedCount.label = "Planned Cumulative";
+                    plannedCount.borderColor = "#F7464A";
+                    chartData.AsEnumerable().ToList().ForEach(row =>
+                    {
+                        plannedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.PlannedCount.ToString()));
+                    });
+                    chartDataModel.datasets.Add(plannedCount);
+                    // set completed count
+                    var completedCount = new ChartDataset { fill = false };
+                    completedCount.data = new List<int>();
+                    completedCount.label = "Completed Cumulative";
+                    completedCount.borderColor = "#FFA500";
+                    chartData.AsEnumerable().ToList().ForEach(row =>
+                    {
+                        completedCount.data.Add(row.Field<int>(ProjectWidgetDashboardColumns.CompletedCount.ToString()));
+                    });
+                    chartDataModel.datasets.Add(completedCount);
+                }
             }
             return chartDataModel;
         }
@@ -488,5 +489,17 @@ namespace QRMService.Repositories
             }
             return chartDataModelList;
         }
+
+        private static byte[] GetSavedChartReport(int chartReportId)
+        {
+            var helper = new SqlClientHelper();
+            List<KeyValuePair<string, object>> parameters = new List<KeyValuePair<string, object>>();
+            parameters.Add(new KeyValuePair<string, object>("ReportId", chartReportId));
+            DataTable dt = helper.GetDataTableByProcedure(Constants.UspGetSavedChartData, "default", true, parameters.ToArray());
+            if (dt != null && dt.Rows.Count > 0)
+                return (byte[])dt.Rows[0][0];
+            return null;
+        }
+
     }
 }

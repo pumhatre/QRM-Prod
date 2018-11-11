@@ -379,7 +379,6 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
             onRegisterApi: function (gridApi) {
                 $scope.mGridApi = gridApi;
-                debugger;
                 if ($cookies.get('_IsSuperUser') == "false") {
                     $scope.projectGrid.columnDefs[6].visible = false
                 }

@@ -55,6 +55,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             $scope.savePopupButton = false;
             chartService.GetProjectWidgetDashboard(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
+                                  $scope.ResponseData = successResponse.data;
                                   $scope.ProjectWidgetDashboardData = [];
                                   $scope.ProjectWidgetDashboardColors = [];
                                   $scope.ProjectWidgetDashboardOverride = [];
@@ -539,11 +540,10 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.saveThisReport = function (formIsVallid) {
-
             if (formIsVallid) {
                 //Call the function to save the data to database
                 var userId = $cookies.get('_UserId');
-                mySavedReportService.SaveReports(config, userId, $scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $scope.selectedChartType, $scope.ReportName).then(function (response) {
+                mySavedReportService.SaveReports(config, userId, $scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $scope.selectedChartType, $scope.ReportName, $scope.ResponseData).then(function (response) {
                     //Display Successfull message after save
                     if (response.data.Success) {
                         $scope.ReportName = "";
@@ -577,7 +577,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                     $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
                     if ($rootScope.chartreportType) {
                         $scope.selectedChartType = $rootScope.chartreportType;
-                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown,$scope.IsSavedCharts);
+                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $rootScope.chartreportId);
                     }
                 }
 

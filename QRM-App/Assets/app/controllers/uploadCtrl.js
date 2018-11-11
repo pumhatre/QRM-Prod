@@ -709,7 +709,6 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 }, function (errorResponse) {
 
                 }).finally(function () {
-                    debugger;
                     // add  empty row for better UI
                     addEmptyRow($scope.defectDensityGrid2.data);
                 });

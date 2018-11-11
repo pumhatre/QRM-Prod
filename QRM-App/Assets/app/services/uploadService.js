@@ -382,14 +382,12 @@
     }
 
     this.SaveExcelData = function (data) {
-        debugger;
         var updatedData = {};
         var map = {
             "Effort Data": "EffortData",
             "Defect Data": "DefectData",
             "Testing Data": "TestingData"
         };
-        debugger;
         _.each(data, function (value, key) {
             key = map[key] || key;
             updatedData[key] = value;
