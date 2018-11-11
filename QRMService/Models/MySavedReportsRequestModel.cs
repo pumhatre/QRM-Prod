@@ -13,6 +13,6 @@ namespace QRMService.Models
         public string ReportType { get; set; }
         public string ReportName { get; set; }
         public int UserReportAssociationID { get; set; }
-        public byte[] SavedReportData { get; set; }
+        public object SavedReportData { get; set; }
     }
 }

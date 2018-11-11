@@ -139,7 +139,6 @@ function uploadFile(uploadService) {
             // Save excel data to our database
             $scope.SaveData = function (excelData) {
                 if (excelData.Errors.length <= 0) {
-                    debugger;
                     $(errorBlock).hide();
                     $scope.$apply(function () {
                         $scope.errors = [];

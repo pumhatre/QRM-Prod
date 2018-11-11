@@ -55,7 +55,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
             $scope.savePopupButton = false;
             chartService.GetProjectWidgetDashboard(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
-                                  $scope.ResponseData = successResponse;
+                                  $scope.ResponseData = successResponse.data;
                                   $scope.ProjectWidgetDashboardData = [];
                                   $scope.ProjectWidgetDashboardColors = [];
                                   $scope.ProjectWidgetDashboardOverride = [];
@@ -536,12 +536,10 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
         }
 
         $scope.OpenSavePopup = function () {
-            debugger;
             $('#saveModal').modal('show');
         }
 
         $scope.saveThisReport = function (formIsVallid) {
-            debugger;
             if (formIsVallid) {
                 //Call the function to save the data to database
                 var userId = $cookies.get('_UserId');
@@ -579,7 +577,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                     $scope.selectedReleaseDropdown = $rootScope.chartreleaseId.toString();
                     if ($rootScope.chartreportType) {
                         $scope.selectedChartType = $rootScope.chartreportType;
-                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown,$scope.IsSavedCharts);
+                        $scope.DisplayChart($scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $rootScope.chartreportId);
                     }
                 }
 
