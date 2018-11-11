@@ -71,7 +71,7 @@ namespace QRMService.Repositories
             {
                 var role = (from p in db.UserDetails
                             join r in db.RoleMasters on p.RoleId equals r.RoleId
-                            where r.IsActive == "Y" && p.UserId == userId
+                            where r.IsActive == "Y" && p.UserId == userId 
                             select r.RoleName).ToList().FirstOrDefault();
                 List<ProjectReviewModel> userProjects = new List<ProjectReviewModel>();
                 if (role.ToString() != "SuperUser")
@@ -79,7 +79,7 @@ namespace QRMService.Repositories
 
                      userProjects = (from pm in db.ProjectMasters
                                         join od in db.UserProjectAssociations on pm.ProjectID equals od.ProjectId
-                                        where od.UserId == userId && pm.IsActive == true
+                                        where od.UserId == userId && pm.IsActive == true && pm.ReviewDate>DateTime.Now
                                         select new ProjectReviewModel
                                         {
                                             id = pm.ProjectID,
@@ -92,7 +92,7 @@ namespace QRMService.Repositories
                 else
                 {
                     userProjects = db.ProjectMasters
-                    .Where(a => a.IsActive == true)
+                    .Where(a => a.IsActive == true  && a.ReviewDate > DateTime.Now)
                     .Select(a => new ProjectReviewModel
                     {
                         id = a.ProjectID,
@@ -105,6 +105,8 @@ namespace QRMService.Repositories
                 {
                     foreach (var item in userProjects)
                     {
+
+                        if(DateTime.Parse(item.reviewDate).Month==DateTime.Now.Month)
                         userProjectList.Add(item);
                     }
                 }
