@@ -102,10 +102,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                               });
         }
 
-        $scope.loadSITExecutionGraph = function (projectId, releaseId) {
+        $scope.loadSITExecutionGraph = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetSitExecutionGraph(config, projectId, releaseId)
+            chartService.GetSitExecutionGraph(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
+                                  $scope.ResponseData = successResponse.data;
                                   $scope.SitExecutionGraphLabels = [];
                                   $scope.SitExecutionGraphSeries = [];
                                   $scope.SitExecutionGraphColors = [];
@@ -172,10 +173,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                               });
         }
 
-        $scope.loadSitDefectGraph = function (projectId, releaseId) {
+        $scope.loadSitDefectGraph = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetSitDefectGraph(config, projectId, releaseId)
+            chartService.GetSitDefectGraph(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
+                                  $scope.ResponseData = successResponse.data;
                                   $scope.SitDefectGraphLabels = [];
                                   $scope.SitDefectGraphSeries = [];
                                   $scope.SitDefectGraphColors = [];
@@ -224,10 +226,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                               });
         }
 
-        $scope.loadSITDefectSeverity = function (projectId, releaseId) {
+        $scope.loadSITDefectSeverity = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetSITDefectSeverity(config, projectId, releaseId)
+            chartService.GetSITDefectSeverity(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
+                                  $scope.ResponseData = successResponse.data;
                                   $scope.SITDefectSeverityLabels = [];
                                   $scope.SITDefectSeverityData = [];
                                   if (successResponse.data.values) {                                      
@@ -265,10 +268,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                               });
         }
 
-        $scope.loadDefectTypeDistribution = function (projectId, releaseId) {
+        $scope.loadDefectTypeDistribution = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetDefectTypeDistribution(config, projectId, releaseId)
+            chartService.GetDefectTypeDistribution(config, projectId, releaseId, savedChartId)
                               .then(function (successResponse) {
+                                  $scope.ResponseData = successResponse.data;
                                   $scope.DefectTypeDistributionData = [];
                                   $scope.DefectTypeDistributionDatasetOverride = [];
                                   if (successResponse.data.values) {
@@ -311,10 +315,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
 
                               });
         }
-        $scope.loadEffortDistribution = function (projectId, releaseId) {
+        $scope.loadEffortDistribution = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetEffortDistribution(config, projectId, releaseId)
+            chartService.GetEffortDistribution(config, projectId, releaseId, savedChartId)
                 .then(function (successResponse) {
+                    $scope.ResponseData = successResponse.data;
                     if (successResponse.data.datasets != null && successResponse.data.datasets.length > 0) {
                         $scope.labels = successResponse.data.labels;
                         $scope.ProjectEffortData = [];
@@ -357,10 +362,11 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                 });
         }
 
-        $scope.loadTestCaseDistribution = function (projectId, releaseId) {
+        $scope.loadTestCaseDistribution = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetTestCaseDistribution(config, projectId, releaseId)
+            chartService.GetTestCaseDistribution(config, projectId, releaseId, savedChartId)
                   .then(function (successResponse) {
+                      $scope.ResponseData = successResponse.data;
                       if (successResponse.data.datasets!= null && successResponse.data.datasets.length > 0) {
                           ;
                           $scope.labels1 = successResponse.data.labels;
@@ -405,11 +411,12 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
 
                   });
         }
-        $scope.loadTestCaseComplexityDistribution = function (projectId, releaseId) {
+        $scope.loadTestCaseComplexityDistribution = function (projectId, releaseId, savedChartId) {
   
             $scope.savePopupButton = false;
-            chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId)
+            chartService.GetTestCaseComplexityDistribution(config, projectId, releaseId, savedChartId)
                           .then(function (successResponse) {
+                              $scope.ResponseData = successResponse.data;
                               if (successResponse.data.datasets!= null && successResponse.data.datasets.length > 0) {
                                  
                                   $scope.labels4 = successResponse.data.labels;
@@ -459,12 +466,12 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                           });
         }
 
-        $scope.loadDefectDetectedPhaseDistribution = function (projectId, releaseId) {
+        $scope.loadDefectDetectedPhaseDistribution = function (projectId, releaseId, savedChartId) {
             $scope.savePopupButton = false;
-            chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId)
+            chartService.GetDefectDetectedPhaseDistribution(config, projectId, releaseId, savedChartId)
                         .then(function (successResponse) {
                             if (successResponse.data.values) {
-
+                                $scope.ResponseData = successResponse.data;
                                 $scope.DefectDetectedPhaseLabels = successResponse.data.labels;
                                 $scope.DefectDetectedPhaseData = [];
                                 $scope.ProjectDefectDetectedOverride = [];
