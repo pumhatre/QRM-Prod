@@ -21,7 +21,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var effortDistribution = ChartRepository.GetEffortDistribution(request.ProjectId, request.ReleaseId);
+                var effortDistribution = ChartRepository.GetEffortDistribution(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(effortDistribution);
 
             }
@@ -40,7 +40,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var testCaseDistribution = ChartRepository.GetTestCaseDistribution(request.ProjectId, request.ReleaseId);
+                var testCaseDistribution = ChartRepository.GetTestCaseDistribution(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(testCaseDistribution);
 
             }
@@ -59,7 +59,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var testCaseComplexityDistribution = ChartRepository.GetTestCaseComplexityDistribution(request.ProjectId, request.ReleaseId);
+                var testCaseComplexityDistribution = ChartRepository.GetTestCaseComplexityDistribution(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(testCaseComplexityDistribution);
 
             }
@@ -78,7 +78,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var defectDetectedPhaseDistribution = ChartRepository.GetDefectDetectedPhaseDistribution(request.ProjectId, request.ReleaseId);
+                var defectDetectedPhaseDistribution = ChartRepository.GetDefectDetectedPhaseDistribution(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(defectDetectedPhaseDistribution);
 
             }
@@ -118,7 +118,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var chartDataModel = ChartRepository.GetSITDefectSeverity(request.ProjectId, request.ReleaseId);
+                var chartDataModel = ChartRepository.GetSITDefectSeverity(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(chartDataModel);
 
             }
@@ -138,7 +138,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var chartDataModel = ChartRepository.GetDefectTypeDistribution(request.ProjectId, request.ReleaseId);
+                var chartDataModel = ChartRepository.GetDefectTypeDistribution(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(chartDataModel);
 
             }
@@ -158,7 +158,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var chartDataModel = ChartRepository.GetSitExecutionGrapgh(request.ProjectId, request.ReleaseId);
+                var chartDataModel = ChartRepository.GetSitExecutionGrapgh(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(chartDataModel);
 
             }
@@ -178,7 +178,7 @@ namespace QRMService.Controllers
         {
             try
             {
-                var chartDataModel = ChartRepository.GetSitDefectGraph(request.ProjectId, request.ReleaseId);
+                var chartDataModel = ChartRepository.GetSitDefectGraph(request.ProjectId, request.ReleaseId, request.SavedChartId);
                 return Ok(chartDataModel);
 
             }

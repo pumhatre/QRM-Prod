@@ -1,23 +1,23 @@
 ﻿app.service('chartService', ['$http', function ($http) {
 
-    this.GetEffortDistribution = function (config, projectId, releaseId) {
+    this.GetEffortDistribution = function (config, projectId, releaseId, savedChartId) {
         
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetEffortDistribution', data);
     }
 
-    this.GetTestCaseDistribution = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetTestCaseDistribution = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetTestCaseDistribution', data);
     }
 
-    this.GetTestCaseComplexityDistribution = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetTestCaseComplexityDistribution = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetTestCaseComplexityDistribution', data);
     }
 
-    this.GetDefectDetectedPhaseDistribution = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetDefectDetectedPhaseDistribution = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetDefectDetectedPhaseDistribution', data);
     }
 
@@ -26,23 +26,23 @@
         return $http.post(config.apiUrl + 'api/Chart/GetProjectWidgetDashboard', data);
     }
 
-    this.GetSITDefectSeverity = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetSITDefectSeverity = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetSITDefectSeverity', data);
     }
 
-    this.GetDefectTypeDistribution = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetDefectTypeDistribution = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetDefectTypeDistribution', data);
     }
 
-    this.GetSitExecutionGraph = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetSitExecutionGraph = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetSitExecutionGraph', data);
     }
 
-    this.GetSitDefectGraph = function (config, projectId, releaseId) {
-        var data = { ProjectId: projectId, ReleaseId: releaseId };
+    this.GetSitDefectGraph = function (config, projectId, releaseId, savedChartId) {
+        var data = { ProjectId: projectId, ReleaseId: releaseId, SavedChartId: savedChartId };
         return $http.post(config.apiUrl + 'api/Chart/GetSitDefectGraph', data);
     }
 
