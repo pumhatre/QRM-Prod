@@ -545,7 +545,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                 var userId = $cookies.get('_UserId');
                 mySavedReportService.SaveReports(config, userId, $scope.selectedProjectDropdown, $scope.selectedReleaseDropdown, $scope.selectedChartType, $scope.ReportName, $scope.ResponseData).then(function (response) {
                     //Display Successfull message after save
-                    if (response.data.Success) {
+                    if (response.data.Success.Status) {
                         $scope.ReportName = "";
                         $('#saveModal').modal('hide');
                         $scope.alerts.push({
@@ -554,6 +554,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                         });
                         $('html, body').animate({ scrollTop: 0 }, 'slow');
                     }
+                    else {
+                        $scope.ReportName = "";
+                        $('#saveModal').modal('hide');
+                        $scope.alerts.push({
+                            msg: response.data.Success.ResponseMesaage,
+                            type: 'danger'
+                        });
+                        $('html, body').animate({ scrollTop: 0 }, 'slow');
+                    }
+
                 }, function (error) {
                     //Display Error message if any error occurs
                     $scope.alerts.push({

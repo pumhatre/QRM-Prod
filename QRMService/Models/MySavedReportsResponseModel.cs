@@ -16,4 +16,10 @@ namespace QRMService.Models
         public string Project { get; set; }
         public string Release { get; set; }
     }
+
+    public class SavedReportResponse
+    {
+        public bool Status { get; set; }
+        public string ResponseMesaage { get; set; }
+    }
 }

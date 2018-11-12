@@ -105,7 +105,7 @@
                                 <div class="col-md-8" ng-switch="selectedChartType">
                                     <div ng-switch-when="DWD" class="text-center">
                                         <br />
-                                        <h1>Development Widget Dashboard</h1>
+                                        <h1><u>Development Widget Dashboard</u></h1>
                                         <canvas id="lineProjectWidgetDashBoard" class="chart chart-line"
                                                 chart-data="ProjectWidgetDashboardData"
                                                 chart-labels="ProjectWidgetDashboardLabels"
@@ -116,7 +116,7 @@
 
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
 
@@ -125,7 +125,7 @@
                                     </div>
                                     <div ng-switch-when="SEG" class="text-center">
                                         <br />
-                                        <h1>SIT Execution Graph</h1>
+                                        <h1><u>SIT Execution Graph</u></h1>
                                         <canvas id="SITExecutionGraph" class="chart chart-bar"
                                                 chart-data="SitExecutionGraphData"
                                                 chart-labels="SitExecutionGraphLabels"
@@ -136,7 +136,7 @@
 
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />
@@ -144,7 +144,7 @@
                                     </div>
                                     <div ng-switch-when="SDG" class="text-center">
                                         <br />
-                                        <h1>SIT Defect Graph</h1>
+                                        <h1> <u>SIT Defect Graph</u></h1>
                                         <canvas id="SITDefectGraph" class="chart chart-line"
                                                 chart-data="SitDefectGraphData"
                                                 chart-labels="SitDefectGraphLabels"
@@ -154,7 +154,7 @@
                                                 chart-dataset-override="SitDefectGraphOverride"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />
@@ -162,14 +162,14 @@
                                     </div>
                                     <div ng-switch-when="SDSD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1>SIT Defect Severity Distribution</h1>
+                                        <h1><u>SIT Defect Severity Distribution</u></h1>
                                         <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
                                                 chart-data="SITDefectSeverityData"
                                                 chart-labels="SITDefectSeverityLabels"
                                                 chart-options="SITDefectSeverityOptions" width="300" height="300"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />
@@ -177,7 +177,7 @@
                                     </div>
                                     <div ng-switch-when="DTD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1>Defect Type Distribution</h1>
+                                        <h1><u>Defect Type Distribution</u></h1>
                                         <canvas id="SITDefectSeverityDistribution" class="chart chart-doughnut"
                                                 chart-data="DefectTypeDistributionData"
                                                 chart-labels="DefectTypeDistributionLabels"
@@ -185,7 +185,7 @@
                                                 chart-dataset-override="DefectTypeDistributionDatasetOverride"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />
@@ -194,13 +194,16 @@
 
                                     <div ng-switch-when="ED" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1>Effort Distribution</h1>
+                                        <h1><u>Effort Distribution</u></h1>
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Planned</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
-                                                chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride"></canvas>
+                                                chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride" ng-show="savePopupButton"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />
@@ -208,16 +211,16 @@
                                     </div>
                                     <div ng-switch-when="TCD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1>Test Case Distribution</h1>
+                                        <h1><u>Test Case Distribution</u></h1>
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" ng-show="savePopupButton" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                <h1>No Data Available</h1>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />
@@ -225,17 +228,19 @@
                                     </div>
                                     <div ng-switch-when="TCCD" class="text-center" style="width:50%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1>Test case complexity distribution(Component/E2E)</h1>
+                                        <h1><u>Test case complexity distribution(Component/E2E)</u></h1>
                                         <br />
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut"
                                                 chart-data="TestCaseComplexityDistribution"
                                                 chart-labels="labels4"
                                                 chart-series="TestCaseComplexityDistributionSeries"
-                                                chart-options="TestCaseComplexityDistributionoptions"></canvas>
+                                                chart-options="TestCaseComplexityDistributionoptions" ng-show="savePopupButton"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <br />
+                                                <br />
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
 
@@ -244,14 +249,17 @@
                                     </div>
                                     <div ng-switch-when="DDPD" class="text-center" style="width:65%; margin-left:auto; margin-right:auto;">
                                         <br />
-                                        <h1>Defect Detected Phase Distribution</h1>
+                                        <h1><u>Defect Detected Phase Distribution</u></h1>
                                         <canvas id="donught" class="chart chart-doughnut"
                                                 chart-data="DefectDetectedPhaseData"
                                                 chart-labels="DefectDetectedPhaseLabels"
-                                                chart-options="DefectDetectedPhaseOptions"></canvas>
+                                                chart-options="DefectDetectedPhaseOptions" ng-show="savePopupButton"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1>No Data Available</h1>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h1 style="color:red">No Data Available</h1>
                                             </div>
                                         </div>
                                         <br />

@@ -18,14 +18,29 @@ namespace QRMService.Repositories
         /// <param name="reportType">Type of the report.</param>
         /// <param name="reportName">Name of the report.</param>
         /// <returns></returns>
-        public static bool SaveReport(int userId, int projectId, int releaseId, string reportType, string reportName,byte[] reportData)
+        public static SavedReportResponse SaveReport(int userId, int projectId, int releaseId, string reportType, string reportName,byte[] reportData)
         {
+            var response = new SavedReportResponse();
             using (var db = new QRMEntities())
             {
-                var data = new UserReportAssociation { UserId = userId, ProjectId = projectId, ProjectReleaseID = releaseId, ReportType = reportType, ReportName = reportName, IsActive=true ,ReportData=reportData};
-                db.UserReportAssociations.Add(data);
-                db.SaveChanges();
-                return true;
+
+                var NameinDb = from r in db.UserReportAssociations where r.ReportName == reportName select r.ReportName;
+                if (!NameinDb.Any())
+                {
+                    var data = new UserReportAssociation { UserId = userId, ProjectId = projectId, ProjectReleaseID = releaseId, ReportType = reportType, ReportName = reportName, IsActive = true, ReportData = reportData };
+                    db.UserReportAssociations.Add(data);
+                    db.SaveChanges();
+                    response.Status = true;
+                    response.ResponseMesaage = "Report saved successfully";
+                }
+
+                else
+                {
+                    response.Status = false;
+                    response.ResponseMesaage = "Report Name already exists. Please try saving the report with a different name";
+                }
+
+                return response;
             }
         }
 
