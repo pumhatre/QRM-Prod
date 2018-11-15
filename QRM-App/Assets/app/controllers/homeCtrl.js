@@ -146,8 +146,16 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                   $scope.ReworkPercentColors = [];
                                   $scope.ReworkPercentOverride = [];                                 
                                   if (successResponse.data) {
+                                      $scope.width = 400 / successResponse.data[0].labels.length > 75 ? 75 : 400 / successResponse.data[0].labels.length ;
                                       if (successResponse.data[0]) {
                                           // set data for effort variance graph
+
+
+                                          var datalengthArray = successResponse.data[0].values;                                     
+                                          $scope.minlength = Math.min.apply(Math, datalengthArray) < -25 ? Math.min.apply(Math, datalengthArray)-2:-25;
+                                          $scope.maxlength = Math.max.apply(Math, datalengthArray) > 25 ? Math.max.apply(Math, datalengthArray) +2: 25;
+
+                                        
                                           $scope.EffortVariancePercentOptions = {
                                               legend: {
                                                   display: false,
@@ -166,13 +174,13 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                                           color: ['', '', '', 'green', '', '', '', 'green', '', '', '']
                                                       },
                                                       ticks: {
-                                                          min: -25,
-                                                          max: 25,
+                                                          min: $scope.minlength,
+                                                          max: $scope.maxlength,
                                                           stepSize: 5
                                                       }
                                                   }],
                                                   xAxes: [{
-                                                      barThickness: 75
+                                                      barThickness: $scope.width
                                                   }]
                                               }
                                           };
@@ -202,6 +210,11 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                       }
                                       if (successResponse.data[1]) {
                                           // set data for rework graph
+
+
+                                          var datalengthArray1 = successResponse.data[1].values;
+                                          $scope.minlength1 = Math.min.apply(Math, datalengthArray1) < -25 ? Math.min.apply(Math, datalengthArray1) - 2 : -25;
+                                          $scope.maxlength1 = Math.max.apply(Math, datalengthArray1) > 25 ? Math.max.apply(Math, datalengthArray1) + 2 : 25;
                                           $scope.ReworkPercentOptions = {
                                               legend: {
                                                   display: false,
@@ -220,13 +233,13 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                                           color: ['', '', '', 'green', '', '', '', '', '', '', '']
                                                       },
                                                       ticks: {
-                                                          min: -25,
-                                                          max: 25,
+                                                          min: $scope.minlength1,
+                                                          max: $scope.maxlength1,
                                                           stepSize: 5
                                                       }
                                                   }],
                                                   xAxes: [{
-                                                      barThickness: 75
+                                                      barThickness: $scope.width
                                                   }]
                                               }
                                           };
