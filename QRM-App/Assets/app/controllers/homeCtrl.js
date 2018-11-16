@@ -146,10 +146,10 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                   $scope.ReworkPercentColors = [];
                                   $scope.ReworkPercentOverride = [];                                 
                                   if (successResponse.data) {
-                                      $scope.width = 400 / successResponse.data[0].labels.length > 75 ? 75 : 400 / successResponse.data[0].labels.length ;
+                                    
                                       if (successResponse.data[0]) {
                                           // set data for effort variance graph
-
+                                          $scope.width = 400 / successResponse.data[0].labels.length > 75 ? 75 : 400 / successResponse.data[0].labels.length;
 
                                           var datalengthArray = successResponse.data[0].values;                                     
                                           $scope.minlength = Math.min.apply(Math, datalengthArray) < -25 ? Math.min.apply(Math, datalengthArray)-2:-25;
@@ -210,7 +210,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                                       }
                                       if (successResponse.data[1]) {
                                           // set data for rework graph
-
+                                          $scope.width = 400 / successResponse.data[0].labels.length > 75 ? 75 : 400 / successResponse.data[0].labels.length;
 
                                           var datalengthArray1 = successResponse.data[1].values;
                                           $scope.minlength1 = Math.min.apply(Math, datalengthArray1) < -25 ? Math.min.apply(Math, datalengthArray1) - 2 : -25;
