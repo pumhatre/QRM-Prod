@@ -188,7 +188,7 @@ namespace QRMService.Repositories
                     chartDataModel.values = new List<decimal>();
                     chartData.AsEnumerable().ToList().ForEach(row =>
                     {
-                        chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()), row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString())));
+                        chartDataModel.labels.Add(string.Format("{0} ({1}%): {2}", row.Field<string>(ProjectDefectDetectionPhaseColumnName.DetectedStage.ToString()), row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString()), row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectCount.ToString())));
                         chartDataModel.values.Add(row.Field<decimal>(ProjectDefectDetectionPhaseColumnName.DefectPhasePercentage.ToString()));
                     });
                 }
@@ -307,7 +307,7 @@ namespace QRMService.Repositories
                     chartData.AsEnumerable().ToList().ForEach(row =>
                     {
                         // set labels
-                        chartDataModel.labels.Add(string.Format("{0} ({1}%)", row.Field<string>(DefectDistributionColumns.DefectType.ToString()), row.Field<int>(DefectDistributionColumns.CountPercentage.ToString())));
+                        chartDataModel.labels.Add(string.Format("{0} ({1}%-{2})", row.Field<string>(DefectDistributionColumns.DefectType.ToString()), row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()), row.Field<int>(DefectDistributionColumns.DefectCount.ToString())));
                         // set data
                         chartDataModel.values.Add(row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()));
                     });

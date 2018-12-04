@@ -276,17 +276,13 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   $scope.DefectTypeDistributionData = [];
                                   $scope.DefectTypeDistributionDatasetOverride = [];
                                   if (successResponse.data.values) {
-                                      $scope.DefectTypeDistributionLabels = [];
+                                      $scope.DefectTypeDistributionLabels = successResponse.data.labels;
 
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.DefectTypeDistributionData.push(successResponse.data.values[i]);
                                       }
 
-                                      for (var i = 0; i < successResponse.data.labels.length; i++) {
-
-                                          $scope.DefectTypeDistributionLabels.push(successResponse.data.labels[i] + " : " + successResponse.data.values[i]);
-                                         
-                                      }
+                                      
                                       $scope.DefectTypeDistributionOptions = {
                                           legend: {
                                               display: true,

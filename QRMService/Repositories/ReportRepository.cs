@@ -280,7 +280,7 @@ namespace QRMService.Repositories
                 projectDefectsList.Add(new ProjectDefects
                 {
 
-                    DashBoardType = "Overall",
+                    DashBoardType = "Total",
                     Overall = overall,
                     Rejected = rejected,
                     Closed = closed,
@@ -613,7 +613,7 @@ namespace QRMService.Repositories
                 projectDefectsList.Add(new ProjectDefects
                 {
 
-                    DashBoardType = "Overall",
+                    DashBoardType = "Total",
                     Overall = overall,
                     Rejected = rejected,
                     Closed = closed,
