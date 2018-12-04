@@ -86,6 +86,14 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               display: true,
                                               position: "top"
                                           },
+                                          scales: {
+                                              yAxes: [{
+                                                  scaleLabel: {
+                                                      display: true,
+                                                      labelString: 'SIT Defect Graph'
+                                                  }
+                                              }]
+                                          },
                                           tooltipEvents: [],
                                           showTooltips: true,
                                           tooltipCaretSize: 0,
@@ -209,6 +217,14 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                           legend: {
                                               display: true,
                                               position: "top"
+                                          },
+                                          scales: {
+                                              yAxes: [{
+                                                  scaleLabel: {
+                                                      display: true,
+                                                      labelString: 'SIT Defect Graph'
+                                                  }
+                                              }]
                                           },
                                           tooltipEvents: [],
                                           showTooltips: true,
@@ -339,6 +355,14 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                 display: true,
                                 position: "bottom"
                             },
+                            //scales: {
+                            //    yAxes: [{
+                            //        scaleLabel: {
+                            //            display: true,
+                            //            labelString: 'probability'
+                            //        }
+                            //    }]
+                            //},
                             tooltips: {
                                 callbacks: {
                                     label: function (tooltipItem, data) {                                        
