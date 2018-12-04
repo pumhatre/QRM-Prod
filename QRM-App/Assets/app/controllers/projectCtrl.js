@@ -293,12 +293,20 @@
                 //Declaring column and its related properties
                 columnDefs: [
                     {
+                        name: 'ClientName', displayName: "Client Name", field: "ClientName", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
+                    },
+                    {
                         name: 'ProjectName', displayName: "Project Name", field: "ProjectName", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: 'ServiceLine', displayName: "Offering", field: "ServiceLine", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;" ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.ServiceLine"><option value="">Select Offering</option> <option ng-repeat="serviceLine in grid.appScope.serviceLineList" value="{{serviceLine.ReferenceCode}}">{{serviceLine.ReferenceCode}}</option> </select></div>'
+                    },
+                    {
+                        name: 'Industry', displayName: "Market Offerings", field: "Industry", enableColumnMenu: false, width: '10%',
+                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.IndustryCode"><option value="">Select  Market Offering</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
                     },
                     {
                         name: 'ProjectManager', displayName: "Project Manager", field: "ProjectManager", enableColumnMenu: false, width: '10%',
@@ -312,18 +320,12 @@
                            name: 'Director', displayName: "Director", field: "Director", enableColumnMenu: false, width: '12%',
                            cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
                        },
-                    {
-                        name: 'ClientName', displayName: "Client Name", field: "ClientName", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"   ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
-                    },
+                  
                     {
                         name: 'Technology', displayName: "Technology", field: "Technology", enableColumnMenu: false, width: '7%',
                         cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.TechnologyCode"><option value="">Select Technology</option> <option ng-repeat="technology in grid.appScope.technologyList" value="{{technology.ReferenceCode}}">{{technology.ReferenceValue}}</option> </select></div>'
                     },
-                    {
-                        name: 'Industry', displayName: "Market Offerings", field: "Industry", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><select ng-model="row.entity.IndustryCode"><option value="">Select  Market Offering</option> <option ng-repeat="industry in grid.appScope.industryList" value="{{industry.ReferenceCode}}">{{industry.ReferenceValue}}</option> </select></div>'
-                    },
+                  
                     {
                         name: 'LifeCycle', displayName: "Life Cycle", field: "LifeCycle", enableColumnMenu: false, width: '10%',
                         cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div ng-if="row.entity.editrow"><input placeholder="Required" type="text" ng-model="MODEL_COL_FIELD"></div>'
