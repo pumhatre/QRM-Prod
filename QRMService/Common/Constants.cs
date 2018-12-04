@@ -245,7 +245,9 @@ namespace QRMService.Common
         public enum ProjectDefectDetectionPhaseColumnName
         {
             DetectedStage,
-            DefectPhasePercentage
+            DefectPhasePercentage,
+            DefectCount
+
         }
 
         public enum ProjectTestCaseComplexityDistributionColumnName
