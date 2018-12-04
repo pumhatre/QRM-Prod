@@ -237,7 +237,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                     
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.SITDefectSeverityData.push(successResponse.data.values[i]);
-                                          $scope.SITDefectSeverityLabels.push(successResponse.data.labels[i] + " - " + successResponse.data.values[i]) ;
+                                          $scope.SITDefectSeverityLabels.push(successResponse.data.labels[i] + " : " + successResponse.data.values[i]) ;
                                       }
                                       $scope.SITDefectSeverityOptions = {
                                           legend: {
@@ -276,16 +276,16 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                   $scope.DefectTypeDistributionData = [];
                                   $scope.DefectTypeDistributionDatasetOverride = [];
                                   if (successResponse.data.values) {
-                                      $scope.DefectTypeDistributionLabels = successResponse.data.labels;
+                                      $scope.DefectTypeDistributionLabels = [];
 
                                       for (var i = 0; i < successResponse.data.values.length; i++) {
                                           $scope.DefectTypeDistributionData.push(successResponse.data.values[i]);
                                       }
 
-                                      for (var i = 0; i < $scope.DefectTypeDistributionLabels.length; i++) {
-                                          $scope.DefectTypeDistributionDatasetOverride.push({
-                                              label: $scope.DefectTypeDistributionLabels[i]
-                                          });
+                                      for (var i = 0; i < successResponse.data.labels.length; i++) {
+
+                                          $scope.DefectTypeDistributionLabels.push(successResponse.data.labels[i] + " : " + successResponse.data.values[i]);
+                                         
                                       }
                                       $scope.DefectTypeDistributionOptions = {
                                           legend: {
