@@ -263,6 +263,32 @@ namespace QRMService.Repositories
                         Open = row.Field<int?>(Constants.ProjectDefectColumnName.Open.ToString())
                     });
                 });
+
+                int overall = 0;
+                int rejected = 0;
+                int closed = 0;
+                int open = 0;
+
+                foreach (var item in projectDefectsList)
+                {
+                    overall += item.Overall == null ? 0 : Convert.ToInt32(item.Overall);
+                    rejected += item.Rejected == null ? 0 : Convert.ToInt32(item.Rejected);
+                    closed += item.Closed == null ? 0 : Convert.ToInt32(item.Closed);
+                    open += item.Open == null ? 0 : Convert.ToInt32(item.Open);
+
+                }
+                projectDefectsList.Add(new ProjectDefects
+                {
+
+                    DashBoardType = "Overall",
+                    Overall = overall,
+                    Rejected = rejected,
+                    Closed = closed,
+                    Open = open
+
+
+                });
+
             }
             return projectDefectsList;
         }
@@ -569,7 +595,36 @@ namespace QRMService.Repositories
                         Open = row.Field<int?>(Constants.ProjectDefectColumnName.Open.ToString())
                     });
                 });
+
+
+                int overall = 0;
+                int rejected = 0;
+                int closed = 0;
+                int open = 0;
+
+                foreach (var item in projectDefectsList)
+                {
+                    overall += item.Overall == null ? 0 : Convert.ToInt32(item.Overall);
+                    rejected += item.Rejected == null ? 0 : Convert.ToInt32(item.Rejected);
+                    closed += item.Closed == null ? 0 : Convert.ToInt32(item.Closed);
+                    open += item.Open == null ? 0 : Convert.ToInt32(item.Open);
+
+                }
+                projectDefectsList.Add(new ProjectDefects
+                {
+
+                    DashBoardType = "Overall",
+                    Overall = overall,
+                    Rejected = rejected,
+                    Closed = closed,
+                    Open = open
+
+
+                });
+
             }
+
+
             return projectDefectsList;
         }
 

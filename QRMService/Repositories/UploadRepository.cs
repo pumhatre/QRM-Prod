@@ -422,9 +422,9 @@ namespace QRMService.Repositories
                 if (!isValidDefectType)
                 {
                     if (row.Field<string>(Constants.DefectSanityValidationColumnName.DefectType.ToString()) == "-Missing-")
-                        sb.Append("Missing Type").Append("|");
+                        sb.Append("Missing Defect Type").Append("|");
                     else
-                        sb.Append("Invalid Type").Append("|");
+                        sb.Append("Invalid Defect Type").Append("|");
                 }
 
                 if (!isValidDefectCause && row.Field<string>(Constants.DefectSanityValidationColumnName.Cause.ToString()) == "-Missing-")
