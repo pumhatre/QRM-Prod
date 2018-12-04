@@ -264,7 +264,7 @@
             scope.chart = new ChartJs.Chart(ctx, {
                 type: type,
                 data: data,
-                options: options
+                options
             });
             scope.$emit('chart-create', scope.chart);
             bindEvents(cvs, scope);
