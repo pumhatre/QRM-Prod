@@ -52,6 +52,9 @@
      // '#EEE8AA',//pale golden rod
       '#87CEFA'//light sky blue
     ];
+    Chart.Legend.prototype.afterFit = function () {
+        this.height = this.height + 80;
+    };
     Chart.plugins.register({
         afterDatasetsDraw: function (chart) {
                 var ctx = chart.chart.ctx;               
