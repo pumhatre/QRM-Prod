@@ -38,6 +38,7 @@ namespace QRMService.Models
     public class ChartDatasetDecimal
     {
         public List<decimal> data { get; set; }
+        public List<int> values { get; set; }
         public string label { get; set; }
         public string borderColor { get; set; }
         public bool fill { get; set; }

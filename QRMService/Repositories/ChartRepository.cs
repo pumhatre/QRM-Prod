@@ -137,16 +137,20 @@ namespace QRMService.Repositories
                     chartDataModel.series = new List<string> { "Component", "E2E" };
 
                     List<decimal> componentListModel = new List<decimal>();
+                    List<int> componentListModelValues = new List<int>();
                     List<decimal> E2EListModel = new List<decimal>();
+                    List<int> E2EListModelValues = new List<int>();
 
                     chartSetData.Tables[0].AsEnumerable().ToList().ForEach(row =>
                     {
                         componentListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
+                        componentListModelValues.Add(row.Field<int>(ProjectTestCaseComplexityDistributionColumnName.TestCaseCount.ToString()));
                     });
 
                     chartSetData.Tables[1].AsEnumerable().ToList().ForEach(row =>
                     {
                         E2EListModel.Add(row.Field<decimal>(ProjectTestCaseComplexityDistributionColumnName.TestCasePercentage.ToString()));
+                        E2EListModelValues.Add(row.Field<int>(ProjectTestCaseComplexityDistributionColumnName.TestCaseCount.ToString()));
                     });
 
                     chartDataModel.labels = new List<string>() { "Simple", "Medium", "Complex", "Very Complex" };
@@ -155,13 +159,15 @@ namespace QRMService.Repositories
                     {
                         data = componentListModel,
                         //backgroundColor = new List<string>() { "#FFA500", "#1E90FF", "#F7464A", "#000000" },
-                        label = "Component"
+                        label = "Component",
+                        values= componentListModelValues
                     });
                     chartDataModel.datasets.Add(new ChartDatasetDecimal()
                     {
                         data = E2EListModel,
                         // backgroundColor = new List<string>() { "#F7464A","#FFA500", "#1E90FF", "#000000" },
-                        label = "E2E"
+                        label = "E2E",
+                        values=E2EListModelValues
                     });
                 }
             }

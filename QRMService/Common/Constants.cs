@@ -253,7 +253,8 @@ namespace QRMService.Common
         public enum ProjectTestCaseComplexityDistributionColumnName
         {
             TestingType,
-            TestCasePercentage
+            TestCasePercentage,
+            TestCaseCount
         }
 
         //public enum TestTablesColumnName

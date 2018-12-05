@@ -138,7 +138,12 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                                 {
                                                     id: 'y-axis-1',
                                                     display: true,
-                                                    position: 'left'
+                                                      position: 'left',
+
+                                                      scaleLabel: {
+                                                          display: true,
+                                                          labelString: 'SIT Defect Graph'
+                                                      }
                                                 },
                                                 {
                                                     id: 'y-axis-2',
@@ -441,11 +446,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                  
                                   $scope.labels4 = successResponse.data.labels;
                                   $scope.TestCaseComplexityDistribution = [];
+                                  $scope.TestCaseComplexityDistributionValues = [];
                                   for (var i = 0; i < successResponse.data.datasets.length; i++) {
                                       $scope.TestCaseComplexityDistribution.push(successResponse.data.datasets[i].data)
                                   }
 
                                   $scope.TestCaseComplexityDistributionSeries = successResponse.data.series;
+                                  for (var i = 0; i < successResponse.data.datasets.length; i++) {
+                                      $scope.TestCaseComplexityDistributionValues.push(successResponse.data.datasets[i].values)
+                                  }
 
                                   $scope.TestCaseComplexityDistributionoptions = {
                                       legend: {
