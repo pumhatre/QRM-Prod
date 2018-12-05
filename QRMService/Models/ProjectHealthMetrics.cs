@@ -73,7 +73,7 @@ namespace QRMService.Models
         {
             get
             {
-                return string.Format("{0}%", Convert.ToString(ComponentDefectRejectionRate == "NR" ? 0 : Convert.ToInt32(ComponentDefectRejectionRate.Replace("%","")) + E2EDefectRejectionRate == "NR" ? 0 : Convert.ToInt32(E2EDefectRejectionRate.Replace("%",""))));
+                return string.Format("{0}%", Convert.ToString(ComponentDefectRejectionRate == "NR" ? 0 : Convert.ToDecimal(ComponentDefectRejectionRate.Replace("%","")) + E2EDefectRejectionRate == "NR" ? 0 : Convert.ToDecimal(E2EDefectRejectionRate.Replace("%",""))));
             }
         }
 }

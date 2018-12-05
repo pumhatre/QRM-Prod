@@ -313,7 +313,7 @@ namespace QRMService.Repositories
                     chartData.AsEnumerable().ToList().ForEach(row =>
                     {
                         // set labels
-                        chartDataModel.labels.Add(string.Format("{0} ({1}%-{2})", row.Field<string>(DefectDistributionColumns.DefectType.ToString()), row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()), row.Field<int>(DefectDistributionColumns.DefectCount.ToString())));
+                        chartDataModel.labels.Add(string.Format("{0} ({1}%) : {2}", row.Field<string>(DefectDistributionColumns.DefectType.ToString()), row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()), row.Field<int>(DefectDistributionColumns.DefectCount.ToString())));
                         // set data
                         chartDataModel.values.Add(row.Field<int>(DefectDistributionColumns.CountPercentage.ToString()));
                     });

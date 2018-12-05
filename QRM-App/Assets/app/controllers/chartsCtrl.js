@@ -90,7 +90,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               yAxes: [{
                                                   scaleLabel: {
                                                       display: true,
-                                                      labelString: 'SIT Defect Graph'
+                                                      labelString: 'Number Of Widgets'
                                                   }
                                               }]
                                           },
@@ -142,13 +142,19 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
 
                                                       scaleLabel: {
                                                           display: true,
-                                                          labelString: 'SIT Defect Graph'
+                                                          labelString: 'Number Of Test Cases'
                                                       }
                                                 },
                                                 {
                                                     id: 'y-axis-2',
                                                     display: true,
-                                                    position: 'right'
+                                                    position: 'right',                                                    
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: 'Test Cases (Percentage)' 
+                                                        
+                                                         
+                                                    }
                                                 }
                                               ],
                                               xAxes: [{
@@ -227,7 +233,7 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                               yAxes: [{
                                                   scaleLabel: {
                                                       display: true,
-                                                      labelString: 'SIT Defect Graph'
+                                                      labelString: 'Number Of Defects'
                                                   }
                                               }]
                                           },
