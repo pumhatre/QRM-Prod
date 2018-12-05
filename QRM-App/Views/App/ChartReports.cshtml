@@ -33,6 +33,21 @@
         border: 1px solid black;
         border-radius: 50%;
     }
+
+     .msg {
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        width: 60%;
+        height: 50%;
+        background-color: #eee;
+        border-radius: 4px;
+        border: 1px solid #555;
+        text-align: center;
+        font-size: 24px;
+        display: table;
+    }
 </style>
 <div class="x_panel" role="main">
     <div class="">
@@ -113,10 +128,10 @@
                                                 chart-series="ProjectWidgetDashboardSeries"
                                                 chart-options="ProjectWidgetDashboardOptions"
                                                 chart-dataset-override="ProjectWidgetDashboardOverride"></canvas>
-
+                                   
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span>No Data</span>
                                             </div>
                                         </div>
 
@@ -136,7 +151,7 @@
 
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span >No Data</span>
                                             </div>
                                         </div>
                                         <br />
@@ -152,9 +167,12 @@
                                                 chart-options="SitDefectGraphOptions"
                                                 chart-colors="SitDefectGraphColors"
                                                 chart-dataset-override="SitDefectGraphOverride"></canvas>
+
+                                        <br/>
+                                        <br/>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span >No Data </span>
                                             </div>
                                         </div>
                                         <br />
@@ -169,7 +187,7 @@
                                                 chart-options="SITDefectSeverityOptions" width="300" height="300"></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span >No Data </span>
                                             </div>
                                         </div>
                                         <br />
@@ -185,7 +203,7 @@
                                                ></canvas>
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span>No Data </span>
                                             </div>
                                         </div>
                                         <br />
@@ -198,12 +216,18 @@
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Planned</h4>
                                         <canvas id="doubleDount" class="chart chart-doughnut" chart-options="ProjectEffortDataoptions"
                                                 chart-data="ProjectEffortData" chart-labels="labels" chart-series="ProjectEffortDataSeries" chart-dataset-override="ProjectEffortDashboardOverride" ng-show="savePopupButton"></canvas>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <h1 style="color:red">No Data Available</h1>
+
+                                                <span>No Data </span>
                                             </div>
                                         </div>
                                         <br />
@@ -215,13 +239,20 @@
                                         <h4 ng-show="savePopupButton" style="font-size:35px; color:#000099">Component</h4>
                                         <canvas id="doubleDount" ng-show="savePopupButton" class="chart chart-doughnut" chart-options="TestCaseDistributionoptions"
                                                 chart-data="TestCaseDistribution" chart-labels="labels1" chart-series="TestCaseDistributionSeries" chart-dataset-override="TestCaseDistributionOverride"></canvas>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
+
                                             <div class="msg">
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span>No Data</span>
                                             </div>
+
                                         </div>
                                         <br />
                                         <button ng-click="OpenSavePopup()" ng-show="savePopupButton" ng-disabled="IsRedirectedFromHome" style="text-align:center;" class="btn btn-info"><i class="fa fa-save"></i> Save this report</button>
@@ -236,11 +267,18 @@
                                                 chart-labels="labels4"
                                                 chart-series="TestCaseComplexityDistributionSeries"
                                                 chart-options="TestCaseComplexityDistributionoptions" ng-show="savePopupButton"></canvas>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <br />
-                                                <br />
-                                                <h1 style="color:red">No Data Available</h1>
+
+                                                <span>No Data </span>
                                             </div>
                                         </div>
 
@@ -254,12 +292,19 @@
                                                 chart-data="DefectDetectedPhaseData"
                                                 chart-labels="DefectDetectedPhaseLabels"
                                                 chart-options="DefectDetectedPhaseOptions" ng-show="savePopupButton"></canvas>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+
+
                                         <div class="grid-msg-overlay" ng-hide="savePopupButton">
                                             <div class="msg">
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <h1 style="color:red">No Data Available</h1>
+                                                <span>No Data</span>
                                             </div>
                                         </div>
                                         <br />
