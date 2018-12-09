@@ -290,17 +290,24 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         }
 
         $scope.loadProjectPerformceGraph($cookies.get('_UserId'));
-
+        var displayPagination = false;
         $scope.LoadMyProjectUploadData = function ( ) {
             var userId = $cookies.get('_UserId');
             mySavedReportService.LoadMyProjectUploadData( config,userId)
                 .then(function (successResponse) {
+                    debugger;
+                    if (successResponse.data.length) {
+                        displayPagination = false;
+                    }
+                    else {
+                        displayPagination = true;
+                    }
                     $scope.uploadReportGrid.data = successResponse.data;
                 }, function (errorResponse) {
 
                 });
         }
-
+       
         $scope.uploadReportGrid = {
             enableCellSelection: false,
             enableRowSelection: false,
@@ -310,6 +317,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             paginationPageSizes: [10, 50, 100],
             paginationPageSize: 10,
             gridMenuShowHideColumns: false,
+            enablePaginationControls: displayPagination,
             columnDefs: [
               
                 { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '25%' },
