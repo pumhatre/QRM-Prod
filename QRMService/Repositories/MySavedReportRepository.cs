@@ -56,7 +56,7 @@ namespace QRMService.Repositories
                 var data = (from r in db.UserReportAssociations
                             join p in db.ProjectMasters on r.ProjectId equals p.ProjectID
                             join rl in db.ProjectReleaseMasters on r.ProjectReleaseID equals rl.ProjectReleaseId
-                            where r.UserId == userId && r.IsActive == true
+                            where r.UserId == userId && p.IsActive == true
                             select new MySavedReportsResponseModel
                             {
                                 ProjectId = r.ProjectId,

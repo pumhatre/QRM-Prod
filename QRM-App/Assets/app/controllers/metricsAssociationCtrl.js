@@ -318,7 +318,7 @@
             $scope.projectReleaseGridOptions = {
                 // enablePaginationControls: true,
                 // paginationTemplate:"<div>Hello</div>",
-                enablePaginationControls: displayPagination3,
+                enablePaginationControls: true,
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
                 //Declaring column and its related properties
@@ -521,7 +521,7 @@
         $scope.projectUserAssocGridOptions = {
             // enablePaginationControls: true,
             // paginationTemplate:"<div>Hello</div>",
-            enablePaginationControls: displayPagination4,
+            enablePaginationControls: true,
             paginationPageSizes: [10, 50, 100],
             paginationPageSize: 10,
             loading: true,

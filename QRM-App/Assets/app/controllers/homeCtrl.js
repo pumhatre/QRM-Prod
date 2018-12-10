@@ -84,9 +84,9 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             enableSorting: true,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
-            enablePaginationControls: displayPagination1,
             paginationPageSizes: [10, 50, 100],
             paginationPageSize: 10,
+            enablePaginationControls: true,
             gridMenuShowHideColumns: false,
             columnDefs: [
                 { field: 'ProjectId', name: 'ProjectId', visible: false },
@@ -123,16 +123,16 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
                   });
         }
 
-        var displayPagination1 = false;
+        var displayPagination1 = true;
         $scope.getSavedReports = function () {
             mySavedReportService.GetMySavedReports(config, userId)
                 .then(function (successResponse) {
                     $scope.savedReportsGrid.data = successResponse.data;
                     if (successResponse.data.length) {
-                        displayPagination1 = false;
+                        displayPagination1 = true;
                     }
                     else {
-                        displayPagination1 = true;
+                        displayPagination1 = false;
                     }
 
                 }, function (errorResponse) {
@@ -300,7 +300,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
         }
 
         $scope.loadProjectPerformceGraph($cookies.get('_UserId'));
-        var displayPagination = false;
+        var displayPagination = true;
         $scope.LoadMyProjectUploadData = function ( ) {
             var userId = $cookies.get('_UserId');
             mySavedReportService.LoadMyProjectUploadData( config,userId)
@@ -327,7 +327,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             paginationPageSizes: [10, 50, 100],
             paginationPageSize: 10,
             gridMenuShowHideColumns: false,
-            enablePaginationControls: displayPagination,
+            enablePaginationControls: true,
             columnDefs: [
               
                 { field: 'Project', name: 'Project', cellTemplate: tmpl, width: '25%' },

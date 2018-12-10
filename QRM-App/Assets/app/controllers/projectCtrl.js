@@ -297,7 +297,7 @@
                 //enablePaginationControls: displayPagination1,
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
-                enablePaginationControls: displayPagination5,
+                enablePaginationControls: true,
                 //Declaring column and its related properties
                 columnDefs: [
                     {
