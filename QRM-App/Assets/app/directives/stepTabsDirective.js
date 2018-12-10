@@ -8,14 +8,14 @@ function StepTabs(){
             },
             template: '<div class="stepwizard col-md-offset-3">' +
                         ' <div class="stepwizard-row setup-panel">' +
-                            '<div class="stepwizard-step" ng-repeat="option in options" style="width:{{width}}%">' +
+                            '<div class="stepwizard-step" ng-repeat="option in options" style="width:25%">' +
                                 '<button id="{{$index}}" href="#{{option.Id}}"type="button" ng-class="{' +'\'btn-black active\'' + ':{{$index==0}} ,' + '\'btn-grey\'' + ':{{$index!=0}}}"class="btn btn-circle" ng-disabled="{{$index!=0}}" ng-click="buttonClick($index)">{{$index+1}}</button>' +
                                 '<p>{{option.DisplayHeaderName}}</p>' +
                                 '<p>{{option.DisplaySubHeaderName}}</p>' +
                             '</div>'+
                           '</div>'+
                       '</div>',
-            link: function ($scope, element, attributes) {
+            link: function ($scope, element, attributes) {                
               $scope.width = (100 / $scope.options.length);
               var navListItems = $('div.setup-panel div button'),
               allWells = $('.setup-content'),
