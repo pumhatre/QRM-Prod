@@ -174,6 +174,14 @@
                 projectReleaseService.GetProjectReleases($scope.selectedProjectDropDown, config)
                     .then(function (successResponse) {
                         $scope.projectReleaseGridOptions.data = successResponse.data;
+                        if (successResponse.data.length) {
+                            displayPagination3 = true;
+                        }
+                        else {
+                            displayPagination3 = false;
+                        }
+
+                     
                         $scope.loading = false;
                         $scope.loadAttempted = true;
 
@@ -211,10 +219,19 @@
             }
         }
 
+        var displayPagination3 = true;
         $scope.GetAllProjectReleases = function () {
             projectReleaseService.GetAllProjectReleases(config)
                 .then(function (successResponse) {
                     $scope.projectReleaseGridOptions.data = successResponse.data;
+                    if (successResponse.data.length) {
+                        displayPagination3 = true;
+                    }
+                    else {
+                        displayPagination3 = false;
+                    }
+
+
                     $scope.loading = false;
                     $scope.loadAttempted = true;
                 }, function (errorResponse) {
@@ -301,6 +318,7 @@
             $scope.projectReleaseGridOptions = {
                 // enablePaginationControls: true,
                 // paginationTemplate:"<div>Hello</div>",
+                enablePaginationControls: displayPagination3,
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
                 //Declaring column and its related properties
@@ -397,11 +415,18 @@
 
 
         //get users by Project Id
+        var displayPagination4 = true;
         $scope.getUsersByProjectId = function () {
             if ($scope.selectedProjectUserDropdown > 0) {
                 projectUserService.GetProjectUsersById($scope.selectedProjectUserDropdown, config)
                     .then(function (successResponse) {
                         $scope.projectUserAssocGridOptions.data = successResponse.data;
+                        if (successResponse.data.length) {
+                            displayPagination4 = true;
+                        }
+                        else {
+                            displayPagination4 = false;
+                        }
                         $scope.loading = false;
                         $scope.loadAttempted = true;
 
@@ -450,6 +475,12 @@
             projectUserService.GetAllProjectUsers(config)
                 .then(function (successResponse) {
                     $scope.projectUserAssocGridOptions.data = successResponse.data;
+                    if (successResponse.data.length) {
+                        displayPagination4 = true;
+                    }
+                    else {
+                        displayPagination4 = false;
+                    }
                     $scope.loading = false;
                     $scope.loadAttempted = true;
                 }, function (errorResponse) {
@@ -490,7 +521,7 @@
         $scope.projectUserAssocGridOptions = {
             // enablePaginationControls: true,
             // paginationTemplate:"<div>Hello</div>",
-
+            enablePaginationControls: displayPagination4,
             paginationPageSizes: [10, 50, 100],
             paginationPageSize: 10,
             loading: true,

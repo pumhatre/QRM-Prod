@@ -84,6 +84,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             enableSorting: true,
             enableColumnMenus: false,
             enableRowHeaderSelection: false,
+            enablePaginationControls: displayPagination1,
             paginationPageSizes: [10, 50, 100],
             paginationPageSize: 10,
             gridMenuShowHideColumns: false,
@@ -121,10 +122,19 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
 
                   });
         }
+
+        var displayPagination1 = false;
         $scope.getSavedReports = function () {
             mySavedReportService.GetMySavedReports(config, userId)
                 .then(function (successResponse) {
                     $scope.savedReportsGrid.data = successResponse.data;
+                    if (successResponse.data.length) {
+                        displayPagination1 = false;
+                    }
+                    else {
+                        displayPagination1 = true;
+                    }
+
                 }, function (errorResponse) {
 
                 });
@@ -295,7 +305,7 @@ angular.module('home', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 
             var userId = $cookies.get('_UserId');
             mySavedReportService.LoadMyProjectUploadData( config,userId)
                 .then(function (successResponse) {
-                    debugger;
+                    
                     if (successResponse.data.length) {
                         displayPagination = false;
                     }

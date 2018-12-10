@@ -34,11 +34,17 @@
 
             });
         };
-
+        var displayPagination5 = true;
         $scope.loadProjects = function () {
             projectService.getProjectList(config)
                 .then(function (successResponse) {
                     $scope.gridOptions.data = successResponse.data;
+                    if (successResponse.data.length) {                        
+                        displayPagination5 = true;
+                    }
+                    else {
+                        displayPagination5 = false;
+                    }
                     $scope.gridheight = $scope.gridOptions.data.length;
                     $scope.loading = false;
                     $scope.loadAttempted = true;
@@ -288,8 +294,10 @@
         $scope.GetProjects = function () {
             $scope.loading = true;            
             $scope.gridOptions = {
+                //enablePaginationControls: displayPagination1,
                 paginationPageSizes: [10, 50, 100],
                 paginationPageSize: 10,
+                enablePaginationControls: displayPagination5,
                 //Declaring column and its related properties
                 columnDefs: [
                     {
