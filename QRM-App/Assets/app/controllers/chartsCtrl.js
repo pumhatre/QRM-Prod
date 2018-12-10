@@ -144,7 +144,8 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                                           display: true,
                                                           labelString: 'Number Of Test Cases'
                                                       }
-                                                },
+                                                  },
+                                                
                                                 {
                                                     id: 'y-axis-2',
                                                     display: true,
@@ -158,10 +159,15 @@ angular.module('charts', ['ngAnimate', 'ngTouch', 'ui.bootstrap', 'chart.js'])
                                                 }
                                               ],
                                               xAxes: [{
-                                                  barPercentage: 0.7
+                                                  barPercentage: 0.7,
+                                                  scaleLabel: {
+                                                      display: true,
+                                                      labelString: 'Modules'
+                                                  }
                                               }]
                                           }
                                       };
+                                      
                                       $scope.SitExecutionGraphLabels = successResponse.data.labels;
                                       $scope.SitExecutionGraphSeries = successResponse.data.series;
 
