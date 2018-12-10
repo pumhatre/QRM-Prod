@@ -405,9 +405,6 @@
                         data: item,
                         backgroundColor: colors.map(function (color) {
                             return color.pointBackgroundColor;
-                        }),
-                        hoverBackgroundColor: colors.map(function (color) {
-                            return color.backgroundColor;
                         })
                     });
                     if (datasetOverride && datasetOverride.length >= i) {
