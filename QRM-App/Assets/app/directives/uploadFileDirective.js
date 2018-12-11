@@ -112,7 +112,7 @@ function uploadFile(uploadService) {
                 this.className = 'upload-drop-zone';
                 return false;
             }
-            $scope.UploadFile = function (files) {
+            $scope.UploadFile = function (files) {                
                 if (files.length > 0) {
                     localStorage.setItem("uploading", "true");
                     $scope.$apply(function () {
@@ -127,11 +127,13 @@ function uploadFile(uploadService) {
                     $(alertInfo).show();
                     $(uploaderBlock).hide();
                     $(loaderBlock).show();
-                    uploadService.UploadFile(files, $scope.SaveData);
+                    uploadService.UploadFile(files, $scope.SaveData);                    
                     $scope.disabledUploadNext = false;
                 }
-                else {
-                    $scope.disabledUploadNext = true;
+                else {    
+                    if(!$('.alert-success', '.info-block').is(':visible')){
+                        $scope.disabledUploadNext = true;
+                    }
                 }
             }
                
