@@ -13,7 +13,7 @@
         $scope.gridOptions = {};
         $scope.showModal = false;
         $scope.gridheight = "";
-        $scope.today = $filter('date')(new Date(), 'dd/mm/yyyy');
+        $scope.today = $filter('date')(new Date(), 'MM/dd/yyyy');
 
         $scope.LoadRefData = function () {
             referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
@@ -380,7 +380,7 @@
         function link(scope, element, attrs) {
             // CALL THE "datepicker()" METHOD USING THE "element" OBJECT.
             element.datepicker({
-                dateFormat: "dd/mm/yy"
+                dateFormat: "mm/dd/yy"
             });
         }
 
