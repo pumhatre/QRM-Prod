@@ -1,6 +1,6 @@
 ﻿angular.module('project', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize'])
 
-    .controller('projectCtrl', ['$scope', '$http', 'referenceDataService', 'projectService', 'config', 'uiGridConstants', '$confirm', function ($scope, $http, referenceDataService, projectService, config, uiGridConstants, $confirm) {
+    .controller('projectCtrl', ['$scope', '$http', 'referenceDataService', 'projectService', 'config', 'uiGridConstants', '$confirm', '$filter', function ($scope, $http, referenceDataService, projectService, config, uiGridConstants, $confirm, $filter) {
         $scope.selectedservice = null;
         $scope.projectDetail = null;
         $scope.projectList = [];
@@ -13,7 +13,7 @@
         $scope.gridOptions = {};
         $scope.showModal = false;
         $scope.gridheight = "";
-        $scope.today = new Date();
+        $scope.today = $filter('date')(new Date(), 'dd/mm/yyyy');
 
         $scope.LoadRefData = function () {
             referenceDataService.getReferenceTable("ServiceLine", config).then(function (response) {
@@ -223,8 +223,10 @@
                     type: 'danger'
                 });
             }
+
            
-            if (row.ReviewDate >= $scope.today || row.ReviewDate.isToday()) {
+           
+            if (row.ReviewDate >= $scope.today) {
                 $scope.Project.ReviewDate = row.ReviewDate;
             }
             else {
@@ -345,7 +347,7 @@
 
                     {
                         name: 'ReviewDate', displayName: "Metrics Submission Date", field: "ReviewDate", enableColumnMenu: false, width: '10%',
-                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input  placeholder="Required" type="date" ng-model="MODEL_COL_FIELD"></div>'
+                        cellTemplate: '<div  style="padding: 5px;"  ng-if="!row.entity.editrow">{{COL_FIELD | date:\'MM/dd/yyyy\'}}</div><div ng-if="row.entity.editrow"><input  placeholder="Required" type="text" datepicker ng-model="MODEL_COL_FIELD"></div>'
                     },
                     {
                         name: '', field: 'edit', enableFiltering: false, enableSorting: false, enableColumnMenu: false, width: '14%',
@@ -372,4 +374,18 @@
         $scope.GetProjects();
 
 
-    }]);
+    }])
+    .directive("datepicker", function () {
+
+        function link(scope, element, attrs) {
+            // CALL THE "datepicker()" METHOD USING THE "element" OBJECT.
+            element.datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+        }
+
+        return {
+            require: 'ngModel',
+            link: link
+        };
+    });
