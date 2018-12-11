@@ -226,7 +226,7 @@
 
            
            
-            if (row.ReviewDate >= $scope.today) {
+            if (new Date(row.ReviewDate) >= new Date($scope.today)) {
                 $scope.Project.ReviewDate = row.ReviewDate;
             }
             else {
