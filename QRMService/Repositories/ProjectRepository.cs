@@ -6,6 +6,7 @@ using QRMService.Models;
 using System.Data.Entity;
 using System;
 using QRMService.Common;
+using System.Globalization;
 
 namespace QRMService.Repositories
 {
@@ -84,7 +85,7 @@ namespace QRMService.Repositories
                     Director = a.Director,
                     SeniorManager = a.SeniorManager,
                     QualityController = a.QualityController,
-                    ReviewDate = a.ReviewDate
+                    Date= a.ReviewDate.Value
                 }).ToList();
 
 
@@ -107,6 +108,8 @@ namespace QRMService.Repositories
                     {
                         project.Industry = industry.ReferenceValue;
                     }
+
+                    project.ReviewDate = project.Date.Value.ToShortDateString();
                 }
                 return projects;
             }
@@ -121,6 +124,8 @@ namespace QRMService.Repositories
         public static ProjectReleasesResponseModel UpdateProjectRelease(ProjectMasterModel projectMaster)
         {
             var response = new ProjectReleasesResponseModel();
+            
+
             using (var db = new QRMEntities())
             {
                 if (projectMaster.ProjectID == 0)
@@ -144,7 +149,7 @@ namespace QRMService.Repositories
                         Director = projectMaster.Director,
                         SeniorManager = projectMaster.SeniorManager,
                         QualityController = projectMaster.QualityController,
-                        ReviewDate = projectMaster.ReviewDate.Value.ToLocalTime(),
+                        ReviewDate = Convert.ToDateTime(projectMaster.ReviewDate),
                         ProjectColor = color,
                         IsActive = true
                     };
@@ -171,7 +176,7 @@ namespace QRMService.Repositories
                     project.Director = projectMaster.Director;
                     project.SeniorManager = projectMaster.SeniorManager;
                     project.QualityController = projectMaster.QualityController;
-                    project.ReviewDate = projectMaster.ReviewDate.Value.ToLocalTime();
+                    project.ReviewDate = Convert.ToDateTime(projectMaster.ReviewDate);
                     db.Entry(project).State = EntityState.Modified;
                     db.SaveChanges();
                     response.IsSuccess = true;
