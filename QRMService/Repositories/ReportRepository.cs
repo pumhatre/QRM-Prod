@@ -389,7 +389,7 @@ namespace QRMService.Repositories
                         projectVarianceslst.Add(new ProjectVarianceLst
                         {
                             Type = "Unit Test Defect Closure Rate (%))",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NR" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
                             Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
                         });
                     }
@@ -398,7 +398,7 @@ namespace QRMService.Repositories
                         projectVarianceslst.Add(new ProjectVarianceLst
                         {
                             Type = "UAT Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NR" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
                             Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
                         });
                     }
@@ -418,7 +418,7 @@ namespace QRMService.Repositories
                 projectVarianceslst.Add(new ProjectVarianceLst
                 {
                     Type = "SIT Defect Closure Rate (%)",
-                    ProjectPerformance = SitClosureRateOverall==0? "NA": Convert.ToString(Math.Round(SitClosureRate / SitClosureRateOverall * 100, 2)) + " %"
+                    ProjectPerformance = SitClosureRateOverall==0? "NR": Convert.ToString(Math.Round(SitClosureRate / SitClosureRateOverall * 100, 2)) + " %"
                 });
             }
             
@@ -436,13 +436,13 @@ namespace QRMService.Repositories
                 dtEffort.AsEnumerable().ToList().ForEach(row =>
                 {
                    if( row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString())== "Total Project Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString())==
-                    "TotalActual")
+                    "Total Actual")
                     {
                         TotalActualProjectEffort = Convert.ToDecimal(row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()));
                     }
 
                     if (row.Field<string>(Constants.ProjectEffortColumnName.DashBoardType.ToString()) == "Testing Effort (in hrs.)" && row.Field<string>(Constants.ProjectEffortColumnName.DashboardSubtype.ToString()) ==
-                     "TotalActual")
+                     "Total Actual")
                     {
                         SITEffort = Convert.ToDecimal(row.Field<int?>(Constants.ProjectEffortColumnName.Total.ToString()));
                     }
@@ -466,30 +466,30 @@ namespace QRMService.Repositories
             projectVarianceslsttwo.Add(new ProjectVarianceLst
             {
                 Type = "FDD Effort (%)",
-                ProjectPerformance = TotalActualProjectEffort==0? "NA": Convert.ToString(Math.Round(FDDEffort/TotalActualProjectEffort *100,2)) + "%"
+                ProjectPerformance = TotalActualProjectEffort==0? "NR": Convert.ToString(Math.Round(FDDEffort/TotalActualProjectEffort *100,2)) + "%"
         });
 
 
             projectVarianceslsttwo.Add(new ProjectVarianceLst
             {
                 Type = "TDD Effort (%)",
-                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(TDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(TDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
         });
             projectVarianceslsttwo.Add(new ProjectVarianceLst
             {
                 Type = "Coding Effort (%)",
-                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(CodingEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(CodingEffort / TotalActualProjectEffort * 100, 2)) + "%"
         });
             projectVarianceslsttwo.Add(new ProjectVarianceLst
             {
                 Type = "UT Effort (%)",
-                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(UTEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(UTEffort / TotalActualProjectEffort * 100, 2)) + "%"
         });
 
             projectVarianceslsttwo.Add(new ProjectVarianceLst
             {
                 Type = "SIT Effort (%)",
-                ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(SITEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(SITEffort / TotalActualProjectEffort * 100, 2)) + "%"
             });
                 
 
@@ -709,7 +709,7 @@ namespace QRMService.Repositories
                         projectVarianceslst.Add(new ProjectVarianceLst
                         {
                             Type = "Unit Test Defect Closure Rate (%))",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NR" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
                             Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
                         });
                     }
@@ -718,7 +718,7 @@ namespace QRMService.Repositories
                         projectVarianceslst.Add(new ProjectVarianceLst
                         {
                             Type = "UAT Defect Closure Rate (%)",
-                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NA" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
+                            ProjectPerformance = row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()) == 0 ? "NR" : Convert.ToString(Math.Round((Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Closed.ToString())) /
                             Convert.ToDecimal(row.Field<int>(Constants.ProjectDefectColumnName.Overall.ToString()))) * 100, 2)) + " %"
                         });
                     }
@@ -738,7 +738,7 @@ namespace QRMService.Repositories
                 projectVarianceslst.Add(new ProjectVarianceLst
                 {
                     Type = "SIT Defect Closure Rate (%)",
-                    ProjectPerformance = SitClosureRateOverall == 0 ? "NA" : Convert.ToString(Math.Round(SitClosureRate / SitClosureRateOverall * 100, 2)) + " %"
+                    ProjectPerformance = SitClosureRateOverall == 0 ? "NR" : Convert.ToString(Math.Round(SitClosureRate / SitClosureRateOverall * 100, 2)) + " %"
                 });
             }
 
@@ -785,30 +785,30 @@ namespace QRMService.Repositories
                 projectVarianceslsttwo.Add(new ProjectVarianceLst
                 {
                     Type = "FDD Effort (%)",
-                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(FDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(FDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
                 });
 
 
                 projectVarianceslsttwo.Add(new ProjectVarianceLst
                 {
                     Type = "TDD Effort (%)",
-                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(TDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(TDDEffort / TotalActualProjectEffort * 100, 2)) + "%"
                 });
                 projectVarianceslsttwo.Add(new ProjectVarianceLst
                 {
                     Type = "Coding Effort (%)",
-                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(CodingEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(CodingEffort / TotalActualProjectEffort * 100, 2)) + "%"
                 });
                 projectVarianceslsttwo.Add(new ProjectVarianceLst
                 {
                     Type = "UT Effort (%)",
-                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(UTEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(UTEffort / TotalActualProjectEffort * 100, 2)) + "%"
                 });
 
                 projectVarianceslsttwo.Add(new ProjectVarianceLst
                 {
                     Type = "SIT Effort (%)",
-                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NA" : Convert.ToString(Math.Round(SITEffort / TotalActualProjectEffort * 100, 2)) + "%"
+                    ProjectPerformance = TotalActualProjectEffort == 0 ? "NR" : Convert.ToString(Math.Round(SITEffort / TotalActualProjectEffort * 100, 2)) + "%"
                 });
             }
 
