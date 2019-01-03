@@ -580,11 +580,11 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
 
                 }).finally(function () {
                     // add initial empty row, and set our reference to it
-                    extraRowEffort = addEmptyRow($scope.projectEffortGrid.data);
+                    extraRowEffort = addEmptyRowEffort($scope.projectEffortGrid.data);
                 });
         }
 
-        function addEmptyRow(gridData) {
+        function addEmptyRowEffort(gridData) {
             gridData.splice(2, 0, {
                 "DashBoardType": '',
                 "DashboardSubtype": '',
@@ -765,13 +765,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(39, 0, {
-                "Type": '',
-                "SubType": '',
-                "USL": '',
-                "LSL": '',
-                "ProjectPerformance": ''
-            });
+          
         }
 
 
@@ -845,7 +839,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             enableRowHeaderSelection: false,
             gridMenuShowHideColumns: false,
             columnDefs: [
-                { field: 'DashBoardType', name: '', cellTemplate: '<div style="padding: 5px;" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:21*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '21%' },
+                { field: 'DashBoardType', name: '', cellTemplate: '<div style="padding: 5px;" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:25*row.entity.spanEffort + \'px\', width:20+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>', width: '21%' },
                 { field: 'DashboardSubtype', name: 'Planned/Actual', cellTemplate: '<di style="padding: 5px;"v ng-if="!row.entity.editable"><b>{{COL_FIELD}}</b></div>', width: '21%' },
                 { field: 'CompleteHours', name: 'Complete', width: '15%', cellTemplate: tmpl1 },
                 { field: 'WIPHours', name: 'Work in Progress', width: '17%', cellTemplate: tmpl1 },
@@ -1070,7 +1064,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             }],
             columnDefs: [              
 
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:16*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
@@ -1133,7 +1127,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             }],
             columnDefs: [
 
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:16*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
@@ -1196,7 +1190,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             }],
             columnDefs: [
 
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:16*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
@@ -1259,7 +1253,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             }],
             columnDefs: [
 
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div style="padding-top: 75px; padding-left:10px" class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:16*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'subType', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },

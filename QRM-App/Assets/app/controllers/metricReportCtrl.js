@@ -265,13 +265,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
                 "LSL": '',
                 "ProjectPerformance": ''
             });
-            gridData.splice(39, 0, {
-                "Type": '',
-                "SubType": '',
-                "USL": '',
-                "LSL": '',
-                "ProjectPerformance": ''
-            });
+          
         }
 
 
@@ -622,7 +616,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }],
 
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:18*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
@@ -686,7 +680,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }],
 
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:18*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
@@ -750,7 +744,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }],
 
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:18*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
@@ -814,7 +808,7 @@ angular.module('metricReport', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.save
             }],
 
             columnDefs: [
-                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:20*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
+                { name: 'Type', superCol: 'type', displayName: '', width: '13%', cellTemplate: '<div  class="ui-grid-cell-contents wrap" title="TOOLTIP" ng-style="{ height:18*row.entity.spanEffort + \'px\', width:13+\'%\', position:\'absolute\', display:row.entity.spanEffort==0?\'none\':\'block\', background: \'#f3f3f3\'}" ><b>{{COL_FIELD}}</b></div>' },
                 { name: 'SubType', superCol: 'type', displayName: ' ', width: '12.5%' },
                 { name: 'ProjectPerformance', displayName: 'Project Performance', superCol: 'java', width: '11%' },
                 { name: 'USL', displayName: 'USL', superCol: 'java', width: '7%' },
