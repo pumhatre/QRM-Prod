@@ -19,8 +19,8 @@ namespace QRMService.DataBase
         public string ComponentTypeCode { get; set; }
         public string ComplexityCode { get; set; }
         public string TaskTypeCode { get; set; }
-        public Nullable<int> BaselineEffort { get; set; }
-        public Nullable<int> ActualEffort { get; set; }
+        public Nullable<decimal> BaselineEffort { get; set; }
+        public Nullable<decimal> ActualEffort { get; set; }
         public string StatusCode { get; set; }
         public string CMMIRollUpCode { get; set; }
         public Nullable<System.DateTime> ScheduledStartDate { get; set; }
@@ -39,7 +39,7 @@ namespace QRMService.DataBase
         public int ProjectMasterId { get; set; }
     
         public virtual MonthMaster MonthMaster { get; set; }
-        public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
         public virtual ProjectMaster ProjectMaster { get; set; }
+        public virtual ProjectReleaseMaster ProjectReleaseMaster { get; set; }
     }
 }

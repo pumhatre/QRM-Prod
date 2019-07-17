@@ -17,11 +17,11 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MonthMaster()
         {
+            this.ProjectMetricAssociations = new HashSet<ProjectMetricAssociation>();
             this.DefectDataDetails = new HashSet<DefectDataDetail>();
             this.DefectDataStagings = new HashSet<DefectDataStaging>();
             this.EffortDataStagings = new HashSet<EffortDataStaging>();
             this.EffortDetails = new HashSet<EffortDetail>();
-            this.ProjectMetricAssociations = new HashSet<ProjectMetricAssociation>();
             this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
         }
@@ -34,6 +34,8 @@ namespace QRMService.DataBase
         public Nullable<int> SortOrder { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DefectDataDetail> DefectDataDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DefectDataStaging> DefectDataStagings { get; set; }
@@ -41,8 +43,6 @@ namespace QRMService.DataBase
         public virtual ICollection<EffortDataStaging> EffortDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EffortDetail> EffortDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectMetricAssociation> ProjectMetricAssociations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

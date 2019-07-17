@@ -23,10 +23,9 @@ namespace QRMService.DataBase
             this.EffortDetails = new HashSet<EffortDetail>();
             this.ProjectMetricAssociations = new HashSet<ProjectMetricAssociation>();
             this.ProjectWidgetDetails = new HashSet<ProjectWidgetDetail>();
-            this.UserProjectAssociations = new HashSet<UserProjectAssociation>();
             this.TestingDataStagings = new HashSet<TestingDataStaging>();
             this.TestingDetails = new HashSet<TestingDetail>();
-            this.UploadDetails = new HashSet<UploadDetail>();
+            this.UserProjectAssociations = new HashSet<UserProjectAssociation>();
         }
     
         public int ProjectID { get; set; }
@@ -65,12 +64,10 @@ namespace QRMService.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectWidgetDetail> ProjectWidgetDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProjectAssociation> UserProjectAssociations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDataStaging> TestingDataStagings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TestingDetail> TestingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UploadDetail> UploadDetails { get; set; }
+        public virtual ICollection<UserProjectAssociation> UserProjectAssociations { get; set; }
     }
 }
