@@ -77,6 +77,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     $routeProvider.when('/home', {
         templateUrl: '/App/Home'
     });
+
+    $routeProvider.when('/error', {
+        template: '<h1>Error.</h1><h2>An error occurred while processing your request.</h2>'
+    });
     $routeProvider.when('/register', {
         templateUrl: '/App/Register',
         controller: 'registerCtrl'
@@ -145,6 +149,34 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     });
 }]);
 
+
+app.factory('httpErrorResponseInterceptor', ['$q', '$location',
+    function ($q, $location) {
+        return {
+            response: function (responseData) {
+                return responseData;
+            },
+            responseError: function error(response) {
+                switch (response.status) {                 
+                    case 404:
+                        $location.path('/home');
+                        break;
+                    default:
+                        $location.path('/error');
+                }
+
+                return $q.reject(response);
+            }
+        };
+    }
+]);
+
+//Http Intercpetor to check auth failures for xhr requests
+app.config(['$httpProvider',
+    function ($httpProvider) {
+        $httpProvider.interceptors.push('httpErrorResponseInterceptor');
+    }
+]);
 app.factory('Auth', ['$cookies', function ($cookies) {
     var user;    
     user = $cookies.get('_UserName');

@@ -21,6 +21,7 @@ namespace QRMService.Models
         public string ValidDefectTypeCause { get; set; }
         public string ErrorDescription { get; set; }
         public string[] ErrorArray { get; set; }
+        public string DefectId { get; set; }
 
         //Data Sanity Validation Properties
         public bool IsValidDefectDetectedStage { get; set; }

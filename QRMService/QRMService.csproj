@@ -218,6 +218,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\CustomExceptionHandling.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\DefectDataStagingController.cs" />

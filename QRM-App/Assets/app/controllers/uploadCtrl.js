@@ -52,8 +52,9 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
         ];
 
         // function to load projects dropdown
-        $scope.LoadProjectsDropDown = function () {
+        $scope.LoadProjectsDropDown = function () {            
             var UserId = $cookies.get('_UserId');
+            localStorage.setItem("uploading", "false");;
             projectReleaseService.GetProjectsLists(config, UserId)
                 .then(function (successResponse) {
                     $scope.projectsDropdown = successResponse.data;
@@ -290,7 +291,7 @@ angular.module('upload', ['ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.saveState'
             //Declaring column and its related properties
             columnDefs: [
                 {
-                    name: 'WidgetComponentId', displayName: "Widget Component Id", field: "WidgetComponentId",
+                    name: 'DefectId', displayName: "Defect Id", field: "DefectId",
                     cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
                         if (grid.getCellValue(row, col) === '-Missing-') {
                             return 'redDefectCellClass';

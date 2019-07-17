@@ -115,6 +115,9 @@ function uploadFile(uploadService) {
             $scope.UploadFile = function (files) {                
                 if (files.length > 0) {
                     localStorage.setItem("uploading", "true");
+                    console.clear();
+                    var CurrentTime = new Date();
+                    console.log("Started uploading file at " + CurrentTime);
                     $scope.$apply(function () {
                         $scope.isUploaded = true;
                     });

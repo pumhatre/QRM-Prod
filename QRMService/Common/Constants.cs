@@ -134,6 +134,7 @@ namespace QRMService.Common
         public enum DefectSanityValidationColumnName
         {
             DefectDataStagingId,
+            DefectId,
             WidgetComponentId,
             DetectedStage,
             Status,

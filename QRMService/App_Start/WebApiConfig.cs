@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Cors;
 using System.Net.Http.Headers;
+using QRMService.Common;
 
 namespace QRMService
 {
@@ -20,7 +21,7 @@ namespace QRMService
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             //config.SuppressDefaultHostAuthentication();
-            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new CustomExceptionHandling());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

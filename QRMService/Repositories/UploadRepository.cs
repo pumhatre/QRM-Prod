@@ -380,7 +380,7 @@ namespace QRMService.Repositories
                 StringBuilder sb = new StringBuilder();
                 var defectSanityModel = new DefectSanityValidationModel();
                 //Review Type
-                var isValidDetectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectDetectedStage.ToString());
+                var isValidDetectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectDetectedStage.ToString());                
                 var isValidDefectStatus = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectStatus.ToString());
                 var isValidDefectInjectedStage = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidDefectInjectedStage.ToString());
                 var isValidExpectedDetectionPhase = row.Field<bool>(Constants.DefectSanityValidationColumnName.IsValidExpectedDetectionPhase.ToString());
@@ -454,6 +454,7 @@ namespace QRMService.Repositories
                 defectSanityValidationList.Add(new DefectSanityValidationModel
                 {
                     DefectDataStagingId = row.Field<int>(Constants.DefectSanityValidationColumnName.DefectDataStagingId.ToString()),
+                    DefectId = row.Field<string>(Constants.DefectSanityValidationColumnName.DefectId.ToString()),
                     WidgetComponentId = row.Field<string>(Constants.DefectSanityValidationColumnName.WidgetComponentId.ToString()),
                     DetectedStage = row.Field<string>(Constants.DefectSanityValidationColumnName.DetectedStage.ToString()),
                     Status = row.Field<string>(Constants.DefectSanityValidationColumnName.Status.ToString()),

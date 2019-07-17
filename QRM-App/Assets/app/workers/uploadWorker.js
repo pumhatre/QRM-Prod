@@ -27,9 +27,12 @@ this.onmessage = function receiveMessage(message) {
                 var data = e.target.result;
                 var result = {};
                 var arr = rABS ? data : btoa(fixdata(data));
+                var CurrentTime = new Date();
+                console.log("Started reading the excel file at " + CurrentTime);
                 //reading data from excel
                 var workbook = XLSX.read(arr, { type: rABS ? 'binary' : 'base64' });
-
+                var CurrentTime = new Date();
+                console.log("Finished reading the excel file at " + CurrentTime);
 
 
 
@@ -74,12 +77,20 @@ this.onmessage = function receiveMessage(message) {
                                     dateProperties.push(key);
                                 }
                             })
+                            var CurrentTime = new Date();
+                            console.log("Finding table: " + y +" at " + CurrentTime);
+
                             let t = findTable(s.sheet, s.range, excelNames);
                             if (t.firstRow === null) {
                                 return null;
                             }
+                            var CurrentTime = new Date();
+                            console.log("Reading table: " + y + " at " + CurrentTime);
+
                             const tdata = readTable(s.sheet, y, s.range, t.columns, t.firstRow, function (row) { return false; });
                             result[y] = tdata;
+                            var CurrentTime = new Date();
+                            console.log("Finished reading and validating table: " + y + " at " + CurrentTime);
                         }
                     });
                     result["Errors"] = errors;
@@ -164,6 +175,8 @@ var findTable = function (sheet, range, colMap) {
 var readTable = function (sheet, sheetName, range, columns, firstRow, stop) {
     const ec = function(r, c) { return XLSX.utils.encode_cell({ r: r, c: c }); };
     let data = [];
+    var CurrentTime = new Date();
+    console.log("Validating table: " + sheetName + " at " + CurrentTime);
 
     for(let r = firstRow; r <= range.max.r; ++r) {
         let row = _.reduce(columns, function(m, c, k) {
@@ -191,6 +204,8 @@ var readTable = function (sheet, sheetName, range, columns, firstRow, stop) {
             data.push(updaterow);
         }
     }
+    var CurrentTime = new Date();
+    console.log("Validated table: " + sheetName + " at " + CurrentTime);
     return data;
 }
 
@@ -209,8 +224,9 @@ var validateObject = function (row, rowData, sheetName) {
     var value = rowData.value;
     switch (dataType) {
         case "nullablefloat":
-            if (value === null) {
+            if (value === null || value==='') {
                 valid = true;
+                value = null;
             } else {
                 valid = Number(value) === parseFloat(value);
             }
